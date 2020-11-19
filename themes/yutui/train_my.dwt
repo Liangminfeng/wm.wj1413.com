@@ -1,0 +1,61 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<!--轮播图-->
+<div class="index-banner swiper-container box position-rel banner-first swiper-container-horizontal" style="margin-top: 0rem;">
+  <div class="swiper-wrapper">
+      <div class="swiper-slide swiper-slide-active" ><a href="#" target="_blank"><img src="images/new/1.jpg" border="0"></a></div>  
+  </div>  
+  <div class="swiper-pagination banner-first-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span></div> 
+  <div class="linear"></div>
+</div>
+<!--预计收益-->
+<div class="s-flex l-train">
+  <div class="s-flex left">
+    <p class="ico"><img src="images/new/train1.png"></p>
+    <p class="AA">{$lang.excepted_earnings}(NT)<br><span class="col-cheng">{format $live_rebate,0}</span></p>
+  </div>
+  <div class="s-flex right">
+    <p class="ico"><img src="images/new/train2.png"></p>
+    <p class="AA">{$lang.total_earnings}(NT)<br><span class="col-cheng">{format $total_rebate,0}</span></p>
+  </div>
+</div>
+<!--<div class="l-sm">{$lang.you_beat}<span class="col-cheng">88%</span>{$lang.user}</div>-->
+
+<!--列车前进中-->
+<div class="l-goh2"><h2>{$lang.my_train}</h2></div>
+<!--{foreach  from=$begintrainproductlist item=trainproduct}-->
+<div class="s-flex l-go l-border">
+  <div class="tag">{$lang.involved}</div> 
+  <div class="left"><a href="/index.php?m=default&c=train&a=info&id={$trainproduct.train_id}&u={$user_id}" target="_blank"><img src="{$trainproduct.img}"></a></div>
+  <div class="right">
+    <div class="s-flex number"><p>{$trainproduct.code}</p><p class="col-cheng">{dateformat $trainproduct.start_time,"Y-m-d"}{$lang.train_start}</p></div>
+    <div class="title"><a href="#" target="_blank">{$trainproduct.name}</a></div>
+    <div class="graphical">
+      <dl>
+        <dt><p style="width: {math $trainproduct.num div $trainproduct.total mak 100}%">{$trainproduct.num}</p></dt>
+        <dd>剩餘{math $trainproduct.total sub $trainproduct.num}座</dd>
+      </dl>
+    </div>
+    <div class="s-flex money"><p class="pt-1 col-cheng">NT {format $trainproduct.price,0}</p><a href="/index.php?m=default&c=train&a=info&train_id={$trainproduct.train_id}">{$lang.view}</a></div>
+  </div>
+</div>
+ 
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="/themes/default/statics/js/swiper.min.js"></script>
+<script type="text/javascript ">
+  $(function($) {
+    var mySwiper = new Swiper('.banner-first', {
+      pagination: '.banner-first-pagination',
+      loop: false,
+      grabCursor: true,
+      paginationClickable: true,
+      autoplayDisableOnInteraction: false,
+      autoplay: 3000
+    });
+  });
+
+
+</script>
+</body>
+</html>

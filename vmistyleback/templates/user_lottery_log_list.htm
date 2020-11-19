@@ -1,0 +1,122 @@
+<!-- $Id: lottery_list.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<script type="text/javascript" src="../data/assets/js/calendar.php"></script>
+<link href="../data/assets/js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+
+<div class="form-div">
+  <form action="javascript:searchActivity()" name="searchForm">
+    <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+    	中獎用戶名 <input type="text" name="keyword" size="30" />
+         中獎時間開始<input name="cstart" id="cstart"><input name="sselect" type="button" id="sselect" onclick="return showCalendar('cstart', '%Y-%m-%d %H:%M', '24', false, 'sselect');" value="{$lang.btn_select}" class="button"/>
+        中獎時間結束  <input name="cend" id="cend"><input name="eselect" type="button" id="eselect" onclick="return showCalendar('cend', '%Y-%m-%d %H:%M', '24', false, 'eselect');" value="{$lang.btn_select}" class="button"/>
+
+    <input type="submit" value="{$lang.button_search}" class="button" />
+  </form>
+</div>
+
+<form method="post" action="lottery.php" name="listForm" onsubmit="return confirm(batch_drop_confirm);">
+<!-- start lottery list -->
+<div class="list-div" id="listDiv">
+{/if}
+
+  <table cellpadding="3" cellspacing="1">
+    <tr>
+      <th>
+        <a href="javascript:listTable.sort('log_id'); ">{$lang.record_id}</a></th>
+      <th><a href="javascript:listTable.sort('user_name'); ">user_name</a></th>
+      <th><a href="javascript:listTable.sort('log_time'); ">中獎時間</a></th>
+      <th>獎品名稱</th>
+      <th>發放情況</th>
+      <th>{$lang.handler}</th>
+    </tr>
+
+    {foreach from=$log_list item=log}
+    <tr>
+      <td><input value="{$log.log_id}" name="checkboxes[]" type="checkbox">{$log.log_id}</td>
+      <td>{$log.user_name}</td>
+      <td align="right">{$log.log_time}</td>
+      <td align="right">{$log.prize_name}</td>
+      <td align="right">{if $log.log_status==1}未發放{else}已發放{/if}</td>
+      <td align="center">
+      {if $log.log_status==1}
+        <a href="javascript:;" onclick="changeStatus('{$log.log_id}')" title="確定發放"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a>      
+      {/if}
+      </td>
+    </tr>
+    {foreachelse}
+    <tr><td class="no-records" colspan="13">{$lang.no_records}</td></tr>
+    {/foreach}
+  </table>
+
+  <table cellpadding="4" cellspacing="0">
+    <tr>
+      <td><input type="submit" name="drop" id="btnSubmit" value="{$lang.drop}" class="button" disabled="true" />
+      <input type="hidden" name="act" value="batch" /></td>
+      <td align="right">{include file="page.htm"}</td>
+    </tr>
+  </table>
+
+{if $full_page}
+</div>
+<!-- end lottery list -->
+</form>
+
+<script type="text/javascript" language="JavaScript">
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+
+  {literal}
+  onload = function()
+  {
+    document.forms['searchForm'].elements['keyword'].focus();
+
+    startCheckOrder();
+  }
+
+  /**
+   * 搜索团购活动
+   */
+  function searchActivity()
+  {
+
+    var keyword = Utils.trim(document.forms['searchForm'].elements['keyword'].value);
+    listTable.filter['keyword'] = keyword;
+	
+    
+    var cstart = Utils.trim(document.forms['searchForm'].elements['cstart'].value);
+    var cend = Utils.trim(document.forms['searchForm'].elements['cend'].value);
+    
+    listTable.filter['cstart'] = cstart;
+    listTable.filter['cend'] = cend;
+
+    
+    listTable.filter['page'] = 1;
+    listTable.query = 'log_query';
+    listTable.loadList("log_list");
+  }
+  
+	  
+  
+  {/literal}
+  
+  function changeStatus(logid){
+	  if(confirm("您確定已發放獎勵？")){
+		  Ajax.call("lottery.php", "act=change_log_status&id=" +logid, function(){
+			  location.reload();
+		  }, "POST", "JSON", false);
+	  }
+	  
+  }
+
+	  
+</script>
+
+{include file="pagefooter.htm"}
+{/if}

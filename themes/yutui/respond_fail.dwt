@@ -1,0 +1,76 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con">
+  <!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+  <section class="ect-bg-colorf ect-padding-lr flow-done u-flow-done">
+    <i><img src="/themes/yutui/images/new/order_no.png"></i>
+    <p class="f-2 ptb-1">{$lang.pay_fail}</p>
+    <p class="m-top12">{$lang.remember_order_number}：<b class="col-cheng">{$order.order_sn}</b></p>
+    <p class="col-hui pt-05">{$lang.pay_unfinish}</p> 
+    <p class="ect-margin-tb text-center ptb-1"></p>      
+    <div class="ect-margin-tb text-center a-link-cheng ptb-1">
+      <script>var url = "";</script>
+      <span>{if $order_url}<a class="col-cheng"  href="/index.php?m=default&c=index&a=index"><font style="color:#ff5400
+        ">{$lang.back_home_respond}</font></a>{/if} 或 <font style="color:#ff5400
+        ">{$lang.goto_user_center}</font></span>
+      </div>
+    </section>
+  </div>
+<!--余额支付后加猜你喜欢-->
+<div class="N_Recommend">
+  <h2><span class="le"></span>{$lang.guessyourlike}<span class="ri"></span></h2>
+  <!--{foreach name=guessyourlike from=$guessyourlike item=goods}-->
+  <section class="product-list2 j-product-list n-index-box" style="padding:0px;">
+    <ul class="index-more-list single_item">
+      <!--{if $goods}-->
+      {if $goods.iteration % 2 == 0}
+      <li class="fr"> 
+        {else}
+        <li class="fl">
+          {/if}
+          <div class="product-div">
+            <a href="{:url('goods/index',array('id'=>$this->_var['goods']['goods_id']))}"><img src="{$goods.goods_img}"></a>
+            <a href="{:url('goods/index',array('id'=>$this->_var['goods']['goods_id']))}"><h4 class="textNumber">{$goods.goods_name}</h4></a>
+            <!--<p style="margin-top: 0.5rem;"><span class="n-integral">KD豆抵扣:¥{$goods.integral}</span></p>-->
+
+            <p style="padding:0.3rem 0.8rem;"><span><font style="font-size:1.7rem">¥{$goods.new_shoprice}</font><del style="padding-left:1rem;">{$goods.market_price}</del></span></p>
+               {if $vip}
+              <p><span class="vip_shop" style="font-size: 1rem;border:1px solid #313131;box-sizing:border-box;">VIP</span><span class="vip_price" style="border: 1px solid #FEDE95;border-top-right-radius: 0.5rem;border-bottom-right-radius: 0.5rem;color:#333;padding: 0.1rem 0.6rem;padding-right:0.5rem;font-size: 1rem;box-sizing:border-box;background:#FEDE95;">
+        {if $goods.integral}
+  ¥{$goods.vip_price}+{$goods.integral}鱼宝</span>
+        {else}
+  ¥{$goods.vip_price}</span>  
+{/if}
+  </p>
+  {/if}
+          </div>
+        </li>
+        <!-- {/if}--> 
+      </ul>
+    </section>
+    <!--{/foreach}-->
+</div>  
+  <!--2018-04-21购票成功提示-->
+  {if $trainticket}
+  <div class="t-box s-flex" >
+    <div class="l-train-yes">
+      <h2>{$lang.join_success}</h2>
+      <div class="box text-center padding-1 line-2">恭喜您成功參與列車G0001xx列車，查看詳情將福利分享給好友吧！</div>
+      <div class="s-flex l-train-submit"><a href="#" class="Hect-bg">取消</a><a href="#" class="Cect-bg">{$lang.is_ok}</a></div>
+    </div>
+  </div>
+</div>
+{/if}
+<script type="text/javascript">
+      //控制字数
+$(".textNumber").each(function(){
+       var len=$(this).text().length;   //当前HTML对象text的长度
+       if(len>15){
+           var str="";
+           str=$(this).text().substring(0,15)+"...";  //使用字符串截取，获取前30个字符，多余的字符使用“......”代替
+           $(this).html(str);                   //将替换的值赋值给当前对象
+       }
+});
+</script>
+<div class="s-height" style="float: left;"></div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->

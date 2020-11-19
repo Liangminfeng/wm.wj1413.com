@@ -1,0 +1,48 @@
+<!-- $Id: train_info.htm 14361 2008-04-07 09:26:17Z zhuwenyuan $ -->
+{include file="pageheader.htm"}
+<script type="text/javascript" src="../data/assets/js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../data/assets/js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+{insert_scripts files="validator.js,../js/transport.js}
+<div class="main-div">
+<form method="post" action="lottery.php" name="theForm" enctype="multipart/form-data" onSubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">獎品名稱</td>
+    <td><input name="name" type="text" id="name" size="40" /></td>
+  </tr>
+  <tr>
+    <td class="label">獎品名稱</td>
+    <td><input name="index" type="text" id=""index"" size="40" /></td>
+  </tr
+  <tr>
+    <td class="label">類型</td>
+    <td><input id="type" type="radio" name="type" value="1" checked="checked">獎金  <input type="radio" name="type" value="2">實物獎品</td>
+  </tr>
+  <tr>
+    <td class="label">獎金金額</td>
+    <td><input name="value" type="text" id="value" size="40" /></td>
+  </tr>
+  <tr>
+    <td class="label">獎品數量</td>
+    <td><input name="number" type="text" id="number" size="40" /></td>
+  </tr>
+  <tr>
+    <td class="label">概率數值</td>
+    <td><input name="chance" type="text" id="chance" size="40" /></td>
+  </tr>
+  <tr>
+  
+</table>
+<input type="hidden" name="game" value="{$game}">
+<input type="hidden" name="act" value="save_prize">
+
+<input type="submit" value="提交">
+</form>
+</div>
+
+<script language="JavaScript">
+<!--
+
+//-->
+</script>
+{include file="pagefooter.htm"}

@@ -1,0 +1,51 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/script/region.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/shopping_flow.js"></script>
+<script type="text/javascript">
+	region.isAdmin = false; {
+		foreach from = $lang.flow_js item = item key = key
+	}
+	var {
+		$key
+	} = "{$item}"; {
+		/foreach}
+		{
+			literal
+		}
+		onload = function() {
+				if (!document.all) {
+					document.forms['theForm'].reset();
+				}
+			} {
+				/literal}
+</script>
+<div class="con">
+	<section class="ect-text-style n-raise-btn">
+		<!-- 如果有收货地址，循环显示用户的收获地址 -->
+		<!-- {foreach from=$consignee_list item=consignee key=sn} -->
+		<form action="{:url('crowdflow/crowd_consignee')}" method="post" name="theForm" id="theForm" onSubmit="return checkConsignee(this)">
+			<!-- #BeginLibraryItem "/Library/crowd_consignee.lbi" -->
+			<!-- #EndLibraryItem -->
+		</form>
+		<!-- {/foreach} -->
+	</section>
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/script/region.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/shopping_flow.js"></script> 
+<script type="text/javascript">
+	region.isAdmin = false;
+	{foreach from=$lang.flow_js item=item key=key}
+	var {$key} = "{$item}";
+	{/foreach}
+	{literal}
+	onload = function() {
+	      if (!document.all)
+	      {
+	        document.forms['theForm'].reset();
+	      }
+	}
+	{/literal}
+</script>

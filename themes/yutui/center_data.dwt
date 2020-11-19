@@ -1,0 +1,162 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con">
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+{if $user_info.resource eq 1}
+<div class="money_out_or">
+    <div class="money_out money_active" id="money_out1"><a class="money_active1"  >VIP数据</a></div>
+    <div class="money_out " id="money_out2"><a  >经销商数据</a></div>
+ </div>
+ {/if}
+	<!--考核总览-->
+	
+	<div class="all_examine">
+		<div style="border-bottom: 1px solid #f7f7f7;">
+			<p class="f-07" style="padding-bottom: 1rem;">考核总览</p>
+		</div>
+	
+		<div class="current_grade s-flex">
+			<div class="s-flex" style="width: 36%;">
+				<p class="upright" style="background:#2897f3"></p>
+				<p class="grade_vip">当前等级：</p>
+			</div>
+			<div>{$vip_name}</div>
+		</div>
+
+		<div class="growup_value s-flex">
+			<div class="s-flex" style="width: 36%;">
+				<p class="upright" style="background:#ff3266"></p>
+				<p class="grade_vip">成长值：</p>
+			</div>
+			<div><span>{if $user_info.level_xp}{$user_info.level_xp}{else}0.00{/if}</span>/<span>{if $vip_top}{$vip_top}{else}0.00{/if}</span></div>
+		</div>
+	
+
+	</div>
+	<div class="earnings_r earn_style" >
+          <div class="click_b2" id="click_b2">
+            <p class="earnings_p2 sell_counts">{if $bonus_total}{$bonus_total}{else}0{/if}</p>
+            <p class="f-14"style="color: #949494;">累计收益(元)</p>
+          </div>
+
+          <div>
+            <p style="padding: 16px 0;margin: 6px auto; color:#f7f7f7;"></p>
+          </div>
+          <div class="click_b1" id="click_b1">
+            <p class="earnings_p1 sell_counts">{if $sales_total}{$sales_total}{else}0{/if}</p> 
+            <p class="f-14"style="color: #949494;">累计销售额(元)</p>
+          </div>					
+
+         <div class="zsj_triangular">
+
+         </div>
+    </div>
+	<div class="sell_sum">
+		<div class="earnings_r" style="background-color: #f7f7f7;padding: 1.5rem 0;">
+          <div>
+            <p class="earnings_p1" id="package1" style="padding-bottom: 1rem;">{if $taocanbonus_total}{$taocanbonus_total}{else}0.00{/if}</p> 
+            <p class="f-14" id="package1_count" style="color: #949494;">套餐收益(元)</p>
+          </div>
+          <div style="color: #f7f7f7;">
+            <p></p>
+          </div>
+          <div>
+            <p class="earnings_p2" id="retail1" style="padding-bottom: 1rem;">{if $lingshoubonus_total}{$lingshoubonus_total}{else}0.00{/if}</p>
+            <p class="f-14" id="retail1_count" style="color: #949494;">零售收益(元)</p>
+          </div>
+        </div> 
+    </div>
+        
+    
+	<div class="sell_months">
+		
+	</div>	
+	
+</div>
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/script/region.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/shopping_flow.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+	//ajax获取数据
+	var page=1;
+	layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '.sell_months' //指定列表容器
+            , isAuto:true,
+            scrollElem: '.sell_months',done: function (page,next) {
+               var url = "{:url('Account/ajax_center_data')}";
+             //传递的参数
+                var data = {
+                    page:page            
+                }
+                var lis=[];
+         
+                $.post(url, data, function (params) {
+                 
+                 
+                  $.each(params.data,function(i,item){
+                    
+                    lis.push(`<p class="sales_my recent_mouth" ><span style="border-left: 3.5px solid #333"></span>${item.date}</p><div class="earnings_r earn_style"style="border:none;padding: 1rem 0;" ><div class="click_b2"><p class="earnings_p2 pb-1">${item.bonus_vip}</p><p class="f-14"style="color: #949494;">收益(元)</p></div> <div><p style="padding: 16px 0;margin: 6px auto; color:#f7f7f7;"></p></div><div class="click_b1"><p class="earnings_p1 pb-1">${item.sales_vip}</p><p class="f-14"style="color: #949494;">销售额(元)</p></div></div>`)
+                  })
+                  
+                   
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    console.log(params.count.num)
+                    next(lis.join(''), page < params.totalpage);
+                      
+                    if(page==1&&params.count.num<10)
+
+                    $(".layui-flow-more").hide();
+                },'json');
+          }
+      });
+    })
+
+
+
+	//底部选中
+  	$(".footer-nav").find("a:eq(2)").addClass("active");
+		$("input[name='amount']").focus();
+	}
+	$(".money_out").click(function(){
+		$(this).addClass("money_active").siblings().removeClass("money_active");
+		
+	})
+	$("#click_b1").click(function(){
+		var taocan_total = {if $taocan_total}{$taocan_total}{else}0.00{/if};
+		var lingshou_total = {if $lingshou_total}{$lingshou_total}{else}0{/if};
+		$(".zsj_triangular").animate({left:'80%'});
+		$("#package1").html(taocan_total);
+		$("#package1_count").html("套餐销售(元)");
+		$("#retail1").html(lingshou_total);
+		$("#retail1_count").html("零售销售(元)");
+	})
+	$("#click_b2").click(function(){
+		var taocanbonus_total = {if $taocanbonus_total}{$taocanbonus_total}{else}0.00{/if};
+		var lingshoubonus_total = {if $lingshoubonus_total}{$lingshoubonus_total}{else}0{/if};
+		$(".zsj_triangular").animate({left:'20%'})
+		$("#package1").html(taocanbonus_total);
+		$("#package1_count").html("套餐收益(元)");
+		$("#retail1").html(lingshoubonus_total);
+		$("#retail1_count").html("零售收益(元)");
+	})
+	$("#money_out1").click(function(){
+		location.href='{:url('Account/center_data')}';
+		
+	})
+	$("#money_out2").click(function(){
+		location.href='{:url('Account/dealer_data')}';
+		
+	})
+</script>
+
+</body>
+
+</html>

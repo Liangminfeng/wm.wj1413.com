@@ -1,0 +1,68 @@
+<!-- 商品列表 start-->
+<!--{if $goods}-->
+{if $goods.iteration % 2 == 0}
+<li class="fr">
+	
+{else}
+<li class="fl">
+{/if}
+<div class="product-div">
+  <a href="{$goods.url}">
+  		<img class="lazy" src="{$goods.goods_img}" alt="{$goods.name}">
+  </a>
+  <a href="{$goods.url}">{if $goods.specialicon==1}<img class='iconpic'style="padding-right: 0.5rem;" src='/themes/yutui/images/lingshou.png' >{elseif $goods.specialicon==2}<img class='iconpic'style="padding-right: 0.5rem;" src='/themes/yutui/images/quanfan.png' >{elseif $goods.specialicon==3}<img class='iconpic'style="padding-right: 0.5rem;" src='/themes/yutui/images/shuang11.png' >{elseif $goods.specialicon==4}<img class='iconpic' src='/themes/yutui/images/rutuan.png' >{elseif $goods.specialicon==5}<img class='iconpic'style="padding-right: 0.5rem;" src='/themes/yutui/images/double12.png' >{else}{/if}<h4 class="textNumber">{$goods.name}</h4></a>
+  <!--<p><span class="n-integral">KD豆抵扣:¥{$goods.integral}</span></p>-->
+  <div style="padding-top: 0rem;">
+  <p style="padding:0.3rem 0.5rem;">
+  <span>
+    <font style="font-size:1.7rem;display: flex;">
+    <!--{if $goods.promote_price}-->
+      <span style="font-size:1.5rem;">¥{$goods.promote_price}</span>
+    </font>
+     <!--<span style="color: #bdbdbd;font-size:1.3rem;margin:auto;">{$goods.sales_count}人付款</span>-->
+
+    <s style="color: #bdbdbd;font-size:1.3rem;margin:auto;margin-left:1rem;">{$goods.market_price}</s>
+    <!--{else}-->
+    <span style="font-size:1.5rem;">¥{$goods.shop_price}</span>
+    <!--<span style="color: #bdbdbd;font-size:1.3rem;margin:auto;">{$goods.sales_count}人付款</span>-->
+    <s style="color: #bdbdbd;font-size:1.3rem;margin:auto;margin-left:1rem;">{$goods.market_price}</s>
+    <!--{/if}-->
+  </span>
+  </p>
+  {if $vip}<p style="padding:0;width:100%;"><span class="vip_shop" style="font-size: 1rem;border:1px solid #313131;box-sizing:border-box;">VIP</span><span class="vip_price" style="border: 1px solid #FEDE95;border-top-right-radius: 0.5rem;border-bottom-right-radius: 0.5rem;color:#333;padding: 0.1rem 0rem;padding-right:0.5rem;font-size: 1rem;box-sizing:border-box;background:#FEDE95;">
+{if $goods.integral}
+  ¥{$goods.vip_price}+{$goods.integral}鱼宝</span>
+{else}
+  ¥{$goods.vip_price}</span>  
+{/if}
+  </p>
+  {/if}
+  </div>
+  </div>
+</li>
+<!-- {/if}--> 
+<!-- 商品列表 end--> 
+<script type="text/javascript">
+  
+      $(function() {
+      			/*商品详情相册切换*/
+				var swiper = new Swiper('.goods-photo', {
+			paginationClickable: true,
+			pagination : '.swiper-pagination',
+			paginationType : 'fraction'
+		});
+      	 
+      });
+      //控制字数
+$(".textNumber").each(function(){
+
+       var len=$(this).text().length;   //当前HTML对象text的长度
+       if(len>20){
+           var str="";
+           str=$(this).text().substring(0,15)+"...";  //使用字符串截取，获取前30个字符，多余的字符使用“......”代替
+           
+            $(this).html(str);
+          
+       }
+});
+</script>

@@ -1,0 +1,55 @@
+<!-- $Id: train_list.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+
+
+<!-- start train list -->
+<div class="list-div" id="listDiv">
+{/if}
+
+  <table cellpadding="3" cellspacing="1" class="trainTable">
+    <tr>
+      <th>{$lang.train_class_name}</th>
+      <th>{$lang.train_class_code}</th>
+      <th>{$lang.train_class_total}</th>
+      <th>vip</th>
+      <th>{$lang.train_class_limit}</th>
+      <th>{$lang.train_class_sort}</th>
+      <th>{$lang.train_class_num}</th>
+      <th>{$lang.handler}</th>
+    </tr>
+
+    {foreach from=$train_list item=train}
+    <tr>
+      <td>{$train.name|escape:html}</td>
+      <td>{$train.code}</td>
+      <td align="right">{if $train.total == 0}不限{else}{$train.total}{/if}</td>
+      <td align="right">{$train.vip}</td>
+      <td align="right">{$train.limit}</td>
+      <td align="right">{$train.sort}</td>
+      <td align="right">{$train.num}</td>
+      <td align="center">
+      	<input type="hidden" name="train_class_id" value="{$train.train_class_id}">
+      	<a href="train.php?act=class_edit&train_class_id={$train.train_class_id}&train_id={$trainId}" class="trainSave" title="{$lang.train_class_edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a> |
+      	<a href="train.php?act=class_goods_edit&train_class_id={$train.train_class_id}&train_id={$trainId}" class="trainSave" title="{$lang.train_class_rebate_edit}"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a> |
+        <a href="train.php?act=class_remove&train_class_id={$train.train_class_id}&train_id={$trainId}" title="{$lang.remove}"><img src="images/icon_drop.gif" border="0" height="16" width="16" /></a>      </td>
+    </tr>
+    {foreachelse}
+    <tr><td class="no-records" colspan="13">{$lang.no_records}</td></tr>
+    {/foreach}
+  </table>
+<input id="train_id" type="hidden" value="{$trainId}">
+  <table cellpadding="4" cellspacing="0">
+    <tr>
+      <td><input type="button" onclick="location.href='train.php?act=class_edit&train_id={$trainId}'" name="add" id="btnSubmit" value="{$lang.add}" class="button"/>
+    </tr>
+  </table>
+
+{if $full_page}
+</div>
+
+
+{include file="pagefooter.htm"}
+{/if}

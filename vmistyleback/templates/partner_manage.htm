@@ -1,0 +1,78 @@
+<!-- $Id: brand_list.htm 15898 2009-05-04 07:25:41Z liuhui $ -->
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<!-- 品牌搜索 -->
+
+<form method="post" action="" name="listForm">
+<!-- start brand list -->
+<div class="list-div" id="listDiv">
+{/if}
+
+  <table cellpadding="3" cellspacing="1">
+    <tr>
+      <th>供应商名字</th>
+   
+
+    
+      <th>appid</th>
+      <th>appkey</th>
+      <th>权限</th>
+      <th>{$lang.handler}</th>
+    </tr>
+    {foreach from=$partner_manage_list item=partner}
+    <tr>
+      <td class="first-cell">
+        <span >{$partner.partner_name|escape:html}</span>
+     
+      </td>
+     
+    
+      <td align="right"><span >{$partner.appid}</span></td>
+     <td class="first-cell">
+       
+        <span >{$partner.appkey|escape:html}</span>
+      </td>
+      <td class="first-cell">
+       
+        <span >{$partner.permission|escape:html}</span>
+      </td>
+ 
+      <td align="center">
+        <a href="partner_manage.php?act=edit&id={$partner.partner_id}" title="{$lang.edit}">{$lang.edit}</a> 
+       <a href="javascript:;" onclick="listTable.remove({$partner.partner_id}, '{$lang.drop_confirm}')" title="{$lang.edit}">{$lang.remove}</a> 
+      </td>
+
+    </tr>
+    {foreachelse}
+    <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+    {/foreach}
+   
+  </table>
+
+{if $full_page}
+<!-- end brand list -->
+</div>
+</form>
+
+<script type="text/javascript" language="javascript">
+  <!--
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+
+  {literal}
+  onload = function()
+  {
+      // 开始检查订单
+      startCheckOrder();
+  }
+  {/literal}
+  //-->
+</script>
+{include file="pagefooter.htm"}
+{/if}

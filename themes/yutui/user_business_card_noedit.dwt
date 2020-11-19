@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>{$page_title}</title>
+  <link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css?v={$v}">
+    <link rel="stylesheet" href="/themes/yutui/css/style.css?v={$v}">  
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css?v={$v}" />
+    <link rel="stylesheet" href="/themes/yutui/statics/css/mui.min.css ">
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/statics/js/swiper.min.js"></script>
+    <script src="/data/assets/js/clipboard.min.js"></script> 
+
+<script type="text/javascript" src="/themes/yutui/statics/js/mui.min.js"></script>
+<script type="text/javascript" src="/themes/yutui/statics/js/mui.zoom.js"></script>
+<script type="text/javascript" src="/themes/yutui/statics/js/mui.previewimage.js"></script>
+
+    <meta property="og:title" content="{$shareMeta.title}"/>
+    <meta property="og:description" content="{$shareMeta.description}"/>
+    <meta property="og:image" content="{$shareMeta.image}"/>
+    <meta property="og:updated_time" content="{:time()}"/>
+    
+</head>
+
+
+<body class="con f-05" style="height:auto;">
+
+<!--模版选择-->
+{if $smarty.session.user_id == $smarty.get.u}
+<div class="box s-flex s-align-items c-card-select" style="display: none;">
+  <div class="s-flex left">
+{foreach name=mainpagelist from=$mainpagelist item=val}
+  {if $val.mid==$mid}
+    <i></i><span class="onetext">{$lang.user_homepage} • {if $val.id==0}一{elseif $val.id==1}二{elseif $val.id==2}三{/if}</span>
+
+    {/if}
+    {/foreach}
+  </div>
+  <div class="s-flex s-justify-a right">
+    {if $defaultmid==$mid}
+    <div class='default1'><span class="defauleTextA">{$lang.user_default}</span>
+
+      <div class='c-card-default-t' id="Not" style="display: none;">{$lang.user_default}</div></div>
+    {else}
+    <div class="default"><span class="defauleTextB">{$lang.user_set_default}</span></div>
+      {/if}
+      
+
+      {if $num>=3}
+    
+    <div><a href="javascript:;" class="error_mainpagenum">{$lang.user_newly}</a></div>
+    {else}
+  <div><a href="/index.php?m=default&c=user&a=cardselect" >{$lang.user_newly}</a></div>
+    {/if}
+    {if $defaultmid==$mid}
+    <div class='deletemain1' id="error_delete">{$lang.user_deltet}</div>
+     {else}
+     <div class='deletemain' >{$lang.user_deltet}</div>
+     {/if}
+  </div>
+  {if $smarty.session.user_id == $smarty.get.u}
+  <div class="s-flex s-wrap t-card-select">
+    {foreach name=mainpagelist from=$mainpagelist item=val}
+{if $val.mid==$mid}
+    <div class="box s-flex s-justify-b  color-red" onclick="javascript:location.href='{:url('user/business_card', array('mid'=>$this->_var[val]['mid']))}'">{if $val.id==0}<span class="text"  >我的主页 • 一</span>{elseif  $val.id==1}<span class="text" >我的主页 • 二</span>{elseif  $val.id==2}<span class="text" >我的主页 • 三</span>{/if}{if $val.mid==$mid}<i class="tickIco"></i>{/if}</div>
+    {else}
+    <div class="box s-flex s-justify-b" onclick="javascript:location.href='{:url('user/business_card', array('mid'=>$this->_var[val]['mid']))}'">{if $val.id==0}<span class="text" >我的主页 • 一</span>{elseif  $val.id==1}<span class="text" >我的主页 • 二</span>{/if}{if $val.mid==$mid}<i class="tickIco"></i>{elseif  $val.id==2}<span class="text" >我的主页 • 三</span>{/if}{if $val.mid==$mid}<i class="tickIco"></i>{/if}</div>
+  {/if}
+    
+   
+  {/foreach}
+  </div>
+{/if}
+
+<!--设为默认弹窗-->
+<div class="t-box s-flex" id="default" style="display: none;">
+  <div class="c-card-yes">
+    <strong>{$lang.user_hint}</strong>
+    <p>{$lang.user_set_defaulted}</p>
+    <div class="box s-flex s-justify-a"><a href="javascript:;" class="c-card-default-no">{$lang.is_cancel}</a><a href="javascript:;" class="c-card-default-yes">{$lang.user_affirm_set}</a></div>
+  </div>
+</div>
+<!--删除弹窗-->
+<div class="t-box s-flex" id="deleteBox" style="display: none;">
+  <div class="c-card-yes">
+    <strong>{$lang.user_hint}</strong>
+    <p>{$lang.user_affirm_delete}</p>
+    <div class="box s-flex s-justify-a"><a href="javascript:;" class="c-card-delete-no">{$lang.is_cancel}</a><a href="javascript:;" class="c-card-delete-yes">{$lang.user_affirm_set}</a></div>
+  </div>
+</div>
+</div>
+{/if}
+
+<div class="myself_bgc" style="position: relative;">
+  <div style="width: 100%;">
+    <img style="width:100%;" src="images/like/newlike/myself_bgc.png" alt="">
+  </div>
+  <div class="c_card_touxing">
+    <div class="logo_touxiang"><img src="{$userinfo.user_avatar|default:/themes/yutui/images/idx_user.png}"></div>
+  </div>
+</div>
+</div>
+<div style="padding-top:8rem;" class="box text-center bg-white c-card-introduce">
+  <p class="f-2" style="font-weight: 600;color:#484848;font-size: 2.2rem;margin-bottom: .2rem;">{if $userinfo.nick_name}{$userinfo.nick_name}{else}{$user_name}{/if}</p>
+  <p style="font-size: 12px;color: #919191;margin-bottom: 1.2rem;" ><span>{if $userinfo.address}{$userinfo.address}{else}中国{/if}</span> | {if $userinfo.company}{$userinfo.company}{else}{$lang.yutui_default_company}{/if}{if $userinfo.job}{$userinfo.job}{else}{$lang.yutui_default_job}{/if} </p>
+  <p style="font-size: 13px;color: #949494;" class="color-red">“{if $userinfo.sign}{$userinfo.sign}{else}{$lang.yutui_default_sign}{/if}”</p>
+  <!-- <p class="pt-1" style="font-size: 2rem;"><span class="pr-1 ">粉丝</span><span class="pr-2 bg_artice">1000</span><span class="pr-1">获赞</span><span class="bg_artice">2451</span></p> -->
+</div>
+<div class="s-flex s-space-3 c-card-ico" style="width:100%;">
+  <div class="s-flex s-justify-a" style="padding: 1.4rem;background: #f7f7f7;width:100%;border-radius: .2rem;font-size: 1rem;">
+  <div><p class="c-card-phone phone"><img src="images/new/card_ico1.png"></p>{$lang.phone}</div>
+  <div><p class="c-card-phone mainA"><img src="images/new/card_ico2.png"></p>E-mail</div>
+  <div><p class="c-card-phone weixinTwo"><img src="images/new/card_ico4.png"></p>{$lang.wechat }</div>
+  <div><p class="c-card-phone qita" style="background: #959595;"><img src="images/new/other.png"></p>{$lang.other}</div>
+</div>
+</div>
+<div class="mui-content" style="background: #fff;margin-top: 1rem;">
+<nav class="initiation_nav">
+    <div class="container">
+      <div class="swiper-container swiper1">
+        <div class="swiper-wrapper user-wrapper">
+          <div class="swiper-slide  initiation_tenmax" code="1" >
+              <p class="action-name seled"><span >{$lang.dongtai}</span> <span></span> <span class="red_point" style="display: none;"></span></p>
+              <p class="xiabiao_x" ></p>
+          </div>
+          <div class="swiper-slide swiper-slide-next initiation_tenmax" code="2">
+              <p class="action-name"><span>{$lang.article}</span> <span class="red_point" style="display: none;"></span></p>
+              <p class="xiabiao_x" style="display: none;"></p>
+          </div>
+
+        </div>
+      <div class="swiper-container swiper2">
+        <div class="swiper-wrapper">
+        <!-- 银卡套组 -->
+          <!-- <div class="swiper-slide swiper-no-swiping lkd_cnt"  style="color:#000;">
+            <nav class="reorder_product s-flex  all" id="silver" style="margin-top: 1px;">
+                <div class="tenmax_dynamic">
+                  <p><img style="border-radius: 100%;" src="images/woman.jpg" alt=""> </p>
+                  <p>
+                    <b>拓客商城</b><span style="color: #bdbdbd;">2019-04-25</span>
+                  </p>
+                  <p><span>小编推荐</span><span>  </span></p>
+                </div>
+                <div class="dynamic_content">
+                  <span style="color: #356aff;">
+                    #拓客全球GO精选# 
+                  </span>
+                  <span>别让亚健康危害你的生命！城市快节奏的生活，是否趟你失眠、乏力、无食欲、易疲劳、易发怒？定期体检，必不可少！</span>
+                </div>
+                <div class="dynamic_img mui-content-padded" style="margin:0;">
+                  <p><img src="images/tenmax/001.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/002.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/003.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/004.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/001.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/002.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/003.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/004.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                </div>
+
+            </nav>
+            <nav class="reorder_product s-flex  all" id="silver">
+                <div class="tenmax_dynamic">
+                  <p><img style="border-radius: 100%;" src="images/woman.jpg" alt=""> </p>
+                  <p>
+                    <b>拓客好物推荐</b><span style="color: #bdbdbd;">2019-04-25</span>
+                  </p>
+                  <p><span>小编推荐</span><span>  </span></p>
+                </div>
+                <div class="dynamic_content">
+                  <span style="color: #356aff;">
+                    #拓客全球GO精选# 
+                  </span>
+                  <span>天呐，这面膜也太好用了吧！买买买~</span>
+                </div>
+                
+                <div class="dynamic_img mui-content-padded" style="margin:0;">
+                  <p><img src="images/tenmax/001.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/002.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/003.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/004.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/001.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/002.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/003.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                  <p><img src="images/tenmax/004.png" data-preview-src="" data-preview-group="1" alt=""></p>
+                </div>
+                
+            </nav>
+          </div>  -->
+        <!-- 金卡套组 -->
+          <div class="swiper-slide swiper-no-swiping lkd_new_card uncompletegroup "  style="color:#000;">
+            <nav class="reorder_product s-flex all">
+                <div class="tab-content lkd-content" style="width:100%">
+                   
+                   <!--{foreach from=$sucai_list item=sucai}-->
+
+            {if $sucai.sucai_type eq 1}
+              <!-- 视频 -->
+              <nav class="reorder_product s-flex  all" id="silver" style="margin-top: 1px;background: #fff;">
+                <div class="tenmax_dynamic">
+                  <p style="width:16%;"><img style="border-radius: 100%;" src="../{$sucai.sucai_user_picture}" alt=""> </p>
+                  <div style="margin:auto 0;">
+                    <b style="font-size: 1.6rem;">{$sucai.sucai_user_name}</b>
+                    {if $sucai.sucai_important}<span class="card-sptag">{$lang.editor_recommend}</span>{/if}
+                    <p><span style="color: #bdbdbd;font-size: 1.3rem;">{$sucai.change_time}</span>
+                    
+                  </div>
+                  
+                </div>
+                <div class="dynamic_content"style="font-size: 1.5rem;">
+                  <p style="color: #356aff;margin-bottom:0;">
+                    #{$sucai.talk}# 
+                  </p>
+                  <p class="sucai_content_zhedie">{$sucai.sucai_content}</p>
+                </div>
+                <div class="dynamic_img mui-content-padded dynamic_p" >
+              
+               <iframe width="100%" src="{$sucai.sucai_vedio}" frameborder="0"></iframe>
+              
+                </div> 
+                <!-- 推荐文章 -->
+                {if $sucai.pic}
+                <div class="strict_product" style="padding-left: 1rem; background: #fff; padding-bottom: 1rem;width:100%;padding-right:0.5rem;">
+                  <div class="strict_body" style="padding: 0 0.5rem;">
+                    <div class=" strict_pp">
+                      <div class="swiper-wrapper judge_child">
+                          <div class="" style="background:#f3f3f3;width: 100%;">
+                            <a class="sucai_file_url" href="{$sucai.file_url}">
+                              <div>
+                                <div class="slides_pro11" style="background:#f3f3f3;">
+                                  <div class="sucai_pic" ><img src="{$sucai.pic}" style="padding: 0.6rem 1rem 0.6rem 1rem;width:6rem;height:6rem;"  alt=""></div>
+                                <div class="dynamic_p_name">{$sucai.title}</div>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                      </div> 
+                    </div>
+                  </div>
+                </div> 
+                
+                <!-- 转发或点赞 -->  
+                <div class="card-footer">
+                  <div class="card-zhuanfa sucaiContentCopy" data="{$sucai.sucai_id}"><i class="c-icon-share"></i>{$lang.copy}</div>
+                  <!-- <div class="card-dianzan"><i class="c-icon-like"></i>1</div> -->
+                </div>
+                {/if}               
+              </nav>
+              <div style="width: calc(100% + 3rem);margin-left: -1.5rem;height: 1.5rem;background: #f7f7f7;"></div>
+            {elseif $sucai.sucai_type eq 2}
+                <!-- 图文 -->
+              <nav class="reorder_product s-flex  all" id="silver" style="margin-top: 1px;background: #fff;">
+                <div class="tenmax_dynamic">
+                  <p style="width:16%;"><img style="border-radius: 100%;" src="../{$sucai.sucai_user_picture}" alt=""> </p>
+                  <div style="margin:auto 0;">
+                    <b style="font-size: 1.6rem;">{$sucai.sucai_user_name}</b>
+                    {if $sucai.sucai_important}<span class="card-sptag">{$lang.editor_recommend}</span>{/if}
+                    <p><span style="font-size: 1.2rem;color: #bdbdbd;">{$sucai.change_time}</span>
+                   
+                  </div>
+                  
+                </div>
+                <div class="dynamic_content"style="font-size: 1.5rem;">
+                  <a class="sucai_tiaozhuan" href="{:url('Article/special',array('talk_id'=>$this->_var['talk']['talk_id']))}">
+                    <p class="" style="color: #356aff;margin-bottom:0;">
+
+                      #{$sucai.talk}# 
+                    </p>
+                  </a>
+                  <div class="sucai_content_zhedie">
+                    {$sucai.sucai_content|strip_tags|truncate:64:"...":true}<span class="content-more" id="sucai_content_{$sucai.sucai_id}" data='{$sucai.sucai_content}'>{$lang.all}</span>
+                  </div>
+                  
+                </div>
+                <div class="dynamic_img mui-content-padded dynamic_p" >
+                   <!--{foreach from=$sucai.imglist item=imglist}-->
+                  <p class="dynamic_pp"><img src="{$imglist}?imageView2/1/w/300/h/300/q/100" data-preview-src="{$imglist}" data-preview-group="1" alt=""></p>
+                 <!--  {/foreach}-->
+                </div>
+                 <!-- 推荐文章 -->
+                 {if $sucai.pic}
+                <div class="strict_product" style="padding-left: 1rem; background: #fff; padding-bottom: 1rem;width:100%;padding-right:0.5rem;">
+                  <div class="strict_body" style="padding: 0 0.5rem;">
+                    <div class="swiper-container strict_pp">
+                      <div class="swiper-wrapper judge_child">
+                          <div class="" style="background:#f3f3f3;width: 100%;">
+                            <a class="sucai_file_url" href="{$sucai.file_url}">
+                              <div>
+                                  <div class="slides_pro11" style="background:#f3f3f3;">
+                                  <div class="sucai_pic"><img style="padding: 0.6rem 1rem 0.6rem 1rem;" src="{$sucai.pic}?imageView2/1/w/300/h/300/q/100" alt=""></div>
+                                <div class="dynamic_p_name">{$sucai.title}</div>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                        
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 转发或点赞 -->  
+                <div class="card-footer">
+                  <div class="card-zhuanfa sucaiContentCopy"  data="{$sucai.sucai_id}"><i class="c-icon-share"></i>{$lang.copy}</div>
+                  <!-- <div class="card-dianzan"><i class="c-icon-like"></i>1</div> -->
+                </div>       
+                {/if}      
+              </nav>
+              <div style="    width: calc(100% + 3rem); margin-left: -1.5rem; height: 1.5rem; background: #f7f7f7;"></div>
+            {else}
+              <!-- 文本 -->
+              <nav class="reorder_product s-flex  all" id="silver" style="margin-top: 1px;background: #fff;">
+                <div class="tenmax_dynamic">
+                  <p style="width:16%;"><img style="border-radius: 100%;" src="../{$sucai.sucai_user_picture}" alt=""> </p>
+                  <div style="margin:auto 0;">
+                    <b style="font-size: 1.6rem;">{$sucai.sucai_user_name}</b>
+                   {if $sucai.sucai_important}<span class="card-sptag">{$lang.editor_recommend}</span>{/if}
+                    <p><span style="font-size: 1.2rem;color: #bdbdbd;">{$sucai.change_time}</span>
+                   
+                  </div>
+                  
+                </div>
+                <div class="dynamic_content"style="font-size: 1.5rem;">
+                  <p class="" style="color: #356aff;margin-bottom:0;">
+                      #{$sucai.talk}# 
+                  </p>
+                  <p class="sucai_content_zhedie">{$sucai.sucai_content} </p>
+                </div>
+               
+                <!-- 推荐文章 -->
+                {if $sucai.pic}
+                <div class="strict_product" style="padding-left: 1rem; background: #fff; padding-bottom: 1rem;width:100%;padding-right:0.5rem;">
+                  <div class="strict_body" style="padding: 0 0.5rem;">
+                    <div class=" strict_pp">
+                      <div class="swiper-wrapper judge_child">
+                          <div class="" style="background:#f3f3f3;width: 100%;">
+                            <a class="sucai_file_url" href="{$sucai.file_url}">
+                              <div>
+                                <div class="slides_pro11" style="background:#f3f3f3;">
+                                  <div class="sucai_pic"><img style="width: 6rem;height: 6rem;padding: 0.6rem 1rem 0.6rem 1rem;" src="{$sucai.pic}" alt=""></div>
+                                <div class="dynamic_p_name">{$sucai.title}</div>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                        
+                      </div> 
+                    </div>
+                  </div>
+                </div>     
+                
+                <!-- 转发或点赞 -->  
+                <div class="card-footer">
+                  <div class="card-zhuanfa sucaiContentCopy"  data="{$sucai.sucai_id}"><i class="c-icon-share"></i>{$lang.copy}</div>
+                  <div class="card-dianzan"><i class="c-icon-like"></i>1</div>
+                </div>
+                {/if}                           
+              </nav>
+              <div style="    width: calc(100% + 3rem); margin-left: -1.5rem; height: 1.5rem; background: #f7f7f7;"></div>
+            {/if}            
+            {/foreach}
+                   
+            <div class="s-height"></div>
+            </nav>
+          </div>
+        
+        <!-- 砖石套组 -->
+          <div class="swiper-slide swiper-no-swiping lkd_new_cardc completegroup "  style="color:#000;">
+            <nav class="reorder_product s-flex all">
+                <div class="tab-content" style="width:100%">
+                  <!--{foreach name=artciles_list from=$artciles_list item=val}-->
+                  <a class="wenzang1" href="/index.php?m=default&c=article&a=info&aid={$val.article_id}&u={$smarty.session.user_id}"style="display: block;margin-bottom: 2rem;">
+                    <div class="n-content-pad n-con">
+                      <div class="n-create-info">
+                        <span class="n-author">{$val.author}</span>
+                        <span class="n-add_time">{$val.add_time}</span>
+                      </div>
+                      <div class="n-cover s-flex">
+                        <img src="{$val.file_url}" />
+                        {if $val.file_url2}<img src="{$val.file_url2}">{/if}
+                      </div>
+                      <div class="n-title">{$val.title}</div>
+                      <div class="n-info">
+                        <div class="n-tags">
+                        {foreach name=tags from = $val.tags item=tag}
+                          <span>{$tag}</span>
+                          {/foreach}
+                        </div>
+                        <div class="n-hot-info">
+                          <i class="n-icon-eye"></i>
+                          <span>{$val.click_count}</span>
+                          <!-- <i class="n-icon-like"></i>
+                          <span>{$val.zan}</span> -->
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <div style="width: calc(100% + 3rem);margin-left: -1.5rem;height: 1.5rem;background: #f7f7f7;"></div>
+                  <!--{/foreach}-->
+                  <div class="s-height"></div>
+                </div>
+            </nav>
+          </div>
+        
+      </div>    
+    </div>
+  </div>
+  </nav>
+        </div>
+        
+        
+      </div>    
+    </div>
+  </div>
+</nav>
+  </div>
+  {if $user_id}
+<section class="s-flex s-space-3 c-card-submit">
+ <a href="/index.php?m=default&c=user&a=edit_business_profile" class="s-btn-cheng cheng_bianji" style="width: 45%; padding: 0.8rem 0rem;">{$lang.edit}</a>
+
+  <a href="/index.php?m=default&amp;c=user&amp;a=edit_business_profile&amp;mid=339" class="s-btn-cheng -mob-share-open cheng_fenxiang" style="width: 45%; padding: 0.8rem 0rem;">{$lang.share}</a>
+</section>
+{/if}
+<!--拓客商城vip会员卡-->
+
+<div class="t-box s-flex" id="Box1" style="display: none;">
+    <div class="l-train-yes">
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico6.png"></div>
+      <div class="c-card-dh">{$lang.contact_phone}</div>
+      <div class="box text-center ptb-3 f-2" id="phone">{if $userinfo.mobile_phone_business}{$userinfo.mobile_phone_business}{else}{$lang.no_contact_phone}{/if}</div>
+      <div class="l-card-phone mb-2" id="phoneClick" onclick="phoneClick">{$lang.copy}</div>      
+      <div class="l-train-close" onclick="Box1.style.display='none';"><span>X</span></div>
+    </div>
+</div>
+<!--郵件弹窗-->
+<div class="t-box s-flex" id="eMain" style="display: none;">
+    <div class="l-train-yes">
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico5.png"></div>
+      <div class="c-card-dh">{$lang.email_address} </div>
+      <div class="box text-center ptb-3 f-2" id="main">{if $userinfo.email}{$userinfo.email}{else}{$lang.no_email_address}{/if}</div>
+      <div class="l-card-phone mb-2" id="mainClick" onclick="mainClick">{$lang.copy}</div>
+      <div class="l-train-close" onclick="eMain.style.display='none';"><span>X</span></div>
+    </div>
+</div>
+<!--微信弹窗-->
+<div class="t-box s-flex" id="Box4" style="display: none;">
+    <div class="l-train-yes">
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico8.png"></div>
+      <div class="c-card-dh">{$lang.wechat}ID</div>
+      <div class="box text-center ptb-3 f-2" id="weixin">{if $userinfo.vx_no}{$userinfo.vx_no}{else}{$lang.no_weixin}{/if}</div>
+      <div class="l-card-phone mb-2" id="weixinClick" onclick="weixinClick">{$lang.copy}</div>
+      <div class="l-train-close" onclick="Box4.style.display='none';"><span>X</span></div>
+    </div>
+</div>
+<!-- 其他弹窗 -->
+<div class="t-box s-flex" id="Box5" style="display: none;">
+    <div class="l-train-yes">
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/other1.png"></div>
+      <div class="c-card-dh">{$lang.other}</div>
+      <div class="box text-center ptb-3 f-2" id="weixin">{if $userinfo.othercontact}{$userinfo.othercontact}{else}{$lang.no_other_contact}{/if}</div>
+      <div class="l-card-phone mb-2" id="weixinClick" onclick="weixinClick">{$lang.copy}</div>
+      <div class="l-train-close" onclick="Box5.style.display='none';"><span>X</span></div>
+    </div>
+</div>
+<!-- #BeginLibraryItem "/library/new_share.lbi" --><!-- #EndLibraryItem -->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!--海报-->
+
+<script>
+    mui.previewImage();
+</script>
+<script type="text/javascript ">
+  $(document).ready(function(){
+    $(".cheng_bianji").click(function(){
+      location.href='/index.php?m=default&c=user&a=edit_business_profile';
+    })
+    
+  $(".mui-preview-header").hide();
+$(".wenzang1").click(function(){
+
+  location.href=$(this).attr("href");
+})
+
+  $(".nav-list").click(function(){
+  	location.href=$(this).attr("href");
+  })
+
+
+})
+  $(".initiation_tenmax").click(function(){
+    $(this).children(".action-name").addClass('seled');
+    $(this).siblings().children(".action-name").removeClass('seled');
+    $(this).children(".xiabiao_x").show();
+    $(this).siblings().children(".xiabiao_x").hide()
+    //$(this).find(".red_point").show();
+    //$(this).siblings().find(".red_point").hide()
+})
+  //导航栏滑动
+   $(function($) {          
+    function setCurrentSlide(ele, index) {
+      //$(".swiper1 .swiper-slide").removeClass("selected");
+      //ele.addClass("selected");
+      //swiper1.initialSlide=index;
+
+      }
+
+    var swiper1 = new Swiper('.swiper1', {
+      //设置slider容器能够同时显示的slides数量(carousel模式)。
+      //可以设置为number或者 'auto'则自动根据slides的宽度来设定数量。
+      //loop模式下如果设置为'auto'还需要设置另外一个参数loopedSlides。
+        slidesPerView: 5.5,
+        paginationClickable: true,//此参数设置为true时，点击分页器的指示点分页器会控制Swiper切换。
+        spaceBetween: 0,//slide之间的距离（单位px）。
+        freeMode: true,//默认为false，普通模式：slide滑动时只滑动一格，并自动贴合wrapper，设置为true则变为free模式，slide会根据惯性滑动且不会贴合。
+        loop: false,//是否可循环
+        onTab: function(swiper) {
+          var n = swiper1.clickedIndex;
+        }
+    });
+    swiper1.slides.each(function(index, val) {
+      var ele = $(this);
+      ele.on("click", function() {
+        setCurrentSlide(ele, index);
+        swiper2.slideTo(index, 500, false);
+        //mySwiper.initialSlide=index;
+      });
+    });
+    var swiper2 = new Swiper('.swiper2', {
+      //freeModeSticky  设置为true 滑动会自动贴合  
+      direction: 'horizontal',//Slides的滑动方向，可设置水平(horizontal)或垂直(vertical)。
+      loop: false,
+      //effect : 'fade',//淡入
+      //effect : 'cube',//方块
+      //effect : 'coverflow',//3D流
+      //effect : 'flip',//3D翻转
+      autoHeight: true,//自动高度。设置为true时，wrapper和container会随着当前slide的高度而发生变化。
+      onSlideChangeEnd: function(swiper) {  //回调函数，swiper从一个slide过渡到另一个slide结束时执行。
+        var n = swiper.activeIndex;
+        setCurrentSlide($(".swiper1 .swiper-slide").eq(n), n);
+        swiper1.slideTo(n, 500, false);
+      }
+    });
+  });
+
+
+
+
+
+
+
+
+
+  //最新动态
+  var mySwiper = new Swiper('.swiper-containerA', {
+  slidesPerView :'auto',
+      autoplay : 2500,
+      speed:300,
+      direction: 'vertical',
+      grabCursor:true,
+      autoplayDisableOnInteraction:false,
+      mousewheelControl:true,
+      autoHeight:true,
+      pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      },
+    });
+//轮播图
+  $(function($) {
+    var mySwiper = new Swiper('.banner-first', {
+      pagination: '.banner-first-pagination',
+      loop: false,
+      grabCursor: true,
+      paginationClickable: true,
+      autoplayDisableOnInteraction: false,
+      autoplay: 3000
+    });
+  });
+//弹窗
+$(".phone").click(function(){
+  $("#Box1").show()
+});
+$(".mainA").click(function(){
+  $("#eMain").show()
+});
+$(".weixinTwo").click(function(){
+  $("#Box4").show()
+});
+$(".qita").click(function(){
+  $("#Box5").show()
+});
+$(".error_mainpagenum").click(function(){
+  alert("最多只能创建三个主页");
+});
+$("#error_delete").click(function(){
+  alert("不能删除默认模板");
+  return false;
+});
+//电话复制到剪贴板
+var phonetext= $("#phone").html();
+var clipboard = new ClipboardJS('#phoneClick', {
+    text: function(trigger) {
+        return phonetext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("{$lang.copy_ok}");
+});
+clipboard.on('error', function(e) {
+   $("#u-card-window").addClass("c-cardadd-yes");
+   $(".u-card-error").html(phonetext)
+});
+//邮件复制到剪贴板
+var maintext= $("#main").html();
+var clipboard = new ClipboardJS('#mainClick', {
+    text: function(trigger) {
+        return maintext;
+    }
+}); 
+
+//复制素材内容
+var clipboardSucai = new ClipboardJS('.sucaiContentCopy', {
+    text: function(trigger) {
+		var id="#sucai_content_"+$(trigger).attr("data");
+		var sucaiContent= $(id).attr("data");
+
+        return sucaiContent;
+    }
+});
+clipboardSucai.on('success', function(e) {
+   alert("{$lang.copy_ok}");
+});
+//line复制到剪贴板
+var linetext= $("#line").html();
+var clipboard = new ClipboardJS('#lineClick', {
+    text: function(trigger) {
+        return linetext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("{$lang.copy_ok}");
+});
+clipboard.on('error', function(e) {
+   $("#u-card-window").addClass("c-cardadd-yes");
+   $(".u-card-error").html(linetext)
+});
+//weixin复制到剪贴板
+var weixintext= $("#weixin").html();
+var clipboard = new ClipboardJS('#weixinClick', {
+    text: function(trigger) {
+        return weixintext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("{$lang.copy_ok}");
+});
+clipboard.on('error', function(e) {
+   $("#u-card-window").addClass("c-cardadd-yes");
+   $(".u-card-error").html(weixintext)
+});
+//模版选择
+$(".cardSelect").click(function(){
+  $(this).addClass("cardSelectBg")
+  $(this).children().children(".rec-active").addClass("active");
+  $(this).siblings().children().children(".rec-active").removeClass("active");
+  $(this).siblings().removeClass("cardSelectBg")
+})
+</script>
+<!--新增模版选择-->
+<script>
+//弹出一级目录
+$(".left").click(function(){
+  $(".t-card-select").toggleClass("active")
+});
+//勾选一级目录并写入left
+$(".t-card-select div").on("click",function(){
+  $(this).children("i").addClass("tickIco");  
+  $(this).addClass("color-red"); 
+  $(this).siblings().children("i").removeClass("tickIco");
+  $(this).siblings().removeClass("color-red"); 
+  $(".t-card-select").removeClass("active");
+  var text = $(this).children(".text").text();
+  $(".onetext").text(text)
+});
+//设为默认
+ $(".defauleTextB").click(function(){
+   $("#default").show()
+ })
+//关闭设为默认
+$(".c-card-default-no").click(function(){
+ $("#default").hide() 
+})
+//弹窗删除
+$(".deletemain").click(function(){
+  $("#deleteBox").show();
+
+ $(".c-card-delete-yes").click(function(){
+      var mid = {$mid};
+      var userid = {$smarty.session.user_id};
+      $.ajax({
+          url   : "index.php?c=user&a=delete_mainpage",
+          data  : {mid:mid},
+          dataType: "JSON",
+          type  : "post",
+          success :function(data){
+         
+            if(data.status){
+              window.location.href='/index.php?m=default&c=user&a=business_card&u='+userid;
+            }else{
+
+              defaultText = data.msg;
+              alert(defaultText);
+             //$(".defauleTextA").text(defaultText);
+             $("#deleteBox").hide() 
+            }
+            
+            
+          }
+  });
+ })
+
+})
+//关闭删除
+$(".c-card-delete-no").click(function(){
+  $("#deleteBox").hide();
+})
+
+//加载更多内容
+$(".content-more").click(function(){
+  $(this).parent().html($(this).attr('data'))
+})
+//设为默认确定后文字修改
+$(".c-card-default-yes").click(function(){
+  var defaultText="已是默认";
+ 
+  var mid = {$mid};
+  
+      $.ajax({
+          url   : "index.php?c=user&a=setdefaultmainpage",
+          data  : {mid:mid},
+          dataType: "JSON",
+          type  : "post",
+          success :function(data){
+            
+        
+           
+            if(data.status){
+               //$(".defauleTextB").text(defaultText);
+               $("#default").hide() 
+            }else{
+                  $("#default").hide() 
+            }
+            window.location.reload()
+            
+          }
+  });
+ 
+})
+//判断是否已经是默认
+$(".defauleTextA").on("click",function(){
+  $("#Not").show().delay(3000).hide(1);
+})
+</script>
+</body>
+</html>

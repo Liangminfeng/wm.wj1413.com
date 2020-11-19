@@ -1,0 +1,87 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" -->
+<!-- #EndLibraryItem -->
+<section class="purse-header-box text-center purse-f">
+    <h2>{if $total_surplus}{$total_surplus}{else}0{/if}</h2>
+	<p class="col-hui">{$lang.user_money_all}</p>
+    <div class="s-flex u-account-balance">
+      <div><span class="money-number">{if $surplus_amount}{$surplus_amount}{else}0{/if}</span><br><span class="f-02 col-hui">{$lang.user_money_balance}</span></div>
+      <div class="border-right"></div>
+      <div><span class="money-number2">{if $frozen_amount}{$frozen_amount}{else}0{/if}</span><br><span class="f-02 col-hui">{$lang.user_money_freeze}</span></div>
+    </div>
+</section>
+<section class="b-color-f my-nav-box">
+	<div class="dis-box padding-all my-bottom">
+		<h3 class="box-flex text-all-span my-u-title-size">{$lang.surplus_type_1}</h3>
+		<span class="u-account-submit"><a href="{:url('User/account_raply')}">{$lang.user_money_submit}</a></span>
+	</div>
+		<div class="dis-box padding-all my-bottom" onclick="location='{:url('User/account_list')}'">
+			<h3 class="box-flex text-all-span my-u-title-size">{$lang.add_surplus_log}</h3>
+			<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span>
+		</div>
+		<div class="dis-box padding-all my-bottom" onclick="location='{:url('User/account_log')}'">
+			<h3 class="box-flex text-all-span my-u-title-size">{$lang.view_application}</h3>
+			<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span>
+		</div>
+</section>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!--取消金额后两位数-->
+<script type="text/javascript">
+	var str= ($(".money-number").html());
+	//var str1 = str.substr(-2);
+	//if(str1==00){
+	
+		$(".money-number").html(cutZero(str))		
+	//}
+	var str1= ($(".money-number2").html());
+	//var str1 = str.substr(-2);
+	//if(str1==00){
+
+		$(".money-number2").html(cutZero(str1))		
+	//}
+	     /* 
+        去掉double类型小数点后面多余的0 
+        参数：old 要处理的字符串或double 
+        返回值：newStr 没有多余零的小数或字符串 
+        例： cutZero(123.000) -> 123 
+            cutZero(123.0001) -> 123.0001 
+            cutZero(10203000.0101000) -> 10203000.0101 
+            cutZero(10203000) -> 10203000  
+     */  
+ function cutZero(old){  
+    //拷贝一份 返回去掉零的新串  
+    newstr=old;  
+    //循环变量 小数部分长度  
+    var leng = old.length-old.indexOf(".")-1  
+    //判断是否有效数  
+    if(old.indexOf(".")>-1){  
+        //循环小数部分  
+        for(i=leng;i>0;i--){  
+                //如果newstr末尾有0  
+                if(newstr.lastIndexOf("0")>-1 && newstr.substr(newstr.length-1,1)==0){  
+                    var k = newstr.lastIndexOf("0");  
+                    //如果小数点后只有一个0 去掉小数点  
+                    if(newstr.charAt(k-1)=="."){  
+                        return  newstr.substring(0,k-1);  
+                    }else{  
+                    //否则 去掉一个0  
+                        newstr=newstr.substring(0,k);  
+                    }  
+                }else{  
+                //如果末尾没有0  
+                    return newstr;  
+                }  
+            }  
+        }  
+        return old;  
+  } 
+</script>
+</body>
+
+</html>

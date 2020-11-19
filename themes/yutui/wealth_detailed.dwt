@@ -1,0 +1,83 @@
+﻿<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<div class="con">
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+	<ul class="n-user-acc-log">
+		<!--{if $account_log}-->
+		
+		<!--{else}-->
+<div class="box text-center bg-white ptb-3">
+  <p><img src="images/new/intnIco6.png" style="width:20rem;"></p>
+  <p class="col-hui">还没有相关财富金记录</p>
+</div>
+<div class="layui-flow-more" style="text-align: center;display:none;">没有更多了</div>
+		<!--{/if}-->
+	</ul>
+	
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__TPL__/statics/layui/layui.js"></script>
+<script>
+	$(function () {	
+		var page = 1;
+		layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '.n-user-acc-log' //指定列表容器
+            , isAuto:true,
+            scrollElem: '.n-user-acc-log',
+            done: function (page,next) {
+               var url = "{:url('ajax_wealth_detailed')}";	
+             //传递的参数
+                var data = {
+                    page:page,
+                }
+                var lis = [];
+                $.post(url, data, function (params) {
+         			
+                    $.each(JSON.parse(params).list,function(i,item){
+                        
+                        if(Math.floor(item.amount)<0){
+                            lis.push(`<li class="dis-shop-list p-r padding-all m-top1px b-color-f  "><div class="dis-box dis-box-align"><div class="box-flex"><h6 class="f-05 col-7 f05_h6">${item.change_desc}</h6><h5 class="f-05 col-hui m-top04 ">${item.change_time}</h5></div><div class="box-flex"><p id="active_color" class="f-05 color-red col-3 text-right" style="color:#333">${item.amount}</p></div></div></li>`)
+                        }else{
+                            lis.push(`<li class="dis-shop-list p-r padding-all m-top1px b-color-f  "><div class="dis-box dis-box-align"><div class="box-flex"><h6 class="f-05 col-7 f05_h6">${item.change_desc}</h6><h5 class="f-05 col-hui m-top04 ">${item.change_time}</h5></div><div class="box-flex"><p id="active_color" class="f-05 color-red col-3 text-right">+${item.amount}</p></div></div></li>`)
+                        }    
+                	
+                
+                	
+                	
+            })
+                   
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < JSON.parse(params).totalpage);
+                    var arr = Object.keys(JSON.parse(params).list);
+                    if(page==1&&arr.length<8)
+                    $(".layui-flow-more").hide();
+                	});
+            	}
+        	});
+		})
+	})  
+	</script>
+</script>
+<script type="text/javascript">
+//底部选中
+	$(".footer-nav").find("a:eq(3)").addClass("active");
+ //没有相關記録时页面底部也显示白底  
+$(function(){
+	if($(".box").hasClass("text-center")){
+    $("body").addClass("bg-white");
+    $(".s-height").addClass("bg-white")
+  }
+}) 
+</script>
+</body>
+
+</html>

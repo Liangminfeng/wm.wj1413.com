@@ -1,0 +1,50 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<div class="con m-b7 new-maxbox">
+	
+  		 <!--{foreach from=$talk_list item=talk}-->
+		<div class="s-flex topic_p2 sell_top20">
+	
+			<a class="s-flex" style="width:100%;" href="{:url('Article/special',array('talk_id'=>$this->_var['talk']['talk_id']))}">			
+				<div class="s-flex">
+					<div class="topic_img">
+						<img style="width:100%;" src="../{$talk.talk_banner}">
+					</div>
+					<div class="slides_pro_a topic_content">
+						<h4 class="topic_clolr">#{$talk.title}#</h4>
+						<div class="f-03 limit_size"><p>{$talk.content}</p><p >{$talk.total}条动态<p></div>
+						
+					</div>		
+				</div>
+			</a>		
+		</div>
+		{/foreach}
+		
+
+	
+</div>
+
+<!--悬浮菜单e-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+
+
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<script type="text/javascript">
+	get_asynclist("{:url('index/ajax_goods', array('type'=>'best'))}", '__TPL__/images/loader.gif');
+</script>
+<script type="text/javascript ">
+	$(document).ready(function(){
+	
+	//body白色
+	 $("body").addClass("bg-white");
+	
+	})
+</script>
+</body>
+
+</html>

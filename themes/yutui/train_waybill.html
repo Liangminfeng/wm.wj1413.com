@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>魚推商城列車推薦乘客明細</title>
+	<link rel="stylesheet" href="/themes/yutui/css/style.css">	
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+</head>
+<body class="con">
+<div class="s-flex bg-white line-2 l-train-waybill">
+  <div><img src="images/new/card_logo.png"></div>
+  <div class="l-show-bottom"><strong>妮妮</strong><p class="col-hui">魚推大健康大家族歡迎您的加入</p><p class="col-hui">2018-07-01 12:59:59</p></div>
+</div>
+<div class="s-flex bg-white line-2 l-train-waybill">
+  <div><img src="images/new/card_logo.png"></div>
+  <div class="l-show-bottom"><strong>妮妮</strong><p class="col-hui">魚推大健康大家族歡迎您的加入</p><p class="col-hui">2018-07-01 12:59:59</p></div>
+</div>
+<div class="s-flex bg-white line-2 l-train-waybill">
+  <div><img src="images/new/card_logo.png"></div>
+  <div class="l-show-bottom"><strong>妮妮</strong><p class="col-hui">魚推大健康大家族歡迎您的加入</p><p class="col-hui">2018-07-01 12:59:59</p></div>
+</div>
+<div class="s-flex bg-white line-2 l-train-waybill">
+  <div><img src="images/new/card_logo.png"></div>
+  <div class="l-show-bottom"><strong>妮妮</strong><p class="col-hui">魚推大健康大家族歡迎您的加入</p><p class="col-hui">2018-07-01 12:59:59</p></div>
+</div>	
+<!--没有记录请用下面-->
+<div class="box text-center bg-white ptb-3 f-05 a-link-cheng">
+  <p><img src="images/new/intnIco6.png" style="width:20rem;"></p>
+  <p class="col-hui">您還沒有推薦乘客</p>
+</div>
+<div style="width: 100%; height: 9rem"></div>
+<div class="s-flex s-space-3 c-card-submit"><a href="/index.php?c=index&a=train_invite" class="Cect-bg" style="width: 80%;">推薦給好友</a></div>
+<!-- #BeginLibraryItem "/library/page.lbi" --><!-- #EndLibraryItem -->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+ //没有推薦乘客时页面底部也显示白底  
+$(function(){
+	if($(".box").hasClass("text-center")){
+    $("body").addClass("bg-white");
+    $(".s-height").addClass("bg-white")
+  }
+}) 
+</script>
+</body>
+</html>

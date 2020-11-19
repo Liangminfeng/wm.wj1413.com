@@ -1,0 +1,47 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+
+<body class="b-color-f">
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+
+<form name="formPassword" action="/index.php?m=default&c=user&a=profile" id='formlang' method="post" onSubmit="return btn_submit()">
+
+	<div class="user-forget-tel margin-lr" >
+		<div class="s-flex s-autonym l-show-bottom">
+		  <i class="icon_lang_yuan icon_actived" lang='zh_cn' style="color: rgb(187, 187, 187);"></i>
+		  <div>简体中文</div>
+
+		</div>
+		<div class="s-flex s-autonym l-show-bottom">
+		  <i class="icon_lang_yuan"  lang='tw_cn' style="color: rgb(187, 187, 187);"></i>
+		  <div>繁体中文</div>
+		</div>
+		  <input type='hidden' value='zh_cn' name="lang" >
+		<button type="submit" class="btn-submit">确认修改</button>
+	</div>	
+</form>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+</body>
+
+<script type="text/javascript">
+	$(".l-show-bottom").click(function(){
+	  
+      $(this).children(".icon_lang_yuan").addClass("icon_actived").attr("code","selected");
+      $(this).siblings().children(".icon_lang_yuan").removeClass("icon_actived").removeAttr("code");
+    })
+
+
+    function btn_submit(){
+	     var  code=$(".icon_actived").attr('lang');
+	    $lang = $("input[name='lang']").val(code);  
+	
+	    $("#formlang").submit();
+	}    
+</script>
+</html>

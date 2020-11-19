@@ -1,0 +1,7 @@
+{
+    "require": {
+        "qiniu/php-sdk": "^7.2",
+        "paypal/rest-api-sdk-php": "*",
+        "firebase/php-jwt": "^5.2"
+    }
+}

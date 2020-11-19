@@ -1,0 +1,78 @@
+﻿[2018-11-1]
+ALTER TABLE `ecs_goods` ADD `goods_vip` TINYINT(3) NOT NULL DEFAULT '0' COMMENT '产品vip属性0:不属于任何VIP,1:白银拓客全球购VIP,2：黄金拓客全球购VIP，3：钻石拓客全球购VIP,4:至尊拓客全球购VIP' AFTER `vipintegral`;
+ALTER TABLE `ecs_goods` ADD `goods_area` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0:零售区，1：入团区' AFTER `goods_vip`;
+变更数据表ec_goods
+新增字段 goods_area 0:零售区，1：入团区
+产品vip属性  goods_vip  0:不属于任何VIP,1:白银拓客全球购VIP,2：黄金拓客全球购VIP，3：钻石拓客全球购VIP,4:至尊拓客全球购VIP
+  `goods_vip` tinyint(3) NOT NULL DEFAULT '0' COMMENT '产品vip属性',
+  `goods_area` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:零售区，1：入团区',
+   新增 pv   0    代表产生商品价格的10%pv，其他按照具体数值
+变更数据表ec_users 新增pv，代表这个会员有多少业绩
+新增会员等级表区分旧等级表
+CREATE TABLE `ecs_user_rank_list` (
+  `rank_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `rank_name` varchar(30) NOT NULL DEFAULT   '0',
+  `kd_ratio` int(10) unsigned NOT NULL DEFAULT '0',
+  `cash_ratio` int(10) unsigned NOT NULL DEFAULT '0',
+  `level` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`rank_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+[2018-12-18]
+ALTER TABLE `ecs_order_info` ADD `order_sale_type` TINYINT(3) NOT NULL DEFAULT '0' COMMENT '0:默认零售区订单1：入团区订单 2:重购订单' AFTER `confirm_receive_time`;
+ALTER TABLE `ecs_order_info` ADD `vip` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '订单的vip属性' AFTER `order_sale_type`;
+ALTER TABLE `ecs_order_info` ADD `total_pv` VARCHAR(1024) NOT NULL DEFAULT '0' COMMENT '此笔订单的pv' AFTER `vip`;
+ALTER TABLE `ecs_order_info` ADD `other_invite_code` VARCHAR(10) NULL DEFAULT NULL AFTER `total_pv`;
+变更数据表ecs_order_info
+新增字段 order_sale_type 1；零售区订单，2：入团区订单
+`order_sale_type` tinyint(3) NOT NULL DEFAULT '0' COMMENT '1；零售区订单，2：入团区订单',
+新增数据表ecs_api_log记录api请求记录
+CREATE TABLE `ecs_api_log` (
+  `log_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `log_time` int(10) unsigned NOT NULL DEFAULT '0',
+  `user_id` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `log_info` text NOT NULL,
+  `ip_address` varchar(15) NOT NULL DEFAULT '',
+  `posturl` varchar(255) DEFAULT '0' COMMENT '接口地址',
+  PRIMARY KEY (`log_id`),
+  KEY `log_time` (`log_time`),
+  KEY `user_id` (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=418 DEFAULT CHARSET=utf8;
+[2018-12-20]
+变更购物车表ecs_cart
+新增字段：
+goods_area 0代表零售区产品，1代表入团区产品
+ALTER TABLE `ecs_cart` ADD `goods_area` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0代表零售区产品，1代表入团产品' AFTER `addcarttime`;
+[2018-12-21]
+变更数据表ecs_users
+新增字段
+ALTER TABLE `ecs_users` ADD `area_amount_total` DECIMAL(10) NOT NULL DEFAULT '0.00' COMMENT '入团区订单总额' AFTER `mainpage_id`;
+ALTER TABLE `ecs_users` ADD `com_amount_total` DECIMAL(10) NOT NULL DEFAULT '0.00' COMMENT '零售区订单总额' AFTER `area_amount_total`;
+  area_amount_total入团区金额汇总
+  com_amount_total零售区金额汇总
+  ALTER TABLE `ecs_users` ADD `country` VARCHAR(255) NOT NULL DEFAULT '0' COMMENT '国家' AFTER `com_amount_total`;
+  `country` smallint(5) unsigned NOT NULL DEFAULT '0',
+   ALTER TABLE `ecs_users` ADD `province` VARCHAR(255) NOT NULL DEFAULT '0' COMMENT '省份' AFTER `com_amount_total`;
+  `province` smallint(5) unsigned NOT NULL DEFAULT '0',
+
+  `city` smallint(5) unsigned NOT NULL DEFAULT '0',
+  country_id
+  province_id
+  city_id
+  count
+  sign_time
+[2018-12-23]
+变更数据表  ecs_users
+新增字段
+country_id
+province_id
+city_id
+变更数据表 ecs_orders
+新增字段
+total_pv
+join_country_id
+join_province_id
+join_city_id
+
+
+

@@ -1,0 +1,141 @@
+{if $full_page}
+<!-- $Id: user_account_list.htm 17030 2010-02-08 09:39:33Z sxc_shop $ -->
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<div class="form-div">
+  <div id="form_div" >
+    <p class="autonym">实名信息</p>
+    <div id="form_div1"></div>
+    <input type="button" value="确定" id="autonym_btn">
+  </div>
+  <form action="javascript:searchUser()" name="searchForm" method="post">
+    <img src="images/icon_search.gif" width="25" height="22" border="0" alt="SEARCH" />
+    {$lang.user_id} <input type="text" name="keyword" size="10" />
+  
+         <input type="submit" onclick="userexport('javascript:searchUser()')" value="{$lang.button_search}" />
+                                          
+      <input type="submit" onclick="userexport('user_autonym.php?act=userautomexport')" value="导出EXCEL" />
+  </form>
+</div>
+
+<form method="POST" action="" name="listForm">
+<!-- start user_deposit list -->
+<div class="list-div" id="listDiv">
+{/if}
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th><a href="javascript:listTable.sort('user_name', 'DESC'); ">用戶名</a></th>
+
+    <th><a href="javascript:listTable.sort('real_name', 'DESC'); ">真实姓名</a></th>
+
+    <th><a href="javascript:listTable.sort('idcardimg', 'DESC'); ">证件正面</a></th>
+    <th><a href="javascript:listTable.sort('idcardimg2', 'DESC'); ">证件反面</a></th>
+    <th><a href="javascript:listTable.sort('idcardimg2', 'DESC'); ">证件号</a></th>
+
+
+   <th><a href="javascript:listTable.sort('autonym_submit_time', 'DESC'); ">申请时间</a></th>
+    
+    <th><a href="javascript:listTable.sort('remark', 'DESC'); ">审核时间</a></th>
+
+    <th><a href="javascript:listTable.sort('autonym_remark', 'ASC'); ">拒绝原因</a></th>
+        <th><a href="javascript:listTable.sort('autonym', 'ASC'); ">狀態</a></th>
+        <th><a href="javascript:listTable.sort('audit_user_name', 'DESC'); ">操作人</a></th>
+
+    <th>{$lang.handler}</th>
+  </tr>
+  {foreach from=$list item=item}
+  <tr>
+    <td>{if $item.user_name}{$item.user_name}{else}{$lang.no_user}{/if}</td>
+    <td>{$item.real_name}</td>
+    <td align="center"><a href='{$item.idcardimg}' target="bank">查看</a></td>
+    <td align="center"><a href='{$item.idcardimg2}' target="bank">查看</a></td>
+    <td align="center">{$item.ID_card}</td>
+    <td align="center">{$item.autonym_submit_time}</td>
+    <td align="center">{$item.autonym_audit_time}</td>
+    
+    
+    <td align="center">{$item.autonym_remark}</td>
+    
+
+    <td align="center">{if $item.autonym==1}已申請{elseif $item.autonym==2}未通過{elseif $item.autonym==0}未申请{else}已通過{/if}</td>
+    
+    <td align="center">{$item.audit_user_name}</td>
+    <td align="center">
+    {if $item.autonym==1}
+    <a href="user_autonym.php?act=check&id={$item.user_id}" title="{$lang.check}"><img src="images/icon_view.gif" border="0" height="16" width="16" />
+
+    {else}
+        <a href="javascript:showDetail('{$item.real_name}','{$item.ID_card}')" title="{$lang.check}"><img src="images/icon_view.gif" border="0" height="16" width="16" />
+          <a href="user_autonym.php?act=check&id={$item.user_id}" title="{$lang.check}"><img src="images/icon_view.gif" border="0" height="16" width="16" />
+    {/if}
+    </td>
+  </tr>
+  {foreachelse}
+  <tr>
+    <td class="no-records" colspan="8">{$lang.no_records}</td>
+  </tr>
+  {/foreach}
+
+<table id="page-table" cellspacing="0">
+<tr>
+  <td>&nbsp;</td>
+  <td align="right" nowrap="true">
+  {include file="page.htm"}
+  </td>
+</tr>
+</table>
+{if $full_page}
+</div>
+<!-- end user_deposit list -->
+</form>
+
+<script type="text/javascript" language="JavaScript">
+listTable.recordCount = {$record_count};
+listTable.pageCount = {$page_count};
+{foreach from=$filter item=item key=key}
+listTable.filter.{$key} = '{$item}';
+{/foreach}
+{literal}
+<!--
+
+
+/**
+ * 鎼滅储鐢ㄦ埛
+ */
+function searchUser()
+{
+    listTable.filter['keywords'] = Utils.trim(document.forms['searchForm'].elements['keyword'].value);
+    // listTable.filter['process_type'] = document.forms['searchForm'].elements['process_type'].value;
+    // listTable.filter['payment'] = Utils.trim(document.forms['searchForm'].elements['payment'].value);
+    // listTable.filter['is_paid'] = document.forms['searchForm'].elements['is_paid'].value;
+    listTable.filter['page'] = 1;
+    listTable.loadList();
+}
+function userexport(act){
+  
+    document.forms['searchForm'].action=act;
+}
+//-->
+var form_div1 = document.getElementById("form_div1");
+var form_div = document.getElementById("form_div");
+var autonym_btn = document.getElementById("autonym_btn");
+function showDetail(real_name,idcard){
+	var html = "";
+  html+= "&nbsp;&nbsp;\n真实姓名:"+real_name+"<br>";
+  html+= "&nbsp;&nbsp;\n身份证号:"+idcard+"<br>";
+  // html+= "&nbsp;&nbsp;\n证件正面:"+idcardimg+"<br>";
+  // html+= "&nbsp;&nbsp;\n证件反面:"+idcardimg2+"<br>";
+  // html+= "&nbsp;&nbsp;\n认证银行:"+bank+"<br>";
+  // html+= "&nbsp;&nbsp;\n银行卡:"+bank_card+"<br>";
+  // html+= "&nbsp;&nbsp;\n认证手机:"+mobile;
+	// alert(html);
+  form_div.style.display ="block"
+  form_div1.innerHTML=html;
+}
+autonym_btn.onclick=function(){
+ form_div.style.display ="none"
+}
+</script>
+{/literal}
+{include file="pagefooter.htm"}
+{/if}

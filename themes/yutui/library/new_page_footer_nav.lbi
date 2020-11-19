@@ -1,0 +1,66 @@
+<div class="filter-btn dis-box">
+
+	<a class="filter-btn-kefu filter-btn-a kefu" href="javascript:;"><i class="iconfont icon-kefu"></i><em id="kefu1">客服</em></a>
+    {if in_array(0,$goods_area)||in_array(2,$rtcat_id)}
+	<a href="{:url('flow/cart')}" class="filter-btn-flow filter-btn-a"><i class="iconfont icon-gouwuche"></i><sup class="b-color" id='total_number'><!--{if $seller_cart_total_number }-->{$seller_cart_total_number}<!--{else}-->0<!--{/if}--></sup><em>{$lang.shopping_cart}</em></a>
+    {/if}
+
+	<!--<a type="button" class="btn-cart box-flex n-iphone5-top1 j-goods-attr j-show-div" >{$lang.btn_add_to_cart}</a>-->
+
+	<!-- <a href="http://www.jiathis.com/share" class="jiathis s-share-submit" target="_blank">我要分享</a> -->
+
+<div class="s-share-submit -mob-share-open-pro">{$lang.one_click_share}</div>
+	<a type="button" class="btn-submitPro box-flex n-iphone5-top1 j-goods-attr j-show-div">{$lang.buy_now}</a>
+</div>
+<script src="/data/assets/js/clipboard.min.js"></script> 
+<script type='text/javascript'>
+//提现弹窗
+
+//关闭弹窗
+$(".x_clase").click(function(){
+
+  
+  $("#address_div").hide();
+})
+//复制电话号码
+  var phonetext= $("#phone_kf").html();
+  var clipboard = new ClipboardJS('#copy_iphont', {
+    text: function(trigger) {
+        return phonetext;
+    }
+ });
+  clipboard.on('success', function(e) {
+   alert("复制成功！");
+  });
+    (function(m, ei, q, i, a, j, s) {
+        m[i] = m[i] || function() {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = 'https://static.meiqia.com/dist/meiqia.js?_=t';
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '_MEIQIA');
+    _MEIQIA('entId', 102697);
+    _MEIQIA('withoutBtn');
+    _MEIQIA('metadata',{name:'{$smarty.session.user_name}'});
+    $(function(){
+    
+    	 $(".kefu").click(function(){
+    	 	_MEIQIA('showPanel');
+    	 });
+    });
+</script>
+
+<script src="http://chat.tenfutenmax.com.cn:1000/im/kefu.js?cid={$mobile_phone}&page={$current_url}&crm={$crm}&mode=mobile"></script>
+<script type="text/javascript">
+  window.onload = function(){
+
+        document.getElementById("kefu").onclick =function(){
+          openChatDialog();
+        }
+  }
+
+</script>

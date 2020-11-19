@@ -1,0 +1,66 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con" >
+	<!-- #BeginLibraryItem "/library/new_search_small.lbi" --><!-- #EndLibraryItem -->
+	<aside>
+		<div class="menu-left scrollbar-none" id="sidebar">
+			<ul>
+				{foreach from=$category item="vo" name="vo"}
+				<li {if $smarty.foreach.vo.index == 0} class="active"{/if}>{if count($vo.cat_id)>0}{$vo.name}{else}<a href="{$vo.url}">{$vo.name}</a>{/if}</li>
+				{/foreach}
+			</ul>
+		</div>
+	</aside>
+	{foreach from=$category item="val" name="val"}
+	<section class="menu-right padding-all j-content"{if $smarty.foreach.val.index != 0} style="display:none"{/if}>
+		{foreach from=$val.cat_id item="vo" name='category'}
+			{if count($vo.cat_id)>0}
+				<h5>{$vo.name}</h5>
+				<ul class="s-flex s-wrap">
+				{foreach from=$vo.cat_id item="v"}
+					<li class="w-3"><a href="javascript:void(0);" onclick='javascript:redirect_list({$v.id});'></a>
+					<img src="{$v.img}" /><span>{$v.name}</span></li>
+				{/foreach}
+				</ul>
+			{else}
+				{if $smarty.foreach.category.iteration==1}
+				<h5>{$val.name}</h5>
+				<ul class="s-flex s-wrap">
+				{foreach from=$val.cat_id item="v"}
+					<li class="w-3"><a href="javascript:void(0);" onclick='javascript:redirect_list({$v.id});'></a>
+					<img src="{$v.img}" /><span>{$v.name}</span></li>
+				{/foreach}
+				</ul>
+				{/if}
+			{/if}
+		{/foreach}
+	</section>
+	{/foreach}
+</div>
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+
+
+<!-- #BeginLibraryItem "/library/new_search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+	$(function($){
+	//底部加色
+	$(".footer-nav").find("a:eq(0)").addClass("active");
+		$('#sidebar ul li').click(function(){
+			$(this).addClass('active').siblings('li').removeClass('active');
+			var index = $(this).index();
+			$('.j-content').eq(index).show().siblings('.j-content').hide();
+			$(window).scrollTop(0);
+		})
+	})
+	
+	function redirect_list(id){
+		localData.remove('cat_'+ id +'_page');
+		localData.remove('cat_'+ id +'_page_min');
+		localData.remove('cat_'+ id +'_page_max');
+		window.location.href = 'index.php?c=category&id=' + id+ '&u={$uid}';
+	}
+</script>
+</body>
+</html>

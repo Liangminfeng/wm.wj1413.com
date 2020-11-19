@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  {if shareMeta}
+      <meta property="og:title" content="{$shareMeta.title}"/>
+      <meta property="og:description" content="{$shareMeta.description}"/>
+      <meta property="og:image" content="{$shareMeta.image}"/>
+      <meta property="og:updated_time" content="{:time()}"/>
+    {/if}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <title>{$articleinfo.title}</title>
+    <link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/data/assets/swiper/css/swiper.min.css"/>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/yutui/css/photoswipe.css">
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/js/ectouch.js"></script>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/search.css" >
+</head>
+<body style="background-color: #ffffff; max-width:640px;">
+<div class="s-flex s-show-title"><h1>{$articleinfo.title}</h1></div>  
+<div class="s-flex n-show">
+  <div>{$articleinfo.time}</div>
+  <div class="col-cheng"><a href="/">{$nickname}</a></div>
+</div>
+<div class="n-show-conten">
+{$articleinfo.content}
+</div>
+<div class="n-show-conten">
+  <!--{foreach name=contentpic from=$contentpic item=val}-->    
+    <p class="pt-05"><img src="{$val}"></p>
+  <!--{/foreach}-->   
+  </div>
+
+
+{if $shareUser&&$vip}
+<!--增加名片显示-->
+<a href="/index.php?m=default&c=user&a=mycard&u={$shareUser.user_id}">
+<div class="n-new-card">
+  <div class="s-flex">
+    <div class="n-new-img">
+        <img class="n-new-pic" src="{$shareUser.user_avatar|default:/themes/yutui/images/new/card_logo.png}">                 
+        <p class="v{if $shareUser.autonym==3} yes{else} not{/if}"><img src="images/new/user_ico.png"></p><!--有认证时class not 改为yes-->
+    </div>
+    <div>
+      <div class="f-25 color-whie">{$shareUser.nick_name|default:$shareUser.user_name}</div>
+      <div class="f-02 color-whie">{$shareUser.company}</div>
+      <div class="f-02 color-whie">{$shareUser.job}</div>
+    </div>
+  </div>  
+  <div class="s-flex">    
+    <div class="n-new-introduce color-whie"> 
+      <div class="onelist-hidden A">{if $shareUser.mobile_phone_business}{$shareUser.mobile_phone_business}{else}{$lang.no_enter}{/if}</div>
+      <div class="onelist-hidden B">{if $shareUser.email}{$shareUser.email}{else}{$lang.no_enter}{/if}</div>      
+      <div class="onelist-hidden C"> {if $shareUser.sign}{$shareUser.sign}{else}{$lang.no_enter}{/if}</div>
+    </div>
+  </div>
+</div>
+</a>
+{/if}
+<!-- #BeginLibraryItem "/library/new_share.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

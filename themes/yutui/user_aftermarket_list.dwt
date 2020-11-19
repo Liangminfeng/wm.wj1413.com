@@ -1,0 +1,48 @@
+<!-- #BeginLibraryItem "/library/user_header.lbi" --><!-- #EndLibraryItem -->
+<div class="Zorderlist">
+   <ul>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=order_list">{$lang.all_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=not_pay_order_list">{$lang.unpay_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=not_shoushuo">{$lang.unreceived_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=order_comment">{$lang.unreview_order}</a></li>
+    <li class="Out" ><a href="/index.php?m=default&c=user&a=aftermarket_list">{$lang.return_order}</a></li>
+  </ul>
+</div>
+	<!--{if $aftermarket_list}-->
+		<div class="ect-pro-list user-order" style="border-bottom:none;">			
+			<ul id="J_ItemList">
+			 <!--{foreach name=aftermarket_list from=$aftermarket_list item=orders}-->
+				<li>
+				<a href="{:url('user/aftermarket_detail', array('ret_id'=>$this->_var['orders']['ret_id']))}"><img src="{$orders.img}" class="pull-left" />
+				<dl>
+				  <dt>
+					<h4 class="title">{$lang.aftermarket_number}：{$orders.service_sn}</h4>
+				  </dt>
+				  <dd>{$lang.order_status}：{$orders.return_status}-{$orders.refund_status}</dd>
+				 <!-- <dd>{$lang.order_total_fee}：<span class="ect-color">{$orders.total_fee}</span></dd>-->
+				  <dd>{$lang.aftermarket_addtime}：{$orders.order_time}</dd>
+				</dl>
+				<i class="pull-right fa fa-angle-right"></i> </a> 
+				</li>
+			<!--{/foreach}-->		
+			</ul>	
+	  </div>
+	    {include file='library/page.lbi '}
+		<!--{else}-->
+		<div class="LsTabMc" >
+			<div class="Zbox u-bg-text"><p><img src="images/new/order.png"></p><p>{$lang.no_orders}~~</p></div>
+		</div>
+		<!--{/if}-->
+		</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+ //没有订单时页面底部也显示白底  
+  if($(".Zbox").hasClass("u-bg-text")){
+    $("body").addClass("bg-white")
+  }
+</script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+</body></html>

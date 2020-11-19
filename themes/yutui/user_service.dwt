@@ -1,0 +1,21 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<div class="con">
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<div class="s-box text-center mt-22" ><img src="images/like/QR.png" width="70%"></div>
+<div class="s-box text-center"><strong class="f-2">{$lang.user_lkd_service}</strong><p class="f-07 m-top10 line-02">{$lang.user_long_press}</p><p class="f-07 line-02">{$lang.user_add_to}</p><p class="f-07">{$lang.user_get_cheats}</p></div>
+
+</div>
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi " -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi " -->
+<!-- #EndLibraryItem -->
+<!-- <script type="text/javascript">
+$(".downPic").click(function(){
+	alert("您已经保存您的专属二维码到您的相册")
+})
+</script> -->

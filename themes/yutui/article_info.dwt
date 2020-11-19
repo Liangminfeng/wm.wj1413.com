@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  {if shareMeta}
+      <meta property="og:title" content="{$shareMeta.title}"/>
+      <meta property="og:description" content="{$shareMeta.description}"/>
+      <meta property="og:image" content="{$shareMeta.image}"/>
+      <meta property="og:updated_time" content="{:time()}"/>
+    {/if}
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <title>{$article.title}</title>
+    <link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/data/assets/swiper/css/swiper.min.css"/>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/yutui/css/photoswipe.css">
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/js/ectouch.js"></script>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/search.css" >
+    <script src="/data/assets/console/js/jquery.cookie.js"></script> 
+     <!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+</head>
+<body style="background-color: #ffffff; max-width:640px; box-sizing: border-box;">
+{if $isdongtai}
+<div class="s-flex s-wrap s-show-title">
+
+  <h1 class="box">{$article.title}</h1>
+  <div class="s-flex n-show">
+    <div>{$article.add_time}</div> 
+
+    <div class="col-cheng"><a href="{if $vip&&$isdongtai}/index.php?m=default&c=user&a=business_card&u={$shareUser.user_id}{else}/{/if}">{if $vip&&$isdongtai}{$shareUser.nick_name|default:$shareUser.user_name}{else}{$article.author}{/if}</a></div>
+
+  </div>
+
+</div>  
+
+{/if }
+
+<div class="n-show-conten n_show_img">
+{$article.content}
+{if $isdongtai}
+  <div class="box s-flex s-justify-b">
+    <div class="col-hui">{$lang.view_num} <span class="Newone">{$article.click_count}</span></div>
+    <!-- <div class="m-record-two" style="padding-top: 0.3rem;"><span class="Newtwo">{$article.zan}</span></div> -->
+  </div>
+  {/if}
+</div>
+
+<!--关联商品-->
+  <!--{if $article_goods}-->
+<div class="ect-margin-tb ect-pro-list n-new-link">
+<h2 class="f-06"><strong>{$lang.recommend_product}</strong></h2>
+<br />
+<ul>
+   <!--{foreach from=$article_goods item=article_goods}-->
+    <li class="single_item" onclick="window.open('{$article_goods.url}')"> <a href="{$article_goods.url}"><img src="{$article_goods.goods_thumb}" alt=""></a>
+      <dl class="s-flex s-wrap" style="height: 7rem; align-content: center;">
+        <dt style="width: 100%;">
+          <h4 class="title" style="padding-right: 0px; font-weight: bold;"><a href="{$article_goods.url}">{$article_goods.goods_name}</a></h4>
+        </dt>
+        <dd class="n-goods-top" style="margin-top: 1rem;"><span class="pull-left"><b class="ect-colory">{$article_goods.shop_price}</b> <del>{$article_goods.market_price}</del></span></dd>
+      </dl>
+    </li>
+    <!--{/foreach}--> 
+  </ul>
+</div>
+  <!--{/if}-->
+{if $shareUser&&$vip&&$isdongtai}
+<!--增加名片显示-->
+<div style="width: 100%;background: #F2F1F1;text-align: center;color: #47484A;padding: 1rem 0rem;margin-bottom: 1rem;">{$lang.business_card_msg_1}</div>
+<a href="#">
+  <div class="my_slfe_card" style="width:94%;text-align: center;margin:auto;position:relative;margin-bottom: 1rem;">
+      <img style="width:100%;border: 1px solid #d8d8d8;border-radius: 0.8rem;box-shadow: 0px 0px 18px #ddd;" src="/themes/yutui/images/like/Mycard6.png" alt="">
+      <div class="some_info">
+        <p class="user_names">{$user_info.nick_name}</p>
+        <p class="user_img"><img style="width:100%;border-radius: 100%;" src="{$shareUser.user_avatar|default:/themes/yutui/images/new/card_logo.png}?imageView2/1/w/300/h/300/q/100!|imageslim" alt=""></p>
+        <p class="user_jobs"><span style="font-size: 1.5rem;">{$shareUser.company}</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span style="font-size: 1.5rem;">{$shareUser.job}</span></p>
+        <p class="user_lianxi"><a style="color:#fff;font-size: 1.5rem;" href="{:url('user/business_card')}&u={$u}">{$lang.business_card_msg_2}</a></p><p class="user_myselfes"><span>{$lang.i_am}{$user_info.nick_name}，{$shareUser.sign}</span></p>
+        
+      </div>
+  </div>
+</a>
+{/if}
+
+{if $showShare && $showcard&&$vip}
+
+<!-- #BeginLibraryItem "/library/new_share.lbi" --><!-- #EndLibraryItem -->
+
+{/if}
+
+<script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v=1"></script>
+<script>
+$(window).load(function(){
+  /*var link = "{$share_link}";
+  if(link=="")link=location.href;
+  console.log(Mqrcode)
+ console.log(Mqrcode.pluginText)
+  Mqrcode.makeCode({
+    //设定返回函数
+    callback:function(img){
+        $(".my_slfe_card").append(`<img src="${img}">`);
+        $(".my_slfe_card").show();
+      },
+
+    //设定背景图片   可为空
+    bgImg:"/themes/yutui/images/like/Mycard6.png",
+    //有背景图片时二维码的定位
+    //position:{l:493,t:234},
+    //width:110,  //宽度
+    //height:110, //高度
+    //link:link,  //二维码链接 
+    //备份 
+    // pluginText:[
+    //   /*{text:"来自{$user_info.nick_name}的分享",l:320,t:180,font:"27px 微软雅黑",style:"#000",w:390,h:60},//昵称*/
+    //   {text:"{$shareUser.mobile_phone_business|default:暂未填写}",l:80,t:260,font:"25px 微软雅黑",style:"#fff",w:420,h:39},//电话
+    //   {text:"{$shareUser.email|default:暂未填写}",l:80,t:305,font:"25px 微软雅黑",style:"#fff",w:420,h:34},//邮箱
+    //   {text:"{$shareUser.nick_name|default:$shareUser.user_name}",l:180,t:60,font:"28px 微软雅黑"},//昵称
+    //   {text:"{$shareUser.company}",l:180,t:100,font:"28px 微软雅黑",style:"#ffffff"},//拓客商城
+    //   {text:"{$shareUser.sign}",l:80,t:350,font:"25px 微软雅黑",style:"#fff"},//签名
+    //   {text:"{$shareUser.job}",l:180,t:140,font:"28px 微软雅黑",style:"#fff"}//推手
+    // ],
+     
+    /*pluginImg:[
+      
+      /**
+      * src 图片链接（只接受当前域名下图片）
+      * l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+      * circle 是否圆形裁切
+      
+        
+      {src:"{$shareUser.user_avatar|default:/themes/yutui/images/new/card_logo.png}",l:38,t:40,w:100,h:100,circle:true},//商品图片
+      /*{src:"/themes/yutui/images/new/card_logo.png?v=1",l:570,t:980,w:50,h:50},商标logo */
+      /*{src:"/themes/yutui/images/like/hongqi.png?v=1",l:40,t:1170,w:400,h:80},*/  
+      //{src:"{$user_info.user_avatar|default:/themes/yutui/images/new/card_logo.png}",l:240,t:140,w:65,h:65,circle:true},  
+      
+    //],
+    /*pluginText:[
+      /*{text:"来自{$user_info.nick_name}的分享",l:320,t:180,font:"27px 微软雅黑",style:"#000",w:390,h:60},//昵称*/
+      //{text:"{$shareUser.mobile_phone_business|default:暂未填写}",l:80,t:260,font:"25px 微软雅黑",style:"#fff",w:420,h:39},//电话
+      //{text:"{$shareUser.email|default:暂未填写}",l:80,t:305,font:"25px 微软雅黑",style:"#fff",w:420,h:34},//邮箱
+      //{text:"{$shareUser.nick_name|default:$shareUser.user_name}",l:240,t:200,font:"42px 微软雅黑",style:"#fff",w:600,h:45,},//昵称
+      //{text:"{$shareUser.company}",l:270,t:250,font:"28px 微软雅黑",style:"#ffffff"},//拓客商城
+      //{text:"|",l:360,t:250,font:"25px 微软雅黑",style:"#fff"},//签名
+      //{text:"{$shareUser.job}",l:380,t:250,font:"28px 微软雅黑",style:"#fff"},//推手
+      //{text:"联系TA",l:580,t:65,font:"30px 微软雅黑",style:"#fff"},//联系他
+      //{text:"我是{$shareUser.nick_name|default:$shareUser.user_name}，因为专业，所以卓越，精诚为",l:20,t:330,w:700,h:45,font:"30px 微软雅黑",style:"#000"},
+      //{text:"您服务，如有需求，请随时与我联系",l:100,t:380,w:600,h:45,font:"30px 微软雅黑",style:"#000"}
+    //],
+    //pluginImg:[
+      
+      /**
+      * src 图片链接（只接受当前域名下图片）
+      * l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+      * circle 是否圆形裁切
+      */
+        
+      //{src:"{$shareUser.user_avatar|default:/themes/yutui/images/new/card_logo.png}",l:296,t:26,w:110,h:110,circle:true},//商品图片
+      /*{src:"/themes/yutui/images/new/card_logo.png?v=1",l:570,t:980,w:50,h:50},商标logo */
+      /*{src:"/themes/yutui/images/like/hongqi.png?v=1",l:40,t:1170,w:400,h:80},*/  
+      //{src:"{$user_info.user_avatar|default:/themes/yutui/images/new/card_logo.png}",l:240,t:140,w:65,h:65,circle:true},  
+      
+    //],
+    //final:function(object){
+
+        //var newimg = Mqrcode.canvas.toDataURL("image/png");
+       // return object.success(newimg);
+     
+      //}
+    
+    
+ // });
+
+
+
+
+//阅读
+  var num=$(".Newone").text();
+
+  if($.cookie("clickOne"+"{$article_id}") != 'yes'){
+      num = $(".Newone").text();  
+     
+      $(".Newone").text(parseInt(num) +1);
+      $.cookie("clickOne"+"{$article_id}",'yes',{ expires:1000});
+      $.ajax({
+          url   : "index.php?c=article&a=updateviewguest",
+          data  : {num: num, article_id: {$article_id}},
+          dataType: "JSON",
+          type  : "post",
+          success :function(data){
+     
+                  $(".Newone").text(data.num);
+          }
+        });
+
+      if({$u}>0){
+
+          $.ajax({
+          url   : "index.php?c=article&a=updatereffer",
+          data  : {num: 1, u: {$u}},
+          dataType: "JSON",
+          type  : "post",
+          success :function(data){
+        
+                  $(".Newone").text(data.num);
+          }
+        });
+          
+      }
+
+   
+  }
+//点赞  
+   
+    $(".m-record-two").on("click",function(){
+     if($.cookie("{$article_id}") != 'yes'){
+      var num = $(".Newtwo").text()
+          num++;     
+       $.ajax({
+           url   : "index.php?c=article&a=updatezannum",
+           data  : {num: num, article_id: {$article_id}},
+           dataType: "JSON",
+           type  : "post",
+           success :function(data){
+            $(".Newtwo").text(num);
+           }
+         });
+      $.cookie("{$article_id}",'yes',{ expires:1000});
+      
+      }else{
+	      alert("{$lang.already_click_msg}");
+	  }
+    })
+  
+})
+</script>
+</body>
+</html>

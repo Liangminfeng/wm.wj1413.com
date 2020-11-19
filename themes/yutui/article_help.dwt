@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>{$lang.help_center}</title>
+	<link rel="stylesheet" href="/themes/yutui/css/style.css">
+	<link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+    {if $is_wechat}
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+<script type="text/javascript">
+  var shareline = '{$share_link}';
+  var sharehref = shareline == '' ? location.href : shareline;
+  var shareTitle = "{$share_title}";
+  var shareDesc = "{$share_description}";
+  var sharePic = "{$share_pic}";
+  // 分享内容
+  var shareContent = {
+    title : shareTitle,
+    desc : shareDesc,
+    link : sharehref,
+    imgUrl : sharePic,
+  };
+  $(function() {
+    var url = window.location.href;
+    var jsConfig = {
+      debug : false,
+		jsApiList : [ 'updateAppMessageShareData', 'updateTimelineShareData',
+			'onMenuShareWeibo']
+    };
+    $.post("{:url('api/jssdk')}", {
+      url : url
+    }, function(res) {
+      if (res.status == 200) {
+        jsConfig.appId = res.data.appId;
+        jsConfig.timestamp = res.data.timestamp;
+        jsConfig.nonceStr = res.data.nonceStr;
+        jsConfig.signature = res.data.signature;
+        // 配置注入
+        wx.config(jsConfig);
+        // 事件注入
+        wx.ready(function() {
+        	wx.updateAppMessageShareData(shareContent);
+			wx.updateTimelineShareData(shareContent);
+			wx.onMenuShareWeibo(shareContent);
+        });
+      }
+    }, 'json');
+  })
+</script>
+{/if}
+</head>
+<body class="con">
+<form name="searchForm" action="/index.php">
+<div class="s-flex h-help-top">
+<input type="hidden" name="c" value="article">
+<input type="hidden" name="a" value="help">
+  <div><input name="keywords" placeholder="{$lang.input_keywords}"><i class="iconfont icon-sousuo" onclick="searchForm.submit();"></i></div>
+  </div>
+</form>
+<!--分类-->
+<div class="s-flex text-center h-help-item">
+  <div {if $id==16}class="active"{/if} onclick="toCate(16)">
+    <p><img src="images/new/help1.png"></p>
+    <p>{$lang.func_questions}</p>
+  </div>
+  <div {if $id==15}class="active"{/if} onclick="toCate(15)">
+    <p><img src="images/new/help2.png"></p>
+    <p>{$lang.trade_question}</p>
+  </div>
+  <div {if $id==17}class="active"{/if} onclick="toCate(17)">
+    <p><img src="images/new/help3.png"></p>
+    <p>{$lang.account_question}</p>
+  </div>
+  <div {if $id==14}class="active"{/if} onclick="toCate(14)">
+    <p><img src="images/new/help4.png"></p>
+    <p>{$lang.service_question}</p>
+  </div>
+</div>
+<!--内容-->
+<div class="h-help-conten">
+  <div class="{if $id==16}A{/if} {if $id==15}B{/if} {if $id==17}C{/if} {if $id==14}D{/if} h-help-up"></div>
+  <ul>
+  {foreach from=$help_list item=help}
+  <a href="{$help.url}">
+    <li class="box s-flex s-justify-b f-05 l-show-bottom s-box-sizing" style="padding:1.3rem 4.5% 1.3rem 5%;"><p class="onelist-hidden">{$help.title}</p><span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span></li>
+    </a>
+  {/foreach}
+  </ul>
+</div>
+
+
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+
+<script type="text/javascript">
+function toCate(id){
+	var url = "/index.php?c=article&a=help&id="+id;
+	location.href=url;
+}
+
+</script>
+
+</body>

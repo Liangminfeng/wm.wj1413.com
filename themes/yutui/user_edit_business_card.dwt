@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>{$lang.edit_user_profile}</title>
+  <link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css?v={$v}">
+  <link rel="stylesheet" href="/themes/yutui/css/pic.css?v={$v}">  
+  <link rel="stylesheet" href="/themes/yutui/css/style.css?v={$v}">  
+  <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css?v={$v}" />
+</head>
+<body class="bg-white f-05">
+<form method="post" action="{:url('user/edit_business_card')}" name="searchForm" id='search_form' enctype='multipart/form-data'>
+<!--上传图片1-->
+<div class="s-flex s-justify-b u-card-title"><strong>{$lang.user_uploading_img}</strong></div>
+<div class="c-card-img-one">
+ {if $userinfo.user_banner1} <div class="c-card-imgok1"><img src="{$userinfo.user_banner1}" ></div>{/if}
+  <div class="c-card-img-oneBg">
+    <p><img src="images/new/card_pull.png"></p>
+    <p class="col-hui">{$lang.click_add_person_avatar}</p>
+  </div>
+  <span class="c-card-btn"></span><!--点击上传按钮-->
+  <div class="c-card-img-pull" id="headimg" style=""></div>
+  <div class="l-card-close c-one" imgno="1">{$lang.delete_pic}</div>
+</div>
+<!--图片裁剪-->
+<div class="clipbg displaynone">
+  <div id="clipArea"></div>
+  <div class="loading displaynone">{$lang.loading_pic}...</div>
+  <div class="footer">
+    <dl>
+      <dd style="background: #fe1041; color: #ffffff;border: none;">{$lang.open_album}<input type="file" id="file" name='file[]' accept="image/*"  ><input type="hidden" value="0" name="img1_status_delete"> </dd>
+      <dd id="clipBtn">{$lang.complete_tailor}</dd>
+    </dl>
+    <div class="back">{$lang.is_cancel}</div>
+  </div>
+</div>
+<!--上传图片2-->
+<div class="c-card-img-two">
+  {if $userinfo.user_banner2}<div class="c-card-imgok2"><img src="{$userinfo.user_banner2}" ></div>{/if}
+  <div class="c-card-img-oneBg">
+    <p><img src="images/new/card_pull.png"></p>
+    <p class="col-hui">{$lang.click_add_person_avatar}</p>
+  </div>
+  <span class="c-card-btn-two"></span><!--点击上传按钮-->
+  <div class="c-card-img-pull" id="headimg_two" style=""></div>
+  <div class="l-card-close c-two" imgno="2">{$lang.delete_pic}</div>
+</div>
+<!--图片裁剪-->
+<div class="clipbg-two displaynone">
+  <div id="clipArea_two"></div>
+  <div class="loading displaynone">{$lang.loading_pic}...</div>
+  <div class="footer">
+    <dl>
+      <dd style="background: #fe1041; color: #ffffff;border: none;">{$lang.open_album}<input type="file" id="file" name='file[]' id="file" accept="image/*" ><input type="hidden" value="0" name="img2_status_delete"> </dd>
+      <dd id="clipBtn_two">{$lang.complete_tailor}</dd>
+    </dl>
+    <div class="back">{$lang.is_cancel}</div>
+  </div>
+</div>
+<!--上传图片3-->
+<div class="c-card-img-three">
+  {if $userinfo.user_banner3}<div class="c-card-imgok3"><img src="{$userinfo.user_banner3}" ></div>{/if}
+  <div class="c-card-img-oneBg">
+    <p><img src="images/new/card_pull.png"></p>
+    <p class="col-hui">{$lang.click_add_person_avatar}</p>
+  </div>
+  <span class="c-card-btn-three"></span><!--点击上传按钮-->
+  <div class="c-card-img-pull" id="headimg_three" style=""></div>
+  <div class="l-card-close c-three" imgno="3">{$lang.delete_pic}</div>
+</div>
+<!--图片裁剪-->
+<div class="clipbg-three displaynone">
+  <div id="clipArea_three"></div>
+  <div class="loading displaynone">{$lang.loading_pic}...</div>
+  <div class="footer">
+    <dl>
+      <dd style="background: #fe1041; color: #ffffff;border: none;">{$lang.open_album}<input type="file"  id="file" name='file[]' id="file" accept="image/*" ><input type="hidden" value="0" name="img3_status_delete"> </dd>
+      <dd id="clipBtn_three">{$lang.complete_tailor}</dd>
+    </dl>
+    <div class="back">{$lang.is_cancel}</div>
+  </div>
+</div>
+<div class="u-card-hui" style="float: left; margin-top: 3rem;"></div>
+<!--添加信息-->
+<div class="box text-center bg-white m-top08 m-bottom08" onclick="javascript:location.href='{$val.url}'">
+  <div class="s-flex s-justify-b u-card-title"><strong>{$lang.user_compile}</strong></div>
+  <a href="/index.php?m=default&c=user&a=edit_card&u=141&mid={$mid}" id="c-card-link">
+    <div class="c-card-show text-center ptb-1 c-card-click">
+      <p class="f-3 col-hui">+</p>
+      <p class="col-hui">{$lang.click_add_one_show}</p>
+    </div>
+  </a>
+</div>
+
+
+
+ <div>
+
+<!--{foreach name=user_profile_article from=$user_profile_article item=val}-->
+<div class="box text-center bg-white article{$val.id}"> 
+  <div class="u-card-hui"></div> 
+  <div class="s-flex s-justify-b u-card-title"><strong>{$val.title}</strong></div>
+  <div class="u-card-editbox">
+    {if $val.cover_pic}
+    <p class="img"><img src="{$val.cover_pic}"></p>
+    {/if}
+    <div class="s-flex s-card-newsubmit"><a href="javascript:;" class="u-card-shanchu delarticle" num='{$val.id}'>{$lang.drop}</a><a href="{:url('user/edit_card', array('id'=>$this->_var[val]['id'],'mid'=>$this->_var[val]['mid']))}" class="u-card-bianj">{$lang.edit}</a><input type="hidden" name="sort[{$val.user_id}][{$val.id}]" value="{$val.id}"><a onclick="up(this)" class="u-card-shang">上移</a><a onclick="down(this)" class="u-card-xia">下移</a></div>
+  </div>  
+</div>
+<!--{/foreach}-->
+</div>
+<!--提交按钮-->
+<div id="demo1"></div>
+<div style="width: 100%; height: 6.5rem"></div>
+<input type='hidden' name='mid' value="{$mid}" >
+<div class="c-card-editor"><a href="#" onclick="document.getElementById('search_form').submit();" class="Cect-bg">{$lang.save_ok}</a></div>
+</form>
+<script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/themes/yutui/photo/js/camera.js/hammer.min.js" ></script>
+<script type="text/javascript" src="/themes/yutui/photo/js/camera.js/lrz.all.bundle.js" ></script>
+<script type="text/javascript" src="/themes/yutui/photo/js/camera.js/iscroll-zoom-min.js" ></script>
+<script type="text/javascript" src="/themes/yutui/photo/js/camera.js/PhotoClip.js" ></script>
+<script type="text/javascript" src="/themes/yutui/js/qiniu-upload.js"></script>
+<script>
+var wh = getWH();
+  $(".c-card-btn").click(function(){
+    $(".clipbg").fadeIn()
+  })
+  $(".Hect-bg").click(function(){
+              num =$(this).attr('num');
+              htmlobj=$.ajax({url:"index.php?c=user&a=deletearticleinfo&id="+num,async:false});
+              if (htmlobj.responseText=="success") {
+                 //  $("#tr"+num).hide();
+                    location.href="index.php?c=user&a=edit_business_card";
+              }
+         });
+  var clipArea = new  PhotoClip("#clipArea", {
+        size: wh,
+        outputSize:[0,0],//打开图片大小，[0,0]表示原图大小
+        file: "#file",
+        view: "#headimg",
+        ok: "#clipBtn",
+        loadStart: function() { //图片开始加载的回调函数。this 指向当前 PhotoClip 的实例对象，并将正在加载的 file 对象作为参数传入。（如果是使用非 file 的方式加载图片，则该参数为图片的 url）
+          $(".loading").removeClass("displaynone");
+
+        },
+        loadComplete: function() {//图片加载完成的回调函数。this 指向当前 PhotoClip 的实例对象，并将图片的 <img> 对象作为参数传入。
+          $(".loading").addClass("displaynone");
+
+        },
+        done: function(dataURL) { //裁剪完成的回调函数。this 指向当前 PhotoClip 的实例对象，会将裁剪出的图像数据DataURL作为参数传入。      
+          //console.log(dataURL);//dataURL裁剪后图片地址base64格式提交给后台处理
+   //        var x = 12;       
+
+   //   var y = 0;           
+
+   // var rand = parseInt(Math.random() * (x - y + 1) + y);  
+
+   //      $("#demo1").append('<input type="hidden" name="contentpic1" id="'+ rand + '" value="' + dataURL + '">')
+   //        $(".clipbg").fadeOut()
+           QiniuManager.uploadB64(dataURL,{multiple:true,number:1,callback:function(img){
+
+
+       var x = 12;       
+
+         var y = 0;           
+
+         var rand = parseInt(Math.random() * (x - y + 1) + y);  
+
+        $("#demo1").append('<input type="hidden" name="contentpic1" id="'+ rand + '" value="' + img + '">')
+          $(".clipbg").fadeOut()
+    }});
+        }
+      });
+  $(".back").click(function(){
+    $(".clipbg").fadeOut()
+  })
+  //two
+  $(".c-card-btn-two").click(function(){
+    $(".clipbg-two").fadeIn()
+  })
+  var clipArea_two = new  PhotoClip("#clipArea_two", {
+        size: wh,
+        outputSize:[0,0],//打开图片大小，[0,0]表示原图大小
+        file: "#file",
+        view: "#headimg_two",
+        ok: "#clipBtn_two",
+        loadStart: function() { //图片开始加载的回调函数。this 指向当前 PhotoClip 的实例对象，并将正在加载的 file 对象作为参数传入。（如果是使用非 file 的方式加载图片，则该参数为图片的 url）
+          $(".loading").removeClass("displaynone");
+
+        },
+        loadComplete: function() {//图片加载完成的回调函数。this 指向当前 PhotoClip 的实例对象，并将图片的 <img> 对象作为参数传入。
+          $(".loading").addClass("displaynone");
+
+        },
+        done: function(dataURL) { //裁剪完成的回调函数。this 指向当前 PhotoClip 的实例对象，会将裁剪出的图像数据DataURL作为参数传入。      
+   //         var x = 12;       
+
+   //   var y = 0;           
+
+   // var rand = parseInt(Math.random() * (x - y + 1) + y);  
+
+   //      $("#demo1").append('<input type="hidden" name="contentpic2" id="'+ rand + '" value="' + dataURL + '">')
+   //        $(".clipbg-two").fadeOut()
+            QiniuManager.uploadB64(dataURL,{multiple:true,number:1,callback:function(img){
+
+
+       var x = 12;       
+
+         var y = 0;           
+
+         var rand = parseInt(Math.random() * (x - y + 1) + y);  
+  
+        $("#demo1").append('<input type="hidden" name="contentpic2" id="'+ rand + '" value="' + img + '">')
+          $(".clipbg-two").fadeOut()
+    }});
+        }
+      });
+  $(".back").click(function(){
+    $(".clipbg-two").fadeOut()
+  })
+  //three
+  $(".c-card-btn-three").click(function(){
+    $(".clipbg-three").fadeIn()
+  })
+  var clipArea_two = new  PhotoClip("#clipArea_three", {
+        size: wh,//裁剪框大小
+        outputSize:[0,0],//打开图片大小，[0,0]表示原图大小
+        file: "#file",
+        view: "#headimg_three",
+        ok: "#clipBtn_three",
+        loadStart: function() { //图片开始加载的回调函数。this 指向当前 PhotoClip 的实例对象，并将正在加载的 file 对象作为参数传入。（如果是使用非 file 的方式加载图片，则该参数为图片的 url）
+          $(".loading").removeClass("displaynone");
+
+        },
+        loadComplete: function() {//图片加载完成的回调函数。this 指向当前 PhotoClip 的实例对象，并将图片的 <img> 对象作为参数传入。
+          $(".loading").addClass("displaynone");
+
+        },
+        done: function(dataURL) { //裁剪完成的回调函数。this 指向当前 PhotoClip 的实例对象，会将裁剪出的图像数据DataURL作为参数传入。      
+   //         var x = 12;       
+
+   //   var y = 0;           
+
+   // var rand = parseInt(Math.random() * (x - y + 1) + y);  
+ 
+   //      $("#demo1").append('<input type="hidden" name="contentpic3" id="'+ rand + '" value="' + dataURL + '">')
+
+   //        $(".clipbg-three").fadeOut()
+          QiniuManager.uploadB64(dataURL,{multiple:true,number:1,callback:function(img){
+
+
+       var x = 12;       
+
+         var y = 0;           
+
+         var rand = parseInt(Math.random() * (x - y + 1) + y);  
+
+        $("#demo1").append('<input type="hidden" name="contentpic3" id="'+ rand + '" value="' + img + '">')
+          $(".clipbg-three").fadeOut()
+    }});
+        }
+      });
+  $(".back").click(function(){
+    $(".clipbg-three").fadeOut()
+  })
+  //移除背景1
+  $(".c-one").click(function(){
+         $("#headimg").css("background-image" ,"url()")
+    // var banner = "user_banner1";
+    //  var mid = $("input[name='mid']").val();
+      
+    //   $.ajax({
+    //       url   : "index.php?c=user&a=deletebanner",
+    //       data  : {user_banner1: banner,mid:mid},
+    //       dataType: "JSON",
+    //       type  : "post",
+    //       success :function(data){
+
+
+    //         $("#headimg").css("background-image" ,"url()")
+            
+    //       }
+    //     });
+  
+
+    
+
+    
+
+  })
+
+    $(".delarticle").click(function(){
+
+    var user_id = {$user_id};
+     var aid = $(this).attr("num");
+      if(confirm("确定删除吗")){
+
+        $.ajax({
+          url   : "index.php?c=user&a=delarticle",
+          data  : {user_id: user_id,aid:aid},
+          dataType: "JSON",
+          type  : "post",
+          success :function(data){
+
+            if(data.code==200){
+                 $(".article"+aid).remove();
+            }
+
+
+            
+          }
+        });
+
+      }
+      
+  
+
+    
+
+    
+
+  })
+  //移除背景2
+  $(".c-two").click(function(){
+   $("#headimg_two").css("background-image" ,"url()")
+    // var banner = "user_banner2";
+    //  var mid = $("input[name='mid']").val();
+    //   $.ajax({
+    //       url   : "index.php?c=user&a=deletebanner",
+    //       data  : {user_banner2: banner,mid:mid},
+    //       dataType: "JSON",
+    //       type  : "post",
+    //       success :function(data){
+
+
+    //         $("#headimg_two").css("background-image" ,"url()")
+            
+    //       }
+    //     });
+   
+  })
+  //移除背景3
+  $(".c-three").click(function(){
+        $("#headimg_three").removeAttr("src");
+    // var banner = "user_banner3";
+    //  var mid = $("input[name='mid']").val();
+    //   $.ajax({
+    //       url   : "index.php?c=user&a=deletebanner",
+    //       data  : {user_banner3: banner,mid:mid},
+    //       dataType: "JSON",
+    //       type  : "post",
+    //       success :function(data){
+
+
+    //         $("#headimg_three").removeAttr("src");
+
+            
+    //       }
+    //     });
+   
+  })
+  //移除编辑后的图片
+  $(".c-one").click(function(){
+    $(".c-card-imgok1").remove()
+    // $(".c-card-img-pull").remove()
+    $("#headimg").removeAttr("style")
+
+    $("input[name='img1_status_delete']").val(1);
+ 
+  })
+  $(".c-two").click(function(){
+    $(".c-card-imgok2").remove()
+   
+  
+    // $(".c-card-img-pull").remove()
+     $("#headimg_two").removeAttr("style")
+      $("input[name='img2_status_delete']").val(1);
+  })
+  $(".c-three").click(function(){
+    $(".c-card-imgok3").remove()
+    // $(".c-card-img-pull").remove()
+    // 
+    $("#headimg_three").removeAttr("style")
+    $("input[name='img3_status_delete']").val(1);
+
+  })
+  //裁剪框按屏幕比例
+  function getWH(){
+	  var ww = $(window).width();
+	  if(ww>640) ww=640;
+	  return [ww*.95,ww*0.95*0.75];
+  }
+  
+</script>
+<script type="text/javascript" >
+//移动div
+function up(obj) {
+    var parenttr=$(obj).parent().parent().parent();//parenttr 需要移动的整个div
+    var zhi = parenttr.find("input:hidden").val();//隐藏的input 的value值
+    var zhi1 = parseFloat(zhi) - 1;//value值-1
+    var parentpre=parenttr.prev();//parentpre 需要移动的div的上一个兄弟
+    if (parentpre.length > 0) {
+      parenttr.find("input:hidden").val(zhi1);
+      parenttr.prev().find("input:hidden").val(zhi);
+      parentpre.insertAfter(parenttr);
+    }
+    if(zhi == 1){
+      alert("亲，已经是最上面了")
+    }
+}
+function down(obj) {
+    var parenttr=$(obj).parent().parent().parent();
+    var zhi = $(obj).parent().find("input:hidden").val();
+    var zhi1 = parseFloat(zhi) + 1;
+    var parentpre=parenttr.next();
+    if (parentpre.length > 0) {
+      parenttr.find("input:hidden").val(zhi1);
+      parenttr.next().find("input:hidden").val(zhi);
+      parentpre.insertBefore(parenttr);
+    }
+    if(zhi == 2){
+      alert("亲，已经是最下面了")
+    }
+}
+</script>
+</body>
+</html>

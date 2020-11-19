@@ -1,0 +1,144 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="/themes/yutui/statics/js/swiper.min.js"></script>
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+    <link rel="stylesheet" href="/themes/yutui/statics/css/mui.min.css ">
+    <script type="text/javascript" src="/themes/yutui/statics/js/mui.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/statics/js/mui.zoom.js"></script>
+    <script type="text/javascript" src="/themes/yutui/statics/js/mui.previewimage.js"></script>
+<body>
+<div class="con m-b7 earnings_header">   
+
+
+  <div class="total_top_pic">  
+    <div class="s-flex b-color-f"> 
+      <div class="total_img"> 
+        <img style="width:100%;" src="{$talk_banner}">
+      </div>
+      <div class="total_title">
+        <h3 class="title_h3">#{$title}#</h3>
+        <p style="color: #333;">{$totalsucai}{$lang.n_dongtai}</p>
+      </div>
+     </div>   
+
+    
+    </div> 
+    <div class="spe_g_product">{$content}</div>
+    <div class="bg-white tab-menu" style="font-size:1.5rem;">
+      {$lang.sort}：
+      <span class="actived" onclick="javascript:window.location.href='{$timeurl}'">按时间</span>
+     
+    </div>
+
+{if $sucai_list}
+
+     <!--{foreach from=$sucai_list item=sucai}-->
+    <nav class="mui-content" style="margin-bottom: 0.5rem;">
+      <div class="spe_content_item">
+        <p style="width:16%;padding-right: 1rem;margin: auto 0;"><img style="border-radius: 100%;" src="../{$sucai.sucai_user_picture}" alt=""> </p>
+        <div style="margin:auto 0;">
+          <b>{$sucai.sucai_user_name}</b>
+          <p style="margin-bottom:0;"><span style="color: #bdbdbd;font-size:1.3rem;">{$sucai.justtime}</span>
+          <!--<span class="to_top">置顶</span><span>  </span></p>-->
+        </div>
+                    
+      </div>
+      <div class="spe_content_title" style="font-size: 1.5rem;">
+      <a class="sucai_tiaozhuan" href="index.php?m=default&c=article&a=special&talk_id={$newtalk_id}">
+        <p class="" style="color: #356aff;margin-bottom:0;">
+            #{$sucai.talk}# 
+        </p>
+      </a> 
+        <div class="sucai_content_zhedie">{$sucai.sucai_content}</div>
+       
+      </div>
+      <div class="mui-content-padded s-flex spe-content_pic" style="margin:0">
+       <!--{foreach from=$sucai.imglist item=imglist}-->
+        <div class="spe_pp"><img style="width:100%;" src="{$imglist}?imageView2/1/w/300/h/300/q/100" data-preview-src="" data-preview-group="1" data-preview-src="{$imglist}" alt=""></div>
+      <!--  {/foreach}-->
+      </div>
+
+    </nav>
+{/foreach}
+{else}
+
+<div class="sucai_else_no">
+  <p ><img style="width:60%;" src="themes/yutui/images/new/intnIco6.png"></p>
+  <p class="col-hui" style="font-size:18px;">{$lang.no_sucai_about}</p>
+</div>
+{/if}
+</div>
+   
+  
+
+   
+ 
+      
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+
+<script>
+  mui.init({
+      tap: true, //默认为true
+      doubletap: true, //默认为false
+      longtap: true, //默认为false
+      swipe: true, //默认为true
+      drag: true, //默认为true
+      hold:true,//默认为false，不监听
+      release:false//默认为false，不监听
+    });
+mui.previewImage();
+</script>
+<script>
+//超出折叠
+$(".sucai_content_zhedie").each(function(){
+  var $p = $(this).find('p');
+  var $more = $(this).find('#more');
+  for( var i=0; i<$p.length; i++ ){
+      i < 5 ? $p.eq(i).show() : $p.eq(i).hide();
+  }
+  $p.length > 5 ? $more.show() : $more.hide();
+  if($p.length<5){
+    $more.hide();
+  }
+  $more.on('click', function(){
+      $p.show();
+      $more.hide();
+  });
+})
+//获取标题的宽度
+var h3_width=$(".title_h3").width();
+$(".special_title").css("marginLeft",-h3_width/2);
+$(".nav-list").click(function(){
+  	location.href=$(this).attr("href");
+  })
+
+  $(function () {
+  $(".mui-preview-header").empty(); 
+    if($(".spe_pp").length==1){
+    $(".spe_pp").css("width","33.33%")
+  }else if($(".spe_pp").length==4){
+  $(".spe_pp").css("width","34%")
+  }
+    $(".nav-list").click(function(){
+      	location.href=$(this).attr("href");
+      })
+  });
+</script>
+<script>
+//专题链接跳转
+  $(".sucai_tiaozhuan").click(function(){
+    var url=$(this).attr("href");
+     
+     location.href=url;
+ })
+</script>
+</body>
+</html>

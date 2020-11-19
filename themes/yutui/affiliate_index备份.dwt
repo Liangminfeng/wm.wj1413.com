@@ -1,0 +1,160 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<!--top-->
+<div class="box" style="background-color: #333333">
+<div class="li-sales-top">
+  <div class="content">
+    <div class="s-flex s-justify-b">
+      <div class="s-flex s-align-items">
+        {if $info.user_avatar}
+        <div><img src="{$info.user_avatar}"></div>
+        {else}
+        <div><img src="__TPL__/images/idx_user.png"></div>
+        {/if}
+        <div class="name"><strong class="f-04" id="phone">{$info.nick_name}</strong>
+        <p>
+        {if $info.autonym_mobile_phone}
+        <span>{$info.autonym_mobile_phone}</span>
+        <span id="phoneClick" onclick="phoneClick">复制</span></p>
+        {elseif $info.mobile_phone}
+        <span>{$info.mobile_phone}</span>
+        <span id="phoneClick" onclick="phoneClick">复制</span></p>
+
+        {/if}
+        </div>
+      </div>
+      <div class="privilege"><a href="/index.php?m=default&c=user&a=VIPprivilege">查看VIP特权></a></div>
+    </div>
+    <div class="grade">
+      <strong>{$info.rank_name}</strong>
+      <p>VIP期限至{$end_vip_time}</p>
+    </div>
+  </div>
+</div>
+</div>
+<!--待入账返佣-->
+<div class="li-sales-money s-flex s-justify-a">
+  <a href="/index.php?m=default&c=user&a=affiliate_order"><div><strong class="color-whie" style="display: inline-block;">{if $affiliate_money_yet_done}{$affiliate_money_yet_done}{else}0{/if}</strong><p>待入账返佣(元)</p></div></a>
+  <a href="/index.php?m=default&c=user&a=affiliate_order"><div><div class="li-sales-money-line2"></div><strong class="color-whie">{if $total_affiliate}{$total_affiliate}{else}0{/if}</strong><p>累计返佣(元)</p></div></a>
+  <a href="/index.php?m=default&c=user&a=account_detail"><div><div class="li-sales-money-line1"></div><strong class="color-whie">{$total_surplus}</strong><p>余额(元)</p></div></a>
+</div>
+<!--我的伙伴-->
+<div class="s-flex li-sales-partner s-align-items">
+  <div class="li-sales-partner-num"><a href="/index.php?m=default&c=user&a=affiliate_partner_new"><strong class="f-08">{$children_users}</strong><br>我的<br>伙伴</a></div>
+  <div class="li-sales-money-line"><img src="images/like/like_line.png"></div>
+  <div class="s-flex s-wrap li-sales-partner-img BgA" onclick="window.open('/index.php?c=topic&topic_id=6')">
+    <p><img src="images/like/like_money3A.png"></p>
+    <span style="color:#e94e63">获每单返佣</span>
+  </div>
+  <div class="s-flex s-wrap li-sales-partner-img BgB" onclick="window.open('/index.php?c=index&a=train_invite')">
+    <p><img src="images/like/like_money4A.png"></p>
+    <span>获88元+每单返佣</span>
+  </div>
+</div>
+<!--vip服务-->
+<div class="li-sales-vip">
+  <h2><span></span>VIP服务</h2>
+  <div class="s-flex s-justify-a">
+    <a href="{:url('user/affiliate_order')}"><div><img src="images/like/vip_1.png"><br>分销订单</div></a>
+    <a href="/index.php?m=default&c=user&a=affiliate_partner_new"><div><img src="images/like/vip_5.png"><br>我的伙伴</div></a>
+    <a href="javascript:;" class="analyzeOpen" style="position: relative;"><div><img src="images/like/vip_6.png"><br>获客分析</div><div class='t-box-small' id="Not" style="display: none;">敬请期待</div></a>
+    <a href="/index.php?m=default&c=user&a=service"><div><img src="images/like/vip_4.png"><br>专属客服</div></a>
+  </div>
+  <div class="s-flex s-justify-a" style="margin-top: -1rem;">
+    <a href="{if $smarty.session.user_rank==2}{:url('user/business_card')}{else}javascript:alert('{$lang.error_nochuangke}');{/if}"><div><img src="images/like/vip_2.png"><br>我的主页</div></a>
+    <a href="/index.php?m=default&c=user&a=mycard&u={$user_id}"><div><img src="images/like/vip_7.png"><br>我的名片</div></a>    
+    <a href="/index.php?m=default&c=article&a=index"><div><img src="images/like/vip_8.png"><br>热文分享</div></a>
+    <a href="/index.php?m=default&c=user&a=postersshow"><div><img src="images/like/vip_3.png"><br>场景海报</div></a>
+  </div>
+</div>
+<!--热门商品-->
+<div class="li-sales-goods">
+  <h2><span></span>热门商品</h2>
+  <div class="s-flex s-justify-a s-wrap">
+  <!--{foreach name=hot_goods from=$hot_goods item=goods}-->
+    <div class="content">
+      <a href="{:url('goods/index',array('id'=>$this->_var['goods']['goods_id']))}"><div class="pic s-flex s-justify-a s-align-items"><img src="{$goods.goods_img}"></div></a>
+      <div class="text">
+        <strong class="textNumber"><a href="#">{$goods.goods_name}</a></strong>
+        <p>¥{$goods.new_shoprice}</p>
+        <p class="col-red">分佣{$goods.afflicate}</p>
+      </div>
+    </div>
+<!--{/foreach}-->
+
+  </div>
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!--海报-->
+<div class='t-box s-flex s-justify-c' id='qrimg' style="display: none;"><strong class="qrloading"><div><img src="/themes/yutui/images/like/loading.gif"><br>图片努力读取中...</div></strong><div class='l-train-yes'><p style="border:0px solid #ffffff;" id='qrimgPic'><img style="display: block;"></p><p class="l-like-wx" style="display: none;"><img src="themes/yutui/images/like/share_bottom.png"></p><div class='l-train-close' style="display: none;"><em>X</em></div></div></div>
+<script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v=1"></script>
+<script type="text/javascript">
+$(window).load(function(){
+  var link = '{$share_link}';
+  if(link=="")link=location.href;
+  Mqrcode.makeCode({
+    //设定返回函数
+    callback:function(img){
+        $("#qrimgPic").find("img")[0].src=img;
+        $(".l-like-wx").show();
+        $(".l-train-close").show()
+      },
+    //设定背景图片   可为空
+    bgImg:"/themes/yutui/images/like/poster_bg.jpg",
+    //有背景图片时二维码的定位
+    position:{l:256,t:596},
+    width:260,  //宽度
+    height:260, //高度
+    link:link,  //二维码链接
+    pluginText:[
+      {text:"{$info.nick_name|default:$info.user_name}",l:210,t:230,font:"50px 微软雅黑",style:"#ffffff"},//文字1
+      {text:"向您推荐",l:430,t:274,font:"35px 微软雅黑",style:"#ffffff"},//文字1
+    ],
+    pluginImg:[
+      
+      /**
+      * src 图片链接（只接受当前域名下图片）
+      * l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+      * circle 是否圆形裁切
+      */
+      {src:"{$info.user_avatar|default:/themes/yutui/images/like/like.png}",l:330,t:41,w:115,h:115,circle:true},
+      {src:"/themes/yutui/images/like/share_logo.png",l:346,t:686,w:80,h:80},    
+    ],
+  });
+})
+$(".poster").click(function(){
+  $("#qrimg").show();
+});
+$(".l-train-close").click(function(){
+  $("#qrimg").hide();
+});
+//敬请期待弹窗
+$(".analyzeOpen").click(function(){
+  $("#Not").show().delay(3000).hide(1);
+});
+</script>
+<!--电话复制到剪贴板-->
+<script src="/data/assets/js/clipboard.min.js"></script> 
+<script type="text/javascript">
+var phonetext= $("#phone").html();
+var clipboard = new ClipboardJS('#phoneClick', {
+    text: function(trigger) {
+        return phonetext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("会员账号复制成功");
+});
+//控制字数
+$(".textNumber").each(function(){
+       var len=$(this).text().length;   //当前HTML对象text的长度
+       if(len>20){
+           var str="";
+           str=$(this).text().substring(0,20)+"...";  //使用字符串截取，获取前30个字符，多余的字符使用“......”代替
+           $(this).html(str);                   //将替换的值赋值给当前对象
+       }
+});
+</script>
+</body>
+</html>

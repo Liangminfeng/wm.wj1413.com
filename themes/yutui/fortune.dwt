@@ -1,0 +1,47 @@
+﻿<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem --> 
+ <div class="remaining" style="background:#2596F4;">
+        <p>您的财富金</p>
+        <h2 style="padding-top:0.5rem;">{$lxpoint}</h2>
+    </div>
+    <div class="qian_mingxi">
+        <a href="{:url('account/wealth_transfer')}"><p><img src="images/yen_.png"></p>
+        <p style="font-size: 1.2rem;">转账</p></a>
+    </div>
+    <div class="qian_mingxi" style="border:0;">
+        <a href="/index.php?m=default&c=account&a=wealth_detailed"><p><img src="images/m_search.png"></p>
+        <p style="font-size: 1.2rem;">明细</p></a>
+    </div>
+		
+	
+
+<!--<div class="no-div-message flow-no-cart">
+	<i><img src="themes/yutui/images/new/intnIco6.png" style="width: 18rem"></i>
+	<p class="col-3" style="color:#b1b1b1;">还没有相关财富金记录</p>
+</div>-->
+
+
+	
+<script>
+	$(document).ready(function(){
+		//底部选中
+	  	$(".footer-nav").find("a:eq(3)").addClass("active");
+	  
+	})
+	
+</script>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+		<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+
+
+</body>
+</html>

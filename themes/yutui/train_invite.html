@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>train_invite</title>
+	<link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+<!--头部-->
+<header class="dis-box header-menu Zect-bg color-whie"><a class="" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou"></i></a>
+	<h3 class="box-flex">邀请合作伙伴</h3>
+	<div class="header-kong">&nbsp;</div>
+</header>
+<div class="box s-img -mob-share-open"><img src="images/new/train_invite.png"></div>	
+<div class="s-box8">
+  <h2 class="f-2 mb-1">邀請說明</h2>
+  <p>1、您可以通過點擊上方邀請按鈕轉發邀請您的好友註冊成為魚推會員。</p>
+  <p>2、好友註冊成功後，雙方推薦關係確定，將無法調整。</p>
+  <p>3、您可以在經銷中心→分銷管理→分銷夥伴中查看您推薦的好友</p>
+</div>
+<!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-weixin"><p>weixin</p></li>
+        <!--复制网址-->
+       <li class="s-share-url">
+         <textarea cols="20" rows="10" id="shareUrl">複製網址</textarea>
+         <input type="button" onClick="Zshare()" />
+         <p>複製網址</p>
+       </li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=24f76b233f6d8"></script>
+<script> 
+mobShare.config( {
+    debug: true, // 开启调试，将在浏览器的控制台输出调试信息
+    appkey: '24f76b233f6d8', // appkey
+    params: {
+        url: 'http://test1.yoyo1.com.cn/index.php?m=default&c=user&a=login', // 分享链接
+        title: '您的好友邀您加入會省錢更會賺錢的商城', // 分享标题
+        description: '拓客全球购商城，自用省钱，分享赚钱，独创财富列车模式，50%以上免费领货率，跑越快赚越多！', // 分享内容
+        pic: 'http://test1.yoyo1.com.cn/themes/yutui/images/new/yutui_logo.png', // 分享图片，使用逗号,
+        reason:'',//自定义评论内容，只应用与QQ,QZone与朋友网
+    }, 
+    /**
+     * 分享时触发的回调函数
+     * 分享是否成功，目前第三方平台并没有相关接口，因此无法知道分享结果
+     * 所以此函数只会提供分享时的相关信息
+     * 
+     * @param {String} plat 平台名称
+     * @param {Object} params 实际分享的参数 { url: 链接, title: 标题, description: 内容, pic: 图片连接 }
+     */
+    callback: function( plat, params ) {
+    } 
+} ); 
+/*复制网址*/
+    function Zshare()
+    {
+        var sharehref=location.href;
+        $("#shareUrl").html(sharehref);
+        $("#shareUrl").select();
+        document.execCommand("Copy"); 
+        alert("復制成功，請粘貼給你的好友");
+    }
+</script>
+<!--MOB SHARE END-->
+</body>
+</html>

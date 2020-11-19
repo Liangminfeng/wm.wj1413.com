@@ -1,0 +1,71 @@
+<!-- $Id: user_account_check.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+<div class="main-div">
+<form method="post" action="user_autonym.php" name="theForm" onsubmit="return validate();">
+<table border="0" width="100%">
+  <tr>
+    <td colspan="2"><strong>實名認證申請：</strong><hr /></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+    <strong>用戶名：</strong>{$user.user_name} &nbsp;&nbsp;<strong>綁定手機：</strong>{$user.mobile_phone}
+    &nbsp;&nbsp;<strong>真實姓名：</strong>{$user.real_name}
+    &nbsp;&nbsp;<strong>证件类型：{$user.ID_type}</strong>&nbsp;&nbsp;<strong>证件号：{$user.ID_card}</strong>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><strong>開戶行：{$user.bank}</strong>&nbsp;&nbsp;<strong>銀行卡號：</strong>{$user.bank_card}<hr /></td>
+  </tr>
+  <tr>
+    <td colspan="2"><strong>申請時間：</strong>{$user.autonym_submit_time} &nbsp;&nbsp;<hr /></td>
+  </tr>
+  <tr>
+    <th width="15%" valign="middle" align="right">拒絕理由：</th>
+    <td width="85%">
+      <textarea name="remark" cols="55" rows="5">{$user.admin_note}</textarea>
+    </td>
+  </tr>
+  <tr>
+    <th width="15%" valign="middle" align="right">審核：</th>
+    <td>
+      <input type="radio" name="status" value="2" checked="true" />審核失敗
+      <input type="radio" name="status" value="3" />審核通過
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+      <input type="hidden" name="act" value="action" />
+      <input type="hidden" name="user_id" value="{$id}" />
+      <input name="submit" type="submit" value="{$lang.button_submit}" class="button" />
+      <input type="reset" value="{$lang.button_reset}" class="button" />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+document.forms['theForm'].elements['admin_note'].focus();
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("admin_note",  deposit_notic_empty);
+    return validator.passed();
+}
+
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

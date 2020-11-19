@@ -1,0 +1,89 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div id="J_ModId_5">
+  <div id="J_Conversation" class="m_msg conversation"> 
+    <!--{foreach from=$action_list item=action}-->
+    <div class="msg-item    msg-owner-mine    ">
+      <div class="p-info">
+        <div class="time">{$action.action_time}</div>
+        <div class="other"></div>
+      </div>
+      <div class="msg-info"> <s class="arrow"></s>
+        <div class="title">
+          <div class="itm">{$action.return_status}</div>
+          <div class="itm">{$action.refund_status}</div>
+        </div>
+        <div class="cutoff-line"></div>
+        <div class="desc">
+          <div class="desc-i"> {$action.action_info} </div>
+        </div>
+      </div>
+    </div>
+    <!--{/foreach}-->
+  </div>
+</div>
+
+<div id="J_ModId_6" style="display:none">
+  <div class="m_msg status J_Status show">
+    <div style="left: 0px; opacity: 1;" class="msg-item msg-owner-xiaoer J_MsgOwnerHers msg-type-2">
+      <div class="p-info"> 
+        <div class="time">{$return.action_time}</div>
+        <div class="other"></div>
+      </div>
+      <div class="msg-info"> <s class="arrow"></s>
+        <div class="title">{$lang.wait_seller_deal}</div>
+        <div class="cutoff-line"></div>
+        <div class="desc">
+          <div class="desc-i">{$lang.wait_seller_deal_desc}</div>
+          <div class="desc-i">{$lang.wait_seller_deal_desc_1}</div>
+         <!-- <div class="desc-i">{$lang.if_seller}<span class="J_Countdown countdown" data-config='{"leftTime":"431999","type":"countdown"}'><i class="iconfont icon-time"></i><span class="text">剩</span><s class="hand hand-d"><s class="digital digital-0 ">0</s><s class="digital digital-4 ">4</s></s>天<s class="hand hand-h"><s class="digital digital-2 ">2</s><s class="digital digital-3 ">3</s></s>時<s class="hand hand-m"><s class="digital digital-5 ">5</s><s class="digital digital-9 ">9</s></s>分</span>{$lang.wait_seller_deal_tip}</div>-->
+          <div class="cutoff-line cutoff-line2"></div>
+          <div class="additional"> {$lang.service_sn}: {$return.service_sn} </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--已申請，已審核-->
+<div id="J_ModId_15" style="display:none">
+  <div class="m_msg status J_Status show">
+    <div style="left: 0px; opacity: 1;" class="msg-item msg-owner-xiaoer J_MsgOwnerHers msg-type-2">
+      <div class="p-info"> 
+        <!--<div class="time">04-16 11:22</div>-->
+        <div class="other"></div>
+      </div>
+      <div class="msg-info"> <s class="arrow"></s>
+        <div class="title">{$lang.check_success}</div>
+        <div class="cutoff-line"></div>
+        <div class="desc">
+          <div class="desc-i">{$lang.check_success_message}</div>
+          <div class="cutoff-line cutoff-line2"></div>
+          <!--前臺用戶可執行操作 -->
+          <div class="additional"><a href="{:Url('user/to_return',array('ret_id'=>$this->_var['return']['ret_id']))}">{$lang.to_return}</a></div>
+          <!--前臺用戶可執行操作 -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="J_ModId_15" style="display:none">
+  <div class="m_msg status J_Status show">
+    <div style="left: 0px; opacity: 1;" class="msg-item msg-owner-xiaoer J_MsgOwnerHers msg-type-2">
+      <div class="p-info">
+        <!--<div class="owner"><b></b>{$lang.taobao}</div>-->
+        <div class="time">04-16 11:22</div>
+        <div class="other"></div>
+      </div>
+      <div class="msg-info"> <s class="arrow"></s>
+        <div class="title">{$lang.refund_shut}</div>
+        <div class="cutoff-line"></div>
+        <div class="desc">
+          <div class="desc-i">{$lang.refund_shut_tip}</div>
+          <div class="cutoff-line cutoff-line2"></div>
+          <div class="additional"> 編號: 39220159728720 </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

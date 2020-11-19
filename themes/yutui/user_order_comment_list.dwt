@@ -1,0 +1,70 @@
+<!-- #BeginLibraryItem "/library/user_header.lbi" --><!-- #EndLibraryItem -->
+<div class="Zorderlist">
+   <ul>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=order_list">{$lang.all_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=not_pay_order_list">{$lang.unpay_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=not_shoushuo">{$lang.unreceived_order}</a></li>
+    <li class="Out" ><a href="/index.php?m=default&c=user&a=order_comment">{$lang.unreview_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=aftermarket_list">{$lang.return_order}</a></li>
+  </ul>
+</div>
+{if $show_asynclist}
+<div class="ect-pro-list user-order" style="border-bottom:none;">
+    <ul id="J_ItemList">
+       <li class="single_item"></li>
+       <a href="javascript:;" style="text-align:center" class="get_more"></a>
+    </ul>
+</div>
+{else}
+{if $goods_list}
+	<div class="ect-pro-list user-order" style="border-bottom:none;">
+		<ul id="J_ItemList">
+		 <!--{foreach name=goods_list from=$goods_list item=orders}-->
+			<li>
+			<a href="{:url('user/order_comment_list', array('id'=>$this->_var['orders']['rec_id'],'order_id'=>$this->_var['orders']['order_id'],'goods_id'=>$this->_var['orders']['goods_id']))}">
+
+			<img src="{$orders.goods_img}" class="pull-left" />
+			<dl>
+			   <dd>{$orders.name}</dd></br>	{$orders.add_time}		   
+			</dl>
+			
+			<dd>
+			<a href="{:url('user/order_comment_list', array('id'=>$this->_var['orders']['rec_id'],'order_id'=>$this->_var['orders']['order_id'],'goods_id'=>$this->_var['orders']['goods_id']))}">
+					  <span  class="Zbtn ZsubB" style=" position: absolute;  bottom: 0rem;  right: 1rem; }">{$lang.go_to_review}</span>
+				 </a> 				
+		    </dd>
+			</li>
+		<!--{/foreach}-->
+		</ul>
+	</div>
+
+
+
+ {include file='library/page.lbi '}
+ {else}
+<div class="LsTabMc" >
+  <div class="Zbox u-bg-text"><p><img src="images/new/order.png"></p><p>{$lang.no_orders}~~</p></div>
+</div>
+ {/if}
+
+{/if}
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+{foreach from=$lang.merge_order_js item=item key=key}
+    var {$key} = "{$item}";
+{/foreach}
+//if({$show_asynclist}){
+//get_asynclist('index.php?m=default&c=user&a=async_order_list&pay={$pay}' , '__TPL__/images/loader.gif');
+//}
+</script> 
+<script type="text/javascript">
+ //没有订单时页面底部也显示白底  
+  if($(".Zbox").hasClass("u-bg-text")){
+    $("body").addClass("bg-white")
+  }
+</script>
+</body></html>

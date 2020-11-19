@@ -1,0 +1,145 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<div class="restartNew" style="z-index:9;">
+  {foreach from = $viporderlist item = order}
+  <li><p><img src="{$order.user_avatar|default:/themes/yutui/images/idx_user.png}"></p><span>{$order.nick_name}刚刚升级了VIP</span></li>
+  
+  {/foreach}
+</div>
+<div class="s-block img" style="background-color: #0b0b17;;">
+<div class="box box_bgc" style="height:auto;">
+<div class="li-sales-top li-sales-top1" style="margin-top:3rem;margin-bottom: 1rem;">
+  <div class="content content_market" style="padding:0;width: 90%;margin: auto;height: 14rem;">
+    <div class="s-flex s-justify-b">
+      <div class="s-flex s-align-items" style="padding: 1rem 1rem 0 1rem;box-sizing: border-box;">
+        {if $info.user_avatar}
+        <div><img src="{$info.user_avatar}"></div>
+        {else}
+        <div><img src="__TPL__/images/idx_user.png"></div>
+        {/if}
+        <div class="name"><strong class="f-04" >{if $info.nick_name}{$info.nick_name}{else}{$info.user_name}{/if}</strong>
+        <div class="s-flex" style="margin-top:0.5rem;">
+        <span style="display: block;background: #949493; color: #fff; border-radius: 2rem;font-size: 1rem;text-align: center;padding: 0 1rem;">
+           普通用户
+
+        </span>
+
+        <span></span>
+    </div>
+        </div>
+      </div>
+      <!--<div class="privilege"><a href="/index.php?m=default&c=user&a=VIPprivilege">VIP说明 &nbsp;></a></div>-->
+
+    </div>
+    
+    
+    {if $userprofit.get_share_limit}
+    <div class="progress_bar">
+      <div class="progress_bar_b" style="width: {math $userprofit.get_share div $userprofit.get_share_limit mak 100}%"></div>
+    </div>
+
+
+
+    <div class="buy_again">
+      <div class="buy_address">
+        <span >{$user_info.province}</span>
+        <span >{$user_info.city}</span>
+      </div>
+      <div style="display: flex;">
+        <p class="again_1">{$lang.already_get}：</p>
+        <p class="again_2">
+        <span>{$userprofit.get_share}</span> /
+        {if $userprofit.get_share_limit eq -1}
+           <span>{$lang.no_limit} &nbsp;</span>
+        {else}
+           <span>{$userprofit.get_share_limit}</span>
+        {/if}
+     
+        </p>
+        <p class="again_3">{$text}</p>
+      </div>
+      
+      
+    </div>
+    {/if}
+    <div style="padding: 0 1rem;box-sizing: border-box;">
+      <p class="" style="text-align: right;color: #8e754b;padding-bottom: 0.3rem;font-size:1rem;    padding-top: 1rem;">成长值<span>{$user_info.level_xp}</span>/<span>100</span><span class="nani"><a href="javascript:;" style="display:block;"><img style="width:100%" src="images/like/nani.png"></a></span></p> 
+      <p class="progress" style="height:1rem;">
+        <span class="progress_span" style="width:3%;height:1rem;background: #faf5e5;"></span>
+      </p>
+    </div>
+    <div style="font-size:1rem;text-align: center;padding: 0 0;color: #caa785;padding-top: 0.8rem;"><span class="laba_span"><img style="width:100%;" src="images/laba.png"></span>消费获得成长值达到100，即可升级VIP会员享各项权益</div>
+  </div>
+</div>
+
+  
+</div>
+</div>
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img.vmi31.com/public/vip_p1.png"></p>
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><a href="/index.php?c=topic&topic_id=17"><img src="http://img.vmi31.com/public/vip_p2.png"></a></p>
+<div style="display:flex;background: #f7f7f7;margin-bottom: -0.1rem;">
+<p ><a href="/index.php?c=goods&id=943&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p1_vip.png"></a></p>
+<p><a href="/index.php?c=goods&id=883&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p2_vip.png"></a></p>
+</div>
+<div style="display:flex;background: #f7f7f7;margin-bottom: -0.1rem;">
+<p><a href="/index.php?c=goods&id=884&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p3_vip11.png"></a></p>
+<p><a href="/index.php?c=goods&id=829&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p4_vip.png"></a></p>
+</div>
+<div style="display:flex;background: #f7f7f7;margin-bottom: -0.1rem;">
+<p style="background: #f7f7f7;"><a href="/index.php?c=goods&id=830
+&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p5_vip.png"></a></p>
+<p style="background: #f7f7f7;"><a href="/index.php?c=goods&id=885&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p6_vip.png"></a></p>
+</div>
+
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img.vmi31.com/public/vip_p003.jpg"></p>
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img.vmi31.com/public/vip_p0004.jpg"></p>
+</div>
+<!--普通用户弹窗-->
+  <div class="body_pop_up" id="address_div" style="display:none;">
+    <div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+      <div class="iknow" style="border-radius:0.5rem;">
+        <h2 style="padding: 2rem 0;text-align: center;">距离升级分数</h2>
+        <div class="earnings_input" style="padding: 0rem 2rem 4rem 2rem;">
+          <p style="text-align: center;font-size: 2.5rem;"><span>{$user_info.level_xp}</span>/<span>100</span></p>
+            <div style="padding-top: 2rem;">
+              <p class="p_sell_style">累计零售消费&nbsp;<span class="">{$user_info.level_xp}</span>分</p>
+            </div>
+        </div>
+        <div class="close_know" style="padding:1.5rem 0;background: #2596f4;color: #fff;">确定</div>
+      </div>
+    </div>    
+  </div>
+<!--未开通VIP-->
+<div style="width: 100%; height: 5rem"></div>
+<div class="s-flex c-card-submit" style="bottom: 4.7rem;border-top:0;"><a href="/index.php?c=topic&topic_id=17" class="" style="width: 100%;padding:0"><img style="width: 100%;"src="http://img02.tenfutenmax.com.cn/public/vip_market1_11.png"></a></div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+  $(function(){
+   //提现弹窗普通用户
+    $(".nani").click(function(){
+   
+      $("#address_div").show();
+    })
+
+
+
+
+
+  //提现关闭
+  $(".close_know").click(function(){
+    $("#address_div").hide();
+  })
+
+    $('.restartNew li:first').siblings().hide();
+    setInterval(function(){
+      $('.restartNew li:visible').fadeOut('normal', function(){
+          $(this).next('li')[0] === undefined ? $('.restartNew li:first').fadeIn("slow") : $(this).next('li').fadeIn("slow");
+      });
+    }, 5000)
+  });
+//数据随机显示
+
+</script>
+</body>
+</html>

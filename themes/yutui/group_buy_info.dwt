@@ -1,0 +1,202 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem --> 
+
+<script type="text/javascript" src="__TPL__/js/lefttime.js"></script>
+<div class="con">
+  <!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem --> 
+  <!--商品图片相册-->
+  <div id="focus" class="focus goods-focus">
+    <div class="hd">
+      <ul>
+      </ul>
+    </div>
+    <div class="bd">
+      <ul id="Gallery">
+       
+		<li><a href="{$gb_goods.url}"><img src="{$touch_img}" alt="{$gb_goods.goods_name}" /></a></li>
+      
+      </ul>
+    </div>
+  </div>
+  <!--2018-04-25优化-->
+<!--倒计时-->
+<div class="box s-flex">
+  <div class="s-flex g-group-left Rect-bg color-whie"><strong class="f-2">{$group_buy.formated_cur_price}</strong><!-- <p class="f-05">已售{$sales_count}件</p> --></div>
+  <div class="g-group-right Fect-bg color-whie">
+    <div class="f-03">{$lang.activity_end_time}</div>
+    <div id="leftTime">{$lang.please_waiting}</div>
+  </div>
+</div>
+<!--名称-->
+<div class="s-box bg-white s-box-sizing">
+  <div class="box">{$gb_goods.goods_name}</div>
+  <div class="s-flex s-justify-b line-02">
+    <div class="col-hui pt-1">{$lang.free_shipping_express}</div>
+   <!-- <div class="col-hui">{$lang.goods_inventory}{$group_buy.valid_goods}</div>-->
+  </div>
+</div>
+<!--说明-->
+<div class="g-group-text col-cheng">{$act_desc}</div>
+<!--展示-->
+<div id="n-goods" class="goods-info of-hidden ect-tab b-color-f j-goods-info j-ect-tab ts-3" style="border-top:0px;">
+  <div class="hd j-tab-title tab-title b-color-f of-hidden">
+    <ul class="dis-box">
+      <li class="box-flex active">{$lang.goods_detail}</li>
+      <li class="box-flex">{$lang.goods_attr}</li>
+    </ul>
+  </div>
+  <div id="j-tab-con" class="b-color-f m-top1px tab-con ">
+    <div class="swiper-wrapper swiper-no-swiping">
+      <section class="swiper-slide ">
+        <div class="padding-all">
+          <!--{if $gb_goods.goods_desc}-->
+          {$gb_goods.goods_desc}
+          <!--{else}-->
+          <div class="no-div-message">
+            <i class="iconfont icon-biaoqingleiben"></i>
+            <p>{$lang.no_centent}～！</p>
+          </div>
+          <!--{/if}-->
+        </div>
+      </section>
+      <section class="swiper-slide goods-info-attr swiper-no-swiping">
+        <!--{if $properties}-->
+        <ul class="t-remark">
+          <!-- {foreach from=$properties item=property_group key=key} -->
+          <!-- {foreach from=$property_group item=property} -->
+          <li class="of-hidden"><span class="fl">[{$property.name|escape:html}]</span><span class="fr">{$property.value}</span></li>
+          <!-- {/foreach}--> 
+          <!-- {/foreach}-->
+        </ul>
+        <!--{else}-->
+        <div class="no-div-message">
+          <i class="iconfont icon-biaoqingleiben"></i>
+          <p>{$lang.no_centent}～！</p>
+        </div>
+        <!--{/if}-->
+      </section>
+    </div>
+  </div>
+</div>
+<div style="width: 100%; height: 6rem"></div>
+<!--submit-->
+<form action="{:url("groupbuy/buy")}" method="post" name="ECS_FORMBUY" id="ECS_FORMBUY">
+<div class="s-flex s-justify-a g-group-submit" style="margin-bottom: 5rem;">
+  <div> 
+        <input type="hidden" name="valid_goods" value="{$group_buy.restrict_amount}" />
+        <input type="hidden" name="group_buy_id" value="{$group_buy.group_buy_id}" />
+      <section class="ect-padding-lr ">
+        <div class="goods-optionc"> 
+          <!-- {foreach name=spec from=$specification item=spec key=spec_key} -->
+          <div class="goods-option-con"> <span>{$spec.name}：</span>
+            <div class="goods-option-conr"> 
+            
+             <!-- {* 判断属性是复选还是单选 *} --> 
+                        <!-- {if $spec.attr_type eq 1} --> 
+                        <!-- {if $cfg.goodsattr_style eq 1} --> 
+                        <!-- {foreach from=$spec.values item=value key=key} -->
+                        <input type="radio" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}" {if $key eq 0}checked{/if}/>
+                               <label for="spec_value_{$value.id}">{$value.label}</label>
+                        <!-- {/foreach} -->
+                        <input type="hidden" name="spec_list" value="{$key}" />
+                        <!-- {else} -->
+                        <select name="spec_{$spec_key}" >
+                            <!-- {foreach from=$spec.values item=value key=key} -->
+                            <option label="{$value.label}" value="{$value.id}">{$value.label} {if $value.price gt 0}{$lang.plus}{elseif $value.price lt 0}{$lang.minus}{/if}{if $value.price neq 0}{$value.format_price}{/if}</option>
+                            <!-- {/foreach} -->
+                        </select>
+                        <input type="hidden" name="spec_list" value="{$key}" />
+                        <!-- {/if} --> 
+                        <!-- {else} --> 
+                        <!-- {foreach from=$spec.values item=value key=key} -->
+                        <input type="checkbox" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}"  />
+                        <label for="spec_value_{$value.id}">{$value.label} [{if $value.price gt 0}{$lang.plus}{elseif $value.price lt 0}{$lang.minus}{/if} {$value.format_price|abs}]</label>
+                        <!-- {/foreach} --> 
+                        <!-- {/if} --> 
+            </div>
+          </div>
+          <!-- {/foreach} --> 
+        </div>
+        <div class="goods-num"> <span class="pull-left col-hui" style="padding: 0.7rem 0.5rem 0rem 0rem;">{$lang.number}</span> 
+          <div class="input-group pull-left wrap"><span class="input-group-addon sup" onClick="changeNum('1')">-</span>
+            <input type="text" readonly="0" class="form-contro form-num"  name="number" id="goods_number" autocomplete="off" value="0" />
+            <span class="input-group-addon plus" onClick="changeNum('3')">+</span></div>
+        </div>
+      </section>
+    
+    </div>
+    <div><a href="javascript:;" class="btn btn-info ect-btn-info ect-colorf ect-bg" onClick="document.getElementById('ECS_FORMBUY').submit()" style="padding:0.5rem 2rem;">{$lang.button_buy}</a> </div>
+</div>
+</form>
+  <!--2018-04-25优化结束-->
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
+<script type="text/javascript" src="__TPL__/js/TouchSlide.1.1.js"></script> 
+<script type="text/javascript">
+/*banner滚动图片*/
+
+
+$(function() {
+/*判断user-tab内容高度不够时撑开*/
+	var user_tab_height = $(".group-buy-infos");
+	var window_height = $(window).height()/3;
+	user_tab_height.css("min-height",window_height);
+});
+var gmt_end_time = "{$group_buy.gmt_end_date|default:0}";
+{foreach from=$lang.goods_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+var now_time = {$now_time};
+<!-- {literal} -->
+
+onload = function()
+{
+  try
+  {
+    onload_leftTime();
+  }
+  catch (e)
+  {}
+}
+function changeNum( type ){
+
+	var qty = document.forms['ECS_FORMBUY'].elements['number'].value;
+
+	var valid = document.forms['ECS_FORMBUY'].elements['valid_goods'].value;
+    if(type == 1){qty = parseInt(qty) -20; }
+    if(type == 3){qty = parseInt(qty) +20; }
+    if(qty <=0 ){ qty=0; }
+  	
+   
+    if(!/^[0-9]*$/.test(qty)){ qty = document.getElementById('back_number').value; }
+    document.getElementById('goods_number').value = qty;
+  }
+<!-- {/literal} -->
+
+document.addEventListener('DOMContentLoaded', function(){Code.photoSwipe('a', '#Gallery');}, false);
+</script>
+<script>
+      /*切换*/
+      var tabsSwiper = new Swiper('#j-tab-con', {
+        speed: 100,
+        noSwiping: true,
+        autoHeight: true,
+        onSlideChangeStart: function() {
+          $(".j-tab-title .active").removeClass('active')
+          $(".j-tab-title li").eq(tabsSwiper.activeIndex).addClass('active')
+        }
+      })
+      $(".j-tab-title li").on('touchstart mousedown', function(e) {
+        e.preventDefault()
+        $(".j-tab-title .active").removeClass('active')
+        $(this).addClass('active')
+        tabsSwiper.slideTo($(this).index())
+      })
+      $(".j-tab-title li").click(function(e) {
+        e.preventDefault()
+      })
+      
+    </script>
+</body></html>

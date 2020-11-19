@@ -1,0 +1,152 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con">
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+{if $user_info.resource eq 1}
+ <div class="money_out_or">
+    <div class="money_out " id="money_out1"><a  >VIP数据</a></div>
+    <div class="money_out money_active" id="money_out2"><a class="money_active1" >经销商数据</a></div>
+  </div>
+{/if}
+  <!--考核总览-->
+  
+  <div class="all_examine">
+    <div style="border-bottom: 1px solid #f7f7f7;">
+      <p class="f-07" style="padding-bottom: 1rem;">考核总览</p>
+    </div>
+    <div class="current_grade s-flex">
+      <div class="s-flex" style="width: 40%;">
+        <p class="upright" style="background:#2897f3"></p>
+        <p class="grade_vip">当前等级：</p>
+      </div>
+      <div>{if $data.grade eq 1}金级会员{elseif $data.grade eq 2}翡翠级会员{elseif $data.grade eq 3}金钻级会员{elseif $data.grade eq 4}至尊级会员{/if}</div>
+    </div>
+    <div class="growup_value s-flex">
+      <div class="s-flex" style="width: 40%;">
+        <p class="upright" style="background:#ff3266"></p>
+        <p class="grade_vip">辅导奖资格：</p>
+      </div>
+      <div >{if $data.is_super lt 3}<font style="color:#F56767;">未完成左二右二</font>{elseif $data.is_super eq 3}一星领航员{elseif $data.is_super eq 4}二星领航{elseif $data.is_super eq 5}三星领航{elseif $data.is_super eq 6}首席领航{elseif $data.is_super eq 7}国际领袖 {elseif $data.is_super eq 8}环球董事{elseif $data.is_super eq 9}环宇总裁{/if}</div>
+    </div>
+    <div class="month_term s-flex">
+      <div class="s-flex" style="width: 40%;">
+        <p class="upright" style="background:#ED8C47"></p>
+        <p class="grade_vip">月度重消期限：</p>
+      </div>
+      {if $guoqi}
+      <div style="color:#F56767;">{$chongxiaoqixian}</div>
+      {else}
+
+      <div>{$chongxiaoqixian}</div>
+      {/if}
+    </div>
+    <div class="growup_value see_point_award s-flex">
+      <div class="s-flex" style="width: 40%;">
+        <p class="upright" style="background:#8B53DA"></p>
+        <p class="grade_vip">见点奖封顶：</p>
+      </div>
+      <div><span>{if $data.jd_current}{$data.jd_current}{else}0{/if}</span>/<span>{if $data.jd_overall}{$data.jd_overall}{else}0{/if}</span>&nbsp;(USD)</div>
+      
+    </div>
+  </div>
+  <div class="earn_style1" style="padding-bottom: 0;">
+        <div style="border-bottom: 1px solid #f7f7f7;">
+          <p class="f-07" style="padding:1rem 0 1rem 1rem;">收益总览</p>
+        </div>
+        <div class="earnings_r" style="padding:1rem 0rem;">
+          <div class="click_b1" id="click_b1">
+            <p class="earnings_p1 sell_counts">{if $bonus_not_send}{$bonus_not_send}{else}0.00{/if}</p> 
+            <p class="f-14"style="color: #949494;">未拨总奖金(元)</p>
+          </div>
+          <div>
+            <p style="padding: 16px 0;margin: 6px auto; color:#f7f7f7;"></p>
+          </div>
+          <div class="click_b2" id="click_b2">
+            <p class="earnings_p2 sell_counts">{if $bonus_sent}{$bonus_sent}{else}0.00{/if}</p>
+            <p class="f-14"style="color: #949494;">已拨总奖金(元)</p>
+          </div>
+        </div> 
+    </div>
+    
+<div class="sell_months">
+     
+</div>
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/script/region.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/shopping_flow.js"></script>
+<script type="text/javascript">
+  window.onload=function(){
+    //ajax获取数据
+  var page=1;
+  layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '.sell_months' //指定列表容器
+            , isAuto:true,
+            scrollElem: '.sell_months',done: function (page,next) {
+               var url = "{:url('Account/ajax_dealer_data')}";
+             //传递的参数
+                var data = {
+                    page:page            
+                }
+                var lis=[];
+         
+                $.post(url, data, function (params) {
+                 
+
+                  $.each(params.data,function(i,item){
+                        console.log(item)
+                  if(item.status==2){
+                    item.real_bonus = (item.real_bonus*7).toFixed(2);
+                    lis.push(`<div id="sell_jingx" class="s-flex s-justify-b"><p class="sales_my recent_mouth" style="width:auto;"><span style="border-left: 3.5px solid #333;"></span>${item.settle_time}</p><div style="margin:auto 0;padding-right:1rem;display: flex;font-size:1.5rem;"><div style="padding-right: 0.5rem;"><span>${item.real_bonus}</span><span>(元)</span></div><div>已发放</div></div></div>`);
+                  }else{
+                  item.real_bonus = (item.real_bonus*7).toFixed(2);
+                    lis.push(`<div id="sell_jingx" class="s-flex s-justify-b"><p class="sales_my recent_mouth" style="width:auto;"><span style="border-left: 3.5px solid #333;"></span>${item.settle_time}</p><div style="margin:auto 0;padding-right:1rem;display: flex;font-size:1.5rem;"><div style="padding-right: 0.5rem;"><span>${item.real_bonus}</span><span>(元)</span></div><div>未发放</div></div></div>`);
+                  }
+
+
+                    
+                  })
+                  
+                   
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    
+                    next(lis.join(''), page < params.totalpage);
+                      
+                    if(page==1&&params.count<10)
+
+                    $(".layui-flow-more").hide();
+                },'json');
+          }
+      });
+    })
+
+
+
+    //底部选中
+    $(".footer-nav").find("a:eq(2)").addClass("active");
+    $("input[name='amount']").focus();
+  }
+  $(".money_out").click(function(){
+    $(this).addClass("money_active").siblings().removeClass("money_active");
+    
+  })
+  
+  $("#money_out1").click(function(){
+    location.href='{:url('Account/center_data')}';
+    
+  })
+  $("#money_out2").click(function(){
+    location.href='{:url('Account/dealer_data')}';
+    
+  })
+</script>
+
+</body>
+
+</html>

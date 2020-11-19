@@ -1,0 +1,26 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<div class="s-block img">
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_1.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_2.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_3.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_4.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_5.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_6.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_7.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_8.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_9.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_10.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_11.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_12.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_13.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_14.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_15.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_16.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_17.jpg"></p>
+  <p><img src="http://img.yoyo1.com.cn//public/images/P_18.jpg"></p>
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

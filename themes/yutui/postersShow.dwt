@@ -1,0 +1,227 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<!--一级栏目-->
+<div class="s-box s-flex s-wrap bg-white s-align-items p-posters-ti">
+<!--{foreach from=$poster_categories item=cat name="poster_cat" key=key}-->
+    <div {if $id eq $cat.cat_id or $parentid eq $cat.cat_id } class="active" {else} class="activeOver" {/if} id="s1_h_{$key}"  onclick="toCate({$cat.cat_id})">{$cat.cat_name|escape:html}<i></i></div>    
+    <!--{/foreach}-->
+</div>
+
+<div class="p-posters-introduce">{$lang.postersshow_msg}</div>
+<!--热门-->
+<div class="p-posters-conten" id="s1_c_1">
+  <div class="title">
+    {$lang.sort}：
+    <span {if $type eq 'default'}class="active" {/if} onclick="changeType('default')">{$lang.poster_default}</span>
+    <span {if $type eq 'click'}class="active" {/if}   onclick="changeType('click')">{$lang.poster_view_num}</span>
+  </div>
+  <div class="conten">
+    <ul class="box s-flex s-wrap">
+     {foreach from=$poster_list item=poster key=dkey}
+      <li>
+        <div onclick="imgclick(this)" class="smallhbimg" style="background-image: url({$poster.file_url}?imageView2/1/w/112/h/211/q/100!|imageslim) " done="false" res="{$poster.file_url}" d_target="{$poster.target}" d_target_title="{$poster.target_title}"></div>
+        <div class="text">
+          <strong>{$poster.title}</strong>
+          <em id="{$poster.id}">{$poster.click_count}</em>
+
+        </div>
+      </li>
+      {/foreach}
+    </ul>
+  </div>
+</div>
+
+
+
+
+
+<!-- #BeginLibraryItem "/library/page.lbi" --><!-- #EndLibraryItem -->
+<!--底部-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!--海报生成-->
+<div class='t-box s-flex s-justify-c' id='qrimg' style="display: none;">
+  <strong class="qrloading">
+  <div>
+    <img src="/themes/yutui/images/like/loading.gif">
+    <br>图片努力读取中...
+  </div>
+</strong>
+  <div class='l-train-yes'>
+    <p style="border:0px solid #ffffff;" id='qrimgPic'>
+    <img style="display: none;"></p>
+    <p class="shareBottom displayNo">
+      <img src="../images/like/share_bottom.png">
+    </p>
+    <div class='l-like-close displayNo'>
+      <em>X</em>
+    </div>
+  </div>
+</div>
+<script>
+  $(function () {
+    
+  })    
+</script>
+
+<script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v={$v}"></script>
+<script type="text/javascript">
+//弹出share层
+
+$(".l-like-close").click(function(){
+	$(".t-box").hide();
+	$(".shareBottom, .l-like-close").hide();
+	$("#qrimgPic").find("img").hide();
+});
+function showloading(){
+	$(".qrloading").show();
+	$(".t-box").show();
+}
+
+function showshare(){
+	$(".l-like-close").show();
+    $(".shareBottom").show();
+    $(".qrloading").hide();
+    
+	
+}
+function showqrimg(img){
+	var imga = $("#qrimgPic").find("img");
+    $(imga).attr("src",img);
+    $(imga).show();
+    
+    $(imga).trigger("click");
+}
+
+  var iFonload=false;
+  var link = "{$shop_url}/index.php?m=default&c=user&a=business_card&u={$userinfo.user_id}";
+  if(link=="")link=location.href;
+  
+  var conimg = null;
+  
+  function imgclick(ob){
+	  showloading();
+	  conimg = ob;
+	  if($(ob).attr("done")=="true"){
+		  showqrimg($(ob).attr("srcd"));
+          showshare();
+          return false;
+	  }else{
+		var showPic=$(ob).attr("res");
+		var targeturl = $(ob).attr("d_target");
+		
+		var posterId =$(ob).next().find("em").attr("id");
+		readadd(posterId);
+		
+		if(iFonload){
+		 showCard(showPic,targeturl);
+		}else{
+		  $(window).load(function(){
+		    showCard(showPic,targeturl);
+		  })
+		}
+		return false;
+	  }
+  }
+  
+  $(window).load(function(){
+        iFonload=true;
+      })
+  
+  function showCard(showPic,targeturl){
+    var target = targeturl;
+    if(target=="")target = link;
+    else target = target+"&u={$userinfo.user_id}";
+    
+
+
+      Mqrcode.makeCode({
+        //设定返回函数
+        callback:function(img){
+        		$(conimg).attr("srcd",img);
+        		$(conimg).attr("done","true");
+        		showqrimg(img);
+                showshare();
+				return;
+          },
+        //设定背景图片   可为空
+        bgImg:showPic,
+        //有背景图片时二维码的定位
+        position:{l:576,t:1078},
+        width:132,  //宽度
+        height:132, //高度
+        link:target,  //二维码链接
+        pluginText:[
+          {text:"{$userinfo.nick_name|default:$userinfo.user_name}",l:170,t:1146,font:"30px 微软雅黑",style:"#333333",w:390,h:60},//昵称
+          {text:"手机扫一扫，开启更多精彩",l:170,t:1220,font:"30px 微软雅黑",style:"#333333",w:390,h:60},//手机扫一扫，开启更多精彩      
+        ],
+        pluginImg:[       
+          /**
+          * src 图片链接（只接受当前域名下图片）
+          * l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+          * circle 是否圆形裁切
+          */
+          {src:"{$userinfo.user_avatar|default:/themes/yutui/images/idx_user.png}",l:30,t:1080,w:120,h:120,circle:true},    
+          <!--{foreach name=posterimglist from=$posterimglist item=img}-->
+          {src:"{$img.src}",l:{$img.img_l},t:{$img.img_t},w:{$img.img_w},h:{$img.img_h},circle:{if $img.img_circle}true{else}false{/if}},   
+          <!--{/foreach}-->
+        ],
+      });
+  }
+//选项卡
+function LsTab(obj,thisNum,totalNum){ 
+            /* 
+            obj 元素ID号前缀 
+            thisNum 当前元素的ID标识 
+            totalNum 总的选项卡数 
+            */ 
+            for(i=1;i<=totalNum;i++){ 
+                if(i==thisNum){ 
+                    document.getElementById(obj+'_h_'+i).className="active"; 
+                    document.getElementById(obj+'_c_'+i).className="p-posters-conten"; 
+                }else{ 
+                    document.getElementById(obj+'_h_'+i).className='activeOver'; 
+                    document.getElementById(obj+'_c_'+i).className="displayNo"; 
+                } 
+            } 
+} 
+</script>
+   <script src="/data/assets/console/js/jquery.cookie.js"></script> 
+<script type="text/javascript">
+var tid='{$id}';
+var ttype = '{$type}';
+function toCate(id){
+
+  var url = "/index.php?c=user&a=postersshow&id="+id+"&type="+ttype;
+  location.href=url;
+}
+function changeType(type){
+  var url = "/index.php?c=user&a=postersshow&id="+tid+"&type="+type;
+  location.href=url;
+}
+
+function readadd(posterId){
+	if($.cookie(posterId) != 'yes'){
+	      var num = $(this).parent().next().find("em").text();
+	   
+	          num++;     
+            console.log(num);
+	       $.ajax({
+	           url   : "index.php?c=user&a=updateposterclick",
+	           data  : {num: num, poster_id: posterId},
+	           dataType: "JSON",
+	           type  : "post",
+	           success :function(data){
+	          
+	            $("#"+data.poster_id).text(data.num);
+	      
+	           }
+	         });
+	      $.cookie(posterId,'yes',{ expires:1000}); 
+	      
+	      }
+}
+
+</script>
+</body>
+</html>

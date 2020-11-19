@@ -1,0 +1,99 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<script src="/data/assets/js/clipboard.min.js"></script> 
+<script src="/data/assets/console/js/jquery.cookie.js"></script> 
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+
+
+
+
+
+
+
+<!--生成名片弹窗-->
+<div class='t-box1 s-flex MycardBox' style="display: block;overflow: hidden;height:92%;">
+  <div class='' style="width:100%;height: 100%;overflow-y: auto;background: #fff;">
+    <p class="mycardUrl my_card_height" ><img style="display: block;width:100%;" src="themes/yutui/images/success123.jpg"></p>
+    
+    
+  </div>
+</div>
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!--生成二维码-->
+<script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v=1"></script>
+<script type="text/javascript">
+  var link = "{$share_link}";
+  if(link=="")link='http://'+document.domain+'/index.php?m=default&c=user&a=mycard&u={$userinfo.user_id}';
+
+
+
+window.onload=function(){
+
+
+  Mqrcode.makeCode({
+    width:190,  //宽度
+    height:190, //高度
+    link:link,  //二维码链接
+    callback:function(img){
+        $("#erweima").attr("src",img);
+      },
+  });
+  Mqrcode.makeCode({
+    //设定返回函数
+    callback:function(img){
+        $(".mycardUrl img").attr("src", img)
+      },
+    //设定背景图片   可为空
+    bgImg:"/themes/yutui/images/success123.jpg",
+    //有背景图片时二维码的定位
+    position:{l:282,t:982},
+    width:190,  //宽度
+    height:190, //高度
+    link:link,  //二维码链接
+    pluginText:[
+      {text:"我是:{$userinfo.nick_name}",l:300,t:790,font:"28px 微软雅黑",style:"#ffffff",w:500,h:60},//昵称
+      {text:"社交电商获客平台，我选拓客商城",l:200,t:830,font:"28px 微软雅黑",style:"#ffffff",w:500,h:60}
+    ],
+    pluginImg:[
+      
+      //
+      // src 图片链接（只接受当前域名下图片）
+      // l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+      // circle 是否圆形裁切
+      //
+     
+      {src:"{$userinfo.user_avatar|default:/themes/yutui/images/like/like.png}",l:320,t:630,w:120,h:120,circle:true},//头像
+      {if $smarty.session.user_rank==2}
+      {src:"/themes/yutui/images/like/VIP_yes.png",l:135,t:120,w:0,h:0},
+       {else}
+      {src:"/themes/yutui/images/like/VIP_no.png",l:135,t:120,w:0,h:0}, 
+      {/if}
+     
+      //是否为VIP，加判断  
+    ],
+
+  });
+
+
+  $(".MycardBox").show();
+}
+
+
+
+$(".l-train-close").click(function(){
+  $(".MycardBox").hide();
+});
+
+</script>
+<script>
+  $("#erweima").load(function(){
+  // 加载完成  
+    $(this).css("z-index",9)
+    $(".qrloading1").css("z-index",-1);
+});
+</script>
+
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+
+
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!-- $Id: train_info.htm 14361 2008-04-07 09:26:17Z zhuwenyuan $ -->
+{include file="pageheader.htm"}
+<script type="text/javascript" src="../data/assets/js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../data/assets/js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+{insert_scripts files="validator.js,../js/transport.js}
+<div class="main-div">
+<form method="post" action="train.php" name="theForm" enctype="multipart/form-data" onSubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">{$lang.train_class_name}</td>
+    <td><input name="name" type="text" id="name" value="{$trainClass.name}" size="40" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.train_class_code}</td>
+    <td><input name="code" type="text" id="code" value="{$trainClass.code}" size="40" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.train_class_total}</td>
+    <td><input name="total" type="text" id="total" value="{$trainClass.total}" /> 注：0為不限</td>
+  </tr>
+  <tr>
+    <td class="label">VIP:</td>
+    <td><input name="vip" type="text" id="vip" value="{$trainClass.vip}" /> 注：0為不限</td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.train_class_sort}</td>
+    <td><input name="sort" type="text" id="sort" value="{$trainClass.sort}"/></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.train_class_limit}</td>
+    <td><input name="limit" type="text" id="limit" value="{$trainClass.limit}"/>
+  </tr>
+  <tr>
+    <td class="label">{$lang.train_class_description}</td>
+    <td>{$fckeditor}
+  </tr>
+
+  
+  <tr>
+    <td colspan="2" align="center">
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="train_id" value="{$trainId}" />    
+      <input type="hidden" name="train_class_id" value="{$trainClass.train_class_id}" />  
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+
+{literal}
+<script language="JavaScript">
+<!--
+onload = function()
+{
+    // ��ʼ��鶩��
+    startCheckOrder();
+//    changeRange(document.forms['theForm'].elements['act_range'].value);
+//    changeType(document.forms['theForm'].elements['act_type'].value);
+}
+/**
+ * �������������
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required('name', name_not_null);
+    validator.isNumber('min_amount', min_amount_not_number, true);
+    validator.isNumber('max_amount', max_amount_not_number, true);
+    validator.isNumber('act_type_ext', act_type_ext_not_number, true);
+    validator.islt('start_time', 'end_time', start_lt_end);
+    if (document.forms['theForm'].elements['max_amount'].value > 0)
+    {
+      validator.gt('max_amount', 'min_amount', amount_invalid);
+    }
+
+    return validator.passed();
+}
+
+function searchItem()
+{
+  var filter = new Object;
+  filter.keyword  = document.forms['theForm'].elements['keyword'].value;
+  filter.act_range = document.forms['theForm'].elements['act_range'].value;
+  if (filter.act_range == 0)
+  {
+    alert(all_need_not_search);
+    return;
+  }
+
+  Ajax.call('train.php?is_ajax=1&act=search', filter, searchResponse, 'GET', 'JSON');
+}
+
+function searchResponse(result)
+{
+  if (result.error == '1' && result.message != '')
+  {
+    alert(result.message);
+	return;
+  }
+
+  var sel = document.forms['theForm'].elements['result'];
+
+  sel.length = 0;
+
+  /* ���� options */
+  var goods = result.content;
+  if (goods)
+  {
+    for (i = 0; i < goods.length; i++)
+    {
+      var opt = document.createElement("OPTION");
+      opt.value = goods[i].id;
+      opt.text  = goods[i].name;
+      sel.options.add(opt);
+    }
+  }
+
+  return;
+}
+
+/**
+ * �ı��Żݷ�Χ
+ * @param int rangeId
+ */
+function changeRange(rangeId)
+{
+  document.getElementById('range-div').innerHTML = '';
+  document.getElementById('result').length = 0;
+  var row = document.getElementById('range_search');
+  if (rangeId <= 0)
+  {
+    row.style.display = 'none';
+  }
+  else
+  {
+    row.style.display = '';
+  }
+}
+
+function addRange()
+{
+  var selRange = document.forms['theForm'].elements['act_range'];
+  if (selRange.value == 0)
+  {
+    alert(all_need_not_search);
+    return;
+  }
+  var selResult = document.getElementById('result');
+  if (selResult.value == 0)
+  {
+    alert(pls_search);
+    return;
+  }
+  var id = selResult.options[selResult.selectedIndex].value;
+  var name = selResult.options[selResult.selectedIndex].text;
+
+  // ����Ƿ��Ѿ�����
+  var exists = false;
+  var eles = document.forms['theForm'].elements;
+  for (var i = 0; i < eles.length; i++)
+  {
+    if (eles[i].type=="checkbox" && eles[i].name.substr(0, 13) == 'act_range_ext')
+    {
+      if (eles[i].value == id)
+      {
+        exists = true;
+        alert(range_exists);
+        break;
+      }
+    }
+  }
+
+  // ����checkbox
+  if (!exists)
+  {
+    var html = '<input name="act_range_ext[]" type="checkbox" value="' + id + '" checked="checked" />' + name + '<br />';
+    document.getElementById('range-div').innerHTML += html;
+  }
+}
+
+/**
+ * ������Ʒ
+ */
+function searchItem1()
+{
+  if (document.forms['theForm'].elements['act_type'].value == 1)
+  {
+    alert(price_need_not_search);
+    return;
+  }
+  var filter = new Object;
+  filter.keyword  = document.forms['theForm'].elements['keyword1'].value;
+  filter.act_range = 3;
+  Ajax.call('train.php?is_ajax=1&act=search', filter, searchResponse1, 'GET', 'JSON');
+}
+
+function searchResponse1(result)
+{
+  if (result.error == '1' && result.message != '')
+  {
+    alert(result.message);
+	return;
+  }
+
+  var sel = document.forms['theForm'].elements['result1'];
+
+  sel.length = 0;
+
+  /* ���� options */
+  var goods = result.content;
+  if (goods)
+  {
+    for (i = 0; i < goods.length; i++)
+    {
+      var opt = document.createElement("OPTION");
+      opt.value = goods[i].id;
+      opt.text  = goods[i].name;
+      sel.options.add(opt);
+    }
+  }
+
+  return;
+}
+
+function addGift()
+{
+  var selType = document.forms['theForm'].elements['act_type'];
+  if (selType.value == 1)
+  {
+    alert(price_need_not_search);
+    return;
+  }
+  var selResult = document.getElementById('result1');
+  if (selResult.value == 0)
+  {
+    alert(pls_search);
+    return;
+  }
+  var id = selResult.options[selResult.selectedIndex].value;
+  var name = selResult.options[selResult.selectedIndex].text;
+
+  // ����Ƿ��Ѿ�����
+  var exists = false;
+  var eles = document.forms['theForm'].elements;
+  for (var i = 0; i < eles.length; i++)
+  {
+    if (eles[i].type=="checkbox" && eles[i].name.substr(0, 7) == 'gift_id')
+    {
+      if (eles[i].value == id)
+      {
+        exists = true;
+        alert(range_exists);
+        break;
+      }
+    }
+  }
+
+  // ����checkbox
+  if (!exists)
+  {
+    var table = document.getElementById('gift-table');
+    if (table.rows.length == 0)
+    {
+        var row = table.insertRow(-1);
+        var cell = row.insertCell(-1);
+        cell.align = 'center';
+        cell.innerHTML = '<strong>' + gift + '</strong>';
+        var cell = row.insertCell(-1);
+        cell.align = 'center';
+        cell.innerHTML = '<strong>' + price + '</strong>';
+    }
+    var row = table.insertRow(-1);
+    var cell = row.insertCell(-1);
+    cell.innerHTML = '<input name="gift_id[]" type="checkbox" value="' + id + '" checked="checked" />' + name;
+    var cell = row.insertCell(-1);
+    cell.align = 'right';
+    cell.innerHTML = '<input name="gift_price[]" type="text" value="0" size="10" style="text-align:right" />' +
+                     '<input name="gift_name[]" type="hidden" value="' + name + '" />';
+  }
+}
+
+function changeType(typeId)
+{
+  document.getElementById('gift-div').innerHTML = '<table id="gift-table"></table>';
+  document.getElementById('result1').length = 0;
+  var row = document.getElementById('type_search');
+  if (typeId <= 0)
+  {
+    row.style.display = '';
+  }
+  else
+  {
+    row.style.display = 'none';
+  }
+}
+
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

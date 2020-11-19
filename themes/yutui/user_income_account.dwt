@@ -1,0 +1,72 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<!--top-->
+ <div class="income_content">
+    <ul class="n-user-acc-log" id="small_change">
+    </ul>
+</div>
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="__TPL__/statics/layui/layui.js"></script>
+<script type="text/javascript">
+
+$(function(){
+//ajax获取数据
+    var page=1;    
+    layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '#small_change' //指定列表容器
+            , isAuto:true,
+            scrollElem: '#small_change',done: function (page,next) {
+               var url = "{:url('Account/ajax_user_income_account')}";
+             //传递的参数
+                var data = {
+                    page:page
+                };    
+                var lis=[]; 
+                $.post(url, data, function (params) {  
+                console.log(params.count)  
+                if(params.count>0){
+                    if(params.status==200){                    
+                        $.each(params.data,function(i,item){
+                       console.log(item)
+                        if(parseInt(item.amount)<0){
+                            lis.push(`<li class="dis-shop-list padding-all b-color-f"><div class="dis-box dis-box-align"><div class="box-flex"><h6 class="f-05 col-7"><span class="f05_span">${item.change_desc}</span></h6><h5 class="f-05 col-hui m-top04 ">${item.time}</h5></div><div class="box-flex"><p class="f-05 text-right" style="color:#333;">${item.amount}</p></div></div></li>`);
+                        }else{
+                            lis.push(`<li class="dis-shop-list padding-all b-color-f"><div class="dis-box dis-box-align"><div class="box-flex"><h6 class="f-05 col-7"><span class="f05_span">${item.change_desc}</span></h6><h5 class="f-05 col-hui m-top04 ">${item.time}</h5></div><div class="box-flex"><p class="f-05 text-right" style="color:#2596f4;">+${item.amount}</p></div></div></li>`);
+                        }
+                        
+
+
+                        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    
+                        
+                      
+                        if(page==1&&params.count<params.size)
+                            $(".layui-flow-more").hide();
+                        })                
+                  }
+                }else{
+                    lis.push(`<div class="LsTabMc" style="width: 100%;padding:0;"><div class="Zbox u-bg-text"><p style="width:56%;margin:auto;"><img src="images/new/intnIco6.png"></p><p class="col-hui" style="font-size:18px;">还没有相关钱包明细</p></div></div>`);
+                    $(".layui-flow-more").hide();
+                    $("body").addClass("bg-white");
+
+                } 
+                    next(lis.join(''), page < params.totalpage);          
+                    
+                },'json');
+          }
+        });
+      })
+
+ //没有相關記録时页面底部也显示白底  
+    if($(".box").hasClass("text-center")){
+    $("body").addClass("bg-white");
+    $(".s-height").addClass("bg-white")
+  }
+}) 
+</script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" --><!-- #EndLibraryItem -->
+	<style>
+            a.a-sequence {width: 3.5rem;height: 0rem;line-height: 3rem;margin-left:0.5rem;}
+            a.s-filter {line-height: 3rem;padding-left: 0rem;}
+            
+   </style>
+		<div class="con">
+			<div class="category">
+				<section class="search">
+					<div class="text-all dis-box j-text-all text-all-back">
+						<a class="a-icon-back j-close-search" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou is-left-font"></i></a>
+						<div class="box-flex input-text n-input-text i-search-input">
+							<a class="a-search-input j-search-input" href="javascript:void(0)"></a>
+							<i class="iconfont icon-sousuo"></i>
+							<input class="j-input-text" type="text" placeholder="{$lang.pls_input_your_search_item}!">
+							<i class="iconfont icon-guanbi1 is-null j-is-null"></i>
+						</div>
+					</div>
+				</section>
+				<!-- #BeginLibraryItem "/library/new_goods_list.lbi" --><!-- #EndLibraryItem -->
+			</div>
+		</div>
+	<!--悬浮菜单s-->
+<div class="filter-top" id="scrollUp">
+	<img src="images/toTop1.png" class="iconfont icon-dingbu">
+</div>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/new_goods_filter.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/new_search.lbi" --><!-- #EndLibraryItem -->
+		<div class="div-messages"></div>
+		<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+		<!-- #EndLibraryItem -->
+
+		<script type="text/javascript" src="__TPL__/statics/js/echo.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/js/template.js"></script>
+<script type="text/javascript">
+
+$('#hide-div').delay(1500).hide(0);
+	var sliders = function() {
+		// 筛选价格区间 js
+		$("#slider-range").slider({
+			range: true,
+			min: {$price_range[min]},
+			max: {$price_range[max]},
+			step: {$range_step},
+			values: [{$price_min}, {if $price_max}{$price_max}{else}{$price_range[max]}{/if}],
+			slide: function(event, ui) {
+				$("#slider-range-amount").text(ui.values[0] + " ~ " + ui.values[1]);
+				$('input[name=price_min]').val(ui.values[0]);
+				$('input[name=price_max]').val(ui.values[1]);
+			}
+		});
+        $("#slider-range-amount").text($("#slider-range").slider("values", 0) + " ~ " + $("#slider-range").slider("values", 1));
+	}();
+
+	var url = '{:url('category/async_list', array('id'=>$this->_var['id'], 'type'=>$this->_var['type'], 'brand'=>$this->_var['brand_id'], 'price_min'=>$this->_var['price_min'], 'price_max'=>$this->_var['price_max'], 'filter_attr'=>$this->_var['filter_attr'], 'page'=>$this->_var['page'], 'sort'=>$this->_var['sort'], 'order'=>$this->_var['order'], 'keywords'=>$this->_var['keywords']))}';
+	var total = 0;
+	var page = 1;
+	// first request
+	get_data(page);
+	localData.set('cat_{$id}_page', page);
+	if(page == 1){
+		localData.set('cat_{$id}_page_min', 1);
+		localData.set('cat_{$id}_page_max', 1);
+	}
+	if(page > 1){
+		localData.set('cat_{$id}_page_min', page);
+		localData.set('cat_{$id}_page_max', page);
+	}
+	var minPage = localData.get('cat_{$id}_page_max');
+	var maxPage = localData.get('cat_{$id}_page_max');
+	minPage = (minPage === null) ? 1:parseInt(minPage);
+	maxPage = (maxPage === null) ? 1:parseInt(maxPage);
+
+	$(window).scroll(function () {
+
+		var scrollTop = parseInt($(this).scrollTop());
+		var scrollHeight =parseInt($(document).height());
+		var windowHeight =parseInt( $(this).height());
+		
+		// 下拉
+		if (scrollTop + windowHeight == scrollHeight) {
+		
+			if(page >= maxPage){
+				
+				$.ajax({
+					type : "post",
+					url : url,
+					data : 'page=' + (page + 1),
+					dataType: 'json',
+					async : false,
+					success : function(data){
+						var html = template('j-product', data);
+						$('#j-product-box').append(html);
+						//rug
+						if(!isEmpty(data.list)){
+							page++;
+							localData.set('cat_{$id}_page', page);
+							if(page > maxPage){
+								localData.set('cat_{$id}_page_max', page);
+							}
+						}
+						//控制字数
+						$(".textNumber").each(function(){
+       						var len=$(this).text().length;   //当前HTML对象text的长度
+       						if(len>15){
+           						var str="";
+           						str=$(this).text().substring(0,15)+"...";  //使用字符串截取，多余的字符使用“......”代替
+           						$(this).html(str);                   //将替换的值赋值给当前对象
+       						}
+						});
+					}
+				});
+			}
+		}
+		// 上拉
+		if(scrollTop == 0 && minPage > 1){
+		
+			$.ajax({
+				type : "post",
+				url : url,
+				data : 'page=' + (page - 1),
+				dataType: 'json',
+				async : false,
+				success : function(data){
+					var html = template('j-product', data);
+					$('#j-product-box').prepend(html);
+					page--;
+					localData.set('cat_{$id}_page', page);
+					if(page < minPage){
+						localData.set('cat_{$id}_page_min', page);
+					}
+				}
+			});
+		}
+	});
+
+	function get_data(page){
+		$.ajax({
+			type : "post",
+			url : url,
+			data : 'page=' + page,
+			dataType: 'json',
+			async : false,
+			success : function(data){
+				var html = template('j-product', data);
+				$('#j-product-box').append(html);
+			}
+		});
+	}
+
+	/*
+   * 检测对象是否是空对象(不包含任何可读属性)。
+   * 方法既检测对象本身的属性，也检测从原型继承的属性(因此没有使hasOwnProperty)。
+   */
+  function isEmpty(obj) {
+      for (var name in obj) {
+          return false;
+      }
+      return true;
+  }
+  echo.init();
+  $(function(){
+  	$('.ect-select').click(function(){
+  		var data = $(this).attr('data-attr');
+  		$(this).siblings('input[type="hidden"]').val(data);
+  	})
+  })
+  //属性
+  $(function() {
+      $('.j-sub-menu-attr li').click(function() {
+  		$(this).addClass('active').siblings('li').removeClass('active');
+  		var i = 0;
+  		var new_attr = new Array();
+  		$(".j-sub-menu-attr li").each(function(){
+  			if ($(this).hasClass('active')) {
+  				 new_attr[i] = $(this).find('label').attr('value');
+  				 i = i + 1;
+  			 }
+  		});
+  		var new_attr_str = new_attr.join('.');
+          //属性参数具体值
+          $('input[name=filter_attr]').val(new_attr_str);
+      })
+  })
+//控制字数
+$(".textNumber").each(function(){
+       var len=$(this).text().length;   //当前HTML对象text的长度
+       if(len>15){
+           var str="";
+           str=$(this).text().substring(0,15)+"...";  //使用字符串截取，多余的字符使用“......”代替
+           $(this).html(str);                   //将替换的值赋值给当前对象
+       }
+});
+//底部加色
+	$(".footer-nav").find("a:eq(0)").addClass("active");
+</script>
+
+	</body>
+</html>

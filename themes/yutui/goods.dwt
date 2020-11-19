@@ -1,0 +1,1126 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+
+<script>
+
+//提现弹窗
+    $("#kefu").click(function(){
+      $("#address_div").show();
+      
+    })
+//关闭弹窗
+$(".x_clase").click(function(){
+
+  
+  $("#address_div").hide();
+})
+		/* *
+ * 添加商品到购物车
+ */
+ function addnewToCart(goodsId, parentId) {
+
+    var goods = new Object();
+    var spec_arr = new Array();
+    var fittings_arr = new Array();
+    var number = 1;
+    var formBuy = document.forms['ECS_FORMBUY'];
+    var quick = 0;
+
+    // 检查是否有商品规格
+    if (formBuy) {
+        str = getSelectedAttributes(formBuy);
+        spec_arr = str.split(',');
+        if (formBuy.elements['number']) {
+            number = formBuy.elements['number'].value;
+        }
+
+        quick = 1;
+    }
+
+    goods.quick = quick;
+    goods.spec = spec_arr;
+    goods.goods_id = goodsId;
+    goods.number = number;
+    goods.goods_area = '{$goods.goods_area}';
+    goods.rtcat_id = '{$goods.rtcat_id}';
+    goods.parent = (typeof (parentId) == "undefined") ? 0 : parseInt(parentId);
+
+    $.post('index.php?m=default&c=flow&a=add_to_cart', {
+        goods: $.toJSON(goods)
+    }, function(data) {
+ 
+        addToCartResponse(data);
+    }, 'json');
+    //Ajax.call('flow.php?step=add_to_cart', 'goods=' + goods.toJSONString(), addToCartResponse, 'POST', 'JSON');
+}
+function addToCart_skipquick(goodsId, parentId) {
+var goods_vip = {$goods.goods_vip};
+{if $order_type}
+var order_type = {$order_type};
+{else}
+var order_type = 0;
+{/if}
+
+var user_rank ={if $user_info.user_rank}{$user_info.user_rank}{else}0{/if};
+
+	{if $user_info.resource eq 2 and $order_type < 9 and $order_type >0}
+	
+		alert("您不能购买这款产品");
+		return false;
+	{/if}
+	{if $order_type eq 5 and $goods.goods_vip<$user_info.user_rank}
+		alert("您不能购买比自己等级低的重购套餐");
+		return false;
+	{/if}
+    var goods = new Object();
+    var spec_arr = new Array();
+    var fittings_arr = new Array();
+    var number = 1;
+    var formBuy = document.forms['ECS_FORMBUY'];
+    var quick = 0;
+
+    // 检查是否有商品规格
+    if (formBuy) {
+        str = getSelectedAttributes(formBuy);
+        spec_arr = str.split(',');
+        if (formBuy.elements['number']) {
+            number = formBuy.elements['number'].value;
+        }
+
+        quick = 1;
+    }
+
+    goods.quick = quick;
+    goods.spec = spec_arr;
+    goods.goods_id = goodsId;
+    goods.number = number;
+    goods.order_type = order_type;
+    {if $order_type==10}
+    goods.goods_area = 3;
+    {else}
+    goods.goods_area = '{$goods.goods_area}';
+    {/if}
+    
+    goods.parent = (typeof (parentId) == "undefined") ? 0 : parseInt(parentId);
+ 	goods.goods_pv =  {if $goods.goods_pv}{$goods.goods_pv}{else}0{/if};
+ 	goods.rtgoods_pv = {if $goods.rtgoods_pv}{$goods.rtgoods_pv}{else}0{/if};
+ 	goods.vipgoods_pv = {if $goods.vipgoods_pv}{$goods.vipgoods_pv}{else}0{/if};
+ 	
+    $.post('index.php?m=default&c=flow&a=add_to_cart', {
+        goods: $.toJSON(goods),
+        goods_id:goodsId,
+        goods_pv:goods.goods_pv,
+        rtgoods_pv:goods.rtgoods_pv,
+        vipgoods_pv:goods.vipgoods_pv,
+        goods_area:goods.goods_area
+        
+    }, function(data) {
+        addToCartResponse_quick(data);
+    }, 'json');
+    //Ajax.call('index.php?m=default&c=flow&a=add_to_cart', 'goods=' + goods.toJSONString(), addToCartResponse_quick, 'POST', 'JSON');
+}
+
+</script>
+<div class="con">
+	<div class="goods" style="margin-bottom: 0rem;">
+		<!--商品图片相册-->
+		<div class="goods-photo n-j-show-goods-img">
+			<div class="hd">
+				<ul>
+				</ul>
+			</div>
+			<span class="goods-num" id="goods-num"><span id="g-active-num"></span>/<span id="g-all-num"></span></span>
+			<ul class="swiper-wrapper">
+				<!--{if $pictures}-->
+				<!-- {foreach from=$pictures item=picture name=no}-->
+				<li class="swiper-slide tb-lr-center"><div class="of-hidden" id="img-photo-box"><img id="img-photo-box" src="{$picture.img_url}" alt="{$picture.img_desc}" /></div></li>
+				<!--{/foreach}-->
+				<!--{else}-->
+				<li class="swiper-slide tb-lr-center"><div class="of-hidden" id="img-photo-box"><img id="img-photo-box" src="{$goods.goods_img}" alt="{$goods.goods_name}" /></div></li>
+				<!--{/if}-->
+			</ul>
+			<div class="swiper-pagination"></div>
+		</div>
+		<!--商品属性介绍-->
+		<div class="goods-info">
+			<!--商品描述-->
+			<section class="goods-title b-color-f padding-all ">
+				<div class="dis-box">
+			
+				  <div class="box-flex">
+					<h3>{$goods.goods_style_name}</h3>
+					<div class="f-03 col-hui pr-1" style="display:none;">{$goods.goods_brief}</div>
+				  </div>
+					<!--点击收藏-->
+					{if $order_type>8||!$order_type}
+					<span class="heart heart-line j-heart <!--{if $sc eq 1}-->active<!--{/if}-->" onClick="collect({$goods.goods_id},{$order_type})" id='ECS_COLLECT'><i class="ts-2"></i><em class="ts-2">{$lang.btn_collect}</em></span>
+					{/if}
+				</div>
+			</section>
+
+			<section class="goods-price padding-all b-color-f">
+				<p class="p-price">
+					<p class="t-first">
+						<!--{if $goods.is_promote and $goods.gmt_end_time } {$lang.product_sale}-->
+						<span>{$goods.promote_price}</span>
+						<!--{else}-->
+						<span>¥{$goods.shop_price1}</span>
+						{if $goods.shop_price_formated}
+
+						<span style="position: relative;top: -0.3rem;right: -0.2rem;"><span class="vip_shop" style="border:1px solid #313131;box-sizing:border-box;font-size:1rem;">VIP</span><span class="vip_price" style="border: 1px solid #FEDE95;border-top-right-radius: 0.5rem;border-bottom-right-radius: 0.5rem;color:#333;padding: 0.1rem 0.5rem;padding-right:0.5rem;font-size: 1rem;box-sizing:border-box;background:#FEDE95;">
+						{if $goods.integral}
+						{$goods.shop_price_formated}
+						{else}
+						{$goods.shop_price}
+						{/if}
+
+						</span></span>
+
+
+						{/if}
+						<!--{/if}-->
+					</p>
+					<span><!--{if $cfg.show_marketprice}-->
+					
+					<del>{$lang.origin_price}{$goods.market_price}</del>
+					<!--{/if}--></span>
+				</p>
+				<!--{if goods.is__promote and $goods.gmt_end_time } {$lang.product_sale}-->
+
+				<!--{else}-->
+				<!--<p class="p-market"style="color:black;">
+					{$lang.rank_price} {$goods.rank_price_formated}
+				</p>-->
+				<!--{/if}-->				
+				{if !$goods.train_id}
+				<p class=" dis-box g-p-tthree m-top04">
+					<span class="box-flex text-left">{$lang.sort_sales}：{$sales_count}</span>
+					{if $show_goodsnumber}
+					<span class="box-flex text-right">{$lang.goods_inventory}: {$goods.goods_number}</span>
+					{/if}
+				</p>
+				{/if}
+			</section>
+			<!-- {if $promotion} 优惠活动 -->
+			<section class="g-group-new m-top08">
+			<!-- {foreach from=$promotion item=item key=key} 优惠活动-->
+			<a href="{$item.url}" title="{$lang.snatch}">
+              <ul class="s-flex s-justify-b">
+			    <div>{$lang.activity_info}<span class="col-red">{dateformat $item.end_time,"Y-m-d"}</span></div>
+			    <div class="f-2 g-right col-red">{$lang.group_activity}</div>
+              </ul>
+            </a>
+            <!-- {/foreach} -->
+			</section>
+			<!-- {/if} -->
+			<!--双11广告-->
+			<!--<section class="padding-all bg-white goods-service" style="padding:0rem 1.3rem 1.3rem 1.3rem;">
+			  <div class="box img"><a href="/index.php?c=article&a=info&aid=185"><img src="images/like/newlike/integral.gif"></a></div>
+			</section>-->
+			<!--商品评价-->
+			<section class="padding-all b-color-f1 goods-service">
+				<div class="dis-box">
+					<div class="box-flex">
+						<div class="dis-box">
+							<p class="box-flex t-goods2">{$lang.aftersale_info}</p>
+							<i class="iconfont icon-102 goods-min-icon"></i>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--优惠数量价格显示 START-->
+			<!--{if $volume_price_list}-->
+			<section class="goods-num-box b-color-f text-c f-05 padding-all">
+				<ul class=" dis-box goods-box-bor">
+					<li class="box-flex goods-bor goods-b-n">{$lang.volume_number}</li>
+					<li class="box-flex goods-bor goods-b-n">{$lang.preferences_price}</li>
+				</ul>
+				<!-- {foreach from=$volume_price_list item=volume}-->
+				<ul class="dis-box">
+					<li class="box-flex goods-bor">{$volume.number}</li>
+					<li class="box-flex goods-bor">{$volume.price}</li>
+				</ul>
+				<!--{/foreach}-->
+			</section>
+			<!--{/if}-->
+			<!--优惠数量价格显示 END-->
+			<!-- #BeginLibraryItem "/library/goods_fittings.lbi" --><!-- #EndLibraryItem -->
+			<form action="javascript:addnewToCart({$goods.goods_id})" method="post" name="ECS_FORMBUY" id="ECS_FORMBUY">
+				<section class="goods-more-a">
+					<!--  <a class="ect-padding-lr ect-padding-tb" href="{:url('goods/info',array('id'=>$this->_var['goods']['goods_id']))}"><span class="Text">{$lang.goods_brief}</span> <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>
+      <a class="ect-padding-lr ect-padding-tb" href="{:url('goods/comment_list',array('id'=>$this->_var['goods']['goods_id']))}"><span class="Text">{$lang.goods_comment}</span> <span class="pull-right"><span class="ect-color">{$comments.count}</span>{$lang.comment_num} <span class="ect-color">{$comments.favorable}%</span>{$lang.favorable_comment} <i class="fa fa-chevron-right"></i></span></a>  -->
+				</section>
+
+				<section >
+					<!--商品属性弹出层star-->
+					<div class="mask-filter-div"></div>
+					<div class="show-goods-attr j-filter-show-div ts-3 b-color-1">
+						<section class="s-g-attr-title b-color-1  product-list-small">
+							<div class="product-div">
+								<img src="{$goods.goods_img}" alt="{$goods.goods_name}" class="product-list-img" />
+								<div class="product-text n-right-box">
+									<div class="dis-box">
+										<h4 class="box-flex">{$goods.goods_style_name}</h4>
+										<i class="iconfont icon-guanbi show-div-guanbi"></i>
+									</div>
+								
+									<p><span class="p-price t-first" id="ECS_GOODS_AMOUNT1">
+										<!--{if $goods.is_promote and $goods.gmt_end_time } 促销-->
+										{$goods.promote_price}
+										<!--{else}-->
+											 {if $smarty.session.user_vip}
+										<span style="position: relative;top: -0.3rem;right: -0.2rem;"><span class="vip_shop" style="border:1px solid #313131;box-sizing:border-box;font-size:1rem;">VIP</span><span class="vip_price" style="border: 1px solid #FEDE95;border-top-right-radius: 0.5rem;border-bottom-right-radius: 0.5rem;color:#333;padding: 0.1rem 0.6rem;padding-right:0.5rem;font-size: 1rem;box-sizing:border-box;background:#FEDE95;">
+						
+						{$goods.shop_price}</span></p>
+						{else}
+						<p>{$goods.shop_price}</p>
+						{/if}
+										<!--{/if}-->
+									
+	{if $show_goodsnumber}
+									<p class="dis-box p-t-remark"><span class="box-flex" id="ECS_PRODUCT_NUMBER">{$lang.goods_inventory}:{$goods.goods_number}</span></p>
+									{/if}
+
+								</div>
+							</div>
+						</section>
+						<section class="s-g-attr-con swiper-scroll b-color-f padding-all m-top1px">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<!-- {foreach name=spec from=$specification item=spec key=spec_key} -->
+									<h4 class="t-remark">{$spec.name}：</h4>
+									<ul class="select-one  <!-- {if $spec.attr_type eq 1} -->j-get-one<!-- {else} -->j-get-more<!-- {/if} --> m-top10">
+										<!-- {foreach from=$spec.values item=value key=key} -->
+										<li class="ect-select dis-flex fl">
+											<input type="<!-- {if $spec.attr_type eq 1} -->radio<!-- {else} -->checkbox<!-- {/if} -->" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}" {if $key eq 0}checked{/if} onclick="changePrice()" />
+											<label class="ts-1 {if $key eq 0}active{/if}" for="spec_value_{$value.id}">{$value.label}</label>
+										</li>
+										<!-- {/foreach} -->
+									</ul>
+									<input type="hidden" name="spec_list" value="{$key}" />
+									<!-- {/foreach} -->
+
+									<h4 class="t-remark">{$lang.number}</h4>
+									<div class="div-num dis-box m-top08" >
+										<a class="num-less" onClick="changePrice('1')"></a>
+										<input style="width:3rem;height:3rem;" class="box-flex" type="text" value="1" onkeyup="value=value.replace(/[^\d]/g,'')" name="number" id="goods_number" onblur="changePrice('2')" autocomplete="off" />
+										<a class="num-plus" onClick="changePrice('3')"></a>
+									</div>
+								</div>
+							</div>
+							<div class="swiper-scrollbar"></div>
+						</section>
+						<section class="ect-button-more dis-box padding-all">
+						   <!-- {if $cartlist eq 1} -->
+							<a class="btn-cart box-flex show-div-guanbi n-btn-box"  type="button" onClick="addnewToCart({$goods.goods_id});">{$lang.add_to_cart}</a>
+						   <!-- {/if} -->
+						    <a class="btn-submitPro box-flex" type="button" onClick="addToCart_skipquick({$goods.goods_id})">{$lang.buy_now}</a>
+						</section>
+			</form>
+			</div>
+			<!--商品属性弹出层end-->
+			</section>
+			<!--comment-->
+			<section class="m-top10 goods-evaluation">
+				<a href="{:url('goods/comment_list',array('id'=>$this->_var['goods']['goods_id']))}">
+					<div class="dis-box padding-all b-color-f  g-evaluation-title">
+						<label class="t-remark g-t-temark">{$lang.goods_rank}</label>
+						<div class="box-flex t-goods1">好评率 <em class="t-first">{$comments.favorable}%</em></div>
+						<div class="t-goods1"><em class="t-first">{$goods.comment_count}</em><span class="t-jiantou">{$comments.count}人评论<i class="iconfont icon-jiantou tf-180" style="top:0.2rem"></i></span></div>
+					</div>
+				</a>
+				<div class="m-top1px b-color-f g-evaluation-con">
+					<!--{foreach from=$comment_list item="comment" name="com"}-->
+					<!--{if $smarty.foreach.com.index<1}-->
+					<div class="of-hidden evaluation-list padding-all-1 n-list-pl">
+						<div class="of-hidden">
+						<p class="clear m-top06 t-goods1"><strong>{$comment.nick_name}</strong><span class="fr col-hui">{$comment.add_time}</span></p>
+						<p class="fl"><span class="grade-star g-star-{$comment.comment_rank} fl"></span></p>
+							
+						</div>
+						
+						<div class="clear t-goods1 pt-1">{$comment.content}</div>
+						{foreach from=$comment.reply item =reply}
+							<div class="tips tops"><span>店铺回复:</span><span>{$reply.content}</span></div>
+						{/foreach}
+						<!-- {if $comment.re_content} -->
+						<p>
+							<font class="f1">{$lang.admin_username}</font>{$comment.re_content}</p>
+						<!-- {/if} -->
+					</div>
+					<!--{/if}-->
+					<!--{/foreach}-->
+					<!--<div class="of-hidden evaluation-list">
+					<div class="of-hidden ">
+						<p class="fl"><span class="grade-star g-star-5 fl"></span><em class="t-remark fl">s****y</em></p>
+						<p class="fr t-remark">2015-08-09 10:46:43</p>
+					</div>
+					<p class="clear m-top10 t-goods1">很好看，大小刚刚好 很好看</p>
+					<p class="clear m-top08 t-remark">颜色分类：70cm、5144蓝色</p>
+					<div class="ect-button-more m-top10 dis-box">
+						<a class="box-flex btn-default">有图评价</a>
+						<a href="{:url('goods/comment_list',array('id'=>$this->_var['goods']['goods_id']))}" class="box-flex btn-default">全部评价</a>
+					</div>
+				</div>-->
+				</div>
+			</section>
+			<!-- <section class="padding-all text-center t-remark2 xiangqing-1 ">
+			<a href="{:url('goods/info',array('id'=>$this->_var['goods']['goods_id']))}" class="j-goodsinfo-div">点击查看商品详情</a>
+		</section> -->
+		{if $goods.brand_id neq 1}
+<section>
+	<div style="margin-top:0.9rem;margin-bottom:0.6rem;"><img style="width:100%" src="images/tenmax/know_of_buy.jpg"></div>
+</section>
+{/if}
+		</div>
+		<!--商品属性弹出层star-->
+		<div class="mask-filter-div"></div>
+		<!-- <div class="goods-scoll-bg"></div> -->
+		<!--加入购物车弹出层 S-->
+		<script type="text/javascript">
+			function showDiv() {
+				document.getElementById('popDiv').style.display = 'block';
+				document.getElementById('hidDiv').style.display = 'block';
+				document.getElementById('cartNum').innerHTML = document.getElementById('goods_number').value;
+				document.getElementById('cartPrice').innerHTML = document.getElementById('ECS_GOODS_AMOUNT').innerHTML;
+			}
+
+			function closeDiv() {
+				document.getElementById('popDiv').style.display = 'none';
+				document.getElementById('hidDiv').style.display = 'none';
+			}
+		</script>
+		<div class="tipMask" id="hidDiv" style="display:none"></div>
+		<!--客服弹窗-->
+	  	<div class="body_pop_up" id="address_div" style="display:none;">
+		    <div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+		      <div class="contact_kf">
+		        <h3 style="padding-bottom: 3rem;color: #000;font-size: 2.5rem;">请联系客服电话</h3>
+		        <p id="phone_kf"style="color: #000;font-size: 2rem;">05923150999</p>
+		        <p class="copy_iphont" id="copy_iphont">复制</p>
+		      </div>
+		  	</div>
+		  <div class="x_clase" style="top:30%;">
+		    <img src="images/x_close.png">
+		  </div>
+	  
+		</div>
+		<!--加入购物车弹出层 E-->
+
+	</div>
+	<!-- #BeginLibraryItem "/library/new_page_footer_nav.lbi" -->
+	<!-- #EndLibraryItem -->
+	<!-- #BeginLibraryItem "/library/new_share_product.lbi" -->
+	<!-- #EndLibraryItem -->
+
+	<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+	<!-- #EndLibraryItem -->
+</div>
+<div class="n-goods-bg"></div>
+<!-- #BeginLibraryItem "/goods_info.dwt" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="__TPL__/js/lefttime.js"></script>
+<script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+<script>
+	function collect(goodsId,order_type) {
+    $.get('index.php?m=default&c=user&a=add_collection', {
+        id: goodsId,
+        order_type:order_type
+    }, function(data) {
+        collectResponse(data);
+    }, 'json');
+}
+
+/* *
+ * 处理收藏商品的反馈信息
+ */
+function collectResponse(result) {
+    if (result.error == 0) {
+        if ($('#ECS_COLLECT').hasClass("active") > 0) {
+         $('#ECS_COLLECT').removeClass("active");
+        } else {
+            $('#ECS_COLLECT').addClass("active")
+        }
+    }
+    if (result.error == 2) {
+        var returnVal = window.confirm("未登录不能使用收藏功能 \n是否登录");
+        if (returnVal) {
+            window.location.href = 'index.php?m=default&c=user&a=register';
+        }
+    }
+}
+
+
+
+
+
+</script>
+<script type="text/javascript">
+	/*倒计时*/
+	var goods_id = {$goods_id};
+	var goodsattr_style = 1;
+	var gmt_end_time = 0;
+	var day = "天";
+	var hour = "小时";
+	var minute = "分钟";
+	var second = "秒";
+	var end = "结束";
+	var goodsId = {$goods_id};
+	var now_time = {$now_time};
+	var use_how_oos = {:C('use_how_oos')};
+$(function() {
+  changePrice(2);
+  //fixpng();
+  try {onload_leftTime();}
+  catch (e) {}
+});
+
+	function back_goods_number() {
+		var goods_number = document.getElementById('goods_number').value;
+		document.getElementById('back_number').value = goods_number;
+	}
+	/**
+	 * 点选可选属性或改变数量时修改商品价格的函数
+	 */
+	function changePrice(type) {
+		var allowbuyonlyone = {$allowbuyonlyone};
+		var qty = document.forms['ECS_FORMBUY'].elements['number'].value;
+		//var qty = 0;
+
+		if (type == 1) {
+			qty--;
+		}
+		if (type == 3) {
+			qty++;
+		}
+		if (qty <= 0) {
+			qty = 1;
+		}
+		if (!/^[0-9]*$/.test(qty)) {
+			qty = document.getElementById('back_number').value;
+		}
+		if(allowbuyonlyone){
+			if(qty>1){
+			  alert("只能购买一件");
+			  return false;
+			}
+		}
+	
+		document.getElementById('goods_number').value = qty;
+		var attr = getSelectedAttributes(document.forms['ECS_FORMBUY']);
+		$.get('{:url("goods/price")}', {
+			'id': goodsId,
+			'attr': attr,
+			'number': qty
+		}, function(data) {
+			changePriceResponse(data);
+
+		}, 'json');
+	}
+	/**
+	 * 接收返回的信息
+	 */
+	function changePriceResponse(res) {
+
+		if (res.err_msg.length > 0) {
+			alert(res.err_msg);
+		} else {
+		
+			if (document.getElementById('ECS_GOODS_AMOUNT')){
+
+				document.getElementById('ECS_GOODS_AMOUNT').innerHTML = res.result;
+			}
+			if(res.product_number != null){
+			    document.getElementById('ECS_PRODUCT_NUMBER').innerHTML = res.product_number;
+			}
+		}
+	}
+
+
+</script>
+<script src="http://chat.tenfutenmax.com.cn:1000/im/kefu.js?cid={$mobile_phone}&page={$current_url}&crm={$crm}&mode=mobile"></script>
+<script type="text/javascript">
+  window.onload = function(){
+
+        document.getElementById("kefu").onclick =function(){
+        	{if $user_id}
+        		        openChatDialog();
+        	{else}
+
+        				 var returnVal = window.confirm("未登录不能使用客服功能 \n是否登录");
+				        if (returnVal) {
+				            window.location.href = 'index.php?m=default&c=user&a=register';
+				        }
+        	{/if}
+
+  
+
+        }
+  }
+
+</script>
+<script>
+	$(function($) {
+
+		var handler = function(e) { //禁止浏览器默认行为
+			e.preventDefault();
+		};
+
+
+		/*弹出层方式*/
+		$(".j-show-div").click(function() {
+			document.addEventListener("touchmove", handler, false);
+			$(".j-filter-show-div").addClass("show");
+			$(".mask-filter-div").addClass("show");
+		});
+		/*关闭弹出层*/
+		$(".mask-filter-div,.show-div-guanbi").click(function() {
+			document.removeEventListener("touchmove", handler, false);
+			$(".j-filter-show-div").removeClass("show");
+			$(".mask-filter-div").removeClass("show");
+			return false;
+		});
+		/*商品详情相册切换*/
+		var swiper = new Swiper('.goods-photo', {
+			paginationClickable: true,
+			onInit: function(swiper) {
+				document.getElementById("g-active-num").innerHTML = swiper.activeIndex + 1;
+				document.getElementById("g-all-num").innerHTML = swiper.slides.length;
+			},
+			onSlideChangeStart: function(swiper) {
+				document.getElementById("g-active-num").innerHTML = swiper.activeIndex + 1;
+			}
+		});
+	});
+</script>
+
+		<script>
+			$(function() {
+					/*头部导航*/
+
+	$(".j-nav-box").click(function() {
+		$(".j-nav-content").toggleClass("active");
+	});
+
+/*导航弹框*/
+$(".icon-gengduo").click(function() {
+					$(".goods-nav").toggleClass("active");
+				});
+
+
+				$('.goods-header-nav-box li').click(function() {
+					for (var i = 0; i < $('.goods-header-nav-box li').size(); i++) {
+						if (this == $('.goods-header-nav-box li').get(i)) {
+							$('.goods-header-nav-box li').eq(i).children('a').addClass('hover');
+						} else {
+							$('.goods-header-nav-box li').eq(i).children('a').removeClass('hover');
+						}
+					}
+				})
+			});
+		</script>
+		<script type="text/javascript">
+		/* *
+ * 添加商品到购物车
+ */
+function addToCart_quick(goodsId, parentId) {
+	
+    var goods = new Object();
+    var spec_arr = new Array();
+    var fittings_arr = new Array();
+    var number = 1;
+    var formBuy = document.forms['ECS_FORMBUY'];
+    var quick = 0;
+
+    // 检查是否有商品规格
+    if (formBuy) {
+        str = getSelectedAttributes(formBuy);
+        spec_arr = str.split(',');
+        if (formBuy.elements['number']) {
+            number = formBuy.elements['number'].value;
+        }
+
+        quick = 1;
+    }
+
+    goods.quick = quick;
+    goods.spec = spec_arr;
+    goods.goods_id = goodsId;
+    goods.number = number;
+    goods.goods_area ={$goods.goods_area};
+    goods.parent = (typeof (parentId) == "undefined") ? 0 : parseInt(parentId);
+   
+      $.post('index.php?m=default&c=flow&a=add_to_cart', {
+        goods: $.toJSON(goods),
+        goods_id:goodsId,
+        goods_area:goods.goods_area
+    }, function(data) {
+        addToCartResponse_quick(data);
+    }, 'json');
+  
+    //Ajax.call('index.php?m=default&c=flow&a=add_to_cart', 'goods=' + goods.toJSONString(), addToCartResponse_quick, 'POST', 'JSON');
+}
+
+
+/* *
+ * 处理添加商品到购物车的反馈信息
+ */
+function addToCartResponse_quick(result) {
+	var showcartlist = {$cartlist};
+	var order_type = {$order_type};
+	console.log(result);
+    if (result.error > 0) {
+        // 如果需要缺货登记，跳转
+        if (result.error == 9) {
+       		
+        	location.href = 'index.php?m=default&c=user&a=register';
+        }
+        if (result.error == 1) {
+			if(use_how_oos == 1){
+        		if (confirm(result.message)) {
+    				location.href = 'index.php?m=default&c=user&a=add_booking&id=' + result.goods_id + '&spec=' + result.product_spec;
+    			}
+        	}else{
+        	
+        		alert(result.message);
+        	}
+
+        }
+        // 没选规格，弹出属性选择框
+        else if (result.error == 6) {
+            openSpeDiv(result.message, result.goods_id, result.parent);
+        } else {
+
+            alert(result.message);
+        }
+    } else {
+      
+        var cartInfo = document.getElementById('ECS_CARTINFO');
+        
+        var cart_url = 'index.php?c=flow&a=cart&order_type='+order_type;
+
+        var cart_url_1 = 'index.php?c=flow&a=checkout&one_step_buy=1&order_type='+order_type;
+     	
+        if (cartInfo) {
+            cartInfo.innerHTML = result.content;
+        }
+		//document.getElementById('total_number').innerHTML = result.cart_number;//更新数量
+        if (showcartlist == 1) {
+            location.href = cart_url;
+        } else {
+			location.href = cart_url_1;
+        }
+    }
+}
+		</script>
+		<script type="text/javascript">
+var btn_buy = "{$lang.is_ok}";
+var is_cancel = "{$lang.is_cancel}";
+var select_spe = "{$lang.select_spe}";
+var select_base = '{$lang.select_base}';
+var select_shop = '{$lang.select_shop}';
+var data_not_complete = '{$lang.data_not_complete}';
+var understock = '{$lang.understock}';
+
+$(function(){
+	//组合套餐tab切换
+	var _tab = $('#cn_b h2');
+	var _con = $('#cn_h blockquote');
+	var _index = 0;
+	_con.eq(0).show().siblings('blockquote').hide();
+	_tab.css('cursor','pointer');
+	_tab.click(function(){
+		_index = _tab.index(this);
+		_tab.eq(_index).removeClass('h2bg').siblings('h2').addClass('h2bg');
+		_con.eq(_index).show().siblings('blockquote').hide();
+	})
+	//选择基本件
+	$('.m_goods_body').click(function(){
+		if($(this).prop('checked')){
+			ec_group_addToCart($(this).attr('item'), {$goods.goods_id}); //基本件(组,主件)
+		}else{
+			ec_group_delInCart($(this).attr('item'), {$goods.goods_id}); //删除基本件(组,主件)
+			display_Price($(this).attr('item'),$(this).attr('item').charAt($(this).attr('item').length-1));
+		}
+	})
+	//变更选购的配件
+	$('.m_goods_list').click(function(){
+		//是否选择主件
+		if(!$(this).parents('table').find('.m_goods_body').prop('checked')){
+			alert(select_base);
+			return false;
+		}
+		if($(this).prop('checked')){
+			ec_group_addToCart($(this).attr('item'), $(this).val(),{$goods.goods_id}); //新增配件(组,配件,主件)
+		}else{
+			ec_group_delInCart($(this).attr('item'), $(this).val(),{$goods.goods_id}); //删除基本件(组,配件,主件)
+			display_Price($(this).attr('item'),$(this).attr('item').charAt($(this).attr('item').length-1));
+		}
+	})
+	//可以购买套餐的最大数量
+	$(".combo_stock").keyup(function(){
+		var group = $(this).parents('form').attr('name');
+		getMaxStock(group);//根据套餐获取该套餐允许购买的最大数
+	});
+})
+
+//允许购买套餐的最大数量
+function getMaxStock(group){
+	var obj = $('input[name="'+group+'_number"]').val();
+	var original = parseInt(Number(obj.val()));
+	var stock = $("."+group).eq(0).attr('stock');
+	//是否是数字
+	if(isNaN(original)){
+		original = 1;
+		obj.val(original);
+	}
+
+	//更新
+	original = (original < 1)?1:original;
+	stock = (stock < 1)?1:stock;
+	if(original > stock){
+		obj.val(stock);
+	}
+}
+
+//统计套餐价格
+function display_Price(_item,indexTab){
+	var _size = $('.'+_item).size();
+	var _amount_shop_price = 0;
+	var _amount_spare_price = 0;
+	indexTab = indexTab - 1;
+	for(i=0; i<_size; i++){
+		obj = $('.'+_item).eq(i);
+		if(obj.prop('checked')){
+			_amount_shop_price += parseFloat(obj.attr('data')); //原件合计
+			_amount_spare_price += parseFloat(obj.attr('spare')); //优惠合计
+		}
+	}
+	var tip_spare = $('.tip_spare:eq('+indexTab+')');//节省文本
+	if(_amount_spare_price > 0){//省钱显示提示信息
+		tip_spare.show();
+		tip_spare.children('strong').text(_amount_spare_price);
+	}else{
+		tip_spare.hide();
+	}
+	//显示总价
+	$('.combo_price:eq('+indexTab+')').text(_amount_shop_price);
+}
+
+//处理添加商品到购物车
+function ec_group_addToCart(group,goodsId,parentId){
+  var goods        = new Object();
+  var spec_arr     = new Array();
+  var fittings_arr = new Array();
+  var number       = 1;
+  var quick		   = 0;
+  var group_item   = (typeof(parentId) == "undefined") ? goodsId : parseInt(parentId);
+
+  goods.quick    = quick;
+  goods.spec     = spec_arr;
+  goods.goods_id = goodsId;
+  goods.number   = number;
+  goods.parent   = (typeof(parentId) == "undefined") ? 0 : parseInt(parentId);
+  goods.group = group + '_' + group_item;//组名
+
+  	$.post('{:url("flow/add_to_cart_combo")}', {goods : $.toJSON(goods)}, function(data) {
+		ec_group_addToCartResponse(data);
+	}, 'json');
+
+}
+
+//处理添加商品到购物车的反馈信息
+function ec_group_addToCartResponse(result)
+{
+  if (result.error > 0)
+  {
+    // 如果需要缺货登记，跳转
+    if (result.error == 2)
+    {
+      alert(understock);
+	  cancel_checkboxed(result.group, result.goods_id);//取消checkbox
+    }
+    // 没选规格，弹出属性选择框
+    else if (result.error == 6)
+    {
+      ec_group_openSpeDiv(result.message, result.group, result.goods_id, result.parent);
+    }
+    else
+    {
+      alert(result.message);
+	  cancel_checkboxed(result.group, result.goods_id);//取消checkbox
+    }
+  }
+  else
+  {
+	//处理Ajax数据
+	var group = result.group.substr(0,result.group.lastIndexOf("_"));
+	$("."+group).each(function(index){
+		if($("."+group).eq(index).val()==result.goods_id){
+			//主件显示价格、配件显示基本件+属性价
+			var goods_price = (result.parent > 0) ? (parseFloat(result.fittings_price)+parseFloat(result.spec_price)):result.goods_price;
+			$("."+group).eq(index).attr('data',goods_price);//赋值到文本框data参数
+			$("."+group).eq(index).attr('stock',result.stock);//赋值到文本框stock参数
+			$('.'+group+'_display').eq(index).text(goods_price);//前台显示
+		}
+	});
+	//getMaxStock(group);//根据套餐获取该套餐允许购买的最大数
+	display_Price(group,group.charAt(group.length-1));//显示套餐价格
+  }
+}
+
+//处理删除购物车中的商品
+function ec_group_delInCart(group,goodsId,parentId){
+  var goods        = new Object();
+  var group_item   = (typeof(parentId) == "undefined") ? goodsId : parseInt(parentId);
+
+  goods.goods_id = goodsId;
+  goods.parent   = (typeof(parentId) == "undefined") ? 0 : parseInt(parentId);
+  goods.group = group + '_' + group_item;//组名
+
+  	$.post('{:url("flow/del_in_cart_combo")}', {goods : $.toJSON(goods)}, function(data) {
+		ec_group_delInCartResponse(data);
+	}, 'json');
+}
+
+//处理删除购物车中的商品的反馈信息
+function ec_group_delInCartResponse(result)
+{
+	var group = result.group;
+	if (result.error > 0){
+		alert(data_not_complete);
+	}else if(result.parent == 0){
+		$('.'+group).attr("checked",false);
+	}
+	display_Price(group,group.charAt(group.length-1));//显示套餐价格
+}
+
+//生成属性选择层
+function ec_group_openSpeDiv(message, group, goods_id, parent)
+{
+  var _id = "speDiv";
+  var m = "mask";
+  if (docEle(_id)) document.removeChild(docEle(_id));
+  if (docEle(m)) document.removeChild(docEle(m));
+  //计算上卷元素值
+  var scrollPos;
+  if (typeof window.pageYOffset != 'undefined')
+  {
+    scrollPos = window.pageYOffset;
+  }
+  else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat')
+  {
+    scrollPos = document.documentElement.scrollTop;
+  }
+  else if (typeof document.body != 'undefined')
+  {
+    scrollPos = document.body.scrollTop;
+  }
+
+  var i = 0;
+  var sel_obj = document.getElementsByTagName('select');
+  while (sel_obj[i])
+  {
+    sel_obj[i].style.visibility = "hidden";
+    i++;
+  }
+
+  // 新激活图层
+  var newDiv = document.createElement("div");
+  newDiv.id = _id;
+  newDiv.style.position = "fixed";
+  newDiv.style.zIndex = "10000";
+  //newDiv.style.width = "26rem";
+  //newDiv.style.height = "28rem";
+  //newDiv.style.top = (parseInt(scrollPos + 200)) + "px";
+  newDiv.style.bottom = "0";
+  newDiv.style.left = "0";
+  newDiv.style.right = "0";
+  //newDiv.style.marginLeft = "-13rem";
+  newDiv.style.overflow = "hidden";
+  newDiv.style.background = "#FFF";
+  //newDiv.style.border = "3px solid #59B0FF";
+  newDiv.style.padding = "1.3rem 1.3rem 0rem 1.3rem";
+  newDiv.style.boxSizing = "border-box";
+
+  //生成层内内容
+  newDiv.innerHTML = '<div class="dis-box"><h4 class="n-goods-tit box-flex">' + select_spe + "</h4><a href='javascript:ec_group_cancel_div(\"" + group + "\"," + goods_id + ")' class='box-flex text-right'><i class='iconfont icon-guanbi show-div-guanbi'></i></a></div>";
+
+  for (var spec = 0; spec < message.length; spec++)
+  {
+      newDiv.innerHTML += '<h6 class="n-goods-cont-tit">' +  message[spec]['name'] + '</h6>';
+
+      if (message[spec]['attr_type'] == 1)
+      {
+        for (var val_arr = 0; val_arr < message[spec]['values'].length; val_arr++)
+        {
+          if (val_arr == 0)
+          {
+            newDiv.innerHTML += "<div class='n-goods-list-cont'><input  type='radio' name='spec_" + message[spec]['attr_id'] + "' value='" + message[spec]['values'][val_arr]['id'] + "' id='spec_value_" + message[spec]['values'][val_arr]['id'] + "' checked /><label>" + message[spec]['values'][val_arr]['label'] + '</label><em>(' + message[spec]['values'][val_arr]['format_price'] + ')</em></div>';
+          }
+          else
+          {
+            newDiv.innerHTML += "<div class='n-goods-list-cont'><input  type='radio' name='spec_" + message[spec]['attr_id'] + "' value='" + message[spec]['values'][val_arr]['id'] + "' id='spec_value_" + message[spec]['values'][val_arr]['id'] + "' /><label>" + message[spec]['values'][val_arr]['label'] + '</label><em> (' + message[spec]['values'][val_arr]['format_price'] + ')</em></div>';
+          }
+        }
+        newDiv.innerHTML += "<input type='hidden' name='spec_list' value='" + val_arr + "' />";
+      }
+      else
+      {
+        for (var val_arr = 0; val_arr < message[spec]['values'].length; val_arr++)
+        {
+          newDiv.innerHTML += "<div class='n-goods-list-cont'><input  type='checkbox' name='spec_" + message[spec]['attr_id'] + "' value='" + message[spec]['values'][val_arr]['id'] + "' id='spec_value_" + message[spec]['values'][val_arr]['id'] + "' /><label>" + message[spec]['values'][val_arr]['label'] + '</label><em> (' + message[spec]['values'][val_arr]['format_price'] + ')</em></div>';
+        }
+        newDiv.innerHTML += "<input type='hidden' name='spec_list' value='" + val_arr + "' />";
+      }
+  }
+  newDiv.innerHTML += "<br /><div class='dis-box  b-color-f n-goods-btn'><a class='f6 btn-submit2 box-flex' href='javascript:ec_group_cancel_div(\"" + group + "\"," + goods_id + ")' class='f6' >" + is_cancel + "</a><a href='javascript:ec_group_submit_div(\"" + group + "\"," + goods_id + "," + parent + ")' class='f6 btn-submit box-flex' >" + btn_buy + "</a></div>";
+  document.body.appendChild(newDiv);
+
+
+  // mask图层
+  var newMask = document.createElement("div");
+  newMask.id = m;
+  newMask.style.position = "absolute";
+  newMask.style.zIndex = "9999";
+  newMask.style.width = document.body.scrollWidth + "px";
+  newMask.style.height = document.body.scrollHeight + "px";
+  newMask.style.top = "0px";
+  newMask.style.left = "0px";
+  newMask.style.background = "#000";
+  newMask.style.filter = "alpha(opacity=30)";
+  newMask.style.opacity = "0.40";
+  document.body.appendChild(newMask);
+}
+
+//获取选择属性后，再次提交到购物车
+function ec_group_submit_div(group, goods_id, parentId)
+{
+  var goods        = new Object();
+  var spec_arr     = new Array();
+  var fittings_arr = new Array();
+  var number       = 1;
+  var input_arr      = document.getElementById('speDiv').getElementsByTagName('input'); //by mike
+  var quick		   = 1;
+
+  var spec_arr = new Array();
+  var j = 0;
+
+  for (i = 0; i < input_arr.length; i ++ )
+  {
+    var prefix = input_arr[i].name.substr(0, 5);
+
+    if (prefix == 'spec_' && (
+      ((input_arr[i].type == 'radio' || input_arr[i].type == 'checkbox') && input_arr[i].checked)))
+    {
+      spec_arr[j] = input_arr[i].value;
+      j++ ;
+    }
+  }
+
+  goods.quick    = quick;
+  goods.spec     = spec_arr;
+  goods.goods_id = goods_id;
+  goods.number   = number;
+  goods.parent   = (typeof(parentId) == "undefined") ? 0 : parseInt(parentId);
+  goods.group    = group;//组名
+
+	$.post('{:url("flow/add_to_cart_combo")}', {goods : $.toJSON(goods)}, function(data) {
+		ec_group_addToCartResponse(data);
+	}, 'json');
+  document.body.removeChild(docEle('speDiv'));
+  document.body.removeChild(docEle('mask'));
+
+  var i = 0;
+  var sel_obj = document.getElementsByTagName('select');
+  while (sel_obj[i])
+  {
+    sel_obj[i].style.visibility = "";
+    i++;
+  }
+
+}
+
+//关闭mask和新图层的同时取消选择
+function ec_group_cancel_div(group, goods_id){
+  document.body.removeChild(docEle('speDiv'));
+  document.body.removeChild(docEle('mask'));
+
+  var i = 0;
+  var sel_obj = document.getElementsByTagName('select');
+  while (sel_obj[i])
+  {
+    sel_obj[i].style.visibility = "";
+    i++;
+  }
+  cancel_checkboxed(group, goods_id);//取消checkbox
+}
+
+/*
+*套餐提交到购物车 by mike
+*/
+function addMultiToCart(group,goodsId){
+	var goods     = new Object();
+	var number    = $('input[name="'+group+'_number"]').val();
+
+	goods.group = group;
+	goods.goods_id = goodsId;
+	goods.number = (number < 1) ? 1:number;
+
+	//判断是否勾选套餐
+	if(!$("."+group).is(':checked')){
+		alert(select_shop);
+		return false;
+	}
+
+
+	$.post('{:url("flow/add_to_cart_group")}', {goods : $.toJSON(goods)}, function(data) {
+		addMultiToCartResponse(data);
+	}, 'json');
+}
+
+//回调
+function addMultiToCartResponse(result){
+	if(result.error > 0){
+		alert(result.message);
+	}else{
+	window.location.href = "{:url('flow/mcart')}";
+		//window.location.href = "{:url('flow/cart')}";
+	}
+}
+
+//取消选项
+function cancel_checkboxed(group, goods_id){
+	//取消选择
+	group = group.substr(0,group.lastIndexOf("_"));
+	$("."+group).each(function(index){
+		if($("."+group).eq(index).val()==goods_id){
+			$("."+group).eq(index).attr("checked",false);
+		}
+	});
+}
+
+/*
+//sleep
+function sleep(d){
+	for(var t = Date.now();Date.now() - t <= d;);
+}
+*/
+/*相册控制*/
+	document.getElementById('img-photo-box').style.width = document.body.offsetWidth + 'px';
+	document.getElementById('img-photo-box').style.height = document.body.offsetWidth + 'px';
+	window.onresize = function(){
+		document.getElementById('img-photo-box').style.width = document.body.offsetWidth + 'px';
+	    document.getElementById('img-photo-box').style.height = document.body.offsetWidth + 'px';
+	}
+
+</script>
+
+</body>
+
+</html>

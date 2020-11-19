@@ -1,0 +1,361 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->	
+<script>
+	$(document).ready(function(){
+	
+	console.log($(".j-show-div").find("span").html())
+	var area=$(".j-show-div").find("span").html();
+	
+	
+
+
+
+		$(".txt-username").change(function(){
+		var len=$(".txt-username").val().length;
+		var user_name = $(".txt-username").val();
+			if(len<6){
+				alert("您输入的用户名少于6位数！")
+			}else if(len>16){
+				alert("您输入的用户名多于16位！")
+			}else if(len>6&&len<16){
+				$.post(
+				"index.php?m=default&c=user&a=ajaxfinduser",
+				 { "user_name": user_name },
+				 function(result){
+					if (result.status==1){
+						alert('用户名已存在');
+						return false;
+					}
+					
+				}, "json");
+			}
+		})
+
+
+		$(".btn-submit").click(function(){
+		var phoneNumber = $('#mobile_phone').val(); 
+			if($("#mobilezone").html()==" +86"){
+				
+				if(phoneNumber.length==0){
+					alert("请填写手机号码");
+					
+				}else {
+
+					if(isPhoneNo($.trim(phoneNumber)) == false) {
+					   alert("手机号码不正确")
+					   return false
+					}
+				}
+				
+				// 验证手机号
+				function isPhoneNo(phone) { 
+				 var pattern = /^1[34578]\d{9}$/; 
+				 return pattern.test(phone); 
+				}
+						 
+			}else {
+			
+				if(phoneNumber.length==0){
+					alert("请填写手机号码");
+				}else if(phoneNumber.replace(/\D/g,'').length!=8){
+					alert("手机号码不正确")
+				}
+			}
+		})
+	})
+
+
+</script>
+	
+
+<script>
+var c=1;
+function sendSms(){
+
+	var mobile = $('#mobile_phone').val();
+	//var zone = $('select[name=zone]').val();
+	var zonel = $("#mobilezone").text();
+	var zone =zonel.match(/\d+/g); 
+	//匹配文本中的数字
+	console.log(zone);
+var peice="现价：200元和500";
+var price = peice.match(/\d+/g);//price值为：200,500
+
+
+	 var flag = $('#flag').val();
+	// var code = $("#sms_code").val();
+	// var captcha = $("#captcha").val();
+	if(mobile.length == ''){
+		alert('请填写手机号码');
+		return false;
+	}
+	if(c==0){
+		alert('发送频繁');
+		return false;
+	}
+	
+	
+	$.post("index.php?m=default&c=sms&a=newsendsms&flag="+flag, { "mobile": mobile,"zone":zone },function(result){
+		if (result.result==1){
+			RemainTime();
+			alert('验证码已成功发送');
+		}else{
+			if(result.msg){
+				alert(result.msg);
+			}else{
+				alert('手机验证码发送失败');
+			}
+		}
+	}, "json");
+}
+
+function register2(){
+
+	var status = true;
+	var mobile = $('#mobile_phone').val();
+	var mobile_code = $('#mobile_code').val();
+	var password = $('#password').val();
+	if(mobile.length == ''){
+		alert('请填写手机号码');
+		return false;
+	}
+	if(mobile_code.length == ''){
+		alert('请填写手机验证码');
+		return false;
+	}
+	if(password.length == ''){
+		alert('请填写登录密码');
+		return false;
+	}
+	if(!$("#agreement").attr("checked")){
+		alert('请阅读用户协议并同意');
+		return false;
+	}
+	$.ajax({
+		type: "POST",
+		url: "index.php?m=default&c=sms&a=check",
+		data: "mobile="+mobile+"&mobile_code="+mobile_code+"&flag=register",
+		dataType: "json",
+		async: false,
+		success: function(result){
+			if (result.code!=2){
+				alert(result.msg);
+				status = false;
+			}
+		}
+	});
+	return status;
+}
+
+function submitForget(){
+
+	var status = true;
+	var mobile = $('#mobile_phone').val();
+    var mobile_code = $('#mobile_code').val();
+	if(mobile.length == ''){
+		alert('请填写手机号码');
+		return false;
+	}
+	if(mobile_code.length == ''){
+		alert('请填写手机验证码');
+		return false;
+	}
+	$.ajax({
+		type: "POST",
+		url: "index.php?m=default&c=sms&a=check",
+		data: "mobile="+mobile+"&mobile_code="+mobile_code,
+		dataType: "json",
+		async: false,
+		success: function(result){
+			if (result.code!=2){
+				alert(result.msg);
+				status = false;
+			}else{
+				return true;
+			}
+		}
+	});
+	return status;
+}
+		
+var iTime = 59;
+var Account;
+
+function RemainTime(){
+  //document.getElementById('zphone').disabled = true;
+  var iSecond,sSecond="",sTime="";
+  if (iTime >= 0){
+    iSecond = parseInt(iTime%60);
+    if (iSecond >= 0){
+      sSecond = iSecond + "秒";
+    }
+    sTime=sSecond;
+    if(iTime==0){
+      clearTimeout(Account);
+      sTime='获取手机验证码';
+      iTime = 59;
+	  c=1;
+      //document.getElementById('zphone').disabled = false;
+    }else{
+	 
+      Account = setTimeout("RemainTime()",1000);
+      iTime=iTime-1;
+	  c=0;
+    }
+  }else{
+    sTime='没有倒计时';
+  }
+  //document.getElementById('zphone').value = sTime;
+  $('#zphone').html(sTime);
+}
+</script>
+<body class="b-color-f">
+<!--2018-03-26登录页优化开始-->
+<div class="d-login-top">
+  <div class="img"><img src="http://img02.tenfutenmax.com.cn/public/logo1.png"></div>
+</div>
+<!--<div class="box text-c f-3 pt-1 zuce">注册</div>-->
+<form action="{:url('user/register')}" method="post" name="formUser" class="validforms">
+<input type="hidden" name="flag" id="flag" value="register" />
+<section class="j_showed" style="display:none;">				
+	<div class="mask-filter-div show"></div>
+	<div class="show-goods-attr j-filter-show-div ts-3 b-color-1 show">
+		<section class="s-g-attr-con b-color-f m-top1px swiper-container-vertical swiper-container-free-mode">
+			<div class="swiper-wrapper">
+				<div id="collapseTwo" class="t-box panel-collapse collapse in" aria-expanded="true" style="">
+		          <ul class="ect-radio f-pay-block phone_li">
+		            <li value="86">            
+		              +86 大陆
+		            </li>
+		            <li value="886">     
+		              +886 台湾
+		            </li>
+		            <li value="852">     
+		              +852 香港
+		            </li>
+		            <li value="853">     
+		              +853 澳门
+		            </li>
+		          </ul>
+        		</div>
+			</div>
+			<div class="swiper-scrollbar" style="display: none; opacity: 0;">
+				<div class="swiper-scrollbar-drag" style="height: 0px;"></div>
+			</div>
+		</section>
+	</div>
+</section>
+<div class="d-login-center" style="padding:0;">
+  <p class="item-username input_username"><input class="txt-username" style="" type="text" maxlength="20"  name="user_name" id="user_name" placeholder="{$lang.input_username_alert}" errormsg="{$lang.input_username_alert}" /><b class="tp-btn btn-off"></b></p>
+  <p class="item-password"><input class="txt-password" style=""  type="password" maxlength="20" datatype="/^[a-z\d]{6,20}$/i" name="password" id="password"  placeholder="{$lang.input_pass_alert}" errormsg="{$lang.input_pass_alert}" /><b class="tp-btn btn-off"></b></p>
+  <p class="phone_input j-show-div">
+  	<span id="mobilezone" class="mobilezone" style="padding-left: 1rem;padding-right:1rem;font-size: 1.5rem;margin: auto 0;" name="zone"> +86</span>
+<input class="box-flex reg-left-input" type="tel" name="mobile" id='mobile_phone' placeholder="{$lang.pls_input_mobile}" datatype="m" nullmsg="{$lang.pls_input_mobile}" />
+  </p>
+  <p>
+   <div class="input_again" style="position: relative;"><input placeholder="{$lang.no_code}" name="sms_code" id="mobile_code" type="text" /></span>
+            <a class="pull-right btm-password " id="zphone" name="sendsms" onclick="sendSms();" type="botton" style="position: absolute; top: 1.7rem; right: 0px;">{$lang.get_code}</a></div>
+
+  </p>
+  
+</div>
+
+<div class="d-login-submit">
+	<input name="act" type="hidden" value="act_register" />
+	<input name="enabled_sms" type="hidden" value="1" />
+	<input type="hidden" name="back_act" value="{$back_act}" />
+	<input type="hidden" name="u" value="{$u}" />
+	<button  name="Submit" type="submit" class="btn-submit">{$lang.register}</button>
+</div>
+<div class="d-login-text line-2">
+	<input id="agreement" name="agreement" type="checkbox" value="1" checked="checked">
+	<label for="agreement">{$lang.register_agree}<a href="/index.php?m=default&c=article&a=info&aid=14" target="_blank">《{$lang.service_question}》</a>及<a href="/index.php?m=default&c=article&a=info&aid=15" target="_blank">《{$lang.privacy_statement}》</a></label>
+</div>
+<div class="s-height"></div>
+<div  style="width:100%;background:#F4F4F4;position:fixed;bottom:0;left:0;">
+	<div class="d-login-center f-03" style=" text-align: right;padding:1.5rem 0"><span class="already_have">已有账号,</span><a href="/index.php?m=default&c=user&a=login">{$lang.already_have_account}</a></div>
+</div>
+</form>
+
+<!--2018-03-26登录页优化结束-->
+
+	<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+	<!-- #EndLibraryItem -->
+	<script>
+	
+	
+	var c=1;
+function sendSms(){
+	
+	var mobile = $('#mobile_phone').val();
+	//var zone = $('select[name=zone]').val();
+	var zonel = $("#mobilezone").text();
+	var zone =zonel.match(/\d+/g); 
+	
+	 var flag = $('#flag').val();
+	// var code = $("#sms_code").val();
+	// var captcha = $("#captcha").val();
+	if(mobile.length == ''){
+		alert('请填写手机号码');
+		return false;
+	}
+	if(c==0){
+		alert('发送频繁');
+		return false;
+	}
+	
+	
+	$.post("index.php?m=default&c=sms&a=newsendsms&flag="+flag, { "mobile": mobile,"zone":zone[0] },function(result){
+		if (result.result==1){
+			RemainTime();
+			alert('验证码已成功发送');
+		}else{
+			if(result.msg){
+				alert(result.msg);//
+			}else{
+				alert('手机验证码发送失败');
+			}
+		}
+	}, "json");
+}
+	$('.btn-off').on('click', function() {
+		if ($(this).hasClass('btn-on')) {
+			$(this).removeClass('btn-on');
+			$(this).prev().attr('type', 'password');
+		} else {
+			$(this).addClass('btn-on');
+			$(this).prev().attr('type', 'text');
+		}
+	});
+	$("#mobilezone").click(function() {
+			document.addEventListener("touchmove", handler, false);
+			$(".j_showed").show();
+			$(".j-filter-show-div").addClass("show");
+			$(".mask-filter-div").addClass("show");
+		});
+		$(".reg-left-input").click(function(){
+			$(".j_showed").hide();
+		})
+	$(document).ready(function(){
+	$('.phone_li').find('li').each(function() {
+                $(this).click(function() {
+                console.log($(this).html());
+                  $("#mobilezone").html(RemoveChinese($(this).html()));
+                  $(".j_showed").hide();  
+                })
+            })	
+	})
+	function RemoveChinese(strValue) {  
+    if(strValue!= null && strValue != ""){  
+        var reg = /[\u4e00-\u9fa5]/g;   
+       return strValue.replace(reg, "");   
+    }  
+    else  
+        return "";  
+}  
+	
+</script>
+
+</body>
+
+</html>

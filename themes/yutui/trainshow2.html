@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>trainshow2</title>
+    <link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/data/assets/swiper/css/swiper.min.css"/>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/yutui/css/photoswipe.css">
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/js/leftTime.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/js/ectouch.js"></script>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/search.css" >
+</head>
+<body>
+<!--top-->
+<div id="home" class="l-train-s-top">
+	<div id="l-train-s-yes" class="navbar-wrapper">
+		<ul class="s-flex">
+			<li class="menuItem active"><a href="#one">商機</a></li>
+			<li class="menuItem"><a href="#two">套餐</a></li>
+			<li class="menuItem"><a href="#three">制度</a></li>
+			<li class="menuItem"><a href="#four">細則</a></li>   
+		</ul>
+	</div> 
+</div>
+<!--topEnd-->
+<!--conten-->
+<div class="l-train-s-conten">
+  <ul>
+    <li id="one">
+      <div class="l-train-s-kong"></div>
+      <h2>商機</h2>
+      <p><img src="images/new/1.jpg"></p>
+      <p><img src="images/new/1.jpg"></p>
+      <p><img src="images/new/1.jpg"></p>
+      <p><img src="images/new/1.jpg"></p>
+    </li>
+    <li id="two">
+      <div class="l-train-s-kong"></div>
+      <h2>套餐</h2>
+      <p><img src="images/new/1.jpg"></p>
+      <p><img src="images/new/1.jpg"></p>
+      <p><img src="images/new/1.jpg"></p>
+      <p><img src="images/new/1.jpg"></p>
+    </li>
+    <li id="three">
+      <div class="l-train-s-kong"></div>
+      <h2>制度</h2>
+      <p><img src="images/new/1.jpg"></p>
+      <p><img src="images/new/1.jpg"></p>
+      <p><img src="images/new/1.jpg"></p>
+      <p><img src="images/new/1.jpg"></p>
+    </li>
+    <li id="four">
+      <div class="l-train-s-kong"></div>
+      <h2>細則</h2>
+      <p><img src="images/new/1.jpg"></p>
+      <p><img src="images/new/1.jpg"></p>
+      <p><img src="images/new/1.jpg"></p>
+      <p><img src="images/new/1.jpg"></p>
+    </li>
+  </ul>
+</div>
+<!--contenEnd-->
+
+<script src="/data/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/themes/yutui/js/stickUp.min.js"></script>
+<script type="text/javascript">
+	jQuery(function($) {
+		$(document).ready( function() {
+			$('.navbar-wrapper').stickUp({
+				parts: {
+					0:'one',
+					1:'two',
+					2: 'three',
+					3: 'four',
+				},
+				itemClass: 'menuItem',
+				itemHover: 'active',
+				topMargin: 'auto'
+			});
+		});
+	});
+</script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

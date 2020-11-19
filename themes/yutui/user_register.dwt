@@ -1,0 +1,486 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->	
+<style>html,body{height:100%;}</style>
+
+
+<script>
+
+
+
+var c=1;
+
+function setCookie(cname,cvalue)
+{
+	 var Days = 30;
+    var exp = new Date();
+    exp.setTime(exp.getTime() + 60  * 1000);//过期时间 1小时
+    document.cookie = cname + "=" + escape(cvalue) + ";expires=" + exp.toGMTString();
+
+}
+function clearCookie(cname) {  
+    setCookie(cname, "", -1);  
+} 
+function newGetCookie(name) {
+    var arg = name + "=";
+    var alen = arg.length;
+    var clen = document.cookie.length;
+    var i = 0;
+    while (i < clen) {
+        var j = i + alen;
+        if (document.cookie.substring(i, j) == arg) return getCookieVal(j);
+        i = document.cookie.indexOf(" ", i) + 1;
+        if (i == 0) break;
+    }
+    return null;
+}
+function getCookieVal(offset) {
+    var endstr = document.cookie.indexOf(";", offset);
+    if (endstr == -1) endstr = document.cookie.length;
+    return unescape(document.cookie.substring(offset, endstr));
+}
+function sendSms1(){
+	var alreadyclick=newGetCookie("alreadyclick");
+	if(alreadyclick!='' && alreadyclick!=undefined)
+	{
+		alert("请勿频繁操作短信");
+		return false;
+	}else{
+
+		setCookie("alreadyclick","yes");
+		sendSms();
+	}
+	
+	
+}
+function newsendSms(){
+
+	var mobile = $('#mobile_phone').val();
+	var alreadyclick=newGetCookie("alreadyclick");
+	var reg = /(1[3-9]\d{9}$)/;
+	if(mobile.length == ''){
+		alert('请填写手机号码');
+		return false;
+	}
+	//正则表达式
+        
+    if (!reg.test($('#mobile_phone').val()))
+    {
+        $('#mobile_phone').focus();
+        alert("请输入正确格式的手机号码！");
+        return false;
+    }
+	console.log(alreadyclick);
+	if(alreadyclick!='' && alreadyclick!=undefined)
+	{
+		alert("请勿频繁操作短信");
+		return false;
+	}else{
+
+		setCookie("alreadyclick","yes");
+		sendSms();
+	}
+
+}
+
+function sendSms(){
+
+	
+	var mobile = $('#mobile_phone').val();
+	//var zone = $('select[name=zone]').val();
+	var zonel = $("#mobilezone").text();
+	var zone =zonel.match(/\d+/g); 
+	
+	 var flag = $('#flag').val();
+	// var code = $("#sms_code").val();
+	// var captcha = $("#captcha").val();
+	
+	if(c==0){
+	
+		return false;
+	}
+	
+	
+	$.post("index.php?m=default&c=sms&a=newsendsms&flag="+flag, { "mobile": mobile,"zone":zone[0] },function(result){
+
+		if (result.result==1){
+			RemainTime();
+			$(".btn-submit1").unbind();
+			alert('验证码已成功发送');
+		}else{
+			clearCookie("alreadyclick");
+			if(result.msg){
+				alert(result.msg);
+				return false;
+			}else{
+				alert('手机验证码发送失败');
+			}
+		}
+		$(".yanzhengma").show();
+		$("#iphone_center").hide();
+		$(".other_register").hide();
+		$(".cancel").hide();
+		$(".d-login-top").hide();
+		$(".no_yanzhengma").show();
+		$(".sendcodebutton").hide();
+		$(".resiterbutton").show();
+		$(".tianwei_f").show();
+		//箭头返回
+		$(".gt_span").click(function(){
+			window.location.reload()
+		})
+			$.post("index.php?m=default&c=api&a=isFindMobile", { "mobile": mobile },function(result1){
+			
+				if (result1.status==200){
+					$(".sms_mobile").html(result1.sms_mobile)
+					$(".sendcodebutton").hide();
+					
+
+					$(".resiterbutton").hide();
+					$(".loginbutton").show();
+					$(".tianwei_f").hide();
+					$("#act").val("act_login");
+				
+					if(result1.data.length==1){
+						var locationurl = "/index.php?m=default&c=user&a=login&username="+result1.data[0].user_name;
+
+					}else{
+					
+						$(".showlinkaccount").empty();
+					
+							$.each(result1.data, function(i, item){  
+							if(item.status==1){
+								if(item.user_avatar){
+
+								$(".showlinkaccount").append(`<div class="has_pepole" href='/index.php?m=default&c=user&a=login&username=${item.user_name}'><a href="javescript:;" style="display: flex;"><div style="width: 15%;padding-right: 1rem;"><img style="width:100%;border-radius:100%;"src="${item.user_avatar}"></div><div style="margin: auto 0;"><p>${item.nick_name}</p><p>${item.user_name}</p></div></a></div>`);
+
+							}else{
+								
+								$(".showlinkaccount").append(`<div class="has_pepole" href='/index.php?m=default&c=user&a=login&username=${item.user_name}'><a style="display: flex;" href="javescript:;"><div style="width: 15%;padding-right: 1rem;"><img style="width:100%;border-radius:100%;" src="/themes/yutui/images/new/card_logo.png"></div><div style="margin: auto 0;"><p>${item.nick_name}</p><p>${item.user_name}</p></div></a></div>`);
+
+							
+						
+							}
+							}
+							
+						}); 
+							//点击选中
+							$(".has_pepole").click(function(){
+								$(this).addClass("has_pepole_active").siblings().removeClass("has_pepole_active");
+								
+							});
+							//确定选中
+							$(".sure_a").click(function(){		
+							var href = $(".showlinkaccount").children(".has_pepole_active").attr('href');			
+							if(typeof(href) == "undefined"){
+								alert("请先选择登录账号");
+							}else{
+								window.location.replace($(".showlinkaccount").children(".has_pepole_active").attr('href'));
+							}	
+						})
+					}
+					var code=result1.sms_code;
+					$(".loginbutton").click(function(){
+
+						var sms_code = $("#sms_code").val();
+						$.post("index.php?m=default&c=api&a=verify_smscode", { "sms_code": sms_code },function(result2){
+							if(result2.result=='1'){
+
+								if(locationurl) {
+									window.location.href=locationurl;
+
+								}else{
+									$(".has_longname").show();
+									$(".sure_login").show();
+								}
+							}else{
+								alert("验证码输入错误");
+								return false;
+							}
+						},"json");								
+					})					
+				}else{
+					$(".sendcodebutton").hide();
+					//注册
+					$(".sms_mobile").html(result1.sms_mobile)
+					$(".resiterbutton").show();
+					var code=result1.sms_code;
+					$(".resiterbutton").click(function(){
+					var sms_code = $("#sms_code").val();
+						$.post("index.php?m=default&c=api&a=verify_smscode", { "sms_code": sms_code },function(result3){
+								
+						if(result3.result){
+
+								$("#submitform").submit()
+								
+
+								}else{
+									alert("验证码输入错误")
+									return false;
+							}
+						},"json");
+											
+					});
+				}
+			}, "json");
+
+		
+	}, "json");
+
+}
+
+
+
+
+		
+var iTime = 59;
+var Account;
+
+function RemainTime(){
+
+  //document.getElementById('zphone').disabled = true;
+  var iSecond,sSecond="",sTime="";
+  if (iTime >= 0){
+    iSecond = parseInt(iTime%60);
+    if (iSecond >= 0){
+      sSecond = iSecond + "秒";
+    }
+    sTime=sSecond;
+    if(iTime==0){
+      clearTimeout(Account);
+      sTime=' ';
+      iTime = 59;
+	  c=1;
+      document.getElementById('zphone').disabled = false;
+    }else{
+	 
+      Account = setTimeout("RemainTime()",1000);
+      iTime=iTime-1;
+	  c=0;
+    }
+  }else{
+    sTime='没有倒计时';
+  }
+  //document.getElementById('zphone').value = sTime;
+  $('#zphone').html(sTime);
+}
+</script>
+<body class="b-color-f">
+<!--2018-03-26登录页优化开始-->
+
+<div class="has_longname"style="display:none;">
+	<div>
+		<h3>检查到手机已关联以下账号</h3>
+		<h3>请选择登录</h3>
+	</div>
+	<div class="showlinkaccount">
+
+	</div>
+
+</div>
+<div class="sure_login" style="display:none;">
+	<a class="sure_a">确定</a>
+</div>
+<div class="body_overlap overlap2" style="display:none;">
+    <div class="top_overlay" style="box-sizing:border-box;"><b>拓客系统用户服务协议</b></div>
+      <div style="padding:1rem;padding-top: 6rem;overflow: hidden;">
+        {$lang.tianwei_xy}
+        <div class="s-height"></div>
+        <div class="bottom_overlap"><span>我已阅读并同意此协议</span></div>
+      </div>
+    <div class="s-height"></div>
+  </div>
+<div class="body_overlap overlap1" style="display:none;">
+    <div class="top_overlay" style="box-sizing:border-box;"><b>拓客系统隐私政策</b></div>
+      <div style="padding:1rem;padding-top: 6rem;overflow: hidden;">
+        {$lang.tianwei_xy1}
+        <div class="s-height"></div>
+        <div class="bottom_overlap"><span>我已阅读并同意此协议</span></div>
+      </div>
+    <div class="s-height"></div>
+  </div>  
+<div class="d-login-top">
+  <div class="img" style="text-align: left;padding: 6rem 6% 4rem 6%;">
+  	<h2>欢迎来到拓客系统</h2>
+  	<h2>请您登陆/注册</h2>
+  </div>
+</div>
+<div class="no_yanzhengma" style=" display:none;">
+	<p class="no_yanzheng"><a href="javascript:;" class="gt_span" style="width:3%;"><img src="images/gt_.png"></a><span class="no_yzm_span">没有收到验证码?</span></p>
+	<p style="font-size: 3rem;padding-top: 5rem;padding-bottom: 2rem;padding-left: 6%;">请输入验证码</p>
+	<p style="font-size: 1.3rem;padding-left: 6%;color: #B2B2B2;">我们已向<span class='sms_mobile'></span>发送验证码，</p>
+	<p style="font-size: 1.3rem;padding-left: 6%;color: #B2B2B2;padding-bottom: 2rem;">请在下方输入</p>
+</div>
+<!--<div class="box text-c f-3 pt-1 zuce">注册</div>-->
+
+<div class="body_pop_up" id="address_div" style="display:none;">
+	<div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+	<div class="iknow">
+		<p style="padding: 2rem 0;text-align: center;font-size:1.8rem;">收不到验证码？</p>
+		<div style="padding: 0rem 2rem 2rem 2rem;box-sizing: border-box;font-size: 1.3rem;line-height: 2.3rem;">
+			<p>1、请检查手机号输入是否正确，港澳台及
+    海外手机号请填写国际区号，再填写手
+    机号码；</p>
+			<p>2、如果安装了360卫士、安全管家、QQ
+     管家软件，请进入软件查询拦截记录，
+     并将商城短信设为新人后重试；</p>
+			<p>3、请您清除手机缓存后重新获取；</p>
+			<p style="padding-bottom:2rem;">4、请确认您是否退订过。</p>
+		</div>
+		<div class="close_know" style="padding-bottom: 1rem;padding-top: 1rem;background: #2596f4;color: #fff;">知道了</div>
+	</div>
+	</div>
+	
+	
+</div>
+
+
+<form action="{:url('user/register')}" style="position:relative;" method="post" name="formUser" id="submitform" class="validforms">
+
+<input type="hidden" name="flag" id="flag" value="register" />
+<section class="j_showed" style="display:none;">				
+	<div class="mask-filter-div show"></div>
+	<div class="show-goods-attr j-filter-show-div ts-3 b-color-1 show">
+		<section class="s-g-attr-con b-color-f m-top1px swiper-container-vertical swiper-container-free-mode">
+			<div class="swiper-wrapper">
+				<div id="collapseTwo" class="t-box panel-collapse collapse in" aria-expanded="true" style="">
+		          <ul class="ect-radio f-pay-block phone_li">
+		            <li value="86">            
+		              +86 大陆
+		            </li>
+		            <li value="886">     
+		              +886 台湾
+		            </li>
+		            <li value="852">     
+		              +852 香港
+		            </li>
+		            <li value="853">     
+		              +853 澳门
+		            </li>
+		          </ul>
+        		</div>
+			</div>
+			<div class="swiper-scrollbar" style="display: none; opacity: 0;">
+				<div class="swiper-scrollbar-drag" style="height: 0px;"></div>
+			</div>
+		</section>
+	</div>
+</section>
+<div class="yanzhengma" style="display:none;">
+	<p style="width:70%"><input  style="font-size:1.7rem;width: 100%;" name="sms_code" type="" id='sms_code' value="" placeholder="输入验证码"/></p>
+	<p  onclick="sendSms1()" style="text-align:right;width:30%;color:#949494;"><span id="zphone" ></span>重新发送</p>
+</div>
+<div class="d-login-center" id="iphone_center" style="padding:0;">
+  
+  <p class="phone_input j-show-div" style="border:none;padding-left: 1rem;display:flex;">
+  	<span id="mobilezone" class="mobilezone" style="padding-left: 1rem;padding-right:1rem;font-size: 1.5rem;margin: auto 0;" name="zone"> +86</span>
+	<input class="box-flex reg-left-input" type="tel" name="mobile" id='mobile_phone' placeholder="{$lang.pls_input_mobile}" datatype="m" nullmsg="{$lang.pls_input_mobile}" />
+  </p>
+  
+  
+</div> 
+
+<div class="d-login-submit" style="padding-top:1rem;">
+	<input name="act" id="act" type="hidden" value="act_register" />
+	<input name="enabled_sms" type="hidden" value="1" />
+	<input type="hidden" name="back_act" value="{$back_act}" />
+	<input type="hidden" name="u" value="{$u}" />
+</div>
+	<br />
+	<a  class="pull-right recive btn-submit1 sendcodebutton" style="background:#2596f4;color:#fff;"  name="sendsms" onclick="newsendSms();" >发送验证码</a>
+	<a  class="pull-right recive btn-submit resiterbutton"  name="sendsms" style="display:none;background:#2596f4;color:#fff;" >注册</a>
+	<br />
+	<a  class="pull-right recive btn-submit2 loginbutton" id="login_true"  name="sendsms" style="display:none;background:#2596f4;color:#fff;" >登录</a>
+</div>
+<div class="tianwei_f" style="display:none;">
+	<p><span><img src=""></span><span>注册代表您已同意</span><a class="tianwei_click" href="javascript:;">拓客系统用户协议</a>及<a href="javascript:;" class="tianwei_click1">隐私政策</a></p>
+</div>
+
+<div class="s-height"></div>
+<!--<div class="cancel"  style="width:100%;display:none;background:#F4F4F4;position:fixed;bottom:0;left:0;">
+	<div class="d-login-center f-03 pass_" style=" text-align: center;padding:0.5rem 0"><span class="already_have">取消</span>-->
+</div>
+</form>
+
+<!--2018-03-26登录页优化结束-->
+<script type="text/javascript" src="/themes/yutui/statics/js/jquery.cookie.js"></script>
+	<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+	<!-- #EndLibraryItem -->
+
+	<script>
+
+
+
+
+
+	$(".tianwei_click").click(function(){
+		$(".overlap2").show();
+			$(".overlap1").hide();
+	})
+	$(".tianwei_click1").click(function(){
+		$(".overlap1").show();
+		$(".overlap2").hide();
+	})
+	$(".bottom_overlap").click(function(){
+  		$(".overlap1").hide();
+	})
+	$(".bottom_overlap").click(function(){
+  		$(".body_overlap").hide();
+	})
+
+
+
+	$("#mobilezone").click(function() {
+	
+			document.addEventListener("touchmove", handler, false);
+			$(".j_showed").show();
+			$(".j-filter-show-div").addClass("show");
+			$(".mask-filter-div").addClass("show");
+		});
+		$(".reg-left-input").click(function(){
+			$(".j_showed").hide();
+		})
+	$(document).ready(function(){
+	$(".no_yzm_span").click(function(){
+		$("#address_div").show();
+	})
+	$(".close_know").click(function(){
+
+	$("#address_div").hide();
+
+	})
+
+	//输入号码
+	$("#mobile_phone").keyup(function(){
+
+		if($("#mobile_phone").val()!=0){
+			$(".cancel").show();
+		}
+	})
+	$(".pass_").click(function(){
+		window.location.reload();
+	})
+
+
+
+	$('.phone_li').find('li').each(function() {
+                $(this).click(function() {
+                
+                  $("#mobilezone").html(RemoveChinese($(this).html()));
+                  $(".j_showed").hide();  
+                })
+            })	
+	})
+	function RemoveChinese(strValue) {  
+    if(strValue!= null && strValue != ""){  
+        var reg = /[\u4e00-\u9fa5]/g;   
+       return strValue.replace(reg, "");   
+    }  
+    else  
+        return "";  
+}  
+	
+</script>
+
+</body>
+
+</html>

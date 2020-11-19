@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>{$lang.giveticket_log}</title>
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">  
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+</head>
+<body class="con">
+{if $getUsersendTicket||$getUserReceivesendTicket}
+ <!--{foreach name=getUsersendTicket from=$getUsersendTicket item=getUsersendTicket}-->
+ <div class="wai_div">
+  <div class="s-flex l-record-box">
+    <div class="l-record-ico"><span class="zeng">{$lang.give}</span></div>
+    <div class="box">
+      <div class="s-flex box s-justify-b line-03">
+        <strong class="f-08">{if $getUsersendTicket.order_id>0}{$lang.give_train_combo}{else}{$lang.give_train_groupcombo}{/if}</strong>
+        <span class="col-hui">{if $getUsersendTicket.give_time>0}{$getUsersendTicket.give_time}{else}2018-05-26 18:00{/if}</span>
+      </div>
+      <div class="s-flex box">
+        <p style="color:#BDBDBD">接收人：</p>
+        <p class="col-cheng">{$getUsersendTicket.nick_name}</p>
+      </div>
+    </div>
+  </div>
+  <div class="l-record-text m-bottom08"><div class="line-bottom"></div><p class="l_juzhong_p">{$getUsersendTicket.code}　{$getUsersendTicket.goods_name}</p></div>
+ </div> 
+ <!--{/foreach}-->
+ <!--{foreach name=getUserReceivesendTicket from=$getUserReceivesendTicket item=getUserReceivesendTicket}-->
+ <div class="wai_div">
+  <div class="s-flex l-record-box">
+    <div class="l-record-ico"><span class="shou">收</span></div>
+    <div class="box">
+      <div class="s-flex box s-justify-b line-03">
+        <strong class="f-08">{if $getUserReceivesendTicket.order_id>0}{$lang.receive_train_combo}{else}{$lang.receive_train_groupcombo}{/if}</strong>
+        <span class="col-hui">{if $getUserReceivesendTicket.give_time>0}{$getUserReceivesendTicket.give_time}{else}2018-05-26 18:00{/if}</span>
+      </div>
+      <div class="s-flex box">
+         <p style="color:#BDBDBD">{$lang.giver}：</p>
+        <p class="col-cheng">{$getUserReceivesendTicket.nick_name}</p>
+      </div>
+    </div>
+  </div>
+  <div class="l-record-text m-bottom08"><div class="line-bottom"></div><p class="l_juzhong_p">{$getUserReceivesendTicket.code}　{$getUserReceivesendTicket.goods_name}</p></div>
+   </div>
+ <!--{/foreach}-->
+ {else}
+<!--暂无记录-->
+<div class="box text-center bg-white ptb-3">
+  <p><img src="images/new/train_addico.png" style="width:18rem;"></p>
+  <p class="col-hui">{$lang.no_give_ticket_log}~</p>
+</div>
+{/if}
+<!-- #BeginLibraryItem "/library/page.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+ //没有相關記録时页面底部也显示白底  
+$(function(){
+  if($(".box").hasClass("text-center")){
+    $("body").addClass("bg-white");
+    $(".s-height").addClass("bg-white")
+  }
+}) 
+</script>
+</body>

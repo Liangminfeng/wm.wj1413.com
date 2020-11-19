@@ -1,0 +1,62 @@
+
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+
+{if $message_list}
+    <div class="user-account-detail" >
+      <ul>
+        <!--{foreach name=message_list from=$message_list item=msg}-->
+        <li class="single_item">       
+        	<div class="dis-box new-msg-title">
+        		<div class="box-flex">
+        			<h4>{$msg.msg_type}<span class="col-hui pl-2">{$msg.msg_time}</span></h4>
+        			
+        		</div>
+        		<div class="box-flex" style="width: auto;">
+        			<a onclick="if (!confirm('{$lang.confirm_remove_msg}')) return false;" href="{$msg.url}" style="float: right; outline: none;"><i class="iconfont icon-guanbi"></i></a>
+        		</div>
+            </div>
+            <h5> {$msg.msg_title}</h5>
+            <p> {$msg.msg_content} </p>
+            <!--{if $msg.re_msg_content}-->
+            <table>
+            	
+              <tr>
+                <td><div class="msg-jiantou tf-45"></div> <label>{$lang.shopman_reply}<em>({$msg.re_msg_time})</em></label>
+                  {$msg.re_msg_content} </td>
+              </tr>
+            </table>
+            <!--{/if}-->
+        </li>
+        <!--{/foreach}-->
+      </ul>
+    </div>
+{include file='library/page.lbi'}
+
+{else}
+<div class="user-account-detail" >
+	<div class="user-account-message">
+		{$lang.no_message_yet}
+	</div>
+  <ul class="ect-bg-colorf" id="J_ItemList">
+    
+    <a href="javascript:;" style="text-align:center" class="get_more"></a>
+  </ul>
+</div>
+{/if}
+
+</div>
+<div style="width: 100%; height: 5rem"></div>
+<div class="s-flex s-space-3 c-card-submit -mob-share-open"><a href="/index.php?m=default&c=user&a=service&u=4" class="Cect-bg" style="width: 80%;">{$lang.user_leave}</a></div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
+{if empty($order_id)}
+<script type="text/javascript">
+get_asynclist('{:url("user/msg_list")}' , '__TPL__/images/loader.gif');
+</script>
+{/if}
+</body></html>

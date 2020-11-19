@@ -1,0 +1,59 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+<div class="s-flex i-invite-user">
+  <p><img src="{$user_avatar|default:/themes/yutui/images/new/card_logo.png}"></p>
+  <p>{$invite_name}{$lang.yutui_info}</p>
+</div>
+<div class="restartNew" style="top: 6.6rem; width: auto; font-size: 1.5rem; left:3%;">
+  {foreach from = $viporderlist item = order}
+  <li><p><img src="{$order.user_avatar|default:/themes/yutui/images/idx_user.png}"></p><span>{$order.nick_name}刚刚升级了VIP</span></li>
+  
+  {/foreach}
+</div>
+<div style="width: 100%; height: 4.8rem;"></div>
+<div class="s-block img" style=" background-color: #0b0b17;;">
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img.vmi31.com/public/vip_market1_01_001.jpg"></p>
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img.vmi31.com/public/vip_p1.png"></p>
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><a href="/index.php?c=topic&topic_id=17"><img src="http://img.vmi31.com/public/vip_p2.png"></a></p>
+<div style="display:flex;background: #f7f7f7;margin-bottom: -0.1rem;">
+<p ><a href="/index.php?c=goods&id=943&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p1_vip.png"></a></p>
+<p><a href="/index.php?c=goods&id=883&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p2_vip.png"></a></p>
+</div>
+<div style="display:flex;background: #f7f7f7;margin-bottom: -0.1rem;">
+<p><a href="/index.php?c=goods&id=884&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p3_vip11.png"></a></p>
+<p><a href="/index.php?c=goods&id=829&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p4_vip.png"></a></p>
+</div>
+<div style="display:flex;background: #f7f7f7;margin-bottom: -0.1rem;">
+<p style="background: #f7f7f7;"><a href="/index.php?c=goods&id=830
+&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p5_vip.png"></a></p>
+<p style="background: #f7f7f7;"><a href="/index.php?c=goods&id=885&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p6_vip.png"></a></p>
+</div>
+
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img.vmi31.com/public/vip_p003.jpg"></p>
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img.vmi31.com/public/vip_p0004.jpg"></p>
+
+
+
+  
+  
+  
+
+</div>
+<div style="width: 100%; height: 5rem"></div>
+<div class="s-flex c-card-submit" style="bottom:-6px;background: #fff; z-index: 9999999;"><a href="/index.php?c=topic&topic_id=17" class="" style="width: 100%;padding:0"><img style="width: 100%;"src="http://img02.tenfutenmax.com.cn/public/vip_market1_11.png"></a></div>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+  $(function(){
+    $('.restartNew li:first').siblings().hide();
+    setInterval(function(){
+      $('.restartNew li:visible').fadeOut('normal', function(){
+          $(this).next('li')[0] === undefined ? $('.restartNew li:first').fadeIn("slow") : $(this).next('li').fadeIn("slow");
+      });
+    }, 5000)
+  });
+//数据随机显示
+
+</script>
+</body>
+
+</html>

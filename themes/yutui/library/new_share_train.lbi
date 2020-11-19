@@ -1,0 +1,175 @@
+<!--弹窗提示-->
+<script>
+var shareline = '{$share_link}';
+var sharehref= shareline==''?location.href:shareline;
+var shareTitle = "{$share_title}";
+var shareDesc = "{$share_description}";
+var sharePic  ="{$share_pic}";
+
+</script>
+<link rel="stylesheet" type="text/css" href="/themes/yutui/js/mob-share.css?v={$v}">
+<div id="shareUrl" class="c-cardadd-no" id="Box1">
+	<div class="t-box s-flex">
+		<div class="l-train-yes">
+			<h2 style="line-height: 2rem; padding: 4rem 3rem; font-size: 1.7rem; box-sizing: border-box;">{$lang.train_window_error}</h2>
+			<div class="s-box text-center padding-1 line-2">{$share_link}</div>
+			<div class="s-flex l-train-submit" style="justify-content: center; margin:1rem 3%;"><a href="" class="Cect-bg"  onclick="Box1.style.display='none';">{$lang.close_window}</a></div>
+		</div>
+	</div>
+</div>
+
+<!--MOB SHARE BEGIN-->
+<script src="/data/assets/js/clipboard.min.js"></script> 
+<div class="-mob-share-ui ShareBox" style="bottom:0rem;height: auto;top: auto;background-color: #fff;">
+    <ul class="-mob-share-list" style=" margin: 0rem auto 8rem auto; width: 94%;bottom: -2rem;">
+        <!-- <li class="-mob-share-qq"><p>{$lang.qq_friend}</p></li> -->
+        <li class="-mob-share-facebook" onclick="facebookshare();"><p>Facebook</p></li>
+        <!--<li class="-mob-share-twitter"><p>Twitter</p></li>-->
+        <li class="weixin"><p>Wechat</p></li>
+        {if !$is_wechat}<li class="line" onclick="location='javascript:lineshare();'"><p>LINE</p></li>{/if}
+        <!--复制网址-->
+       <li class="s-share-url">
+         <button id="copy_button" onclick="copy_button" type="button" /></button>
+         <p>{$lang.copy_url}</p>
+       </li>
+    </ul>
+    <div class="-mob-share-close">{$lang.is_cancel}</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<div id="qrcode" style="display:none"></div>
+<script> 
+//弹出share层
+$(".-mob-share-open").click(function(){
+  $(".ShareBox").show()
+});
+$(".-mob-share-close").click(function(){
+  $(".ShareBox").hide()
+});
+/*复制网址*/
+function lineshare(){
+	location.href="https://social-plugins.line.me/lineit/share?url="+encodeURIComponent(sharehref);
+}
+function facebookshare(){
+	window.open("https://www.facebook.com/sharer.php?u="+encodeURIComponent(sharehref)+"&t="+shareTitle);
+}
+var clipboard = new ClipboardJS('#copy_button', {
+    text: function(trigger) {
+        return sharehref;
+    }
+});
+clipboard.on('success', function(e) {
+//alert("cccc \n" + sharehref);
+   alert("{$lang.copy_ok_share}");
+});
+
+clipboard.on('error', function(e) {
+   $("#shareUrl").addClass("c-cardadd-yes")
+});
+
+</script>
+<!--MOB SHARE END-->
+<!--  wechat_begin  -->
+	{if $is_wechat}
+	<!--微信浏览器下分享提示-->
+<div class="t-box s-flex" id="Box2" style="display: none">
+  <div class="weixinHint"><img src="../images/new/tishi.png"></div>
+  <div class="l-train-close weixinHintClose" onclick="Box2.style.display='none';"><span>X</span></div>
+</div>
+
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+
+	<script type="text/javascript">
+	    // 分享内容
+	    var shareContent = {
+	        title: shareTitle,
+	        desc: shareDesc,
+	        link: sharehref,
+	        imgUrl: sharePic,
+			success:function(){
+				$("#Box2").hide();
+			}
+	    };
+	    $(function(){
+	    	$(".weixin").click(function(){
+	    		$("#Box2").show();
+	    	});
+	    	
+	        var url = window.location.href;
+	        var jsConfig = {
+	            debug: false,
+				jsApiList : [ 'updateAppMessageShareData', 'updateTimelineShareData',
+					'onMenuShareWeibo']
+	        };
+	        $.post("{:url('api/jssdk')}", {url: url}, function (res) {
+	            if(res.status == 200){
+	                jsConfig.appId = res.data.appId;
+	                jsConfig.timestamp = res.data.timestamp;
+	                jsConfig.nonceStr = res.data.nonceStr;
+	                jsConfig.signature = res.data.signature;
+	                // 配置注入
+	 
+	                wx.config(jsConfig);
+	                // 事件注入
+	                wx.ready(function () {
+	                	wx.updateAppMessageShareData(shareContent);
+						wx.updateTimelineShareData(shareContent);
+						wx.onMenuShareWeibo(shareContent);
+	                });
+	            }
+	        }, 'json');
+	    })
+	</script>
+	
+	{else}
+	<!--  wechat_end  -->
+<!--海报-->
+<div class='t-box s-flex' id='qrimg' style='display: none;'><div class='l-train-yes'><p><img ></p><!--<p><img src="../images/new/share_bottom.jpg"></p>--><div class='l-train-close'><span style="bottom: 10px;">X</span></div></div></div>
+
+<script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v=1"></script>
+<script type="text/javascript">
+$(window).load(function(){
+	var link = "{$share_link}";
+	if(link=="")link=location.href;
+	Mqrcode.makeCode({
+		//设定返回函数
+		callback:function(img){
+				$("#qrimg").find("img")[0].src=img;
+			},
+		//设定背景图片   可为空
+		bgImg:"/themes/yutui/images/new/share_bg2.jpg?v=1",
+		//有背景图片时二维码的定位
+		position:{l:296,t:1025},
+		width:160,	//宽度
+		height:160,	//高度
+		link:link,	//二维码链接
+		pluginText:[
+			{text:"{$user_info.nick_name|default:$user_info.user_name}",l:250,t:140,font:"50px 微软雅黑",style:"#ffffff"},//推薦人
+			{text:"邀您参与拓客财富列车",l:250,t:190,font:"40px 微软雅黑",style:"#ffffff"},//邀請詞
+			{l:145,t:870,w:460,h:60,bgcolor:"#273946"},//商品名稱背景图
+			{text:"{$goods.goods_name}",l:370,t:915,font:"30px 微软雅黑",style:"#ffffff",align:"center"},//商品名稱
+			{l:145,t:930,w:460,h:60,bgcolor:"#273946"},//商品價格背景图
+			{text:"￥ {format $goods.shop_price,2}",l:370,t:965,font:"30px 微软雅黑",style:"#ffffff",align:"center"},//商品價格
+
+		],
+		pluginImg:[
+			
+			/**
+			* src 图片链接（只接受当前域名下图片）
+			* l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+			* circle 是否圆形裁切
+			*/
+			{src:"{$user_info.user_avatar|default:/themes/yutui/images/new/card_logo.png}",l:72,t:70,w:150,h:150,circle:true},//推薦人頭像
+			{src:"/themes/yutui/images/new/share_logo.png?v=2",l:350,t:1080,w:50,h:50},//二維碼小圖標	
+			{src:"{$share_pic}",l:95,t:360,w:560,h:560},//商品圖片	
+		],
+	});
+})
+$(".weixin").click(function(){
+	$("#qrimg").show();
+});
+$(".l-train-close").click(function(){
+	$("#qrimg").hide();
+});
+</script>
+	{/if}
+

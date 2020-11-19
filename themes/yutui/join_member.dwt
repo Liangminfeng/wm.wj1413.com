@@ -1,0 +1,252 @@
+﻿<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem --> 
+
+
+<div class="con m-b7">    
+	<div class="index-banner "style="margin-top:0">
+		<div ><img src="http://img.vmi31.com/public/tenmax_banner1.jpg"></div>
+	</div>
+	
+	<nav class="initiation_nav">
+		<div class="container">
+    	<div class="swiper-container swiper1">
+          	<div class="swiper-wrapper tenmax_header">
+            	<div class="swiper-slide selected initiation_tc" code="1" style="width:25%;"><span style="display: inline-block;width: 100%;border-right: 1px solid #DEDEDE;" >金级套组</span></div>
+            	<div class="swiper-slide swiper-slide-next initiation_tc" code="2" style="width:25%;"><span style="display: inline-block;width: 100%;border-right: 1px solid #DEDEDE;">翡翠级套组</span></div>
+            	<div class="swiper-slide initiation_tc" code="3" style="width:25%;"><span href="javascript:;" style="border-right:1px solid #DEDEDE;display: inline-block;width: 100%;">金钻级套组</span></div>
+            	<div class="swiper-slide initiation_tc" code="4" style="width:25%;">至尊级套组<span href="javascript:;" style="border-right: none;"></span></div>
+          	</div>
+    </div>
+    <div class="swiper-container swiper2">
+      <div class="swiper-wrapper lkd_n_body" style="height:100%;">
+        <!-- 银卡套组 -->
+        <div class="swiper-slide swiper-no-swiping lkd_cnt"  style="color:#000;">
+          <nav class="reorder_product s-flex  all" id="silver">
+		
+		  </nav>
+        </div> 
+        <!-- 金卡套组 -->
+        <div class="swiper-slide swiper-no-swiping lkd_new_card uncompletegroup "  style="color:#000;">
+          <nav class="reorder_product s-flex all">
+		
+		  </nav>
+        </div>
+        <!-- 砖石套组 -->
+        <div class="swiper-slide swiper-no-swiping lkd_new_cardc completegroup "  style="color:#000;">
+          <nav class="reorder_product s-flex all">
+		
+		  </nav>
+        </div>
+        <!-- 至尊卡套组 -->
+        <div class="swiper-slide swiper-no-swiping lkd_new_cardc completegroup "  style="color:#000;">
+          <nav class="reorder_product s-flex all">
+		
+		  </nav>
+        </div>
+      </div>    
+    </div>
+  </div>
+	</nav>	
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+
+
+<script type="text/javascript ">
+	$(document).ready(function(){
+
+		var getIndexNum = sessionStorage.getItem("tabLiNum");
+		if(getIndexNum){
+			
+		}else{
+			 getIndexNum ={$user_rank};
+		}
+		
+		
+		var goods_vip = parseInt(getIndexNum)+1;
+	
+		var rtcat_id = '1';
+		$.ajax({
+            url     : "index.php?c=Affiliate&a=getAjaxGoodsList",
+            data    : {goods_vip:goods_vip,rtcat_id:rtcat_id},
+            dataType: "JSON",
+            type    : "post",
+            success :function(res){
+
+        		if(res.status==200){
+        			var data=res.data;
+        			var html="";
+        			console.log(data)   			
+        			for(pic_join of data){  				
+
+        			
+
+        				html+=`<div class="set_meal1_div"><a href="${pic_join.href}"><div class="set_meal"><img src="${pic_join.goods_img}"></div><div class="reorder_meal"><p><span class="pic_name">${pic_join.goods_name}</span></p><p style="flex-direction: column;"><span class="reorder_money">¥${pic_join.shop_price}</span><span class="reorder_pv">${pic_join.rtgoods_pv}pv</span></p></div></a></div>`
+
+        			}
+        			$("#silver").html(html);
+        			//限制字数
+					$(".pic_name").each(function() {
+					
+						var maxwidth =15;//显示多少字符
+						  if ($(this).text().length > maxwidth) {
+						  $(this).text($(this).text().substring(0, maxwidth));
+						  $(this).html($(this).html() + '...');
+						}
+					});
+        		}                        
+          }
+    	});
+    	
+
+		$(".tenmax_header div").eq(getIndexNum).addClass('selected').siblings().removeClass('selected');
+		$(".all").eq(getIndexNum).show().siblings(".all").hide();
+    	$(".initiation_tc").click(function(){
+    		var indexNum = $(this).index(); //所点击li的索引值
+			console.log("当前li的下标为：",indexNum); //打印索引值
+			sessionStorage.setItem("tabLiNum",indexNum);
+
+		  	var goods_vip = $(this).attr("code");
+		  	console.log(goods_vip)
+			var rtcat_id = '1';
+			$.ajax({
+		            url     : "index.php?c=Affiliate&a=getAjaxGoodsList",
+		            data    : {goods_vip:goods_vip,rtcat_id:rtcat_id},
+		            dataType: "JSON",
+		            type    : "post",
+		            success :function(res){
+		            console.log(res);
+		        		if(res.status==200){
+		        			var data=res.data;
+		        			var html="";   			
+		        			for(pic_rank of data){
+		        				html+=`<div class="set_meal1_div"><a href="${pic_rank.href}"><div class="set_meal"><img src="${pic_rank.goods_img}"></div><div class="reorder_meal"><p><span class="pic_name">${pic_rank.goods_name}</span></p><p style="flex-direction: column;"><span class="reorder_money">¥${pic_rank.shop_price}</span><span class="reorder_pv">${pic_rank.rtgoods_pv}pv</span></p></div></a></div>`
+		        			}
+		        			$(".reorder_product").html(html);
+		        			//限制字数
+					$(".pic_name").each(function() {
+						
+						var maxwidth =15;//显示多少字符
+						  if ($(this).text().length > maxwidth) {
+						  $(this).text($(this).text().substring(0, maxwidth));
+						  $(this).html($(this).html() + '...');
+						}
+					});
+		        		}
+		        		if(res.status==422){
+		        			$(".reorder_product").html("");
+		        			alert("暂无套餐产品");
+		        		}                        
+		            }
+		    	});
+		  })
+
+
+	})
+
+
+
+	//导航栏滑动
+	 $(function($) {          
+    function setCurrentSlide(ele, index) {
+      $(".swiper1 .swiper-slide").removeClass("selected");
+      ele.addClass("selected");
+      //swiper1.initialSlide=index;
+      }
+
+    var swiper1 = new Swiper('.swiper1', {
+      //设置slider容器能够同时显示的slides数量(carousel模式)。
+      //可以设置为number或者 'auto'则自动根据slides的宽度来设定数量。
+      //loop模式下如果设置为'auto'还需要设置另外一个参数loopedSlides。
+        slidesPerView: 5.5,
+        paginationClickable: true,//此参数设置为true时，点击分页器的指示点分页器会控制Swiper切换。
+        spaceBetween: 0,//slide之间的距离（单位px）。
+        freeMode: true,//默认为false，普通模式：slide滑动时只滑动一格，并自动贴合wrapper，设置为true则变为free模式，slide会根据惯性滑动且不会贴合。
+        loop: false,//是否可循环
+        onTab: function(swiper) {
+          var n = swiper1.clickedIndex;
+        }
+    });
+    swiper1.slides.each(function(index, val) {
+      var ele = $(this);
+      ele.on("click", function() {
+        setCurrentSlide(ele, index);
+        swiper2.slideTo(index, 500, false);
+        //mySwiper.initialSlide=index;
+      });
+    });
+    var swiper2 = new Swiper('.swiper2', {
+      //freeModeSticky  设置为true 滑动会自动贴合  
+      direction: 'horizontal',//Slides的滑动方向，可设置水平(horizontal)或垂直(vertical)。
+      loop: false,
+      //effect : 'fade',//淡入
+      //effect : 'cube',//方块
+      //effect : 'coverflow',//3D流
+      //effect : 'flip',//3D翻转
+      autoHeight: true,//自动高度。设置为true时，wrapper和container会随着当前slide的高度而发生变化。
+      onSlideChangeEnd: function(swiper) {  //回调函数，swiper从一个slide过渡到另一个slide结束时执行。
+        var n = swiper.activeIndex;
+        setCurrentSlide($(".swiper1 .swiper-slide").eq(n), n);
+        swiper1.slideTo(n, 500, false);
+      }
+    });
+  });
+
+	 var swiper = new Swiper('.strict_p', {
+        
+        slidesPerView: 2.4,
+        paginationClickable: false,
+        spaceBetween: 10,
+        freeMode: true
+    });
+
+	 var mySwiper = new Swiper ('.swiper-containerS', {
+	 	  
+          direction: 'horizontal', // 垂直切换选项
+          loop: true, // 循环模式选项
+          
+          // 如果需要分页器
+         
+        })        
+
+	$(function($) {
+		var mySwiper = new Swiper('.banner-first', {
+			pagination: '.banner-first-pagination',
+			loop: false,
+			grabCursor: true,
+			paginationClickable: true,
+			autoplayDisableOnInteraction: false,
+			autoplay: 3000
+		});
+	});
+	
+	/*公告滑动*/
+	var mySwiper = new Swiper('.swiper-containerA', {
+	slidesPerView :'auto',
+      autoplay : 2500,
+      speed:300,
+      direction: 'vertical',
+      grabCursor:true,
+      autoplayDisableOnInteraction:false,
+      mousewheelControl:true,
+      autoHeight:true,
+      pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      },
+    });
+</script>
+<script type="text/javascript">
+	get_asynclist("{:url('index/ajax_goods', array('type'=>'best'))}", '__TPL__/images/loader.gif');
+</script>
+
+
+</body>
+</html>

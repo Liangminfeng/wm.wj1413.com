@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="description" content="{$meta_description}"/>
+    <meta name="keywords" content="{$meta_keywords}"/>
+    <meta name="cache-control" content="no-cache">
+    <title>{$lang.user_center}</title>
+    <link rel="apple-touch-icon-precomposed" href="/themes/yutui/images/new/card_logo.png"><!--桌面图标收藏-->
+    <link rel="stylesheet" href="__TPL__/statics/css/ectouch.css" />
+    <script type="text/javascript" src="__TPL__/statics/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="__TPL__/statics/layui/layui.js"></script>
+    <script type="text/javascript" >var tpl = '__TPL__';</script>
+    {if shareMeta}
+    <meta property="og:title" content="{$shareMeta.title}"/>
+    <meta property="og:description" content="{$shareMeta.description}"/>
+    <meta property="og:image" content="{$shareMeta.image}"/>
+    <meta property="og:updated_time" content="{:time()}"/>
+    {/if}
+    
+</head>
+<body style="max-width:640px;">
+<!--返回顶部-->
+<div class="i-icon-toTop">
+  <a href="javascript:;">
+    <img src="images/toTop2.png">
+  </a>
+</div>
+<div id="loading"><img src="__TPL__/statics/img/loading.gif" /></div>
+
+
+
+<!--2018-04-13个人中心页面优化-->
+<div class="con m-b7">
+  <!--客服弹窗-->
+  <div class="body_pop_up" id="address_div" style="display:none;">
+    <div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+      <div class="contact_kf">
+        <h3 style="padding-bottom: 3rem;color: #000;font-size: 2.5rem;">请联系客服电话</h3>
+        <p id="phone_kf" style="color: #000;font-size: 2rem;">05923150999</p>
+        <p class="copy_iphont" id="copy_iphont">复制</p>
+      </div>
+  </div>
+  <div class="x_clase" style="top:30%;">
+    <img src="images/x_close.png">
+  </div>
+  
+</div>
+<!--设置邀请人弹窗-->
+  <div class="body_pop_up" id="address_div5" style="display:none;">
+    <div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+      <div class="iknow" style="border-radius:0.5rem;">
+        <p style="text-align: -webkit-right;"><span class="close_span" style="font-size: 2rem;padding-right: 0.6rem;">x</span></p>
+        <h3 style="padding: 2rem 0;text-align: center;padding-top: 0;">设置邀请人</h3>
+        <div class="earnings_input" style="padding: 2rem 1rem 0rem 1rem;">
+          <p class="s-flex s-justify-b">
+            <input class="ear_input inp_verification" id="ear_num" placeholder="请输入邀请人编号" type="text" name="" value="" />
+            <a class="click_verification" href="#">点击验证</a>
+          </p>
+          <div class="s-flex add_nick_name" style="margin:auto 0;padding: 2rem 0;">
+            </p>
+          </div>
+          
+        </div>
+        <div class="close_know" >确定</div>
+        <input type="hidden" id="user_id" value=''>
+      </div>
+    </div>    
+  </div>
+  <!--头部-->
+  <div class="Zect-bg">
+    <div class="s-flex s-space-2 Zect-bg" style="width:100%;">
+    	<div class="s-flex u-top-img">
+    		<a href="{:url('user/profile')}">
+    			{if $info.user_avatar}
+    			<img class="n-new-pic" src="{$info.user_avatar}" /> {else}
+    			<img class="n-new-pic" src="__TPL__/images/idx_user.png" /> {/if}
+        
+    		</a>
+    		<div class="s-flex s-align-items u-top-left">
+          <p>
+            <span class="f-25 f_my_name">{if $info.nick_name}{$info.nick_name}{else}{$info.user_name}{/if}</span><!-- <span class="u-top-grade">{$info.rank_name}</span> --><br>
+            <span class="u-top-name">{$info.user_name}</span>
+          </p>
+        </div>
+    	</div>
+      <div class="seting">
+        <a href="{:url('user/profile')}"><img src="images/setting.png" alt=""></a>
+      </div>
+    </div>
+      
+    <div class="s-flex s-justify-b Zect-bg text_left account_body">
+      
+      <div class="account">
+        <a href="{:url('user/balance_statement')}">
+          <p class="ftlt_lt_wzne">{$balancemoney}</p>
+          <p>账户余额</p>
+        </a>
+      </div>
+     
+      <div class="account">
+        <a href="{:url('user/sign_center')}">
+          <p>{$pay_points}</p>
+          <p>鱼宝</p>
+        </a>
+      </div>
+      <div class="account">
+        <a href="{:url('account/coupon')}"> 
+          <p>0</p>
+          <p>优惠券</p>
+        </a>
+      </div>
+      <div class="account">
+        <a href="{:url('account/fortune')}">
+          <p>{$lxpoint}</p>
+          <p>财富金</p>
+        </a>
+      </div>
+     
+    </div> 
+  </div>
+  
+  <!--金额-->
+  <div class="linkman">
+    <div class="s-flex s-justify-b">
+      <p>我的邀请人：<span class="my_interval">{if $parent_info.user_id>0}{if $parent_info.nick_name}{$parent_info.nick_name}{else}{$parent_name}{/if}{else}暂无邀请人{/if}</span></p>
+      <p><a class="linkman_a" onclick="my_inval_show()" href='javascript:;'>{if $parent_info.user_id}联系TA{else}设置{/if}</a></p>
+    </div>
+  </div>
+  
+  <!--我的订单-->
+  <section class="b-color-f my-nav-box ">
+
+  	<a href="{:url('user/order_list')}">
+  	<div class="s-flex s-space" style="padding-bottom: 0px;border-top: 1px solid #f7f7f7;width:100%; padding-right: 5%;box-sizing: border-box;">
+  		<div class="u-order-left"><!-- <span class="A"></span> --><span class="f-07">{$lang.user_order}</span></div>
+      
+  		<span class="t-jiantou" style="color: #a8a8a8;font-size: 1.4rem;"><i class="gt_big" style="width:2.2rem"><img src="images/gt_big.png" alt=""></i></span>
+
+  	</div>
+  	</a>
+  	<ul class="user-money-list g-s-i-title-2 dis-box text-center my-dingdan">
+  		<a href="{:url('user/not_pay_order_list')}" class="box-flex">
+  			<li>
+  				<h4 class="ellipsis-one"><i class="iconfont  my-img-size" style="width:40%;height: 3.2rem;display: inline-block;">
+            <img style="width:98%;" src="images/new/payment_.png" alt="">    
+          </i></h4>
+  				<p class="t-remark3">{$lang.unpay_order}</p>
+          <!--{if $list.not_pays neq '0'}-->
+  				<div class="user-list-num">
+  					{$list.not_pays}
+  					
+  				
+  				</div>
+            <!--{/if}-->
+  			</li>
+  		</a>
+  		<a href="{:url('user/not_shoushuo')}" class="box-flex">
+  			<li>
+  				<h4 class="ellipsis-one"><i class="iconfont  my-img-size" style="width:40%;height: 3.2rem;display: inline-block;">
+              <img style="width:100%;" src="images/new/wait_.png" alt="">  
+          </i></h4>
+  				<p class="t-remark3">{$lang.unreceived_order}</p>
+          <!--{if $list.not_shouhuos neq '0'}-->
+  				<div class="user-list-num">
+  					{$list.not_shouhuos}
+  				
+  				
+  				</div>
+            <!--{/if}-->
+  			</li>
+  		</a>
+  		<a href="{:url('user/order_comment')}" class="box-flex">
+  			<li>
+  				<h4 class="ellipsis-one"><i class="iconfont  my-img-size" style="width:40%;height: 3.2rem;display: inline-block;">
+            <img style="width:100%;" src="images/new/evaluate_.png" alt="">    
+          </i></h4>
+  				<p class="t-remark3">{$lang.unreview_order}</p>
+          <!--{if $list.not_comment neq '0'}-->
+  				<div class="user-list-num">
+  					{$list.not_comment}
+  				
+  				
+  				</div>
+            <!--{/if}-->
+  			</li>
+  		</a>
+  		<a href="{:url('user/aftermarket_list')}" class="box-flex">
+  			<li>
+  				<h4 class="ellipsis-one"><i class="iconfont  my-img-size" style="width:40%;height: 3.2rem;display: inline-block;">
+            <img style="width:96%;" src="images/new/returned_.png" alt="">    
+          </i></h4>
+  				<p class="t-remark3">{$lang.return_order}</p>
+  			</li>
+  		</a>
+  	</ul>
+  </section>
+
+
+<!--常用功能-->
+  <section class="b-color-f my-nav-box m-top10">
+    <!-- <div class="s-flex s-space" style="padding-bottom: 0px;">
+  	  <div class="u-order-left"><span class="C"></span><span class="f-07">{$lang.user_common}</span></div>
+  	</div> -->
+  	<div class="s-flex u-common">
+<!--   	  <a href="/index.php?m=default&c=flow&a=cart&u=262" style="border-right:1px solid #FAFAFA;border-bottom:1px solid #FAFAFA;"><div><p class="p_flex_icon"><img src="images/shopping_car.png"></p><p class="p_font">购物车</p></div></a> -->
+    
+     
+
+      
+      <a href="{:url('user/collection_list')}" style="border-bottom:1px solid #FAFAFA;border-right:1px solid #FAFAFA;"><div><p class="p_flex_icon"><img  src="images/collect.png"></p><p class="p_font">收藏商品</p></div></a>
+
+     
+    <a id="kefu" href="javascript:;" style="border-right:1px solid #FAFAFA;border-bottom:1px solid #FAFAFA;"><div><p class="p_flex_icon"><img src="images/telme.png"></p><p class="p_font">联系我们</p></div></a> 
+      <!-- <a href="/index.php?c=article&a=help&id=16" style="border-right:1px solid #FAFAFA;border-bottom:1px solid #FAFAFA;"><div><p class="p_flex_icon"><img  src="images/user_help.png"></p><p class="p_font">使用帮助</p></div></a> -->
+      {if $info['autonym']}
+      <a href="{:url('user/autonym')}" style="border-right:1px solid #FAFAFA;"><div><p class="p_flex_icon"><img src="images/readyman.png"></p><p class="p_font">实名认证</p></div></a>
+      {else}
+       <a href="{:url('user/autonymedit')}" style="border-right:1px solid #FAFAFA;"><div><p class="p_flex_icon"><img src="images/readyman.png"></p><p class="p_font">实名认证</p></div></a>
+       {/if}
+  	</div>
+  </section>
+
+</div>
+<!--猜你喜欢-->
+  <div class="N_Recommend" style="margin-top:0;background: #f7f7f7;">
+    <h3>猜你喜欢<span></span></h3>
+    <section class="product-list2 j-product-list n-index-box " data="1" style="padding:0px;">
+      <ul class="index-more-list" id="J_ItemList">
+        <div class="single_item"></div>
+        <a href="javascript:;" style="text-align:center" class="get_more"></a>
+        </ul>
+    </section>
+    <div style="width: 100%; height: 5rem; overflow: hidden;"></div>
+  </div>
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!--2018-04-13个人中心页面优化结束-->
+<!--悬浮菜单e-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+
+<script type="text/javascript" src="/data/assets/js/jquery.more.js"></script>
+<script type="text/javascript" src="/data/assets/js/common.js"></script>
+<script src="/data/assets/js/clipboard.min.js"></script> 
+<script>
+  //返回顶部
+  $(function(){
+    $('.i-icon-toTop').hide();
+    $(window).scroll(function(){
+    if($(this).scrollTop() > 100){
+    $('.i-icon-toTop').fadeIn();
+    }else{
+    $('.i-icon-toTop').fadeOut();
+    }
+  });
+    $('.i-icon-toTop a').click(function(){
+      $('html ,body').animate({scrollTop: 0}, 300);
+      return false;
+    })
+  })
+  //关闭提现弹窗
+  $(".close_span").click(function(){
+    $("#address_div5").hide();
+  })
+  //设置ajax
+  $(".click_verification").click(function(){
+
+    var inp_verification=$(".inp_verification").val();
+    if(inp_verification==""){
+      alert("请输入邀请人编号")
+    }else{
+
+      $.ajax({
+      type: "post",
+      url: "{:url('Account/getuserbyvipmanageaccount')}",
+      data: {vip_manage_account:inp_verification},
+      dataType: "json",
+      async: false,
+      success: function(result){
+        console.log(result);
+        $("#user_id").val(result.data.user_id)
+        if(result.status==200){
+
+        var html="";
+        if(result.data.user_avatar){
+          
+        html+=`<span style="width: 24%;margin: auto 0;"><img style="border-radius: 50%;" src="${result.data.user_avatar}" alt=""></span><p class="slides_pro_a" style="margin:auto 0;padding: 0rem 0.5rem;"><span >${result.data.nick_name}</span><span style="color:#dbdbdb">${result.data.user_name}</span>`;
+        $(".add_nick_name").html(html);
+      }else{
+       
+        html+=`<span style="width: 24%;margin: auto 0;"><img style="border-radius: 50%;" src="/themes/yutui/images/new/card_logo.png" alt=""></span><p class="slides_pro_a" style="margin:auto 0;padding: 0rem 0.5rem;"><span >${result.data.nick_name}</span><span style="color:#dbdbdb">${result.data.user_name}</span>`;
+        $(".add_nick_name").html(html);
+      }
+          //关闭设置
+          
+          $(".close_know").click(function(){
+             
+            var parent_id= $("#user_id").val();
+            
+            $.ajax({
+            type: "post",
+            url: "{:url('Account/setUserParent')}",
+            data: {parent_id:parent_id},
+            dataType: "json",
+            async: false,
+            success: function(result){
+              console.log(result)
+            $("#address_div5").hide();
+            $(".linkman_a").html("联系TA");
+            $(".linkman_a").attr("href","/index.php?m=default&c=user&a=business_card&u="+parent_id);
+            $(".my_interval").html(result.data.nick_name)
+            }
+          },"json");
+            
+          })
+      }else{
+          alert(result.msg)
+         
+      }
+      }
+    },"json");
+    }
+    
+  })
+
+
+  function my_inval_show(){
+    
+    if($(".my_interval").html()!="暂无邀请人"){
+      window.location.href = '/index.php?m=default&c=user&a=business_card&u={$parent_id}';
+     
+    }else{
+       $("#address_div5").show();
+      
+    }
+//{if $parent_info.nick_name}{$parent_info.nick_name}{else}暂无邀请人{/if}
+    //href='/index.php?m=default&c=user&a=business_card&u={$parent_id}'
+  }
+
+  //复制电话号码
+  var phonetext= $("#phone_kf").html();
+  var clipboard = new ClipboardJS('#copy_iphont', {
+    text: function(trigger) {
+        return phonetext;
+    }
+  });
+  clipboard.on('success', function(e) {
+    alert("复制成功！");
+  });
+//提现弹窗
+
+//关闭弹窗
+$(".x_clase").click(function(){
+
+  
+  $("#address_div").hide();
+})
+
+//字符超出，省略号
+//
+$(".ftlt_lt_wzne").each(function() {
+var maxwidth =7;//显示多少字符
+  if ($(this).text().length > maxwidth) {
+  $(this).text($(this).text().substring(0, maxwidth));
+  $(this).html($(this).html() + '...');
+}
+});
+
+$(".i-banner-fixed").click(function(){
+  $("#address_div3").show();
+})
+function setCookie(cname,cvalue,exdays)
+{
+  var d=new Date();
+  d.setTime(d.getTime()+(exdays*24*60*60*1000));
+  var expires="expires="+d.toGMTString();
+  document.cookie="olreadyshow="+cvalue+";"+expires;
+}
+function getCookie(cname)
+{
+  var name=cname+"=";
+  var ca=document.cookie.split(';');
+  for(var i=0;i<ca.length;i++)
+  {
+    var c=ca[i].trim();
+    if(c.indexOf(name)==0)
+    {return c.substr(name.length,c.length);}
+  }
+}
+function checkCookie()
+{
+  var olreadyshow=getCookie("olreadyshow");
+
+  if(olreadyshow!='' && olreadyshow!=undefined)
+  {
+    
+    $("#address_div2").hide();
+    $("#address_div3").hide();
+  }
+  else
+  { 
+
+
+    setCookie("olreadyshow","yes",1);
+    $("#address_div2").show();
+
+  }
+}
+</script>
+
+<script type="text/javascript">
+  get_asynclist("{:url('index/ajax_goods', array('type'=>'best'))}", '__TPL__/images/loader.gif');
+  // 字数太长...代替
+  $(".my_interval").each(function(){
+
+       var len=$(this).text().length;   //当前HTML对象text的长度
+       if(len>10){
+           var str="";
+           str=$(this).text().substring(0,10)+"...";  //使用字符串截取，获取前30个字符，多余的字符使用“......”代替
+           
+            $(this).html(str);
+          
+       }
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="/themes/yutui/statics/js/swiper.min.js"></script>
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<!--top-->
+  <form action="{:url('user/surplusTransferDone')}" method="post" name="theForm" onsubmit="return check_form()" >
+    <div class="deposit">
+        <div class="other_body">
+            <p>余额转给其他会员</p>
+        </div>
+        <div class="opposite">
+            <span>对方账号</span>
+            <input type="text"  id='user_name' placeholder="请输入会员账号">
+            <a href="#" >点击验证</a>
+        </div>
+        <div class="adv_img" style="display:none;">
+           <div ></div>
+           <div>
+               <p class="adv_name_img"><img id='adv_name_img' src="" alt=""></p>
+               <p class="adv_name_phone" style='display:none'>
+                   <span id='t_nick_name'></span>
+                   <span id='t_user_name'></span>
+               </p>
+           </div>
+        </div>
+        <div class="avd_money">
+            <p class="money_or_many">转账金额</p>
+            <div class="yen_input">
+                <span style="font-size: 2rem;">&yen;</span>
+                <input type="number" name='money' value=''>
+            </div>
+        </div>
+        <div class="can_avd_money">
+            <span>可转账金额&nbsp;</span><span class="transfer_surplus" style="color:red;">{$user_money}</span><span>元</span>
+        </div>
+        <div class="money_say">
+            <h4>转账说明</h4>
+            <p>余额将实时转入对方账户，无法退还</p>
+        </div>
+        <div class="money_btn">
+          <input type="hidden" name="receive_user_id" value="" />
+          <input type="hidden" name="user_name" value="" />
+          <button name="submit" type="submit" class="btn-submit" value="{$lang.submit_request}">转账</button>
+        </div>
+    </div>
+    </div>
+<!--点击验证搜索不到转账人-->
+<div class='t-box-small' id="Not_num1" style="display:none;">
+  <div class="t_box_show">
+    <p>账号不存在</p>
+  </div>
+</div>
+
+    <!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!--海报-->
+<script>
+$(document).ready(function(){
+	$(".opposite input").focus();
+})
+
+function check_form(){
+    var name = $("input[name='user_name']").val();
+    var money = $("input[name='money']").val();
+    var transfer_surplus = $(".transfer_surplus").html();
+  if(name==""){ 
+       alert("请输入收款人账户");
+       return false;
+    }
+    if(money==""){
+        alert("请输入转账金额");
+        return false;
+    }
+    if(money==0){
+        alert("转账金额不能低于1元");
+        return false;
+    }
+      if(money<0){
+        alert("转账金额不能低于1元");
+        return false;
+    }
+     if(parseInt(money)>transfer_surplus){
+        alert("转账金额不足");
+        return false;
+    }
+      $.ajax({
+           
+
+           url:"{:url('user/validateusermoney')}",
+           data: { user_name:name,money:money},
+           type:"POST",
+           dataType:'json',
+           success:function(res){
+            
+              if(res.status!==303){
+
+                  alert(res.msg);
+                  return false;
+
+              }
+          
+           
+           }})
+
+    
+    
+  };
+ $(".opposite a").click(function(){
+
+      var user_name = $("#user_name").val();
+      
+     $.ajax({
+           
+
+           url:"{:url('user/validateuser')}",
+           data: { user_name:user_name },
+           type:"POST",
+           dataType:'json',
+           success:function(res){
+            
+              if(res.status==200){
+
+                  $('#t_nick_name').html(res.data.nick_name);
+                  $('#t_user_name').html(res.data.user_name);
+                  $('#adv_name_img').attr('src',res.data.user_avatar);
+                  $("input[name='receive_user_id']").val(res.data.user_id);
+                  $("input[name='user_name']").val(res.data.user_name);
+                  $(".adv_name_phone").show();
+                  $("#adv_name_img").show();
+                  $(".adv_img").show();
+              }else{
+              	$("#Not_num1").show().delay(1000).hide(1);
+              	 $(".adv_img").hide();
+            	  $("input[name='receive_user_id']").val("");
+                  $("input[name='user_name']").val("");
+            	 $('#adv_name_img').hide();
+                 $(".adv_name_phone").hide();
+              }
+          
+           
+           }})
+
+
+      })
+
+
+</script>
+</body>
+</html>

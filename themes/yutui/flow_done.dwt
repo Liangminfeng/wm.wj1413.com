@@ -1,0 +1,164 @@
+
+<div class="con">
+
+
+<div class="body_pop_up" id="address_div3" class="address_div3" {if $traininfo&&($pay_status==2)}style="display:block"{else}style="display:none"{/if}>
+  <div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;top: 40%;">
+
+  <a href="{$train_link}" style="width: 67%;display: block;margin: auto">
+    <img src="/themes/yutui/images/yutui/congratulations.png" style="width:100%;">
+
+    <div class="success_yaoqing">
+      <p class="f-05 color-whie success_lieche">成功参与列车<span>{$traininfo.code}</span>,</p>
+      <p class="f-05 color-whie">查看详情将福利分享给好友吧！</p>
+    </div>
+      <div class="success_btn"><span>去分享&gt;&gt;</span></div>
+  </a>
+  </div>
+  <div class="x_clase" style="top: 38%;">
+    <img src="images/x_close.png">
+  </div>
+</div>
+
+  <!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+  <section class="ect-bg-colorf ect-padding-lr flow-done u-flow-done">
+  {if  $pay_code=='no_balance'}
+  <!--papay支付-->
+  		  <i><img src="images/new/order_yes.png"></i>
+        <p class="pt-1 col-hui">{$lang.order_amount}</p>
+        <p class="f-3">¥{$order.order_amount}</p>
+        <p class="m-top12">{$lang.remember_order_number}：<b class="col-cheng">{$order.order_sn}</b></p>
+        <p class="col-hui pt-05">{$lang.order_cancel_auto}</p>
+  <!--余额支付-->
+  {elseif $pay_code=='balance'}
+        <i><img src="../images/new/order_yes2.png"></i>
+        <p class="f-3 ptb-1">{$lang.pay_success_result}</p>
+        <p class="m-top12">{$lang.remember_order_number}：<b class="col-cheng">{$order.order_sn}</b></p>
+        <p class="col-hui pt-05">{$lang.pay_success_thanks}</p>
+        
+  <!--支付失败-->
+  {else}
+        <i><img src="images/new/order_no.png"></i>
+        <p class="f-3 ptb-1">{$lang.pay_failed}</p>
+         <p class="col-hui padding-all">¥{$lang.pay_unfinish}</p>
+{/if}
+        <!--{if $virtual_card}-->
+        <div class="alert alert-warning" role="alert" style="height: 100%;">
+      <!--{foreach from=$virtual_card item=vgoods}-->
+            <h3 style="color:#2359B1; font-size:15px;">{$vgoods.goods_name}</h3>
+            <!--{foreach from=$vgoods.info item=card}-->
+            <ul style="list-style:none;padding:0;margin:0;clear:both">
+              <!--{if $card.card_sn}-->
+              <li> <strong>{$lang.card_sn}:</strong><span style="color:red;">{$card.card_sn}</span> </li>
+              <!--{/if}--> 
+              <!--{if $card.card_password}-->
+              <li> <strong>{$lang.card_password}:</strong><span style="color:red;">{$card.card_password}</span> </li>
+              <!--{/if}--> 
+              <!--{if $card.end_date}-->
+              <li> <strong>{$lang.end_date}:</strong>{$card.end_date} </li>
+              <!--{/if}-->
+            </ul>
+          <!--{/foreach}--> 
+        <!--{/foreach}--> 
+    </div>
+        <!-- {/if} -->
+      {if $pay_desc}
+      <p class="ect-margin-tb">{$lang.select_payment}: <b>{$order.pay_name}</b></p>
+      <p class="ect-margin-tb text-center" style="background-color: rgb(255, 240, 240);padding: 10px;">{$pay_desc}</p>
+      {/if}
+       <p class="ect-margin-tb text-center ptb-1">{$pay_online}</p>
+       <p class="ect-margin-tb text-center a-link-cheng ptb-1">{$order_submit_back}</p>
+  </section>
+
+</div>
+{if $paysuccess eq 1 and $order_type eq 1}
+
+{/if}
+<!--余额支付后加猜你喜欢-->
+<div class="N_Recommend" style="background: #f7f7f7;">
+  <h2><span class="le"></span>{$lang.guessyourlike}<span class="ri"></span></h2>
+  <!--{foreach name=guessyourlike from=$guessyourlike item=goods}-->
+  <section class="product-list2 j-product-list n-index-box" style="padding:0px;">
+    <ul class="index-more-list single_item">
+      <!--{if $goods}-->
+      {if $goods.iteration % 2 == 0}
+      <li class="fr"> 
+        {else}
+        <li class="fl">
+          {/if}
+          <div class="product-div">
+            <a href="{:url('goods/index',array('id'=>$this->_var['goods']['goods_id']))}"><img src="{$goods.goods_img}"></a>
+            <a href="{:url('goods/index',array('id'=>$this->_var['goods']['goods_id']))}"><h4 class="textNumber">{$goods.goods_name}</h4></a>
+            <div style="padding-top:0rem;">
+            <p style="padding:0.3rem 0.8rem;">
+              <span>
+                <font style="font-size:1.7rem;"><span style="font-size:1.5rem;">¥{$goods.new_shoprice}</span>
+                <!--<span style="color: #bdbdbd;font-size:1.3rem;margin:auto;">{$goods.sales_count}人付款</span></font>-->
+              </span>
+            </p>
+            {if $user_vip}
+            <p><span class="vip_shop" style="border:1px solid #313131;box-sizing:border-box;font-size:1rem;">VIP</span><span class="vip_price" style="border: 1px solid #FEDE95;border-top-right-radius: 0.5rem;border-bottom-right-radius: 0.5rem;color:#333;padding: 0.1rem 0.6rem;padding-right:0.5rem;font-size: 1rem;box-sizing:border-box;background:#FEDE95;">¥{$goods.vip_price}{if $goods.integral gt 0}+{$goods.integral}鱼宝{/if}</span></p>
+          
+
+
+            {/if}
+            </div>
+          </div>
+        </li>
+        <!-- {/if}--> 
+      </ul>
+    </section>
+    <!--{/foreach}-->
+  </div> 
+  <!--2018-04-21购票成功提示-->
+{if $trainticket&&$order['pay_status']==2}
+  <div class="t-box s-flex" id="Box1">
+    <div class="l-train-yes">
+      <h2>{$lang.join_success}</h2>
+      <div class="box text-center ptb-5 line-2 plr-3">{$lang.join_train_success}！</div>
+      <div class="s-flex l-train-submit" style="justify-content: center; margin:1rem 3%;"><a href="/index.php?m=default&c=train&a=index&u=4" class="Cect-bg">{$lang.is_ok}</a></div>
+      <div class="l-train-close" onclick="Box1.style.display='none';"><span>X</span></div>
+    </div>
+  </div>
+{/if}
+<!-- #BeginLibraryItem "/library/new_share.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+//关闭弹窗
+$(".x_clase").click(function(){
+
+  $("#address_div3").hide();
+  
+})
+//按钮切换class
+//$(".join_btn button").on("click",function(){
+ // $(this).addClass("join_btn_active").siblings().removeClass("join_btn_active");
+//})
+
+//点击空白页关闭弹窗
+$("#join_show").bind('click', function(e) {
+        var e = e || window.event; //浏览器兼容性 
+        var elem = e.target || e.srcElement;
+        while (elem) { //循环判断至跟节点，防止点击的是div子元素 
+          if (elem.id && elem.id == 'zezao_header') {
+            return;
+          }
+          elem = elem.parentNode;
+        }
+        $('#join_show').css('display', 'none'); //点击的不是div或其子元素 
+  });
+
+//点击显示分享链接
+  $(document).on('click','.join_btn2',function(){
+    $(".ShareBox").show();
+  })
+      //控制字数
+$(".textNumber").each(function(){
+       var len=$(this).text().length;   //当前HTML对象text的长度
+       if(len>15){
+           var str="";
+           str=$(this).text().substring(0,15)+"...";  //使用字符串截取，获取前30个字符，多余的字符使用“......”代替
+           $(this).html(str);                   //将替换的值赋值给当前对象
+       }
+});
+</script>
+<div class="s-height" style="float: left;"></div>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>trainshow</title>
+    <link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/data/assets/swiper/css/swiper.min.css"/>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/yutui/css/photoswipe.css">
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/js/leftTime.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/js/ectouch.js"></script>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/search.css" >
+</head>
+<body>
+<!--头部-->
+<div class="Zect-bg">
+	<header class="ect-header ect-margin-tb ect-margin-lr text-center icon-write"> <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>車 票詳情</span> <a href="#" class="pull-right  l-show-ico"></a></header>
+</div>
+<!--车厢-->
+<div class="l-show-top">
+  <ul>
+    <li>
+      <div class="text">&nbsp;</div>
+      <div class="carriage">列車長</div>
+    </li>
+    <div  class="solid"></div>
+    <li>
+      <div class="text">余30座</div>
+      <div class="carriage active">A 艙</div>
+      <div class="text">需達12單</div>
+    </li>
+    <div  class="solid"></div>
+    <li>
+      <div class="text">余500座</div>
+      <div class="carriage">B 艙</div>
+      <div class="text">需達10單</div>
+    </li>
+    <div  class="solid"></div>
+    <li>
+      <div class="text">不限</div>
+      <div class="carriage">自由座</div>
+      <div class="text">需達2單</div>
+    </li>
+    <div  class="solid"></div>
+    <li>
+      <div class="text">不限</div>
+      <div class="carriage">月台</div>
+      <div class="text">不限</div>
+    </li>
+    <div class="kong">&nbsp;</div>
+  </ul>
+</div>
+<!--预计收益-->
+<div class="l-show-earnings">
+  <dl>
+    <dt><span class="f-02">預計收益</span><br><span class="col-cheng">3100.00</span></dt>
+    <dd class="col-hui">注：獎金將在列車到站后結算</dd>
+  </dl>
+</div>
+<div class="s-flex s-space m-top08 l-show-bottom">
+  <div>介紹人</div>
+  <div>1254849321241</div>
+</div>
+<div class="s-flex s-space l-show-bottom">
+  <div>套餐產品</div>
+  <div>綠星肽肽肽肽肽肽</div>
+</div>
+<div class="s-flex s-space l-show-bottom">
+  <div>套餐價格</div>
+  <div>NT399.00</div>
+</div>
+<div class="l-show-text">完成更多推薦訂單提升艙位座序</div>
+<div class="s-flex s-space l-show-bottom">
+  <div>車次</div>
+  <div class="col-cheng">G001</div>
+</div>
+<div class="s-flex s-space">
+  <div>艙位座序</div>
+  <div class="col-cheng">A艙 136</div>
+</div>
+<div class="s-flex s-space">
+  <div>推薦訂單數</div>
+  <div class="col-cheng">2</div>
+</div>
+<div class="s-flex s-space m-top08">
+  <div>可轉贈票</div>
+</div>
+<div class="s-flex l-show-train l-show-no">
+  <div class="mb-1">2018/04/01<br><span>G0001</span></div>
+  <div class="mb-1 text-right"><a href="#">點擊轉贈</a></div>
+  <div class="mt-22"></div>
+  <div class="mt-22 text-right onelist-hidden"><em>綠星肽肽綠星肽肽綠星肽肽綠星肽肽</em><br><span>NT 399</span></div>
+  <div class="l-show-train-ico"><img src="images/new/train_no.png"></div>
+  <div class="l-show-radius"></div>
+</div>
+<div style="height: 4.5rem; width: 100%;"></div>
+<!--分享-->
+<div class="s-flex s-space l-show-share">
+  <div class="data-box" id="dateShow1" data-date="2018/03/30 09:54:50">分享剩餘時間：<em>
+			<span class="d">00</span>天
+			<span class="h">00</span>时
+			<span class="m">00</span>分
+			<span class="s">00</span>秒
+	</em>
+  </div>
+  <div>
+    <div class="l-share"><a href="#" class="ect-bg">分享</a></div>
+    <div class="l-buy"><a href="#" class="ect-bg">補票</a></div>
+  </div>
+</div>
+<script type="text/javascript">
+		$(function(){
+			//日期倒计时,现在距离下面的日期
+			var data_show = $('.data-box');
+			for(var i=1;i<=data_show.length;i++){
+				function_name($("#dateShow"+i).data("date"),"#dateShow"+i);
+			}
+			function function_name(time,obj) {
+				$.leftTime(time,function(d){
+					if(d.status){
+						var $dateShow1=$(obj);
+						$dateShow1.find(".d").html(d.d);
+						$dateShow1.find(".h").html(d.h);
+						$dateShow1.find(".m").html(d.m);
+						$dateShow1.find(".s").html(d.s);
+						$(".l-buy").hide();
+					}else{
+						$(".l-buy").show();
+            $(".l-share").hide();
+						// $(".l-show-share a").removeClass("ect-bg");
+						// $(".l-show-share a").addClass("ZsubA");
+					}
+				});
+			}
+		});
+	</script>
+</body>
+</html>

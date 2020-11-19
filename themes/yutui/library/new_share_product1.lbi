@@ -1,0 +1,569 @@
+<!--弹窗提示-->
+<link rel="stylesheet" type="text/css" href="/themes/yutui/js/mob-share.css?v={$v}">
+<div class='t-box s-flex s-justify-c' id='qrimg' style="display: none;"><strong class="qrloading"><div><img src="/themes/yutui/images/like/loading.gif"><br>图片努力读取中...</div></strong><div class='l-train-yes'><p style="border:0px solid #ffffff;" id='qrimgPic'><img style="display: block;"></p><div class='l-like-close displayNo' style="display: none;"><em>X</em></div></div></div>
+<script>
+var shareline = '{$share_link}';
+var sharehref= shareline==''?location.href:shareline;
+var shareTitle = "{$share_title}";
+var shareDesc = "{$share_description}";
+var sharePic  ="{$share_pic}";
+
+</script>
+<link rel="stylesheet" type="text/css" href="/themes/yutui/js/mob-share.css?v={$v}">
+<style>
+.-mob-share-ui{background-color: #fff; background: rgba(256,256,256,0); filter: progid:DXImageTransform.Microsoft.gradient(GradientType = 0,startColorstr = '#80000000',endColorstr = '#80000000')\9;}
+.-mob-share-ui ul.-mob-share-list{width: 100%; margin: 5rem auto 1rem auto; padding-bottom: 2rem; cursor: default; display: flex; flex-wrap: wrap; bottom: 1rem; background-color: #ffffff; position: absolute;}
+</style>
+<div id="shareUrl" class="c-cardadd-no" id="Box1">
+	<div class="t-box s-flex">
+		<div class="l-train-yes">
+			<h2 style="line-height: 2rem; padding: 4rem 3rem; font-size: 1.7rem; box-sizing: border-box;">{$lang.train_window_error}</h2>
+			<div class="s-box text-center padding-1 line-2">{$share_link}</div>
+			<div class="s-flex l-train-submit" style="justify-content: center; margin:1rem 3%;"><a href="" class="Cect-bg"  onclick="Box1.style.display='none';">{$lang.close_window}</a></div>
+		</div>
+	</div>
+</div>
+<!--MOB SHARE BEGIN-->
+<script src="/data/assets/js/clipboard.min.js"></script> 
+<script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v=1"></script>
+
+<div class="-mob-share-ui ShareBox">
+    <ul class="-mob-share-list" style="justify-content: space-around;">
+        
+        <!--复制网址-->
+       <li class="s-share-url">
+         <button id="copy_button" onclick="copy_button" type="button" /></button>
+         <p>{$lang.copy_url}</p>
+       </li>
+       
+       <li class="erweima-url" style="display: flex;flex-direction: column-reverse;">
+         	<img id="erweima-" src="images/erweima-.png" style="width: 60px;height: 60px;background: #2A2B2B; border-radius: 0.3rem;"  />
+         	<p>二维码</p>
+       </li>
+      
+    </ul>
+    <div class="-mob-share-close">{$lang.is_cancel}</div>
+</div>
+<div class="-mob-share-ui ShareBox1" style="display:none;">
+    <ul class="-mob-share-list" style="justify-content: space-around;">
+        
+        <!--复制网址-->
+       <li class="s-share-url">
+         <button id="copy_button" onclick="copy_button" type="button" /></button>
+         <p>{$lang.copy_url}</p>
+       </li>
+       
+       <li class="erweima-url1" style="display: flex;flex-direction: column-reverse;">
+         	<img id="erweima-" src="images/erweima-.png" style="width: 60px;height: 60px;background: #2A2B2B; border-radius: 0.3rem;"  />
+         	<p>二维码</p>
+       </li>
+      
+    </ul>
+    <div class="-mob-share-close">{$lang.is_cancel}</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<div id="qrcode" style="display:none"></div>
+<div class="success_ze" style="display:none;">	
+   <p style="position:fixed ;top: 10%;width: 70%;left: 16%;" class="img mycardUrl"><img style="display: block;" src=""></p>
+   <div style="position:fixed; top: 7.8%;right: 20%;" class='l-train-close'><em>X</em></div>
+</div>
+
+	<script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v=1"></script>
+<script> 
+//生成名片弹窗
+  var link = "{$share_link}";
+  if(link=="")link='http://'+document.domain+'/index.php?m=default&c=user&a=mycard&u={$userinfo.user_id}';
+window.onload=function(){
+
+var product_img={img1:"themes/yutui/images/tenmax/t01.png",img2:"themes/yutui/images/tenmax/01.png"};
+
+  Mqrcode.makeCode({
+    width:120,  //宽度
+    height:120, //高度
+    link:link,  //二维码链接
+    callback:function(img){
+  		
+        $("#erweima").attr("src",img);
+      },
+  });
+}
+$(".erweima-url").click(function(){
+	
+  $(".xx_close").show();
+  $(".ShareBox").hide();
+  $(".success_ze").show();
+	Mqrcode.makeCode({
+		//设定返回函数
+		callback:function(img){
+		 $(".mycardUrl img").attr("src", img);
+				//$("#qrimgPic").find("img")[0].src=img;
+				$(".l-like-close").show()
+			},
+		//设定背景图片   可为空
+		bgImg:"/themes/yutui/images/like/share_logo1.jpg",
+		//有背景图片时二维码的定位
+		position:{l:495,t:960},
+		width:216,	//宽度
+		height:216,	//高度
+		link:link,	//二维码链接 
+		pluginText:[
+			/*{text:"来自1的分享",l:320,t:180,font:"27px 微软雅黑",style:"#000",w:390,h:60},//昵称*/
+			{text:"维维-湖南安化怡清源黑茶金手筑茯茶1.15kg",l:40,t:990,font:"36px 微软雅黑",style:"#000",w:420,h:39},//产品说明1
+			{text:"精选优品，品质佳，买的放心，喝的安心.",l:40,t:1090,font:"28px 微软雅黑",style:"#808080",w:420,h:34},//产品说明2
+		
+			{text:"828.00",l:110,t:890,font:"60px 微软雅黑",style:"#ffffff"},
+			
+		],
+		pluginImg:[
+			
+			/**
+			* src 图片链接（只接受当前域名下图片）
+			* l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+			* circle 是否圆形裁切
+			*/
+				
+			{src:"themes/yutui/images/tenmax/03.png",l:38,t:250,w:674,h:674},//商品图片
+			/*{src:"/themes/yutui/images/new/card_logo.png?v=1",l:570,t:980,w:50,h:50},商标logo	*/
+			{src:"/themes/yutui/images/like/hongqi.png?v=1",l:40,t:830,w:400,h:80},
+			//{src:"{$user_info.user_avatar|default:/themes/yutui/images/new/card_logo.png}",l:240,t:140,w:65,h:65,circle:true},	
+			
+		],
+		final:function(object){
+			var c = object.ctx;
+			var nick_name="{$user_info.nick_name}";
+			if(nick_name==""){
+				//价格
+				var text = "¥{$goods.shop_price}";
+				c.font = "70px Verdana";
+				var t = 910;l = 35;h=100; s=40;
+				var tc = "#fff";bgc = "#C60002";
+				var bw = Math.round(c.measureText(text).width)+20;
+				c.textAlign = "start";
+				c.fillStyle = bgc;
+				c.globalAlpha=0.8;
+				c.fillRect(l,t-h,bw,h);
+				object.drawS(l+bw, t-h, l+bw+s, t-h, l+bw, t-h+h/3*2,bgc, "fill",c);
+				object.drawS(l+bw, t, l+bw+s, t, l+bw, t-h+h/3*2, bgc, "fill",c);
+				c.globalAlpha=1.0;
+				c.fillStyle = tc;
+				c.fillText(text,l,t-30);
+				var newimg = Mqrcode.canvas.toDataURL("image/png");
+				return object.success(newimg);
+			}else{
+				var avatar  = "{$user_info.user_avatar|default:/themes/yutui/images/new/card_logo.png}";
+				var nick = "{$lang.be_from}{$user_info.nick_name}{$lang.share}";
+				c.font = "27px 微软雅黑";
+				var l = 380-(c.measureText(nick).width+65)/2;
+				var img = new Image();
+				var fill_color="#808080";
+				img.setAttribute("crossOrigin",'Anonymous');
+				img.src= avatar;
+				img.onload = function(){				
+					var w =65;
+					var h= 65;
+					var tt=140;
+					var c = Mqrcode.ctx;
+					var object = Mqrcode;
+
+					c.save();
+					var r = w/2;
+					c.arc(l+r,tt+r,r,0,2*Math.PI);
+					c.clip();
+					//头像
+					c.drawImage(img,l,tt,w,h);
+					c.restore();
+					
+					//昵称
+					var font="";
+					c.textAlign = "start";
+					c.font = "27px";
+					c.fillStyle=fill_color;
+					c.fillText(nick,l+70,tt+40);
+
+					//价格
+					var text = "¥{$goods.shop_price1}";
+					c.font = "70px Verdana";
+					var t = 910;l = 35;h=100; s=40;
+					var tc = "#fff";bgc = "#C60002";
+					var bw = Math.round(c.measureText(text).width)+20;
+					c.textAlign = "start";
+					c.fillStyle = bgc;
+					c.globalAlpha=0.8;
+					c.fillRect(l,t-h,bw,h);
+					object.drawS(l+bw, t-h, l+bw+s, t-h, l+bw, t-h+h/3*2,bgc, "fill",c);
+					object.drawS(l+bw, t, l+bw+s, t, l+bw, t-h+h/3*2, bgc, "fill",c);
+					c.globalAlpha=1.0;
+					c.fillStyle = tc;
+					c.fillText(text,l,t-30);
+
+					var newimg = Mqrcode.canvas.toDataURL("image/png");
+					return object.success(newimg);
+
+				}
+				
+			}
+		}
+		
+	});
+
+
+ 
+});
+
+$(".erweima-url1").click(function(){
+	
+  $(".xx_close").show();
+  $(".ShareBox").hide();
+  $(".success_ze").show();
+	Mqrcode.makeCode({
+		//设定返回函数
+		callback:function(img){
+		 $(".mycardUrl img").attr("src", img);
+				//$("#qrimgPic").find("img")[0].src=img;
+				$(".l-like-close").show()
+			},
+		//设定背景图片   可为空
+		bgImg:"/themes/yutui/images/like/share_logo1.jpg",
+		//有背景图片时二维码的定位
+		position:{l:495,t:960},
+		width:216,	//宽度
+		height:216,	//高度
+		link:link,	//二维码链接 
+		pluginText:[
+			/*{text:"来自1的分享",l:320,t:180,font:"27px 微软雅黑",style:"#000",w:390,h:60},//昵称*/
+			{text:"维维-湖南安化怡清源黑茶金手筑茯茶1.15kg",l:40,t:990,font:"36px 微软雅黑",style:"#000",w:420,h:39},//产品说明1
+			{text:"突破传统茯茶加工工艺，保留叶片完整，金花更为茂盛，是黑茶中的“潜力股”",l:40,t:1090,font:"28px 微软雅黑",style:"#808080",w:420,h:34},//产品说明2
+		
+			{text:"59.00",l:110,t:890,font:"60px 微软雅黑",style:"#ffffff"},
+			
+		],
+		pluginImg:[
+			
+			/**
+			* src 图片链接（只接受当前域名下图片）
+			* l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+			* circle 是否圆形裁切
+			*/
+				
+			{src:"themes/yutui/images/tenmax/01.png",l:38,t:250,w:674,h:674},//商品图片
+			/*{src:"/themes/yutui/images/new/card_logo.png?v=1",l:570,t:980,w:50,h:50},商标logo	*/
+			{src:"/themes/yutui/images/like/hongqi.png?v=1",l:40,t:830,w:400,h:80},
+			//{src:"{$user_info.user_avatar|default:/themes/yutui/images/new/card_logo.png}",l:240,t:140,w:65,h:65,circle:true},	
+			
+		],
+		final:function(object){
+			var c = object.ctx;
+			var nick_name="{$user_info.nick_name}";
+			if(nick_name==""){
+				//价格
+				var text = "¥{$goods.shop_price}";
+				c.font = "70px Verdana";
+				var t = 910;l = 35;h=100; s=40;
+				var tc = "#fff";bgc = "#C60002";
+				var bw = Math.round(c.measureText(text).width)+20;
+				c.textAlign = "start";
+				c.fillStyle = bgc;
+				c.globalAlpha=0.8;
+				c.fillRect(l,t-h,bw,h);
+				object.drawS(l+bw, t-h, l+bw+s, t-h, l+bw, t-h+h/3*2,bgc, "fill",c);
+				object.drawS(l+bw, t, l+bw+s, t, l+bw, t-h+h/3*2, bgc, "fill",c);
+				c.globalAlpha=1.0;
+				c.fillStyle = tc;
+				c.fillText(text,l,t-30);
+				var newimg = Mqrcode.canvas.toDataURL("image/png");
+				return object.success(newimg);
+			}else{
+				var avatar  = "{$user_info.user_avatar|default:/themes/yutui/images/new/card_logo.png}";
+				var nick = "{$lang.be_from}{$user_info.nick_name}{$lang.share}";
+				c.font = "27px 微软雅黑";
+				var l = 380-(c.measureText(nick).width+65)/2;
+				var img = new Image();
+				var fill_color="#808080";
+				img.setAttribute("crossOrigin",'Anonymous');
+				img.src= avatar;
+				img.onload = function(){				
+					var w =65;
+					var h= 65;
+					var tt=140;
+					var c = Mqrcode.ctx;
+					var object = Mqrcode;
+
+					c.save();
+					var r = w/2;
+					c.arc(l+r,tt+r,r,0,2*Math.PI);
+					c.clip();
+					//头像
+					c.drawImage(img,l,tt,w,h);
+					c.restore();
+					
+					//昵称
+					var font="";
+					c.textAlign = "start";
+					c.font = "27px";
+					c.fillStyle=fill_color;
+					c.fillText(nick,l+70,tt+40);
+
+					//价格
+					var text = "¥{$goods.shop_price1}";
+					c.font = "70px Verdana";
+					var t = 910;l = 35;h=100; s=40;
+					var tc = "#fff";bgc = "#C60002";
+					var bw = Math.round(c.measureText(text).width)+20;
+					c.textAlign = "start";
+					c.fillStyle = bgc;
+					c.globalAlpha=0.8;
+					c.fillRect(l,t-h,bw,h);
+					object.drawS(l+bw, t-h, l+bw+s, t-h, l+bw, t-h+h/3*2,bgc, "fill",c);
+					object.drawS(l+bw, t, l+bw+s, t, l+bw, t-h+h/3*2, bgc, "fill",c);
+					c.globalAlpha=1.0;
+					c.fillStyle = tc;
+					c.fillText(text,l,t-30);
+
+					var newimg = Mqrcode.canvas.toDataURL("image/png");
+					return object.success(newimg);
+
+				}
+				
+			}
+		}
+		
+	});
+
+
+ 
+});
+
+$(".l-train-close").click(function(){
+	$(".success_ze").hide();
+	
+})
+
+//弹出share层
+$(".-mob-share-open-pro").click(function(){
+  $(".ShareBox").show()
+});
+$(".-mob-share-open-pro1").click(function(){
+  $(".ShareBox1").show()
+});
+//关闭share层
+$(".-mob-share-close").click(function(){
+  $(".ShareBox1").hide()
+});
+$(".-mob-share-close").click(function(){
+  $(".ShareBox").hide()
+});
+/*复制网址*/
+function lineshare(){
+	location.href="https://social-plugins.line.me/lineit/share?url="+encodeURIComponent(sharehref);
+}
+function facebookshare(){
+	window.open("https://www.facebook.com/sharer.php?u="+encodeURIComponent(sharehref)+"&t="+shareTitle);
+}
+var clipboard = new ClipboardJS('#copy_button', {
+
+    text: function(trigger) {
+
+        return sharehref;
+    }
+});
+clipboard.on('success', function(e) {
+//alert("cccc \n" + sharehref);
+   alert("复制成功，请粘贴给你的好友");
+});
+
+clipboard.on('error', function(e) {
+   $("#shareUrl").addClass("c-cardadd-yes")
+});
+
+</script>
+<!--MOB SHARE END-->
+<!--  wechat_begin  -->
+	{if $is_wechat}
+	<!--微信浏览器下分享提示-->
+<div class="t-box s-flex" id="Box2" style="display: none">
+  <div class="weixinHint"><img src="/themes/yutui/images/new/tishi.png"></div>
+  <div class="l-train-close weixinHintClose" onclick="Box2.style.display='none';"><span>X</span></div>
+</div>
+
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+
+	<script type="text/javascript">
+	    // 分享内容
+	    var shareline = '{$share_link}';
+var sharehref= shareline==''?location.href:shareline;
+var shareTitle = "{$share_title}";
+var shareDesc = "{$share_description}";
+var sharePic  ="{$share_pic}";
+	    var shareContent = {
+	        title: shareTitle,
+	        desc: shareDesc,
+	        link: sharehref,
+	        imgUrl: sharePic,
+			success:function(){
+				$("#Box2").hide();
+			}
+	    };
+	    $(function(){
+	    	$(".weixin").click(function(){
+	    		$("#Box2").show();
+	    	});
+	    	
+	        var url = window.location.href;
+	        var jsConfig = {
+	            debug: false,
+				jsApiList : [ 'updateAppMessageShareData', 'updateTimelineShareData',
+					'onMenuShareWeibo']
+	        };
+	        $.post("{:url('api/jssdk')}", {url: url}, function (res) {
+	            if(res.status == 200){
+	                jsConfig.appId = res.data.appId;
+	                jsConfig.timestamp = res.data.timestamp;
+	                jsConfig.nonceStr = res.data.nonceStr;
+	                jsConfig.signature = res.data.signature;
+	                // 配置注入
+	 				  
+	                wx.config(jsConfig);
+	                // 事件注入
+	                wx.ready(function () {
+	                	wx.updateAppMessageShareData(shareContent);
+						wx.updateTimelineShareData(shareContent);
+						wx.onMenuShareWeibo(shareContent);
+	                });
+	            }
+	        }, 'json');
+	    })
+	</script>
+	
+	{else}
+	<!--  wechat_end  -->
+<!--海报-->
+<div class='t-box s-flex' id='qrimg' style='display: none;'><div class='l-train-yes'><p><img ></p><p><img src="../images/new/share_bottom.jpg"></p><div class='l-train-close'><span>X</span></div></div></div>
+
+<script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v=1"></script>
+<script type="text/javascript">
+$(window).load(function(){
+	var link = "{$share_link}";
+	if(link=="")link=location.href;
+	Mqrcode.makeCode({
+		//设定返回函数
+		callback:function(img){
+				$("#qrimgPic").find("img")[0].src=img;
+				$(".l-like-close").show()
+			},
+		//设定背景图片   可为空
+		bgImg:"/themes/yutui/images/like/share_logo1.jpg",
+		//有背景图片时二维码的定位
+		position:{l:495,t:960},
+		width:216,	//宽度
+		height:216,	//高度
+		link:link,	//二维码链接 
+		pluginText:[
+			/*{text:"来自{$user_info.nick_name}的分享",l:320,t:180,font:"27px 微软雅黑",style:"#000",w:390,h:60},//昵称*/
+			{text:"{$goods.goods_name}",l:40,t:990,font:"36px 微软雅黑",style:"#000",w:420,h:39},//产品说明1
+			{text:"{$goods.goods_brief}",l:40,t:1090,font:"28px 微软雅黑",style:"#808080",w:420,h:34},//产品说明2
+			/*{text:" ",l:40,t:830,w:350,h:70,bgcolor:"#ff0000",alpha:0.7},//价格背景*/
+			/*{text:"{$goods.shop_price1}",l:110,t:1230,font:"60px 微软雅黑",style:"#ffffff"},//价格1*/
+			{text:"原价: {$goods.market_price}",l:40,t:1240,font:"36px 微软雅黑",style:"#999999"},//原价2
+			{text:"—————",l:40,t:1242,font:"50px 微软雅黑",style:"#999999"},//文字2
+		],
+		pluginImg:[
+			
+			/**
+			* src 图片链接（只接受当前域名下图片）
+			* l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+			* circle 是否圆形裁切
+			*/
+				
+			{src:"{$goods.goods_img}",l:38,t:250,w:674,h:674},//商品图片
+			/*{src:"/themes/yutui/images/new/card_logo.png?v=1",l:570,t:980,w:50,h:50},商标logo	*/
+			/*{src:"/themes/yutui/images/like/hongqi.png?v=1",l:40,t:1170,w:400,h:80},*/	
+			//{src:"{$user_info.user_avatar|default:/themes/yutui/images/new/card_logo.png}",l:240,t:140,w:65,h:65,circle:true},	
+			
+		],
+		final:function(object){
+			var c = object.ctx;
+			var nick_name="{$user_info.nick_name}";
+			if(nick_name==""){
+				//价格
+				var text = "¥{$goods.shop_price1}";
+				c.font = "70px Verdana";
+				var t = 910;l = 35;h=100; s=40;
+				var tc = "#fff";bgc = "#C60002";
+				var bw = Math.round(c.measureText(text).width)+20;
+				c.textAlign = "start";
+				c.fillStyle = bgc;
+				c.globalAlpha=0.8;
+				c.fillRect(l,t-h,bw,h);
+				object.drawS(l+bw, t-h, l+bw+s, t-h, l+bw, t-h+h/3*2,bgc, "fill",c);
+				object.drawS(l+bw, t, l+bw+s, t, l+bw, t-h+h/3*2, bgc, "fill",c);
+				c.globalAlpha=1.0;
+				c.fillStyle = tc;
+				c.fillText(text,l,t-30);
+				var newimg = Mqrcode.canvas.toDataURL("image/png");
+				return object.success(newimg);
+			}else{
+				var avatar  = "{$user_info.user_avatar|default:/themes/yutui/images/new/card_logo.png}";
+				var nick = "{$lang.be_from}{$user_info.nick_name}{$lang.share}";
+				c.font = "27px 微软雅黑";
+				var l = 380-(c.measureText(nick).width+65)/2;
+				var img = new Image();
+				var fill_color="#808080";
+				img.setAttribute("crossOrigin",'Anonymous');
+				img.src= avatar;
+				img.onload = function(){				
+					var w =65;
+					var h= 65;
+					var tt=140;
+					var c = Mqrcode.ctx;
+					var object = Mqrcode;
+
+					c.save();
+					var r = w/2;
+					c.arc(l+r,tt+r,r,0,2*Math.PI);
+					c.clip();
+					//头像
+					c.drawImage(img,l,tt,w,h);
+					c.restore();
+					
+					//昵称
+					var font="";
+					c.textAlign = "start";
+					c.font = "27px";
+					c.fillStyle=fill_color;
+					c.fillText(nick,l+70,tt+40);
+
+					//价格
+					var text = "¥{$goods.shop_price1}";
+					c.font = "70px Verdana";
+					var t = 910;l = 35;h=100; s=40;
+					var tc = "#fff";bgc = "#C60002";
+					var bw = Math.round(c.measureText(text).width)+20;
+					c.textAlign = "start";
+					c.fillStyle = bgc;
+					c.globalAlpha=0.8;
+					c.fillRect(l,t-h,bw,h);
+					object.drawS(l+bw, t-h, l+bw+s, t-h, l+bw, t-h+h/3*2,bgc, "fill",c);
+					object.drawS(l+bw, t, l+bw+s, t, l+bw, t-h+h/3*2, bgc, "fill",c);
+					c.globalAlpha=1.0;
+					c.fillStyle = tc;
+					c.fillText(text,l,t-30);
+
+					var newimg = Mqrcode.canvas.toDataURL("image/png");
+					return object.success(newimg);
+
+				}
+				
+			}
+		}
+		
+	});
+})
+$(".weixin").click(function(){
+	$("#qrimg").show();
+});
+$(".l-train-close").click(function(){
+	$("#qrimg").hide();
+});
+</script>
+	{/if}
+

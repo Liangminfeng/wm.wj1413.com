@@ -1,0 +1,57 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+
+<div style="top: 0px; min-height: 567px; opacity: 1;" id="page">
+	<div id="wrapper">
+		<div id="scroller">
+			<div class="panel panel-entrance">
+				<div class="panel-body">
+					<div id="J_ModId_1">
+						<ul id="J_Entrance" class="entrance show">
+							<!-- {foreach from=$service_type item=service name=service_type} -->
+							<li class="arrow J_ListItem" data-value="3">
+								<a href="{$service.url}"> 
+                   {if $smarty.foreach.service_type.index == 0}
+                  <span class="iconfont icon-7tianwuliyoutuihuo n-user-lanbg"></span>
+                  {elseif $smarty.foreach.service_type.index == 1}
+                  <span class="iconfont icon-p-return n-user-huanbg"></span>
+                  {elseif $smarty.foreach.service_type.index == 2}
+                  <span class="iconfont icon-p-return n-user-huanbg"></span>
+                  {elseif $smarty.foreach.service_type.index == 3}
+                  <span class="iconfont icon-p-return n-user-huanbg"></span>
+                  {/if}
+                <h5 class="title">{$service.service_name}</h5>
+                <div class="desc">{$service.service_desc}</div>
+                </a> </li>
+							<!-- {/foreach} -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="mask"></div>
+<div id="popup" class="bottom-side"></div>
+<div id="load-layer">
+	<div class="load-icon hidden">
+		<div class="load-outer">
+			<div class="load-inner"></div>
+		</div>
+		<div class="load-msg hidden">{$lang.loading_msg}</div>
+	</div>
+</div>
+<div id="error-layer">
+	<div class="iconfont icon-wifi"></div>
+	<p class="error-msg">{$lang.loading_error}</p>
+	<button class="retry-btn" onclick="javascript:location.reload();" type="button">{$lang.reloading_msg}</button>
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+</body>

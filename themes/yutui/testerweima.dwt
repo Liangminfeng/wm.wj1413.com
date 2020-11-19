@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>train_invite</title>
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+	sc<script src="/themes/yutui/js/jquery.qrcode.min.js" type="text/javascript"></script>
+</head>
+<body>
+<!--头部-->
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<div>
+<p>cache-time:{$cacheTime}</p>
+<p>now-time:{:date('Y-m-d H:i:s')}</p>
+Welcome!
+<div id="qrcode"></div>
+
+<script type="text/javascript">
+	//设置参数方式
+	var qrcode = $('#qrcode').qrcode({
+				render : "canvas",
+				width: 256,
+				height: 256,
+				text: "http://www.baidu.com",
+				correctLevel : 2,
+				background : "#ffffff", 
+				foreground : "#000000"
+				}).hide();
+	var canvas = qrcode.find('canvas').get(0);
+	$("#qrcode").append("<img src='"+canvas.toDataURL('image/png')+"'>");
+	
+</script>
+</body>
+</html>

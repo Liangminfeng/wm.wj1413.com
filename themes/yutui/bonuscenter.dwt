@@ -1,0 +1,301 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="/themes/yutui/statics/js/swiper.min.js"></script>
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<body>
+<div class="Zect-bg1 earnings_header">
+        <a href="">
+        <div class="s-flex u-top-img earnings_h">  
+          <h1>{if $totalcanwithdraw}{$totalcanwithdraw}{else}0.00{/if}</h1>
+          <p>{$lang.user_money_cash_balance}</p>
+        </div>
+        </a>
+        <div class="earnings_r">
+          <div>
+            <p class="earnings_p1">{if $tixianzhong}{$tixianzhong}{else}0.00{/if}</p> 
+            <p>{$lang.pending_profit}</p>
+          </div>
+          <div>
+            <p></p>
+          </div>
+          <div>
+            <p class="earnings_p2">{if $yitixian}{$yitixian}{else}0.00{/if}</p>
+            <p>{$lang.sum_withdrawed}</p>
+          </div>
+         
+        </div>
+    </div>
+    <div class="business_money">
+        <div class="business_content">
+          <div class="earnings_menu">
+              <a href='{:url('User/bonus_out')}'>
+                  <p class="menu_img"><img src="images/like/roll.png" alt=""></p>
+                  <p class="menu_w">{$lang.bonus_out}</p>
+              </a>
+          </div>
+          <div class="earnings_menu">
+              <a href='{:url('Account/carry_accounts')}'>
+                  <p class="menu_img"><img src="images/like/deposit.png" alt=""></p>
+                  <p class="menu_w">银行卡</p>
+              </a>
+          </div>
+          <div class="earnings_menu">
+              <a href='{:url('User/account_log')}'>
+                  <p class="menu_img"><img src="images/like/record.png" alt=""></p>
+                  <p class="menu_w">{$lang.user_money_log}</p>
+              </a>
+          </div>
+          <div class="earnings_menu">
+              <a href='{:url('User/user_income_account')}'>
+                  <p class="menu_img"><img src="images/like/detail.png" alt=""></p>
+                  <p class="menu_w">{$lang.user_income_account}</p>
+              </a>
+          </div>
+        </div>
+    </div>
+   
+  <div style="padding-bottom: 5rem;box-sizing:border-box;">
+  <!--店铺收益-->
+    <div class="s-flex s-space" style="padding-bottom: 0px;border-top: 1px solid #f7f7f7;padding:0;width:93%;margin:0 auto; box-sizing: border-box;margin-bottom: 1rem;margin-top: -2rem;">
+      <a href="{:url('account/store_earnings')}" class="s-flex s-space">
+        <div class="u-order-left"><span  class="f-05">店铺收益</span></div>
+        <div style="display:flex;margin:auto 0;">
+
+          <span style=" padding-right: 1rem;color: #333;font-size: 1.3rem;">{if $achievement_vip}{$achievement_vip}元{else}0.00元{/if}</span>
+
+
+          <span class="t-jiantou" style="color: #a8a8a8;font-size: 1.3rem;top: 0.2rem;">
+            <i class="gt_big" style="width:2.2rem"><img src="themes/yutui/images/gt_big.png" alt=""></i>
+          </span>
+        </div>
+      </a>
+    </div> 
+    <!--经销商收益-->
+    <div class="s-flex s-space" style="padding-bottom: 0px;border-top: 1px solid #f7f7f7;padding:0;width:93%;margin:0 auto; box-sizing: border-box;">
+      <a href="{:url('account/dealer_earnings')}" class="s-flex s-space">
+        <div class="u-order-left"><span  class="f-05">经销商收益</span></div>
+        <div style="display:flex;margin:auto 0;">
+          <span style=" padding-right: 1rem;color: #333;font-size: 1.3rem;">{if $achievement_retail}{$achievement_retail}元{else}0.00元{/if}</span>
+          <span class="t-jiantou" style="color: #a8a8a8;font-size: 1.3rem;top: 0.2rem;">
+            <i class="gt_big" style="width:2.2rem"><img src="themes/yutui/images/gt_big.png" alt=""></i>
+          </span>
+        </div>
+      </a>
+    </div>
+    <!--活动收益-->
+    <div class="s-flex s-space" style="padding-bottom: 0px;border-top: 1px solid #f7f7f7;padding:0;width:93%;margin:0 auto; box-sizing: border-box;margin-top:1rem;">
+      <a href="{:url('account/activity_profit')}" class="s-flex s-space">
+        <div class="u-order-left"><span  class="f-05">活动收益</span></div>
+        <div style="display:flex;margin:auto 0;">
+          <span style=" padding-right: 1rem;color: #333;font-size: 1.3rem;">{if $train_bonus}{$train_bonus}元{else}0.00元{/if}</span>
+          <span class="t-jiantou" style="color: #a8a8a8;font-size: 1.3rem;top: 0.2rem;">
+            <i class="gt_big" style="width:2.2rem"><img src="themes/yutui/images/gt_big.png" alt=""></i>
+          </span>
+        </div>
+      </a>
+    </div>
+  </div>
+      
+<!--  <div class="flex_tixian"><a style="text-align:center;color:#fff;" href="{:url('User/bonus_out')}">提&nbsp;现</a></div>-->
+   <div class="s-flex s-space-3 c-card-submit"><a href="/index.php?m=default&c=user&a=bonus_withdraw" class="Cect-bg" style="width: 80%;">提&nbsp;现</a></div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+    <script>
+
+       $(function () {
+          //记录第几页
+
+          var p = 1;
+          var type =1;
+           $.ajax({ url: '{:url('user/ajax_my_bonus')}', data: { page: p,type:type }, cache: false, type:'get',dataType: 'json', success: function (html) {
+         
+              //点击切换的时候把之前的数据清空掉
+             if(html.status==200){
+              console.log(html)
+               $('.awards_ul').html(""); 
+        
+            
+
+                 $(".capping").empty();
+               if(html.tip){
+
+                 $(".capping").html(html.tip)//插入语句
+                  $('.awards_ul').append(html.data);
+                    $(".ptb-3").hide();
+               }
+
+               if(html.tip&&html.num>=5)
+                {
+
+                    $(".capping").html(html.tip)//插入语句
+                        $(".ptb-3").hide();
+                          $(".showmore").show();
+                }else if(html.data){
+
+                    $(".awards_ul").html(html.data)//插入语句
+                        $(".ptb-3").hide();
+                        $(".showmore").hide();
+                        if(html.num>=5){
+                         $(".showmore").show();
+                        }
+
+                }else{
+
+                      $(".ptb-3").hide();
+                  $("#more").remove();
+                }             
+
+             }else{
+                $(".ptb-3").show();
+                $(".showmore").hide();
+               $('.awards_ul').html(""); 
+               $(".capping").empty();
+
+
+
+
+
+             }
+              }});
+          $("#type").change(function(){
+          var checked_s=$("select[name='type']").val();
+          p = 1;
+          var type = $("select[name='type']").val();
+                   
+             //实际应用
+             $.ajax({ url: '{:url('user/ajax_my_bonus')}', data: { page: p,type:type }, cache: false, type:'get',dataType: 'json', success: function (html) {
+
+              //点击切换的时候把之前的数据清空掉
+             if(html.status==200){
+
+               $('.awards_ul').html(""); 
+               $('.awards_ul').html(html.data);
+              $("#more").show().html("{$lang.loading_more}");
+              
+
+                 $(".capping").empty();
+               if(html.tip){
+
+                 $(".capping").html(html.tip)//插入语句
+                  $('.awards_ul').append(html.data);
+                    $(".ptb-3").hide();
+               }
+
+               if(html.tip&&html.num>=5)
+                {
+
+                    $(".capping").html(html.tip)//插入语句
+                        $(".ptb-3").hide();
+                }else if(html.data){
+
+                    $(".awards_ul").html(html.data)//插入语句
+                        $(".ptb-3").hide();
+                        $(".showmore").hide();
+                        if(html.num>=5){
+                         $(".showmore").show();
+                        }
+
+                }else{
+
+                      $(".ptb-3").hide();
+                  $("#more").remove();
+                }             
+
+             }else{
+           
+          
+                $(".ptb-3").show();
+               $(".showmore").hide();
+               $('.awards_ul').html(""); 
+               if(html.type==6||html.type==4){
+
+                  $(".capping").html(html.tip)//插入语句
+               }else{
+                   $(".capping").empty();
+               }
+            
+
+
+
+
+
+             }
+              }});
+        })
+         $('#more').click(function () {
+        
+             p += 1; //下一页
+
+             var type = $("select[name='type']").val();
+       
+             //实际应用
+             $.ajax({ url: '{:url('user/ajax_my_bonus')}', data: { page: p,type:type }, cache: false, dataType: 'json', success: function (html) {
+             
+             if(html.status==200){
+               
+            
+              $("#more").show();
+               $('.awards_ul').append(html.data); 
+               if(html.tip&&html.num>=5)
+                {
+
+                    $(".capping").html(html.tip)//插入语句
+                    
+                }   
+             }else{  
+          
+               
+              $("#more").html("{$lang.slide_bottom}");
+             }
+            
+              } });
+             return false;
+         });
+     });
+    </script>
+  <script>
+      /*公告滑动*/
+  var mySwiper = new Swiper('.swiper-containerA', {
+      autoplay : 2500,
+      speed:300,
+      direction: 'vertical',
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+  </script>
+    <script>
+  (function($){
+  $.fn.selectTab = function(o){
+      var d = {
+        select:'select', //定义下拉对象
+        con:'ul'          //定义切换对象
+      };
+      var o = $.extend(d,o);
+      var $option = $(d.select).find('option');//遍历下拉对象下的option
+      for(var i = 0; i < $option.length; i++){
+        $option.eq(i).attr('i',i);  //设置option 属性i从下标为0开始赋值
+      }
+      selectFn();
+      $(d.select).change(function(){
+        selectFn();
+      })
+      function selectFn(){
+        var selectedIndex = $(d.select).find('option:selected').attr('i'); //保存被选中的option的属性i的值
+        $(d.con).eq(selectedIndex).show(500).siblings(d.con).hide();       //显示对应显示的对象
+      }
+  }
+  })(jQuery);
+  $(function(){
+    $().selectTab();
+  })
+        </script>
+</body>
+</html>

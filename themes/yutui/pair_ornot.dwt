@@ -1,0 +1,422 @@
+﻿<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem --> 
+
+
+<div class="con m-b7" style="background: #D03930;">
+
+	<div class="pair_top">
+		<img style="width:100%;" src="images/tenmax/pair_top.jpg">
+		<div class="strategy_img"><a style="display:block;" href="/index.php?c=article&a=info&aid=369"><img style="width:100%;" src="images/tenmax/strategy.png"></a></div>
+		<div class="s-flex s-justify-a pair_flex">
+			<div class="pair_sblings">
+
+				<p class="pair_count">{$my_achievement}</p>
+				<p class="pair_achievement">我的业绩(pv)</p>
+
+			</div>
+			<div class="pair_sblings">
+				<p class="pair_count" style="color:red;">{$jiesuan}</p>
+				<p class="pair_achievement">结算业绩(pv)</p>
+			</div>
+		</div>
+
+		<div class="pair_rule s-new s-flex swiper-containerA">
+			<strong style="background: #fefde5;padding:0;margin-top:0.2rem;"><img style="width:80%;" src="images/tenmax/horn.png"></strong>
+			<div class="s-content swiper-wrapper" style="width:100%;line-height:2.2rem;">
+			
+				<div class="swiper-slide ellipsis-one">
+					<span>活动期间，推荐两笔同级订单获得迎新奖励；</span>
+				</div>
+				<div class="swiper-slide ellipsis-one">
+					<span>需要本人已有购物业绩，每个号限领一次。</span>
+				</div>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+		<div class="mask_zezao">54565</div>
+	</div>
+	<div class="pair_people_msg">
+		<!--匹配成功-->
+		{if $pair_ok}
+		<div class="who_pair" style="display:block;">
+			<img style="width:100%;" src="images/tenmax/pairing.jpg">
+			<div>
+				<p class="pair_time">完成时间：{$settle_time}</p>
+			</div>
+			<div>
+				<p class="pair_name_img"><img style="border-radius: 100%;" src="{$main.user_avatar}"></p>
+				<p class="pair_name"><span class="who_are_you">{$main.user_name}</span></p>
+				<p class="doyen_img1"><img style="" src="images/doyen.png"></p>
+			</div>
+			<div>
+				<p class="pair_name1_img"><img style="border-radius: 100%;" src="{$submain_0.user_avatar}"></p>
+				<p class="pair_name1"><span class="who_are_you">{$submain_0.user_name}</span></p>
+			</div>
+			<div>
+				<p class="pair_name2_img"><img style="border-radius: 100%;" src="{$submain_1.user_avatar}"></p>
+				<p class="pair_name2"><span class="who_are_you">{$submain_1.user_name}</span></p>
+			</div>
+			<div>
+				<p class="pair_state"><span class="pair_state_s">已配对</span></p>
+			</div>
+		</div>
+		{/if}
+		{if  $lefttime lte 0}
+		<div class="who_pair">
+			<img style="width:100%;" src="images/tenmax/pairing1.jpg">
+			<div>
+				<p class="pair_time1">
+				<span style="font-weight:bold;">剩余</span>
+				<span  class="joind">90</span><span style="font-weight:bold;">&nbsp;天</span>
+				<span class="joinh">00</span>&nbsp;:
+				<span class="joinm">00</span>&nbsp;:
+				<span class="joins">00</span>
+				<span style="font-weight:bold;">结束</span>
+				</p>
+			</div>
+			{if $main}
+			<div>
+			
+				<p class="pair_name_img0"><img style="border-radius: 100%;" src="{$main.user_avatar}"></p>
+				<p class="pair_name0"><span class="who_are_you">{$main.user_name}</span></p>
+				<p class="doyen_img"><img style="" src="images/doyen.png"></p>
+			
+			</div>
+			{/if}
+			{if $submain_0}
+			<div>
+
+				<p class="pair_name1_img1"><img style="border-radius: 100%;" src="{$submain_0.user_avatar}"></p>
+				<p class="pair_name11"><span class="who_are_you">{$submain_0.user_name}</span></p>
+			</div>
+			{else}
+			<div>
+
+				<!--<p class="pair_name1_img1"><img style="border-radius: 100%;" src="{$submain_0.user_avatar}"></p>-->
+				<p class="pair_name11"><span class="who_are_you">待邀请</span></p>
+			</div>
+			{/if}
+			
+			<div>
+				<!--<p class="pair_name2_img2"><img style="border-radius: 100%;" src="images/woman.jpg"></p>-->
+				<p class="pair_name22"><span class="who_are_you">待邀请</span></p>
+			</div>
+
+			<div>
+				<p class="pair_state" style="display:block;bottom:-10px;bottom: -0.4rem;"><span class="pair_state_s">已超时</span></p>
+			
+			</div>
+		</div>
+		{/if}
+		<!--还没有匹配成功-->
+
+		{if $bonuslist&&!$pair_ok}
+		<div class="who_pair">
+			<img style="width:100%;" src="images/tenmax/pairing1.jpg">
+			<div>
+				<p class="pair_time1">
+				<span style="font-weight:bold;">剩余</span>
+				<span  class="joind">90</span><span style="font-weight:bold;">&nbsp;天</span>
+				<span class="joinh">00</span>&nbsp;:
+				<span class="joinm">00</span>&nbsp;:
+				<span class="joins">00</span>
+				<span style="font-weight:bold;">结束</span>
+				</p>
+			</div>
+			{if $main}
+			<div>
+			
+				<p class="pair_name_img0"><img style="border-radius: 100%;" src="{$main.user_avatar}"></p>
+				<p class="pair_name0"><span class="who_are_you">{$main.user_name}</span></p>
+				<p class="doyen_img"><img style="" src="images/doyen.png"></p>
+			
+			</div>
+			{/if}
+			{if $submain_0}
+			<div>
+
+				<p class="pair_name1_img1"><img style="border-radius: 100%;" src="{$submain_0.user_avatar}"></p>
+				<p class="pair_name11"><span class="who_are_you">{$submain_0.user_name}</span></p>
+			</div>
+			{else}
+			<div>
+
+				<!--<p class="pair_name1_img1"><img style="border-radius: 100%;" src="{$submain_0.user_avatar}"></p>-->
+				<p class="pair_name11"><span class="who_are_you">待邀请</span></p>
+			</div>
+			{/if}
+			
+			<div>
+				<!--<p class="pair_name2_img2"><img style="border-radius: 100%;" src="images/woman.jpg"></p>-->
+				<p class="pair_name22"><span class="who_are_you">待邀请</span></p>
+			</div>
+
+			<div>
+				<p class="pair_state" style="display:none;"><span class="pair_state_s">已配对</span></p>
+				<p class="pair_stated"><span class="invitation_friend"><img class="erweima-url" src="images/tenmax/Invitation_friend.png"></span></p>
+			</div>
+		</div>
+
+		{elseif !$bonuslist&&!$pair_ok&&$lefttime ge 0}
+
+		<div class="who_pair">
+			<img style="width:100%;" src="images/tenmax/pairing1.jpg">
+			<div>
+				<p class="pair_time1">
+				<span style="font-weight:bold;">剩余</span>
+				<span  class="joind">90</span><span style="font-weight:bold;">&nbsp;天</span>
+				<span class="joinh">00</span>&nbsp;:
+				<span class="joinm">00</span>&nbsp;:
+				<span class="joins">00</span>
+				<span style="font-weight:bold;">结束</span>
+				</p>
+			</div>
+			{if $main}
+			<div>
+			
+				<p class="pair_name_img0"><img style="border-radius: 100%;" src="{$main.user_avatar}"></p>
+				<p class="pair_name0"><span class="who_are_you">{$main.user_name}</span></p>
+				<p class="doyen_img"><img style="" src="images/doyen.png"></p>
+			
+			</div>
+			{/if}
+			{if $submain_0}
+			<div>
+
+				<p class="pair_name1_img1"><img style="border-radius: 100%;" src="{$submain_0.user_avatar}"></p>
+				<p class="pair_name11"><span class="who_are_you">{$submain_0.user_name}</span></p>
+			</div>
+			{else}
+			<div>
+
+				<!--<p class="pair_name1_img1"><img style="border-radius: 100%;" src="{$submain_0.user_avatar}"></p>-->
+				<p class="pair_name11"><span class="who_are_you">待邀请</span></p>
+			</div>
+			{/if}
+			
+			<div>
+				<!--<p class="pair_name2_img2"><img style="border-radius: 100%;" src="images/woman.jpg"></p>-->
+				<p class="pair_name22"><span class="who_are_you">待邀请</span></p>
+			</div>
+
+			<div>
+		
+				<p class="pair_stated"><span class="invitation_friend"><img class="erweima-url" src="images/tenmax/Invitation_friend.png"></span></p>
+			</div>
+		</div>
+		{/if}
+		<div style="width:100%;padding: 2% 0;">
+			<img style="width:100%;" src="images/tenmax/welcome_pair.jpg">
+		</div>
+		<!-- {foreach from=$yinxintuijian item=lis key=yinxintuijian} -->
+		<div class="pair_item">
+			<div class="pair_item_content s-flex s-justify-b">
+				<div class="pair_user_msg">
+					<div class="pair_buy_message f-14">
+						{$lis.order_time}购买
+					</div>
+					<div class="pair_buy_name">
+						{$lis.user_name}
+					</div>
+					<div class="pair_buy_phone">
+						{$lis.mobile_phone}
+					</div>
+				</div>
+				<div class="pair_user_img">
+					<img style="border-radius: 100%;width:100%;" src="{$lis.user_avatar}">
+				</div>
+			</div>
+			<div class="recommend_pv">
+				<div class="recommend_pv_div">
+					<p class="recommend_pv_p1">推荐业绩(pv):</p>
+					<p class="recommend_pv_p2">{$lis.achievement}</p>
+				</div>
+				{if $lis.status eq 1}
+				<div class="recommended">
+					<p class="recomended_p"><span class="recomended_span">已配对</span></p>
+				</div>
+				{/if}
+			</div>
+		</div>
+		<!-- {/foreach}-->
+		
+		<div style="height:5rem;"></div>
+	</div>
+
+	
+</div>
+<div class="success_ze" style="display:none;">
+
+	<strong class="qrloading " style="position: fixed;top: 40%;left: 50%;margin-left: -4rem;z-index: auto;">
+	  <div>
+	    <img src="/themes/yutui/images/like/loading.gif">
+	    <br>图片努力读取中...
+	  </div>
+	</strong>
+
+	
+   	<p style="position:fixed ;top: 10%;width: 70%;left: 16%;" class="img mycardUrl">
+	  
+	   <img style="display: block;" src="">
+	</p>
+
+   <div style="position:fixed; top: 7.8%;right: 20%;" class='l-train-close'><em>X</em></div>
+</div>
+
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<script src="/data/assets/js/clipboard.min.js"></script> 
+<script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v=1"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+
+
+<script type="text/javascript ">
+//生成名片弹窗
+  var link = "{$share_link}";
+  if(link=="")link='http://'+document.domain+'/index.php?m=default&c=user&a=mycard&u={$userinfo.user_id}';
+window.onload=function(){
+  Mqrcode.makeCode({
+    width:120,  //宽度
+    height:120, //高度
+    link:link,  //二维码链接
+    callback:function(img){
+  
+        $("#erweima").attr("src",img);
+      },
+  });
+}
+$(".erweima-url").click(function(){
+  $(".shareBottom").show();
+  $(".ShareBox").hide();
+  $(".success_ze").show();
+  Mqrcode.makeCode({
+    //设定返回函数
+    callback:function(img){
+    	
+    	
+        $(".mycardUrl img").attr("src", img)
+      },
+    //设定背景图片   可为空
+    bgImg:"/themes/yutui/images/tenmax/tenmax_recruit.jpg",
+    //有背景图片时二维码的定位
+    position:{l:566,t:1070},
+    width:150,  //宽度
+    height:150, //高度
+    link:link,  //二维码链接
+    pluginText:[
+      {text:"{$user_info.nick_name|default:$user_info.user_name}",l:160,t:1140,font:"30px 微软雅黑",style:"#333333",w:390,h:60},//昵称
+      {text:"手机扫一扫，开启更多精彩",l:160,t:1200,font:"30px 微软雅黑",style:"#333333"},//
+      
+    ],
+    pluginImg:[
+      // src 图片链接（只接受当前域名下图片）
+      // l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+      // circle 是否圆形裁切
+      {src:"{$userinfo.user_avatar|default:/themes/yutui/images/like/like.png}",l:24,t:1070,w:120,h:120,circle:true},//头像
+      {if $smarty.session.user_rank==2}
+      {src:"/themes/yutui/images/like/VIP_yes.png",l:135,t:120,w:0,h:0},
+       {else}
+      {src:"/themes/yutui/images/like/VIP_no.png",l:135,t:120,w:0,h:0}, 
+      {/if}
+     
+      //是否为VIP，加判断  
+    ],
+
+  });
+
+
+ 
+});
+//关闭二维码
+$(".l-train-close").click(function(){
+	$(".success_ze").hide();
+	
+})
+
+
+
+/*公告滑动*/
+var mySwiper = new Swiper('.swiper-containerA', {
+    autoplay : 2000,
+    speed:300,
+    direction: 'vertical',
+    pagination: {
+       el: '.swiper-pagination',
+       clickable: true,
+    },
+});
+$(document).ready(function(){
+ //底部选中
+    $(".footer-nav").find("a:eq(2)").addClass("active");
+
+//90天倒计时
+ var setTimer = null;
+ var chazhi = 0;
+ //差值计算
+ //例子(模拟)
+ chazhi = {$lefttime};
+ //真实时间(注意月份需减掉1，否则时间会计算错误)
+ //chazhi = (new Date(year,month-1,day,hour,minute,second)) - (new Date()); //计算剩余的毫秒数
+ //chazhi = (new Date(2018,8-1,6,6,6,6)) - (new Date());
+  
+ //执行函数部分
+countFunc(chazhi);
+setTimer = setInterval(function() {
+ 	chazhi = chazhi - 1000;
+ 	countFunc(chazhi);
+}, 1000);
+function countFunc(leftTime) {
+	 if(leftTime >= 0) {
+	  var days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数 
+	  var hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时 
+	  var minutes = parseInt(leftTime / 1000 / 60 % 60, 10); //计算剩余的分钟 
+	  var seconds = parseInt(leftTime / 1000 % 60, 10); //计算剩余的秒数 
+	  days = checkTime(days);
+	  hours = checkTime(hours);
+	  minutes = checkTime(minutes);
+	  seconds = checkTime(seconds);
+	  $(".joind").html(days);
+	  $(".joinh").html(hours);
+	  $(".joinm").html(minutes);
+	  $(".joins").html(seconds);
+	 } else {
+	  clearInterval(setTimer);
+	  $(".joind").html("00");
+	  $(".joinh").html("00");
+	  $(".joinm").html("00");
+	  $(".joins").html("00");
+	 }
+ }
+function checkTime(i) { //将0-9的数字前面加上0，例1变为01 
+	 if(i < 10) {
+	  i = "0" + i;
+	 }
+	 return i;
+}
+
+
+
+//限制字数
+$(".who_are_you").each(function() {
+	var maxwidth =4;//显示多少字符
+		if ($(this).text().length > maxwidth) {
+			$(this).text($(this).text().substring(0, maxwidth));
+			$(this).html($(this).html() + '...');
+	}
+});
+//body变色
+$("body").css("background","#D03930");
+})	 
+</script>
+<script type="text/javascript">
+	get_asynclist("{:url('index/ajax_goods', array('type'=>'best'))}", '__TPL__/images/loader.gif');
+</script>
+</body>
+</html>

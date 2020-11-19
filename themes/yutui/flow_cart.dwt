@@ -1,0 +1,442 @@
+<div class="con">
+<!--    <div class="ect-bg">
+        <header class="ect-header ect-margin-tb ect-margin-lr text-center ect-bg icon-write">
+            <a href="javascript:history.go(-1)" class="pull-left ect-icon ect-icon1 ect-icon-history"></a> <span>{$title}</span>
+            <a href="javascript:;" onClick="openMune()" class="pull-right ect-icon ect-icon1 ect-icon-mune icon-write"></a>
+        </header>
+        <nav class="ect-nav ect-nav-list" style="display:none;">
+
+        </nav>
+    </div> -->
+
+    <!-- {if $goods_list} -->
+        <section class="ect-pro-list flow-pic ect-border-bottom0">
+            {if $goods_list_tpl != 0}
+                <!-- {foreach from=$goods_list_tpl item=shipping} -->
+                    <ul>
+                         <div class="g-check-all" >
+                             <div class="ect-select" style="position: fixed; bottom: 6.3rem; z-index: 9; margin-left: 1rem;">
+                                 <label class="label-this-all" >
+                                      <i class="j-select-btn active-i" data-type="1"></i>
+                                 </label>
+                                 <span style = "font-size:1.3rem; position:relative; bottom:0.4rem; left:0.3rem; color:#999999;">
+                                   {$lang.check_all}
+                                 </span>
+                             </div>
+                         </div>
+
+                    <!-- {foreach from=$shipping.child item=goods key=k} -->
+                            <li class="n-flow1-box">
+                                <div class="g-radio">
+                                    <div class="ect-select">
+                                         <label class="rec-active {if $goods.is_buy == 1} active {/if}" goods-id="{$goods.goods_id}" rec-id="{$goods.goods_id}">
+                                             <i class="j-select-btn active-i" data-type="0"></i>
+                                         </label>
+                                         <input type = "checkbox[]" name = "select_goods" value = "{$goods.goods_id}" {if $goods.is_buy == 1} checked="checked" {/if}  style = 'display:none;'/>
+                                     </div>
+                                </div>
+                                <div style = "float:right; width:90%;">
+                                    <div class="n-flow-right-sum">
+                                        <div class="ect-clear-over">
+                                            <a href="{:url('goods/index',array('id'=>$this->_var['goods']['goods_id']))}">
+                                                <img src="{$goods.goods_thumb}" title="{$goods.goods_name|escape:html}">
+                                            </a>
+                                            <dl>
+                                                <dt>
+                                                      <h4 class="title">
+                                                          <a href="{:url('goods/index',array('id'=>$this->_var['goods']['goods_id']))}">{$goods.goods_name}
+                                                            <!-- {if $goods.parent_id gt 0} 配件 -->
+                                                               <span style="color:#FF0000">（{$lang.accessories}）</span>
+                                                            <!-- {/if} -->
+                                                            <!-- {if $goods.is_gift gt 0} 赠品 -->
+                                                               <span style="color:#FF0000">（{$lang.largess}）</span>
+                                                            <!-- {/if} -->
+                                                            </a>
+                                                      </h4>
+                                                </dt>
+                                                <dd class="ect-color999">
+                                                    <!-- {if $show_goods_attribute eq 1} 显示商品属性 -->
+                                                       <p>{$goods.goods_attr|nl2br}</p>
+                                                    <!-- {/if} -->
+                                                    <p class="f-cart-money"><strong class="col-cheng">{$goods.goods_price}</strong></p>
+                                                </dd>
+                                                <div class="g-number">
+                                            <!-- {if $goods.goods_id gt 0 && $goods.is_gift eq 0 && $goods.parent_id eq 0} 普通商品可修改数量 -->
+                                            <div class="input-group pull-left wrap">
+                                                <span class="input-group-addon" onClick = "Reduction_number({$goods.goods_id},$(this))" >-</span>
+                                                <input type="hidden" id="back_number{$goods.rec_id}" value="{$goods.goods_number}" />
+                                                <input type="text" class="form-num form-contro" name="{$goods.rec_id}" id="goods_number{$goods.rec_id}" autocomplete="off" value="{$goods.goods_number}"  oninput="myFunction({$goods.rec_id})" />
+                                                <span class="input-group-addon" onClick = "Increase_number({$goods.goods_id},$(this))">+</span>
+                                            </div>
+
+                                            <!-- {else} -->
+                                            <input type="text" class="txtnum" readonly value="{$goods.goods_number}" />
+                                            <!-- {/if} -->
+                                        </div>
+                                            </dl>
+
+                                    </div>
+                                        </div>
+                                        <div class="g-close">
+                                                <a href="javascript:if (confirm('{$lang.drop_goods_confirm}')) location.href='{:url('flow/drop_goods',array('id'=>$this->_var['goods']['rec_id']))}';">
+                                                <img class="n-shanchutupian" src=__TPL__/images/new/close.png style="width:1.5rem;height:1.5rem;margin-right:0.5rem;margin-top:0.5rem;"></a>
+                                        </div>
+                                </div>
+                            </li>
+                        <!-- {/foreach} -->
+                    </ul>
+                <!-- {/foreach} -->
+            {/if}
+            <!-- {if $favourable_list} -->
+            <p class="bg-warning text-center ect-padding-tb" onClick="location.href='{:url('flow/label_favourable')}'">{$lang.show_favourable}</p>
+            <!-- {/if} -->
+        </section>
+
+
+            <!-- {if $fittings_list} -->
+                    <div class="two-btn flow-jiesuan ect-padding-tb ect-padding-lr text-center">
+                        <a class="btn btn-info" type="button" href="{:url('flow/goods_fittings')}">{$lang.goods_fittings}</a>
+                        <a class="btn btn-info ect-bg-colory" type="button" href="{:url('flow/checkout')}">{$lang.check_out}</a>
+                    </div>
+            <!-- {else} -->
+                    
+            <!-- {/if} -->
+
+
+            <!-- {if $linked_goods} 关联商品-->
+                <section class="ect-pro-list flow-rel-pro flow-pic">
+                    <h4 class="ect-margin-lr ect-margin-tb"><strong>{$lang.releate_goods}：</strong></h4>
+                    <ul>
+                        <!--{foreach from=$linked_goods item=releated_goods_data}-->
+                        <li>
+                            <div class="ect-clear-over">
+                                <a href="{$releated_goods_data.url}"><img src="{$releated_goods_data.goods_thumb}" alt="{$releated_goods_data.goods_name}" /></a>
+                                <dl>
+                                    <dt>
+                          <h4 class="title"><a href="{$releated_goods_data.url}">{$releated_goods_data.short_name}</a></h4>
+                           </dt>
+                                    <dd class="ect-color999">
+                                        <p>
+                                            <!-- {if $releated_goods_data.promote_price neq 0} -->
+                                            {$lang.promote_price}<strong class="col-cheng">{$releated_goods_data.formated_promote_price}</strong>
+                                            <!-- {else} -->
+                                            {$lang.shop_price}<strong class="col-cheng">{$releated_goods_data.shop_price}</strong>
+                                            <!-- {/if} -->
+                                        </p>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </li>
+                        <!-- {/foreach} -->
+                    </ul>
+                </section>
+            <!-- {/if} -->
+
+    <!--{else}-->
+         <div class="flow-no-pro"> <img src="__TPL__/images/gwc.png">
+            <p class="text-center">{$lang.empty_shopping}</p>
+            <a type="button" href="{:url('category/index')}" class="btn btn-info ect-btn-info ect-bgZ">{$lang.go_shopping}</a>
+         </div>
+    <!-- {/if} -->
+<div style="width: 100%; height: 9.3rem"> </div>
+</div>
+<!-- {if $goods_list == 1} -->
+<!--优化购物车开始-->
+<div class="Zcart">
+  <div class="ect-padding-lr ect-padding-tb ect-select">
+       {if $goods_count_number > 0}
+          <b id="total_number">{$lang.pager_5} {$goods_count_number} {$lang.total_number}</b>
+          <b class="col-cheng" id="goods_price">{$lang.total_prices}：￥{$goods_count_money}元</b>
+       {else}
+          <b id="total_number">{$lang.pager_5} 0 {$lang.total_number}</b>
+          <b class="col-cheng" id="goods_price">{$lang.total_prices}：0.00元</b>
+       {/if}
+       <b id="total_number"></b>
+       <b class="col-cheng" id="goods_price"></b>
+  </div>
+  <div class="Zpay"><a href="javascript:void(0)" class="settlement" type="button">{$lang.flow_account}</a></div>
+</div>
+{/if}
+<!--悬浮菜单e-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+
+
+<script>
+    $(document).ready(function(){
+        //底部选中
+        $(".footer-nav").find("a:eq(3)").addClass("active");
+    })
+    $('.label-this-all').each(function(){
+        var label_all = $(this).parent().parent().siblings().find("input[name='select_goods']");
+        var label_active = $(this).parent().parent().siblings().find('.active').next();
+
+        if(label_all.length == label_active.length){
+            $(this).addClass('active');
+        }
+    });
+
+    $(".n-flow1-box").click(function() {
+        var n_flow1_box=$(this).find(".n-flow-ckecked label");
+        if(n_flow1_box.hasClass("active")){
+           n_flow1_box.removeClass("active");
+        }else{
+              n_flow1_box.addClass("active");
+        }
+    });
+
+    $(".rec-active").click(function() {
+
+        var is_buy = '';
+        var group_id = [];
+
+        var this_parent = $(this).parent().parent().parent().parent();
+        var parent_count_child = this_parent.find('li').find("input[name='select_goods']").length;
+        var parent_child = $(this).parent().parent().parent().siblings().find(".active").next().length;
+
+        if($(this).hasClass('active')){
+             $(this).attr('class','rec-active');
+             $(this).next().removeAttr('checked');
+             parent_child = parent_child -1;
+             is_buy = 0;
+        }else{
+             $(this).attr('class','rec-active active');
+             $(this).next().attr('checked','checked');
+             this_parent.siblings().find('.rec-active').removeClass('active');
+             this_parent.siblings().find("input[name='select_goods']").removeAttr('checked');
+             parent_child = parent_child  + 1;
+             is_buy = 1;
+        }
+
+        this_parent.siblings().find(".label-this-all").removeClass('active');
+
+        if(parent_count_child == parent_child){
+            this_parent.find('.label-this-all').addClass('active');
+        }else{
+            this_parent.find('.label-this-all').removeClass('active');
+        }
+
+        var group =  this_parent.siblings().find("input[name='select_goods']");
+        if(group != ''){
+            group.each(function(k,v){
+                 group_id.push($(this).val());
+            });
+        }
+
+        var current_id = $(this).next().val();
+
+        $.ajax({
+            type:'POST',
+            url:"{:url('flow/is_buy_radio')}",
+            data:{'current_id': current_id,'group_id':group_id,'is_buy':is_buy},
+            dataType:'json',
+            success:function(res){
+                if(res.code == 200){
+                     $('#goods_price').html('总价：￥' + res.money.toFixed(2) + '元');
+                     $('#total_number').html('共 '+res.number +' 件商品');
+                }
+
+                if(res.code == 500){
+                     $('#goods_price').html('总价：￥0.00元');
+                     $('#total_number').html('共 0 件商品');
+                }
+            }
+        });
+    });
+
+    $('.label-this-all').click(function(){
+        var is_buy = '';
+        var goods = [];
+        var parent = [];
+        if($(this).attr('class') == 'label-this-all'){
+             $(this).addClass('active');
+             $(this).parent().parent().siblings().find('.rec-active').addClass('active');
+             $(this).parent().parent().siblings().find('input').attr('checked','checked');
+             $(this).parent().parent().parent().siblings().find('.label-this-all').removeClass('active');
+             $(this).parent().parent().parent().siblings().find('.rec-active').removeClass('active');
+             is_buy = 1;
+        }else{
+            $(this).removeClass('active');
+
+            $(this).parent().parent().siblings().find('.rec-active').removeClass('active');
+            $(this).parent().parent().siblings().find('input').removeAttr('checked');
+            is_buy = 0;
+        }
+
+        var goods_id = $(this).parent().parent().siblings().find(".active").next();
+
+        if(goods_id != ''){
+            goods_id.each(function(k,v){
+                 goods.push($(this).val());
+            });
+        }
+
+        var parent_id =  $(this).parent().parent().parent().siblings().find("input[name='select_goods']");
+        if(parent_id != ''){
+            parent_id.each(function(k,v){
+                 parent.push($(this).val());
+            });
+        }
+
+        var change_goods = [];
+        var change_goods_id = $(this).parent().parent().siblings().find(".rec-active").next();
+        if(change_goods_id != ''){
+            change_goods_id.each(function(k,v){
+                 change_goods.push($(this).val());
+            });
+        }
+
+        console.log('goods_id :'+goods+"==="+'is_buy :'+is_buy+"==="+'parent_id:'+"==="+parent+"==="+'change_goods:'+change_goods);
+
+        $.ajax({
+            type:'POST',
+            url:"{:url('flow/is_buy_multi')}",
+            data:{'goods_id':goods,'is_buy':is_buy,'parent_id':parent,'change_goods':change_goods},
+            dataType:'json',
+            success:function(res){
+                if(res.code == 200){
+                   $('#goods_price').html('总价：￥' + res.money.toFixed(2) + '元');
+                   $('#total_number').html('共 '+res.number +' 件商品');
+                }
+
+                if(is_buy == 0){
+                   $('#goods_price').html('总价：￥0.00元');
+                   $('#total_number').html('共 0 件商品');
+                }
+            }
+        });
+    });
+
+    $('.settlement').click(function(){
+
+        var order_type = {$order_type};
+        
+       $.ajax({
+           type:'POST',
+           url:"{:url('flow/settlement')}",
+           data:{},
+           dataType:'json',
+           success:function(res){
+      
+              if(res.code == 200) {
+                  location.href='/index.php?m=default&c=flow&a=checkout&order_type={$order_type}';
+              }else{
+              
+                  layer.msg(res.message);
+              }
+
+
+           }
+       });
+    });
+
+    $('.add').click(function(){
+        var freight =  $(this).next().val();
+        var goods_number =  $(this).prev().val();
+        var money = $(this).parent().parent().parent().parent().parent().prev().find('.money');
+        var count_money = freight * goods_number;
+        money.html(count_money+" 元");
+
+    });
+
+    $('.remove').click(function(){
+        var freight =  $(this).next().next().next().next().val();
+        var goods_number =  $(this).next().next().val();
+        var money = $(this).parent().parent().parent().parent().parent().prev().find('.money');
+        var count_money = freight * goods_number;
+        money.html(count_money+" 元");
+    });
+    //手动输入值
+    function myFunction(rec_id) {
+   
+    var x = document.getElementById("goods_number"+rec_id).value;
+
+
+      var is_buy = 1;
+   
+        $.ajax({
+           type:'POST',
+           url:"{:url('flow/Input_number')}",
+           data:{'rec_id':rec_id,'goods_number':x,'is_buy':is_buy},
+           dataType:'json',
+           success:function(res){
+
+              if(res.code == 200){
+                 $('#goods_price').html('总价：￥' + res.money.toFixed(2) + '元');
+                 $('#total_number').html('共 '+res.number +'件商品');
+                 that.prev().val(res.current);
+
+              }
+
+              if(res.code == 400){
+                  that.prev().val(res.current);
+              }
+           }
+        });
+    
+}
+
+    function Increase_number(goods_id,that){
+    
+        var label = that.parent().parent().parent().parent().prev().find('label');
+
+        if(label.hasClass('active')){
+           var is_buy = 1;
+        }else{
+           var is_buy = 0;
+        }
+
+        $.ajax({
+           type:'POST',
+           url:"{:url('flow/Increase_number')}",
+           data:{'goods_id':goods_id,'is_buy':is_buy},
+           dataType:'json',
+           success:function(res){
+
+              if(res.code == 200){
+                 $('#goods_price').html('总价：￥' + res.money.toFixed(2) + '元');
+                 $('#total_number').html('共 '+res.number +'件商品');
+                 that.prev().val(res.current);
+
+              }
+
+              if(res.code == 400){
+                  that.prev().val(res.current);
+              }
+           }
+        });
+    }
+        function change_goods_number(rec_id,goods_number){
+    alert(3);
+        
+    }
+
+    function Reduction_number(goods_id,that){
+         var label = that.parent().parent().parent().parent().prev().find('label');
+
+         if(label.hasClass('active')){
+           var is_buy = 1;
+         }else{
+           var is_buy = 0;
+         }
+
+        $.ajax({
+           type:'POST',
+           url:"{:url('flow/Reduction_number')}",
+           data:{'goods_id':goods_id,'is_buy':is_buy},
+           dataType:'json',
+           success:function(res){
+              if(res.code == 200){
+                 $('#goods_price').html('总价：￥' + res.money.toFixed(2) + '元');
+                 $('#total_number').html('共 '+res.number +'件商品');
+                 that.next().next().val(res.current);
+              }
+
+              if(res.code == 400){
+                 that.next().next().val(res.current);
+              }
+           }
+        });
+    }
+
+</script>

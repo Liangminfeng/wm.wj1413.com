@@ -1,0 +1,285 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+    <script src="/data/assets/bootstrap/js/bootstrap.min.js"></script> 
+<!--2018-04-12增加订单提交时间提示-->
+{if $cancel}
+<div class="s-flex s-space s-box-sizing s-align-items Zect-bg" style="padding:1rem 3%;">
+  <div class="d-check-yes">
+    <p>{$lang.order_time_pay}</p>
+    <div class="data-box col-cheng" id="dateShow1" data-date="{$order.count_time}">
+      <span class="date-tiem m">00</span>分
+      <span class="date-s s">00</span>秒
+    </div>
+    <p>{$lang.order_time_cancel}</p>
+  </div>
+  <div class="d-check-no col-cheng" style="display: none;">{$lang.order_time_yes}</div>
+  <div class="d-check-img"><img src="images/new/order_ico.png"></div>
+</div>
+ <!--{/if}-->
+
+<!--2018-04-12增加订单提交时间提示-->
+<!--2018-03-19订单优化开始-->
+
+<section  class="ect-padding-lr ect-padding-tb checkout-add Zorder">
+ <a href="#">
+  <label class="order-siteico" style="width:100%;" for="addressId{$con_list.address_id}">
+    <div class="s-flex">
+     <p class="title" style="padding-right:1.5rem;">{$order.consignee}</p>
+     <p class="pay-phone">{$order.mobile}</p>
+    </div>
+   <p style="font-size:1.5rem;">{$order.address}</p>
+ 
+   </label>
+ </a>
+</section>
+<!--商品列表-->
+<div class="flow-checkout">
+  <section class="ect-margin-tb ect-margin-bottom0 ect-padding-lr checkout-select checkout-pro-list">
+    <p>{$lang.goods_list}</p>
+    <ul>
+      <!-- {foreach from=$goods_list item=goods} -->
+      <li>
+        <dl>
+          <div class="flow-checkout-box">
+            <div class="flow-checkout-shopimg">
+             <a href="{:url('goods/index', array('id'=>$this->_var['goods']['goods_id']))}"><img src="{$goods.goods_thumb}"></a>
+           </div>
+           <div class="flow-checkout-cont">
+             <h4 class="twolist-hidden">
+               <a href="{:url('goods/index', array('id'=>$this->_var['goods']['goods_id']))}">{$goods.goods_name}{$goods.goods_attr}</a>
+             </h4>
+             <p class="n-check-title col-9">{$lang.number_to}：x{$goods.goods_number}</span></p>
+             <p class="col-9">{$lang.ws_subtotal}：¥{$goods.subtotal}</p>
+           </div>
+           <dd class="dd-price raise-order-box">
+            <!--{if $goods.aftermarket eq 1}-->
+          <b class="service">
+              <a href="{:url('user/aftermarket_done',array('rec_id'=>$this->_var['goods']['rec_id'],'order_id'=>$this->_var['order']['order_id']))}" >{$lang.look_apply_record}</a>
+              <a href="{:url('user/aftermarket_detail',array('ret_id'=>$this->_var['goods']['ret_id']))}" >{$lang.return_detail}</a>
+          </b>
+          <!--{else}-->
+              <!--{if $goods.service_apply}-->
+              <b class="service"><a href="{:url('user/aftermarket',array('rec_id'=>$this->_var['goods']['rec_id'],'order_id'=>$this->_var['order']['order_id']))}" >{$lang.apply_customer_service}</a></b>
+              <!--{/if}-->
+          <!--{/if}-->
+          
+          </dd>
+         </div>
+       </dl>
+     </li>
+     <!-- {/foreach} -->
+   </ul>
+ </section>
+<!--支付方式-->
+<!--{if !$order.pay_status1&&$order.order_status!=2}
+ <section class="ect-margin-tb ect-padding-lr checkout-select pay-bottom" style="margin-bottom: 0px;"> 
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="s-flex">
+        <p class="f-05" >{if $order.pay_id==1}微信支付{elseif $order.pay_id==5}支付宝{else}{$lang.payment}{/if}</p>
+        <div class="f-check-pay"></div>
+        <i class="fa fa-angle-down"></i></a>
+        {if $order.pay_status<2&&$order.order_status!=4&&$order.order_status!=2&&$order.order_status!=5}
+        <div id="collapseTwo" class="panel-collapse collapse">
+          <ul class="ect-radio">
+            <li>
+              <input name="payment" type="radio" id="payment_1" {if $order.pay_id==1}checked=""{else}{/if} value="1" style="vertical-align:middle">
+              <label for="payment_1">微信支付<i></i></label>
+            </li>
+            <li>
+              <input name="payment" type="radio" id="payment_5" {if $order.pay_id==5}checked=""{else}{/if}  value="5" style="vertical-align:middle">
+              <label for="payment_5">支付宝<i></i></label>
+            </li>
+          </ul>
+        </div>
+        {/if}
+</section> 
+{/if}-->
+<!--订单备注-->
+<section  class="ect-padding-lr Zpa10 pay-bottom m-top08">
+  <div class="dis-box" style="color:#333;">
+    <span class="box-flex" style="font-size:1.5rem;">支付方式</span>
+    {if $order.pay_id==1}
+    <span class="box-flex Zright">微信支付</span>
+    {elseif $order.pay_id==2}
+    <span class="box-flex Zright">余额支付</span>
+    {else}
+    <span class="box-flex Zright">支付宝</span>
+    {/if}
+  </div>
+</section>
+<section class="ect-padding-lr Zpa10 pay-bottom">
+  <div class="Zleave">
+    <p class="Zhui" style="font-size:1.5rem;">{$lang.order_postscript}</p>
+    <p class="Zright">{$order.postscript}</p>
+  </div>
+</section>
+<!--商品金额-->
+<section  class="ect-padding-lr ect_padding_tb n-top" style="padding-bottom:0.5rem;">
+  <div class="dis-box" style="font-size:1.5rem;">
+    <span class="box-flex" style="font-size:1.5rem;">{$lang.amount}</span>
+    <span class="box-flex Zright" style="font-size:1.5rem;">¥{$order.goods_amount}</span>
+  </div>
+</section>
+<!--配送费用-->
+<section  class="ect-padding-lr ect_padding_tb ">
+  <div class="dis-box">
+    <span class="box-flex"  style="font-size:1.5rem;">{$lang.shipping_fee}</span>
+    <span class="box-flex Zright"  style="font-size:1.5rem;">¥{$order.shipping_fee}</span>
+  </div>
+</section>
+<!--KD豆抵扣-->
+<section class="ect-padding-lr ect_padding_tb  ">
+  <div class="dis-box">
+      <h3 class="box-flex f-05"  style="font-size:1.5rem;">{$lang.flow_integral}</h3>
+      <span class="box-flex Zright"  style="font-size:1.5rem;"><span class = 'goods_count_money'  style="font-size:1.5rem;">{if $order.integral_money}-¥{$order.integral_money}{else}¥0{/if}</span></span>
+  </div>
+</section>
+{if $order.shipping_status1==1||$order.shipping_status1==2}
+<!--<section class="ect_padding_tb Zpa10 ">
+  <div class="dis-box">
+      <h3 class="box-flex f-05"  style="font-size:1.5rem;">配送方式</h3>
+      <span class="box-flex Zright "  style="font-size:1.5rem;"><span class = 'goods_count_money'>¥{$order.shipping_name}</span></span>
+  </div>
+</section>-->
+
+<section class="ect-padding-lr ect_padding_tb  ">
+  <div class="dis-box dis-icon">
+    <a href="{:url('order_tracking', array('order_id'=>$this->_var['order']['order_id']))}" style="display:block;width:100%;">
+      <h3 class="box-flex f-05" style="float:left;font-size:1.5rem;">物流单号</h3>
+      <span style="float:right;font-size:1.5rem;" class="box-flex Zright ">{$order.invoice_no}<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top" ></i></span></span>
+    </a> 
+  </div>
+</section>
+{/if}
+{if !$order.pay_status1}
+<section  class=" ect-padding-lr ect_padding_tb" style="color: #aaaaa9;padding-top:0">
+  <div class="dis-box">
+    <span class="box-flex" style="font-size:1.5rem;">{$lang.unpay_fee}</span>
+    <span class="box-flex Zright col-cheng" style="font-size:1.5rem;">¥{$order.order_amount}</span>
+  </div>
+</section>
+{/if}
+<!--订单状态-->
+<section  class="Zma5 ect-padding-lr Zpa10">
+  <div class="dis-box">{$lang.order_status}：<span class="col-cheng">{$order.order_status1} </span></div>
+</section>
+<section  class="ect-padding-lr Zpa10" style="margin-top:-1.5rem">
+  <div class="dis-box">{$lang.order_number}：<span>{$order.order_sn}</span></div>
+</section>
+<section  class="ect-padding-lr Zpa10" style="margin-top:-1.5rem">
+  <div class="dis-box">{$lang.order_money}：<span>¥{$order.order_amount}</span></div>
+</section>
+<section  class="ect-padding-lr Zpa10" style="margin-top:-1.5rem">
+  <div class="dis-box">{$lang.order_addtime}：<span>{$order.add_time}</div>
+</section>
+{if $order.pay_status1==2}
+<section  class="ect-padding-lr Zpa10" style="margin-top:-1.5rem">
+  <div class="dis-box">{$lang.order_paytime}：<span>{$order.pay_time}</div>
+</section>
+{/if}
+{if $order.shipping_status1==1}
+<section  class="ect-padding-lr Zpa10" style="margin-top:-1.5rem">
+  <div class="dis-box">{$lang.order_shippingtime}：<span>{$order.shipping_time}</div>
+</section>
+{/if}
+{if $order.shipping_status1==2}
+<section  class="ect-padding-lr Zpa10" style="margin-top:-1.5rem">
+  <div class="dis-box">{$lang.order_shippingtime}：<span>{$order.shipping_time}</div>
+</section>
+<section  class="ect-padding-lr Zpa10" style="margin-top:-1.5rem">
+  <div class="dis-box">{$lang.order_confirm_receive_time}：<span>{$order.confirm_receive_time}</div>
+</section>
+{/if}
+</div>
+<!--提交按钮-->
+{if $order.handler}
+{if $order.pay_id==1||$order.pay_id==5}
+
+<div class="order-submit {if $order.pay_id==1}{else}displayNo{/if} orderNewsub" > 
+  
+  {if $order.goods_amount gt 0}
+  <section>{$order.pay_online}</section>
+  {/if}
+  <div>
+  {$order.handler}</div>
+  <!-- {if $order.order_tracking}-->
+  <!--<a href="{:url('order_tracking', array('order_id'=>$this->_var['order']['order_id']))}" type="button" class="btn btn-info ect-btn-info ect-colorf ect-bg">{$lang.order_tracking}</a>-->
+  <!--{/if}-->
+</div>
+<!--新显示按钮-->
+<div class="order-submit2 {if $order.pay_id==5}{else}displayNo{/if}">
+
+  {if $order.goods_amount gt 0}
+
+  <section>{$order.pay_online1}</section>
+  {/if}
+   <div class="order-submit">
+  {$order.handler}</div>
+  <!-- {if $order.order_tracking}-->
+  <!--<a href="{:url('order_tracking', array('order_id'=>$this->_var['order']['order_id']))}" type="button" class="btn btn-info ect-btn-info ect-colorf ect-bg">{$lang.order_tracking}</a>-->
+  <!--{/if}-->
+</div>
+{else}
+
+ <div class="order-submit">
+  {$order.handler}</div>
+{/if}
+  <!--{/if}-->
+<div style="width: 100%; height: 6rem;"></div>
+
+<!--2018-03-19订单优化结束-->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/themes/yutui/js/leftTime.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/layer/layer.js"></script>
+<!--订单倒计时-->
+<script type="text/javascript">
+    $(function(){
+      //日期倒计时,现在距离下面的日期
+      var data_show = $('.data-box');
+      for(var i=1;i<=data_show.length;i++){
+        function_name($("#dateShow"+i).data("date"),"#dateShow"+i);
+      }
+      function function_name(time,obj) {
+        $.leftTime(time,function(d){
+          if(d.status){
+            var $dateShow1=$(obj);
+            $dateShow1.find(".d").html(d.d);
+            $dateShow1.find(".h").html(d.h);
+            $dateShow1.find(".m").html(d.m);
+            $dateShow1.find(".s").html(d.s);
+            $(".d-check-no").hide();
+          }else{
+
+            $(".d-check-no").show();
+            $(".d-check-yes").hide();
+            var order_id = {$order.order_id};
+            $.post("{:url('user/cancelorder')}",{order_id:order_id},function(data){
+                layer.msg(data.msg);
+                if(data.error == 2){
+                    return false;
+                }
+                if(data.error == 0 && data.url){
+                    window.location.href = data.url;
+                }
+                return false;
+            },"json");
+          }
+        });
+      }
+    });
+  </script>
+</div>
+<script type="text/javascript">
+$('.ect-radio li').click(function() {
+       $(".f-check-pay").html($(this).text())
+    });
+$("#payment_1").click(function() {
+       $(".order-submit").show()
+       $(".order-submit2").hide()
+    });  
+$("#payment_5").click(function() {
+       $(".order-submit2").show()
+       $(".order-submit").hide()
+    }); 
+</script>

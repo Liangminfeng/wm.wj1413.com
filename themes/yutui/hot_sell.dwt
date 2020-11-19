@@ -1,0 +1,120 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<div class="con m-b7 new-maxbox">
+	<div class="img"><img src="http://img02.tenfutenmax.com.cn/public/hot_sell_top.png" ></div>
+
+	<!-- {foreach from=$sortarray item=sortdata name=sortdata}-->
+	<div class="s-flex ptb-2 sell_top20">
+	
+		{if $sortdata.sort eq 1}
+		<a class="s-flex" style="width:100%;"  href="/index.php?m=default&c=goods&a=index&id={$sortdata.goods_id}&u={$uid}">
+			<div class="ranking">
+				<p class="f-08 pb-1">{$sortdata.sort}</p>
+				<div class="f-02 s-flex top20_rise">
+					{if $sortdata.sortresult eq 1}
+					<p style="color:#ff5500;padding-right:0.2rem;">↑</p>
+				    <p style="padding-left:0.2rem;">{$sortdata.sortresultnum}</p>
+					{elseif $sortdata.sortresult eq 2}
+					<p style="color:#333;padding-right:0.2rem;">↓</p>
+				    <p style="padding-left:0.2rem;">{$sortdata.sortresultnum}</p>
+					{else}
+
+					<p style="color:#ff5500;">-</p>
+					<p></p>
+
+					{/if}
+					
+				</div>
+			</div>
+			<div class="s-flex" style="width:88%;">
+				<div class="top20_product" ><img style="width:100%;" src="{$sortdata.goods_img}"></div>
+				<div class="slides_pro_a s-justify-b top20_say">
+					<div class="f-05 limit_size">
+						{$sortdata.goods_name}
+					</div>
+					<div class="s-flex">
+						<p class="f-04 top20_price">￥{$sortdata.shop_price}</p>
+						{if $user_vip}
+						<p style="font-size:1rem;margin: auto 0;"><span class="vip_shop" style="border:1px solid #313131;padding: 0rem 0.5rem;box-sizing:border-box;">VIP</span><span class="vip_price" style="border: 1px solid #FEDE95;border-top-right-radius: 0.5rem;border-bottom-right-radius: 0.5rem;color:#333;padding-right:0.5rem;box-sizing:border-box;background:#FEDE95;">{$sortdata.vip_price}</span></p>
+						{/if}
+					</div>
+				</div>
+		
+		</div>
+		</a>
+		{else}
+			<a class="s-flex" style="width:100%;" href="/index.php?m=default&c=goods&a=index&id={$sortdata.goods_id}&u={$uid}">
+		<div class="ranking">
+				<p class="f-08 pb-1">{$sortdata.sort}</p>
+				<div class="f-02 s-flex top20_rise">
+					{if $sortdata.sortresult eq 1}
+					<p style="color:#ff5500;padding-right:0.2rem;">↑</p>
+				    <p style="padding-left:0.2rem;">{$sortdata.sortresultnum}</p>
+					{elseif $sortdata.sortresult eq 2}
+					<p style="color:#333;padding-right:0.2rem;">↓</p>
+				    <p style="padding-left:0.2rem;">{$sortdata.sortresultnum}</p>
+					{else}
+
+					<p style="color:#ff5500;">-</p>
+					<p></p>
+
+					{/if}
+					
+				</div>
+			</div>
+		<div class="s-flex" style="width:88%;">
+			<div class="top20_product" ><img style="width:100%;" src="{$sortdata.goods_img}"></div>
+			<div class="slides_pro_a s-justify-b top20_say">
+				<div class="f-05 limit_size">
+						{$sortdata.goods_name}
+				</div>
+				<div class="s-flex">
+					<p class="f-04 top20_price">￥{$sortdata.shop_price}</p>
+					{if $user_vip and $sortdata.vip_price}
+					<p style="font-size:1rem;margin: auto 0;"><span class="vip_shop" style="border:1px solid #313131;padding: 0rem 0.5rem;box-sizing:border-box;">VIP</span><span class="vip_price" style="border: 1px solid #FEDE95;border-top-right-radius: 0.5rem;border-bottom-right-radius: 0.5rem;color:#333;padding-right:0.5rem;padding-left: 0.5rem;box-sizing:border-box;background:#FEDE95;">{$sortdata.vip_price}</span></p>
+					{/if}
+
+				</div>
+			</div>
+			
+		</div>
+		</a>
+		{/if}
+		
+	</div>
+<!-- {/foreach}-->
+	
+</div>
+
+<!--悬浮菜单e-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+
+
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<script type="text/javascript">
+	get_asynclist("{:url('index/ajax_goods', array('type'=>'best'))}", '__TPL__/images/loader.gif');
+</script>
+<script type="text/javascript ">
+	$(document).ready(function(){
+	//限制字数
+	$(".limit_size").each(function() {
+		var maxwidth =30;//显示多少字符
+		  if ($(this).text().length > maxwidth) {
+		  $(this).text($(this).text().substring(0, maxwidth));
+		  $(this).html($(this).html() + '...');
+		}
+	});
+	//body白色
+	 $("body").addClass("bg-white");
+	//底部加色
+	$(".footer-nav").find("a:eq(0)").addClass("active");
+	})
+</script>
+</body>
+
+</html>

@@ -1,0 +1,370 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem --> 
+
+<div class="con m-b7">
+    <!--首页悬浮广告-->
+    <div class="i-banner-fixed"><a href="/index.php?c=article&a=info&aid=182"><img src="/themes/yutui/images/like/shopping.png"></a></div>
+    <!--返回顶部-->
+    <!--<div class="i-icon-toTop">
+    	<a href="javascript:;">
+    		<img src="images/toTop.png">
+    	</a>
+    </div>-->
+	<!--2018-03-07首页重新开发开始-->
+	{if $user_info}
+	<div class="s-flex s-top"><p><img src="{$user_info.user_avatar|default:/themes/yutui/images/new/card_logo.png}"></p><span>{if $user_info.nick_name}{$user_info.nick_name}{else}{$user_info.user_name}{/if}的拓客商城VIP商城</span></div>
+	{/if}
+	<div
+		class="index-banner swiper-container box position-rel banner-first">
+		<div class="swiper-wrapper">{insert name='ads' id=255 num=3}</div>
+		<!-- 分页器 -->
+		<div class="swiper-pagination banner-first-pagination"></div>
+		<!--linear-->
+		<div class="linear"></div>
+	</div>
+	<!--导航-->
+	<nav class="bg-white ptb-1 index-nav">
+		<ul class="box ul-4 text-c bg-white">
+			<a class="index-menu-text" href="/index.php?m=default&c=category&a=top_all">
+				<li class="fl">
+					<p>
+						<img src="/themes/yutui/images/new/Menu1.png">
+					</p>
+					<p class="index-menu-text">{$lang.far_all}</p>
+			</li>
+			</a>
+			<a
+				href="{if $smarty.session.user_rank==2}/index.php?c=topic&topic_id=6{else}/index.php?m=default&c=user&a=VIPmarket{/if}">
+				<li class="fl">
+					<p>
+						<img src="/themes/yutui/images/new/Menu2.png">
+					</p>
+					<p class="index-menu-text">{$lang.user_invite}</p>
+			</li>
+			</a>
+			<a href="/index.php?c=article&a=info&aid=189">
+				<li class="fl">
+					<p>
+						<img src="/themes/yutui/images/new/Menu4.png">
+					</p>
+					<p class="index-menu-text">领积分</p>
+			</li>
+			</a>
+			<a href="/index.php?m=default&c=flow&a=cart">
+				<li class="fl">
+					<p>
+						<img src="/themes/yutui/images/new/Menu3.png">
+					</p>
+					<p class="index-menu-text">{$lang.train_ticket_lottery}</p>
+			</li>
+			</a>
+		</ul>
+	</nav>
+	<!--公告-->
+	<div class="s-new s-flex swiper-containerA"
+		onclick="location='/index.php?c=article&a=notice'">
+		<strong><a href="/index.php?c=article&a=notice"><font
+				style="color: #ffffff">公告</font></a></strong>
+		<div class="s-content swiper-wrapper">
+			{foreach from = $notice_list item = notice}
+			<div class="swiper-slide ellipsis-one">
+				<a href="/index.php?c=article&a=notice">{$notice.title}</a>
+			</div>
+			{/foreach}
+		</div>
+		<div class="swiper-pagination"></div>
+	</div>
+	<!--优惠多专场-->
+	<div class="discounts">
+		<div class="discounts_img">
+			<a href="/index.php?c=topic&topic_id=1
+">
+			<img src="http://img.yoyo1.com.cn/public/newlike/youhuiduo.gif">
+			</a>
+		</div>
+		<div class="member_welfare">
+			<div class="gift_bag">
+				<a href="/index.php?c=topic&topic_id=7
+" class="gift_to">
+					<p >会员福利专区</p>
+					<p >六大礼盒任你选</p>
+					<p class="gift_img"><img src="http://img.yoyo1.com.cn/public/newlike/lihe.png"></p>
+					<button>立即领取</button>			
+				</a>
+			</div>
+			<div class="member_product">
+				<div class="hot_product">
+					<a href="/index.php?c=topic&topic_id=12" class="hot_to">
+						<div class="product_to">
+							<p>热销产品</p>
+							<p>汰湛洗护</p>
+						</div>	
+							<p class="hot_img"><img class="hot_img1" src="http://img.yoyo1.com.cn/public/newlike/product1.png"></p>
+					</a>
+				</div>
+				<div class="total_change">
+					<div class="hot_product">
+					<a href="/index.php?c=topic&topic_id=11">
+						<div class="product_to">
+							<p>积分兑换区</p>
+							<p>小分子肽</p>
+						</div>	
+							<p class="hot_img"><img class="hot_img2" src="http://img.yoyo1.com.cn/public/newlike/product2.png"></p>
+					</a>
+				</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+<!--购物指南-->
+	<div class="shopping_guide">
+		<div class="guide_img">
+			<a href="/index.php?c=article&a=info&aid=188
+">
+				<img src="http://img.yoyo1.com.cn/public/newlike/shopping_guide.png">
+			</a>
+		</div>
+	</div>
+<!--超级礼盒组-->
+	<div class="supper_guide">
+		<div class="supper_img1">
+			<a href="/index.php?c=topic&topic_id=10">
+				<img src="http://img.yoyo1.com.cn/public/newlike/supper1.png">
+			</a>
+		</div>
+		<div class="supper_img2">
+			<a href="/index.php?c=topic&topic_id=9
+" class="supper_to2">
+				<img src="http://img.yoyo1.com.cn/public/newlike/supper2.png">
+			</a>
+		</div>
+	</div>
+<!--跨境域购 banner-->
+	<div class="stride_shopping">
+		<div class="stride_title">
+			<a href="/index.php?c=topic&topic_id=3" class="stride_to">
+				<img src="http://img.yoyo1.com.cn/public/newlike/kuajinyu.png">
+			</a>
+		</div>
+	</div>
+<!--跨境域购-->	
+	<div class="swiper-containerS">
+        <div class="swiper-wrapper">
+			<div class="i-index-width s-flex s-justify-b swiper-slide">
+		      <a href="/index.php?c=goods&id=188" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/k_1.png"></p>
+		        <div class="f-04">性感契约-丰胸</div>
+		        <em>￥460</em>
+		      </a>
+		      <a href="/index.php?c=goods&id=190" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/k_2.png"></p>
+		        <div class="f-04">逆转肌龄弹力水...</div>
+		        <em>￥450</em>
+		      </a>
+		      <a href="/index.php?c=goods&id=193" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/k_3.png"></p>
+		        <div class="f-04">沁润—促进新陈代...</div>
+		        <em>￥790</em>
+		      </a>
+		      <a href="/index.php?c=goods&id=194" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/k_4.png"></p>
+		        <div class="f-04">纳豆激酶—高纯...</div>
+		        <em>￥450</em>
+		      </a>
+			</div>
+	   </div>
+    </div>
+<!--大健康 banner-->
+	<div class="big_health">
+		<div class="health_title">
+			<a href="/index.php?c=topic&topic_id=2" class="health_to">
+				<img src="http://img.yoyo1.com.cn/public/newlike/big_health.png">
+			</a>
+		</div>
+	</div>
+<!--大健康 -->
+	<div class="swiper-containerS">
+        <div class="swiper-wrapper">
+			<div class="i-index-width s-flex s-justify-b swiper-slide">
+		      <a href="/index.php?m=default&c=goods&a=index&id=179&u=75" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/da_1.png"></p>
+		        <div class="f-04">醣活力牙膏50g两组</div>
+		        <em>￥76</em>
+		      </a>
+		      <a href="/index.php?m=default&c=goods&a=index&id=180&u=75" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/da_2.png"></p>
+		        <div class="f-04">醣活力漱口水...</div>
+		        <em>￥136</em>
+		      </a>
+		      <a href="/index.php?c=goods&id=174" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/da_3.png"></p>
+		        <div class="f-04">臻多醣</div>
+		        <em>￥1050</em>
+		      </a>
+		      <a href="/index.php?m=default&c=goods&a=index&id=181&u=75" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/da_4.png"></p>
+		        <div class="f-04">醣活力口腔喷雾...</div>
+		        <em>￥76</em>
+		      </a>
+			</div>
+		</div>
+	</div>
+<!--清洁洗涤 banner-->
+	<div class="washing">
+		<div class="washing_title">
+			<a href="/index.php?c=topic&topic_id=5" class="washing_to">
+				<img src="http://img.yoyo1.com.cn/public/newlike/washing.png">
+			</a>
+		</div>
+	</div>
+<!--清洁洗涤 -->
+	<div class="swiper-containerS">
+        <div class="swiper-wrapper">
+			<div class="i-index-width s-flex s-justify-b swiper-slide">
+		      <a href="/index.php?c=goods&id=195" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/q_1.png"></p>
+		        <div class="f-04">蔬果湛-环保无毒...</div>
+		        <em>￥70</em>
+		      </a>
+		      <a href="/index.php?c=goods&id=196" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/q_2.png"></p>
+		        <div class="f-04">碗盘湛-超洁净抗...</div>
+		        <em>￥78</em>
+		      </a>
+		      <a href="/index.php?c=goods&id=197" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/q_3.png"></p>
+		        <div class="f-04">环保洗衣液~柔顺...</div>
+		        <em>￥128</em>
+		      </a>
+		      <a href="/index.php?c=goods&id=274" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/q_4.png"></p>
+
+		        <div class="f-04">奕元洁纯酵素去农残...</div>
+
+		        <em>￥110</em>
+		      </a>
+			</div>
+		</div>
+	</div>
+<!--美酒佳酿 banner-->
+	<div class="vintage_wine">
+		<div class="wine_title">
+			<a href="/index.php?c=topic&topic_id=4" class="wine_to">
+				<img src="http://img.yoyo1.com.cn/public/newlike/vintage_wine.png">
+			</a>
+		</div>
+	</div>
+<!--美酒佳酿 -->
+	<div class="swiper-containerS">
+        <div class="swiper-wrapper">
+			<div class="i-index-width s-flex s-justify-b swiper-slide">
+		      <a href="/index.php?c=goods&id=206" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/j_1.png"></p>
+		        <div class="f-04">小猫女典藏干红...</div>
+		        <em>￥298</em>
+		      </a>
+		      <a href="/index.php?c=goods&id=208" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/j_2.png"></p>
+		        <div class="f-04">小猫女博巴尔干...</div>
+		        <em>￥498</em>
+		      </a>
+		      <a href="/index.php?c=goods&id=207" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/j_3.png"></p>
+		        <div class="f-04">小猫女美乐干红...</div>
+		        <em>￥498</em>
+		      </a>
+		      <a href="/index.php?c=goods&id=211" class="i-index-da">
+		        <p class="s-flex"><img src="images/like/index/j_4.png"></p>
+		        <div class="f-04">斯巴王莫斯卡多桃...</div>
+		        <em>￥188</em>
+		      </a>
+			</div>
+		</div>
+	</div>
+	<!--猜你喜欢-->
+  <div class="N_Recommend">
+    <h2>猜你喜欢<span></span></h2>
+    <section class="product-list2 j-product-list n-index-box " data="1" style="padding:0px;">
+      <ul class="index-more-list" id="J_ItemList">
+        <div class="single_item"></div>
+        <a href="javascript:;" style="text-align:center" class="get_more"></a>
+        </ul>
+    </section>
+    <div style="width: 100%; height: 5rem; overflow: hidden;"></div>
+  </div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript ">
+	 var mySwiper = new Swiper ('.swiper-containerS', {
+	 	  
+          direction: 'horizontal', // 垂直切换选项
+          loop: true, // 循环模式选项
+          
+          // 如果需要分页器
+         
+        })        
+
+	$(function($) {
+		var mySwiper = new Swiper('.banner-first', {
+			pagination: '.banner-first-pagination',
+			loop: false,
+			grabCursor: true,
+			paginationClickable: true,
+			autoplayDisableOnInteraction: false,
+			autoplay: 3000
+		});
+	});
+	/*立即关注*/
+	if ($(".index-weixin-box").hasClass("index-weixin-box")) {
+		$(".index-banner").css({
+			"marginTop": "0rem",
+
+		})
+	} else {
+		$(".index-banner").css({
+			"marginTop": "0rem",
+
+		})
+	}
+	/*公告滑动*/
+	var mySwiper = new Swiper('.swiper-containerA', {
+      autoplay : 2500,
+      speed:300,
+      direction: 'vertical',
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+</script>
+<script type="text/javascript">
+	get_asynclist("{:url('index/ajax_goods', array('type'=>'best'))}", '__TPL__/images/loader.gif');
+</script>
+<script>
+	$(function(){
+		$('.i-icon-toTop').hide();
+		$(window).scroll(function(){
+		if($(this).scrollTop() > 100){
+		$('.i-icon-toTop').fadeIn();
+		}else{
+		$('.i-icon-toTop').fadeOut();
+		}
+	});
+		$('.i-icon-toTop a').click(function(){
+			$('html ,body').animate({scrollTop: 0}, 300);
+			return false;
+		})
+	})
+</script>
+
+</body>
+</html>

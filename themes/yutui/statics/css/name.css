@@ -1,0 +1,60 @@
+@charset "utf-8";
+/*网站公用部分*/
+body{margin:0px auto; width:100%; font-size:14px; line-height:24px; font-family:"微软雅黑",Arial, Helvetica, sans-serif; color:#333;}
+h1, h2, h3, h4, h5, h6, ul, li, dl, dd, dt, p, img, input, select, textarea {margin:0px; padding:0px; list-style:none;}
+img{border:0px;}
+a{color:#333; text-decoration:none;}
+a:hover{color:#F00; text-decoration:none;}
+.Clear{clear:both;}
+/*弹窗*/
+.t-box{position: fixed; align-items: center; max-width: 100%; margin: 0 auto; height: 100%; background-color: #000; z-index: 9999; left: 0px; right: 0px; top: 0px; background: rgba(0,0,0,0.6); filter: progid:DXImageTransform.Microsoft.gradient(GradientType = 0,startColorstr = '#80000000',endColorstr = '#80000000')\9;}
+.l-train-yes h2{width:100%; background-color: #2596f4; text-align: center; font-size: 18px; color: #ffffff; line-height: 35px;border-top-right-radius: 1rem;border-top-left-radius: 1rem; /* margin-top: 60px; */}
+.l-train-close{position: relative; z-index: 5;}
+.l-train-close span{position: absolute; width: 3rem; height: 3rem; background: url('/static/tai1/images/new/close_new.png') no-repeat center center; left: 50%; bottom: 0px; margin: -5rem 0rem -5rem -1.5rem; background-size: 3rem 3rem; border-radius: 50%; text-indent: -9999px;}
+.am-table {width: 100%; margin-bottom: 1.6rem; border-spacing: 0; border-collapse: separate;}
+.h-form span{display: block;}
+.h-form input.h-c1{font-size: 14px;border: 1px solid #cdcdcd; background-color: transparent;}
+.h-form p{margin: 0;}
+.h-form .h-f2{padding: .3em;}
+table.am-table tr td{padding: .7rem; line-height: 1.6;}
+.am-table-striped > tbody > tr:nth-child(odd) > td, .am-table-striped > tbody > tr:nth-child(odd) > th {background-color: #f9f9f9}
+.h-btn{background: #0090d9;color: #fff;border-radius: 5px;font-size: 14px; border: 0px; padding: 0.5rem 3rem;}
+.h-form input{
+    display: block;
+    width: 90%;
+    padding: .5em;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    color: #555;
+    vertical-align: middle;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -webkit-transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out
+}
+.s-color-red{color: #ff0000;}
+@media only screen and (min-width: 641px){
+/*pc端*/
+table.am-table tr td:first-child{width: 120px;vertical-align: middle;}
+.l-train-yes{position: relative; margin:0px auto; width: 50%; background-color: #ffffff; z-index: 3;  border-radius: 1rem;}
+}
+@media only screen and (max-width:640px ) {
+/*移动端*/
+table.am-table tr td:first-child{width: 50px;vertical-align: middle;}
+.l-train-yes{ margin:0px auto; width: 100%; background-color: #ffffff; border-radius: 1rem;}
+}
+.btm-password{border: 1px #2596f4 solid!important; color: #2596f4; padding:0.2rem 0.5rem; border-radius: 4px; background-color: transparent; margin: -1.9rem 0 0 50%; float: left; position: relative;}
+.l-train-close{position: relative; z-index: 5;}
+.l-train-close span{position: absolute; width: 3rem; height: 3rem; background: url('/themes/yutui/images/new/close_new.png') no-repeat center center; left: 50%; bottom: 0px; margin: -5rem 0rem -5rem -1.5rem; background-size: 3rem 3rem; border-radius: 50%; text-indent: -9999px;}
+.sendsms-button{background-color: #cdcdcd; border: 1px solid #cdcdcd!important; color: #999999;}
+.sendsms-button:hover{color: #999999;}
+.img{width:100%;height:auto;}
+.img img{width: 100%;}
+.box{width:100%; box-sizing:border-box; overflow: hidden;}
+.likeCreatBox{width: 100%; border-bottom-left-radius: 1rem;  border-bottom-right-radius: 1rem; padding-bottom: 14px;}
+.likeCreat{width: 100%; font-size: 14px; text-align: center;}

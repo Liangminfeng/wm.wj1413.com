@@ -1,0 +1,51 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con">
+  <!--{if $show_asynclist}-->
+  <div class="ect-margin-tb ect-pro-list ect-margin-bottom0 ect-border-bottom0">
+    <ul id="J_ItemList">
+      <li class="single_item"></li>
+      <a href="javascript:;" class="get_more"></a>
+    </ul>
+  </div>
+  <!--{else}--> 
+  <!-- {if $auction_list} 如果有拍卖活动 -->
+  <div class="ect-margin-tb ect-pro-list ect-margin-bottom0 ect-border-bottom0">
+    <ul id="J_ItemList">
+      <!--{foreach name=auction_list from=$auction_list item=auction}-->
+      <li class="single_item"> <a href="{$auction.url}"><img src="{$auction.act_banner}" alt="{$auction.goods_name}"></a>
+        <dl>
+          <dt>
+            <h4 class="title"><a href="{$auction.url}">{$auction.goods_name}</a></h4>
+          </dt>
+          <dd class="dd-num"> <span class="pull-left"> {$lang.act_status}： 
+            <!-- {if $auction.status_no eq 0} --> 
+            {$lang.au_pre_start}<br>
+            <!-- {elseif $auction.status_no eq 1} --> 
+            {$lang.au_under_way_1}<br>
+            <!-- {else} --> 
+            {$lang.au_finished}<br>
+            <!-- {/if} --> 
+            </span> </dd>
+          <dd class="dd-num"> <span class="pull-left"><strong>{$lang.au_start_price}：<b class="ect-colory">{$auction.formated_start_price}</b></strong> </span> </dd>
+          <dd class="dd-num"> <span class="pull-left"> 
+            <!-- {if $auction.end_price gt 0} --> 
+            <strong>{$lang.au_end_price}：<b class="ect-colory">{$auction.formated_end_price}</b></strong> 
+            <!-- {/if} --></span> </dd>
+        </dl>
+      </li>
+      <!--{/foreach}-->
+    </ul>
+  </div>
+  {include file='library/page.lbi '} 
+  <!--{/if}--> 
+  <!--{/if}--> 
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
+<script type="text/javascript">
+if({$show_asynclist}){
+	get_asynclist("{:url('auction/asynclist', array('page'=>$this->_var['page'], 'sort'=>$this->_var['sort'], 'order'=>$this->_var['order']))}" , '__TPL__/images/loader.gif');
+}
+</script>
+</body></html>

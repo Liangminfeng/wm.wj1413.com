@@ -1,0 +1,886 @@
+<script type="text/javascript" src="/data/assets/js/shopping_flow.js?v={$v}"></script>
+<div class="con f-05">
+  
+  
+
+  <form action="{:url('flow/done')}" method="post" name="theForm" id="theForm" >
+  
+  <!--优化订单功能修改-->
+  <!--入团说明显示隐藏-->
+
+    
+          {if $order_type}
+         <a href="index.php?m=default&c=flow&a=consignee_list&one_step_buy=1&order_type={$order_type}">
+              <section class="ect-padding-lr ect-padding-tb checkout-add Zorder">
+                   {if $shipping_address}
+                       <label class="pay-siteico-1" for="addressId{$con_list.address_id}">
+                          <div class="s-flex">
+                           <p class="title"><span style="letter-spacing:0.2rem">{$lang.receiver}：</span>{$consignee.consignee|escape} &nbsp;&nbsp;&nbsp;</p>
+                           <p><span class="pay-phone" id="pay-phone">{$consignee.mobile}</span></p>
+                          </div>
+                         <p class="f-check-site">{$consignee.address}</p>
+                         <i class="fa fa-angle-right"></i>
+                       </label>
+                       <input name="shippingaddress" id="shippingaddress" type="hidden" value="1" />
+                   {else}
+                      <label for="addressId{$con_list.address_id}">
+                           <p class="col-cheng" style="padding:2rem 0rem">{$lang.pls_input_your_address}</p>
+                           <i class="fa fa-angle-right"></i>
+                        
+                      </label>
+                        <input name="shippingaddress"  id="shippingaddress" type="hidden" value="0" />
+                   {/if}
+
+              </section>
+         </a>
+         {else}
+          <a href="index.php?m=default&c=flow&a=consignee_list&order_type={$order_type}">
+              <section class="ect-padding-lr ect-padding-tb checkout-add Zorder">
+                   {if $shipping_address}
+                       <label class="pay-siteico-1" for="addressId{$con_list.address_id}">
+                       <div style="display:flex;">
+                         <p class="title">
+                           <span style="letter-spacing:0.2rem">{$lang.receiver}：</span>
+                           {$consignee.consignee|escape} &nbsp;&nbsp;&nbsp;
+                           
+                         </p>
+                         <p><span style="font-size: 1.5rem;" class="pay-phone" id="pay-phone">{$consignee.mobile}</span></p>
+                        </div>
+                         <p class="f-check-site">{$consignee.address}</p>
+                         <i class="fa fa-angle-right"></i>
+                       </label>
+                       <input name="shippingaddress" id="shippingaddress" type="hidden" value="1" />
+                   {else}
+                      <label for="addressId{$con_list.address_id}">
+                           <p class="col-cheng" style="padding:2rem 0rem">{$lang.pls_input_your_address}</p>
+                           <i class="fa fa-angle-right"></i>
+                        
+                      </label>
+                        <input name="shippingaddress"  id="shippingaddress" type="hidden" value="0" />
+                   {/if}
+
+              </section>
+         </a>
+
+         {/if}
+    <div class="first_join_to">
+
+    {if $order_type>0&&$order_type<9&&$order_type<>2&&$order_type<>3}
+    <div class="first_header_top">
+      <div class="join_message"><h4>{$lang.first_join_group}</h4></div>
+   
+    </div>
+    <div class="first_join_body">
+      <div class="join_grade">
+        <div>入会等级</div>
+        <div><input disabled="disabled" type="goods_vip"  {if $goods_vip eq 1}value="银级会员" {elseif $goods_vip eq 2}value="金级会员" {elseif $goods_vip eq 3}value="钻级会员" {elseif $goods_vip eq 4}value="至尊级会员"{/if} placeholder=""style="border:0;"/></div>
+      </div>
+      <!--<div class="join_grade"style="padding-right: 0%;">
+        <div>会员编码</div>
+        <div class="s-flex s-justify-b" style="width: 82%;border: none;">
+          <div style="width: 85%;border: 1px solid #ddd;">
+            <input name="vip_manage_account" type="text" value="{$user_info.vip_manage_account}" class='user_code' placeholder=""/>
+          </div>
+          <span style="width: 8%;display: inline-block;margin: auto;"><img src="images/refresh.png" alt="" class="refreshaccount" onclick="getAccount()" style="width:100%;"></span>
+        </div>  
+      </div>-->
+      {if $order_type<>5}
+      <div class="join_grade">
+        <div>会员姓名</div>
+        <div><input name="real_name" type="" value="{$user_info.real_name}" placeholder="" style="background:#fff;"/></div>
+      </div>
+      {/if}
+
+     
+      
+
+     
+    </div>
+   
+  </div>
+  {/if} 
+  {if $show_invitestatus}
+
+    <div class="first_join_body">
+
+
+
+      <div class="join_grade" style="border-bottom:0;">
+        <div>邀请人编号</div>
+        <div><input type="text" style="background:#fff;" name='other_invite_code' value="{$invitecode}" id='invitecode' placeholder="" style="background:#fff;"/></div>
+      </div>
+
+     
+    </div>
+    <div class="referrer" >
+        <div style="width: 30%;"></div>
+        <div class="s-flex s-justify-b" style="width: 70%;">
+          <p class="no_referrer" >{$lang.no_referrer}</p>
+          <a href="javascript:defaultInviteCode();" >{$lang.invite_code_msg1}</a>
+        </div>  
+    </div>
+
+  </div>
+    {/if}
+  {if $order_type>0&&$order_type<9&&$order_type<>2&&$order_type<>3}
+  <div class="agreement"><p>支付订单代表您同意 <a class="cli_overlap">威米时代会员协议</a></p></div>
+  
+  <div class="body_overlap" style="display:none;">
+    <div class="top_overlay"><b>电子注册协议</b></div>
+      <div style="padding:1rem;padding-top: 6rem;">
+        {$lang.overlap}
+        <div class="s-height"></div>
+        <div class="bottom_overlap"><span>我已阅读并同意此协议</span></div>
+      </div>
+    <div class="s-height"></div>
+  </div>
+  {/if}
+
+  <!--end-->
+  <div class="flow-checkout">
+  <!--20180125优化订单功能修改-->
+<section class="ect-margin-tb ect-margin-bottom0 checkout-select checkout-pro-list">
+        <p class="f-07 ect-padding-lr">{$lang.goods_list}</p>
+
+        <ul class="ect-padding-lr">
+          <!-- {foreach from=$goods_list item=goods} -->
+              <li>
+                <dl>
+                    <div class="flow-checkout-box" style="display:flex;">
+                          <div class="flow-checkout-shopimg">
+                               <a href="{:url('goods/index',array('id'=>$this->_var['goods']['goods_id']))}" >
+                                   <img src="{$goods.goods_thumb}">
+                               </a>
+                          </div>
+                          <div class="flow-checkout-cont" style="display: flex;flex-direction: column;justify-content: space-between;">
+                             <h4 class="twolist-hidden">
+                             <!-- {if $goods.goods_id gt 0 && $goods.extension_code eq 'package_buy'} -->
+                                     <a href="javascript:void(0)" onClick="setSuitShow({$goods.goods_id})" >
+                                        {$goods.goods_name}<span style="color:#FF0000;">（{$lang.remark_package}）</span>
+                                     </a>
+                            <!-- { else } -->
+                                  <a href="{:url('goods/index',array('id'=>$this->_var['goods']['goods_id']))}" target="_blank" >{$goods.goods_name}</a>
+                                    <!-- {if $goods.parent_id > 0} -->
+                                             <span style="color:#FF0000">（{$lang.accessories}）</span>
+                                      <!-- {elseif $goods.is_gift} -->
+                                             <span style="color:#FF0000">（{$lang.largess}）</span>
+                                    <!-- {/if} -->
+                            <!-- {/if} -->
+
+                            <!-- {if $goods.is_shipping} -->
+                                (<span style="color:#FF0000">{$lang.free_goods}</span>)
+                            <!-- {/if} -->
+                            </h4>
+                            <p class="n-check-title col-9">{$lang.number}：<span>x {$goods.goods_number}</span></p>
+                            <p class="col-9"><span class="Zred">¥{$goods.goods_price}</span></p>
+                          </div>
+                    </div>
+                </dl>
+              </li>
+          <!-- {/foreach} -->
+        </ul>
+   </section>
+  <!--end-->
+<!-- 没有邀请人-->
+<div class="all_inviter_p" style="display:none;">
+<div class="inviter_zezao"></div>
+<div class="inviter_people" ></div>
+</div>
+<div class="inviter_back" style="display:none;">
+  <a href="javascript:;" class="back_btn">{$lang.back_up_page}</a>
+</div>
+
+
+<!--2018-01-26订单功能优化开始-->
+<section class="ect-padding-lr Zpa10">
+  <div class="Zprice Zhui">共{$goods_count_number}{$lang.order_num_total}：<span class="Zred">¥{$total.goods_price}元</span></div>
+</section>
+
+
+<!--支付方式-->    
+{if $order_type gt 0 and $order_type lt 9  }
+<section class="ect-padding-lr pay-bottom checkout-select n-top"> 
+        <!--{if $is_exchange_goods neq 1 || $total.real_goods_count neq 0}--> 
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="s-flex">
+        <p class="f-05" style="color:#333;">{$lang.payment_method}</p>
+        <div class="f-check-pay" style="color:#333;">{$lang.balance_charge}</div>
+        <span class="t-jiantou" style="position: absolute; top: -0.7rem; right: 0.8rem;"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span></a>
+        <div id="collapseTwo" class="t-box panel-collapse collapse in">
+          <ul class="ect-radio f-pay-block">
+            
+              <li>
+              <input name="payment" type="radio" iscod="0" {if $order_type eq 10}goods_area='3' {else}goods_area='{$goods_area}' {/if} onclick="selectPayment(this)" id="payment_2" checked="checked" value="2" style="vertical-align:middle">
+              <label for="payment_2">{$lang.balance_charge} ({$user_money})<i style="color: rgb(187, 187, 187);"></i></label> 
+            </li>
+          </ul>
+        </div>
+        <!--{else}-->
+        <input name = "payment" type="radio" value = "-1" checked="checked"  style="display:none"/>
+        <!--{/if}--> 
+</section>
+{else}
+  <section class="ect-padding-lr pay-bottom checkout-select n-top"> 
+        <!--{if $is_exchange_goods neq 1 || $total.real_goods_count neq 0}--> 
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="s-flex">
+        <p class="f-05" style="color:#333;">{$lang.payment_method}</p>
+        <div class="f-check-pay" style="color:#333;">{if $order.pay_id eq "3"} {$lang.paypal_charge} {else} {$lang.wechat_charge}{/if}</div>
+        <span class="t-jiantou" style="position: absolute; top: -0.7rem; right: 0.8rem;"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span></a>
+        <div id="collapseTwo" class="t-box panel-collapse collapse in">
+          <ul class="ect-radio f-pay-block">
+            <li>
+              <input name="payment" type="radio" iscod="0"  {if $order_type eq 10}goods_area='3' {else}goods_area='{$goods_area}' {/if} order_type='{$order_type}' onclick="selectPayment(this)" id="payment_1" checked="checked" value="1" style="vertical-align:middle">
+              <label for="payment_1">{$lang.wechat_charge}<i></i></label> 
+            </li>
+              <li>
+              <input name="payment" type="radio" iscod="0" {if $order_type eq 10}goods_area='3' {else}goods_area='{$goods_area}' {/if} onclick="selectPayment(this)" id="payment_2" value="2" style="vertical-align:middle">
+              <label for="payment_2">{$lang.balance_charge} ({$user_money})<i style="color: rgb(187, 187, 187);"></i></label> 
+            </li>
+          </ul>
+        </div>
+        <!--{else}-->
+        <input name = "payment" type="radio" value = "-1" checked="checked"  style="display:none"/>
+        <!--{/if}--> 
+</section>
+
+{/if}
+<!--使用积分-->
+<section class="ect-padding-lr zpa11 pay-bottom">
+{if !$order_type}
+  <div class="dis-box"  {if $your_integral>0}
+      onClick="toshare()"
+      {/if} >
+
+      <h3 class="box-flex Zhui f-05">当前鱼宝：<span class = 'now_integral'>{$your_integral|default:0}</span></h3>
+      <span class="box-flex Zright integral_use">使用<span style="color:red;">{if $order_max_integral>$your_integral}{$your_integral}{else}{$order_max_integral}{/if}</span>鱼宝</span>
+      <span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span>
+  </div>
+{else}
+
+  <div class="dis-box"  
+
+      <h3 class="box-flex Zhui f-05">当前鱼宝：<span class = 'now_integral'>{$your_integral|default:0}</span></h3>
+      <span class="box-flex Zright integral_use" style="color: #bdbdbd;">此商品无法使用鱼宝抵扣</span>
+  </div>
+
+{/if}
+
+<div class="am-share">
+      <div class="ZborderBottom">{$lang.current_kd}:<em class="Zred">{$your_integral|default:0}</em></div>
+      <input type = 'hidden' value = "{$ratio}" class = "ratio"/>
+      <a class="share_btn">
+      <div class="dis-box Zpa10 my-bottom">
+           <span class="box-flex Zline15">{$lang.nouse_kd}</span>
+           <div class="ect-select InputN ">
+              <input class="integral" type="radio"  checked="checked" name = "use_integral"  value = "0">
+           </div>
+      </div>
+      </a>
+       <a class="share_btn">
+           <div class="dis-box zpa11 my-bottom">
+                     <span class="box-flex Zline15">
+                        {$lang.canuse_kd}&nbsp;<span class = "deduction_integral" style = 'font-weight:bold;color:red;font-size:18px;'>
+                        {if $order_max_integral>$your_integral}
+                        {$your_integral}
+                        {else}
+                        {$order_max_integral}
+                        {/if}
+                       </span>&nbsp;鱼宝
+                        ({$lang.dicount}<span style="color:#ff0000">￥{$integral_money} 元</span>)
+                     </span>
+                     <input type = "hidden" value = "{$integral_static}" class = "integral_static share_btn" />
+
+                 <div class="ect-select InputN Open">
+                
+
+                      <input class="integral" type="radio" name = "use_integral" value = "1">
+                 </div>
+           </div>
+       </a>
+</div>
+</section>  
+
+<!--留言-->
+<section class=" ect-padding-lr zpa11 pay-bottom">
+  <div class="Zleave">
+        <p class="Zhui f-05">{$lang.order_remarks}</p>
+        <input name="postscript" type="text" class="fuyan" maxlength="50" placeholder="{$lang.order_comment}~"> </div>
+</section>
+<!--商品总计-->
+<section class="ect-padding-lr ect_padding_tb n-top" style="padding-top:2rem;">
+  <div class="dis-box">
+      <h3 class="box-flex f-05">{$lang.amount}</h3>
+      <span class="box-flex Zright"><span class = 'goods_count_money' id='goods_count_money'>¥{$total.goods_price}</span></span>
+  </div>
+</section>
+<!-- 配送费用  -->
+{if $is_shipping == 0}
+    <section class="ect-padding-lr ect_padding_tb">
+      <div class="dis-box">
+          <h3 class="box-flex  f-05">{$lang.shipping_fee}</h3>
+           {if $freight_type == 2}
+              <span class="box-flex Zright"><span class = 'freight'>¥{$shipping_fee}</span></span>
+           {else}
+             <span class="box-flex Zright"><span class = 'freight'>¥{$shipping_fee}</span></span>
+           {/if}
+      </div>
+    </section>
+{/if}
+<!--鱼宝抵扣-->
+<section class="ect-padding-lr ect_padding_tb">
+  <div class="dis-box">
+      <h3 class="box-flex f-05">{$lang.fu_dou}</h3>
+      <span class="box-flex Zright"><span class = 'goods_count_money' id='goods_count_money1'>¥0</span></span>
+  </div>
+</section>
+<!--实付金额-->
+<section class="ect-padding-lr ect_padding_tb" style="padding-bottom:2rem;">
+  <div class="dis-box">
+      <h3 class="box-flex f-05">{$lang.fukuan_count}</h3>
+      <span class="box-flex Zright Zred"><span class = 'goods_count_money' id='goods_count_money2'>¥{$total.amount1}</span></span>
+  </div>
+</section>
+
+<!--KD豆抵扣-->
+<!-- <section class="ect-padding-lr zpa11 pay-bottom" id='integral_total'>
+  <div class="dis-box">
+      <h3 class="box-flex f-05">{$lang.flow_integral}</h3>
+      <span class="box-flex Zright Zred"><span class ='integral_money' id='integral_money'>0</span>元</span>
+  </div>
+</section>-->
+<!--提交订单-->
+<section class="ect-padding-lr Zfoot" style="padding-bottom:0.5rem;">
+      <div class="dis-box">
+          <h3 class="box-flex Zma7 f-05 tb-lr-center">
+              {$lang.pay_account}：
+              <span class="Zred order_money" id='order_money'>¥{$total.amount1}</span>
+              <span style = "color:red"></span>
+          </h3>
+          <span class="box-flex Zright">
+   
+            {if $show_rt_info}
+              <input type="button"  value="{$lang.order_submit}" class="form_submit btn ect-btn-info ect-colorf ect-bgZ Zma5"/>
+             {else}
+              <input type="button"   value="{$lang.order_submit}" class="form_submit btn ect-btn-info ect-colorf ect-bgZ"/>
+             {/if}
+              <input type="hidden" name="train_id" value="{$train_id}" />
+              <input type="hidden" name="step" value="done" />
+              <input type="hidden" name="inv_payee" value="{$inv_payee}" />
+              <input type="hidden" name="inv_type" value="{$inv_type}" />
+              <input type="hidden" name="inv_text_id" value="{$inv_text_id}" />
+              <input type="hidden" name="inv_content" value="{$inv_content}" />
+           
+              <input type="hidden" name="order_type" value={$order_type} />
+                <input type="hidden" name="goods_rtcat_id" value="{$goods_rtcat_id}" />
+                 <input type="hidden" name="goods_lscat_id" value="{$goods_lscat_id}" />
+                  <input type="hidden"  name = "goods_area" id='goods_area'  {if $order_type eq 10}value='3' {else}value='{$goods_area}' {/if}>
+                     <input type="hidden" name="integral" value="0" />
+              <input type="hidden" name="integral_money_submit"  id='integral_money_submit' value="0" />
+              <input type="hidden" name="order_money_submit" id='order_money_submit' value="{$total.amount1}" />
+     
+          </span>
+      </div>
+</section>
+<!--2018-01-26订单功能优化结束-->
+    </form>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+$(".cli_overlap").click(function(){
+  $(".body_overlap").show();
+})
+$(".bottom_overlap").click(function(){
+  $(".body_overlap").hide();
+})
+function numSub(num1, num2) {
+ var baseNum, baseNum1, baseNum2;
+ var precision;// 精度
+ try {
+  baseNum1 = num1.toString().split(".")[1].length;
+ } catch (e) {
+  baseNum1 = 0;
+ }
+ try {
+  baseNum2 = num2.toString().split(".")[1].length;
+ } catch (e) {
+  baseNum2 = 0;
+ }
+ baseNum = Math.pow(10, Math.max(baseNum1, baseNum2));
+ precision = (baseNum1 >= baseNum2) ? baseNum1 : baseNum2;
+ return ((num1 * baseNum - num2 * baseNum) / baseNum).toFixed(precision);
+};
+  $(".share_btn").click(function(){
+      if($(this).children().find("span").html()=="不使用鱼宝"){
+        $("#goods_count_money1").html("¥0");
+        $("#goods_count_money2").html("¥{$total.amount1}");
+      }else{
+
+        $("#goods_count_money1").html("-¥{$integral_money}");
+       
+        var comresult = numSub(parseFloat({$total.goods_price}),parseFloat({$integral_money}));
+        $("#goods_count_money2").html(comresult);
+      }
+  })
+  
+
+function inviter_right(obj){
+var tmp = obj;
+    
+   var code = $(tmp).attr('code');
+   var user_name = $(tmp).attr('user_name');
+   $("#invitecode").val(code);
+   $(".first_city1").html(user_name);
+   $(".all_inviter_p").hide();
+   $(".inviter_back").hide();
+   $(".first_city1").each(function() {
+    var maxwidth =10;//显示多少字符
+    if ($(this).text().length > maxwidth) {
+    $(this).text($(this).text().substring(0, maxwidth));
+    $(this).html($(this).html() + '...');
+    }
+});
+}
+//返回
+$(".back_btn").click(function(){
+    $(this).parent().hide();
+    $(".all_inviter_p").hide();
+  
+})
+
+
+//没有邀请人弹出
+/* $(".referrer a").click(function(){
+ var province_id = $("#changeprovince").val();
+if(province_id=="省份"){
+  $(".zezaoclick1").show();
+}else{
+  $(".all_inviter_p").show();
+  $(".inviter_back").show();
+}
+
+})
+ */
+ function getIsNotAccount(account){
+//            var account = $("#account").val().trim();
+             $.ajax({
+                           url     : "index.php?c=user&a=accountisexist",
+                           data    : {account:account},
+                           dataType: "JSON",
+                           type    : "post",
+                           success :function(data){
+                            $(".user_code").html(data.data); 
+                           }
+                       });
+            $.getJSON("/webApi/register/judgeAccount/"+account,function(res){
+                if(res.status === 'failed'){
+                    $("#lb_acc").css({'color':'red','display':'block'}).html(res.errors.message);
+                    $('#confirm').attr("disabled", true);
+                }else{
+                    var str = res.correct.message;
+                    $("#lb_acc").css({'color':'black','display':'block'}).html(str);
+                    $('#confirm').attr("disabled", false);
+                }
+            });
+        }
+
+function getAccount ()
+        {
+            
+            var Num='';
+            for(var i=0;i<8;i++){
+                Num+=Math.floor(Math.random()*10);
+            }
+            var area = $('#account_area').val();
+           
+            var account = area+Num;
+            getIsNotAccount(account);
+            $('#account').val(account);
+        }
+function defaultInviteCode(){
+  var parentCode = "{$invitecode}";
+  if(parentCode=="")
+     $("#invitecode").val('YT47254029');
+     var vip_manage_account = $("input[name='other_invite_code']").val();
+     $.ajax({ 
+        url: '{:url('flow/ajax_getUserinfo')}', 
+        data:  {vip_manage_account:vip_manage_account},
+        cache: false, 
+        dataType: 'json',
+        type    : "post",
+        success: function (data) {
+          console.log(data.data);
+         $(".no_referrer").html(data.data).css("color","#555");
+            
+          } 
+      });
+}
+$("#invitecode").keyup(function(){
+  var vip_manage_account = $("input[name='other_invite_code']").val();
+
+  $.ajax({ 
+    url: '{:url('flow/ajax_getUserinfo')}', 
+    data:  {vip_manage_account:vip_manage_account},
+    cache: false, 
+    dataType: 'json',
+    type    : "post",
+    success: function (data) {
+      console.log(data);
+      console.log(vip_manage_account);
+      if(vip_manage_account==""){
+        $(".no_referrer").html("邀请人不能为空").css("color","red");
+      }else{
+        $(".no_referrer").html(data.data).css("color","#555");
+      }
+     
+        
+      } 
+  });
+})
+//入团说明关闭弹出
+ 
+  $(".zezao_btn").click(function(){
+    $(".zezaoclick").hide();
+    return false;
+  })
+  $(".msg_btn1").click(function(){
+    $(".zezaoclick1").hide();
+     return false;
+  })
+  $(".msg_btn2").click(function(){
+    $(".zezaoclick2").hide();
+     return false;
+  })
+  $(".msg_btn2").click(function(){
+    $(".zezaoclick3").hide();
+     return false;
+  })
+
+//关闭弹窗
+$('#payment_1').click(function() {
+       $(".f-check-pay").html("{$lang.wechat_charge}")
+       $("#collapseTwo").removeClass("in")
+      $(this).siblings().find("i").css("color","#bbb");
+    });
+    $('#payment_2').click(function() {
+       $(".f-check-pay").html('{$lang.balance_charge}')
+       $("#collapseTwo").removeClass("in")
+      $(this).siblings().find("i").css("color","#bbb");
+    });
+$('#collapseTwo').click(function() {
+       $("#collapseTwo").removeClass("in")
+    });
+</script>
+<script type="text/javascript">
+var goods_price = {$total.goods_price};
+var shipping_fee = {$shipping_fee};
+var integral_money = {$integral_money};
+var comres = numSub(parseFloat(goods_price)+parseFloat(shipping_fee),parseFloat(integral_money));
+var total_amount = comres;
+  $("#integral_money_submit").val(integral_money);
+
+  $("input[name='integral']").val(integral_money);
+  $("#goods_count_money2").html(total_amount);
+$("#order_money").html(total_amount);
+$('.my-bottom').on('click',function(){
+      {if !$your_integral}
+      return false;
+      {/if}
+
+      var goods_count_money = $('.goods_count_money').text();
+      var freight = $('.freight').text();
+      var integral = $(this).find('.integral').val();
+
+      $(this).parent().siblings().find('.integral').removeAttr("checked");
+      $(this).find('.integral').attr('checked','checked');
+      $(this).parent().find('.InputN').addClass("Open")
+      $(this).parent().siblings().find('.InputN').removeClass("Open");
+      var goods_price = {$total.goods_price};
+      var shipping_fee = {$shipping_fee};
+      var integral_money = {$integral_money};
+      var your_integral = {if $your_integral}{$your_integral}{else}0{/if};
+      var use_integral ={if $order_max_integral>$your_integral}{$your_integral}{else}{$order_max_integral}{/if};
+      if(!freight){
+          freight = 0;
+      }
+
+      if(integral == 1){
+
+           var comres = numSub(parseFloat(goods_price)+parseFloat(shipping_fee),parseFloat(integral_money));
+            var total_amount = comres;
+            
+            $("#order_money").html(total_amount);
+            $(".integral_use").html("使用 "+"<span class='col-red'>"+{if $order_max_integral>$your_integral}{$your_integral}{else}{$order_max_integral}{/if}+"</span>"+" 鱼宝");
+            $("#integral_money_submit").val(integral_money);
+            $("input[name='order_money_submit']").val(total_amount);
+    
+            $("#integral_money").html("-¥"+{$total.integral_total});
+            $("input[name='integral']").val(use_integral);
+      }else{
+
+           var total = {$total.amount1};
+            $("#order_money").html(total);
+            $("#integral_money").html("0")
+            $(".integral_use").html("不使用鱼宝");
+            $("#integral_money_submit").val(0);
+            $("input[name='integral']").val(0);
+            $("input[name='order_money_submit']").val(total);
+      }
+
+});
+</script>
+<script>
+
+</script>
+<script>
+  $(document).ready(function(){
+    
+    $(".form_submit").click(function(){
+
+    if($("input[name=shippingaddress]").val()==0){
+      alert("请填写收货地址");return false;
+    }
+     // $("#Not").show();
+
+      //$(".p_not").click(function(){
+      //  $("#Not").hide();
+      //})
+     
+     //$(".p_sure").click(function(){
+        //$("#Not").hide();
+         {if $show_invitestatus}
+      var code = $("input[name=other_invite_code]").val();
+      $.ajax({
+            url     : "index.php?c=flow&a=ajaxgetvipaccount",
+            data    : {account:code},
+            dataType: "JSON",
+            type    : "post",
+            success :function(res){
+          
+                if(res.code==200){
+                    if(code==""){
+                      alert("邀请人不能为空！")
+                      return false;
+                    }
+                    if(!res.data){
+                        alert("该邀请人还没入团");
+                        var show = 0;
+                        return false;
+                    }else{
+                      var a = $("#theForm").submit();
+                      return true;
+                    }     
+                }else if(res.code==400){
+                   alert("该邀请人不存在");
+                    show = 0;
+                   return false;
+                }else if(res.code==300){
+                   alert(res.msg);
+                    show = 0;
+                   return false;
+                }else {
+                return true;
+                }     
+                         
+            }
+        }); 
+      {else}
+        $("#theForm").submit();
+      {/if}
+      
+      //})
+
+     
+
+      
+    });
+    
+  $(".ect-padding-lr").click(function(){
+    //  document.getElementById("payment_1").checked=true;
+      // document.getElementById("payment_2").checked=false;
+    })
+
+    $(".Zma5").click(function(){
+
+      $("#changeprovince option:selected").text()
+     if(($('#changeprovince option:selected').val()=='省份')){
+        
+      $(".zezaoclick1").show();
+      return false;
+     }
+
+     if(($('#citylist option:selected').val()==0)){
+        
+      $(".zezaoclick1").show();
+      return false;
+     }
+
+     
+
+          
+
+      
+    })
+
+  })
+ function selectPayment(obj)
+{
+
+  if (selectedPayment == obj)
+  {
+    return;
+  }
+  else
+  {
+    selectedPayment = obj;
+  }
+
+  var goods_area =obj.getAttribute("goods_area");
+  
+
+  $.get('index.php?m=default&c=flow&a=select_payment', {payment:obj.value,goods_area:goods_area}, function(data){
+    orderSelectedResponse(data);
+  }, 'json');
+}
+</script>
+    <script type="text/javascript">
+      var p = 1;
+         function LoadCity()
+        {
+           var province_id = $("#changeprovince").val();
+           var city_id = $("#citylist").val();
+
+          if(city_id=='城市'){
+            city_id = 0;
+          }
+   
+          $(".inviter_people").empty();
+           $.ajax({
+                    url     : "index.php?c=flow&a=ajaxgetuserlist",
+                    data    : {province_id:province_id,city_id:city_id,page:1},
+                    dataType: "JSON",
+                    type    : "post",
+                    success :function(data){
+                           $(".sb1").hide();
+                             var str="";
+                              p =1;
+                          //遍历数组，把它放入sj
+                          
+                   
+                         
+                        
+                           
+
+                              $(".inviter_people").html(data.data); 
+                           
+                                 
+                    }
+                });
+
+        }
+         function LoadCity1(city_id,page)
+        {
+           var province_id = $("#changeprovince").val();
+           var city_id = city_id;
+           var page=1;
+          if(city_id=='城市'){
+            city_id = 0;
+          }
+          
+          $(".inviter_people").empty();
+           $.ajax({
+                    url     : "index.php?c=flow&a=ajaxgetuserlist",
+                    data    : {province_id:province_id,city_id:city_id,page:1},
+                    dataType: "JSON",
+                    type    : "post",
+                    success :function(data){
+                           $(".sb1").hide();
+                             var str="";
+                          //遍历数组，把它放入sj
+                          p =1;
+                                 
+                   
+                         city_id = 0;
+                        
+                           
+
+                              $(".inviter_people").html(data.data); 
+                           
+                                 
+                    }
+                });
+
+        }
+        function openNewLink(obj){
+    
+        $("#invitecode").attr("value", $(obj).attr('code'));
+        $(".inviter_people").hide();
+        $(".all_inviter_p").hide();
+        $(".inviter_back").hide();
+        $(".inviter_people").show();
+        }
+          
+         $(document).on('click','.gengduo',function(){
+ 
+             p += 1; //下一页
+            
+             var province_id = $("#changeprovince").val();
+           var city_id = $("#citylist").val();  
+           if(city_id=='城市'){
+            city_id = 0;
+          }
+        
+            var type = $(".selected").attr("type");
+            
+             //实际应用
+             $.ajax({ 
+
+             url: '{:url('flow/ajaxgetuserlist')}', 
+             data:  {page:p,province_id:province_id,city_id:city_id},
+             cache: false, 
+             dataType: 'json',
+              type    : "post",
+              success: function (data) {
+                  $(".sb1").hide();
+               
+                 $(".inviter_people").html(data.data); 
+            
+              } });
+             return false;
+         });
+        //30秒倒计时
+        function LoadSheng(){
+          var p = 1;
+          $(".inviter_people").empty();
+          var province = $("#changeprovince").val();
+           var city = $("#citylist").val();
+
+         $(".inviter_people").empty();
+                $.ajax({
+                    url     : "index.php?c=flow&a=changeprovince",
+                    data    : {province:province,city_id:0},
+                    dataType: "JSON",
+                    type    : "post",
+                    success :function(data){
+                          p =1;
+                             var str="";
+                          //遍历数组，把它放入sj
+                         LoadCity1(0,1);
+                         str = "<option value='0' >城市</option>";
+                          for(var k in data){
+                           str=str+"<option value='"+data[k]['region_id']+"'>"+data[k]['region_name']+"</option>";
+                          }
+                         
+                          $("#citylist").html(str);        
+                    }
+                });
+
+        }
+        
+        
+
+  
+
+  
+</script>
+

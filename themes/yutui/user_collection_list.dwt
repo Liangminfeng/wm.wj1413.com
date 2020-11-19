@@ -1,0 +1,117 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+
+	<!--{if $collection_list}-->
+	<div class="flow-accessories blur-div">
+
+		<section class="j-product-list product-list-small n-product-list-small">
+			<ul class="ul_content">
+				
+
+			</ul>
+		</section>
+	</div>
+	<!--{else}-->
+	<div class="no-div-message flow-no-cart">
+			<i><img src="images/new/collect.png" style="width: 18rem"></i>
+			<p class="col-3">{$lang.user_empty}</p>
+			<a href="{:url('index/index')}" type="button" class="btn-default">{$lang.user_stroll}</a>
+	</div>
+	<!--{/if}-->
+	<!--主体菜单-->
+    <!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+	
+	<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+	<!-- #EndLibraryItem -->
+	<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+	<!-- #EndLibraryItem -->
+	<script type="text/javascript" src="__TPL__/statics/layui/layui.js"></script>
+	<script>
+		$(function () {
+    		
+   			var page = 1;
+
+   			layui.use('flow', function () {
+		        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+		        var flow = layui.flow;
+		        flow.load({
+		            elem: '.ul_content' //指定列表容器
+		            , isAuto:true,
+		            scrollElem: '.ul_conten',
+		            done: function (page,next) {
+		           
+		               var url = "{:url('ajax_collection_list')}";
+		               
+		             //传递的参数
+		                var data = {
+		                    page:page,
+		                }
+		                var lis = [];
+		                $.post(url, data, function (params) {
+		         			
+		                    $.each(JSON.parse(params).list,function(i,item){
+                      
+                        	lis.push(`<li><div class="product-div"><a href="/index.php?m=default&c=goods&a=index&id=${item.goods_id}&order_type=${item.order_type}"><img class="product-list-img" src="${item.goods_thumb}"></a><div class="product-text"><a href="/index.php?m=default&c=goods&a=index&id=${item.goods_id}&order_type=${item.order_type}"><h4>${item.goods_name}</h4></a><div class="n-money-con"><span class="p-price t-first ">${item.shop_price}</span><small class="ect-margin-lr"><del>${item.market_price}</del></small></div><div class="dis-box n-but-box"><a class="box-flex" href=""></a><div class="s-close" rec_id="${item.rec_id}"><a href=""><img class="n-shanchutupian" src="/themes/yutui/images/new/close.png" style="width:1.5rem;height:1.5rem;margin-right:0.5rem;margin-top:0.5rem;"></a></div></div></div></div></li>`)
+                    })
+		                   
+		                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+		                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+		                    next(lis.join(''), page < JSON.parse(params).totalpage);
+		                    var arr = Object.keys(JSON.parse(params).list);
+		                    $(".s-close").click(function(){
+		                    var rec_id = $(this).attr('rec_id');
+
+		                   
+		                    		$.ajax({
+										type: "GET",
+										url: "index.php?m=default&c=user&a=delete_collection",
+										data: "rec_id="+rec_id,
+										dataType: "json",
+										async: false,
+										success: function(result){
+											if (result.status!=1){
+											
+												status = false;
+											}else{
+												return true;
+											}
+
+										}
+									});
+								$(this).parent().parent().parent().empty();
+							})
+                    if(page==1&&arr.length<5)
+                    $(".layui-flow-more").hide();
+		                });
+		            }
+		        });
+		})
+	})  
+	</script>
+	<script type="text/javascript">
+
+		var compare_no_goods = "{$lang.compare_no_goods}";
+		var btn_buy = "{$lang.btn_buy}";
+		var is_cancel = "{$lang.is_cancel}";
+		var select_spe = "{$lang.select_spe}";
+	</script>
+	<script>
+	
+		
+	
+	
+
+	function alerttext()
+	{
+	alert("已加入购物车");
+	}
+	</script>
+
+
+
+
+	</body>
+
+	</html>

@@ -1,0 +1,30 @@
+.DS_Store
+html
+test
+node_modules
+themes/default
+data/install.lock
+data/database.php
+data/smslog
+
+vendor/
+robots.txt
+
+config.php
+.project
+
+# IDE Files
+#-------------------------
+/nbproject/
+.idea
+
+## Sublime Text cache files
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+/.settings/
+/.buildpath
+themes/yutui/images/tenmax/gt_jt1.png
+*test.php

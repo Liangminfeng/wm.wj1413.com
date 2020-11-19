@@ -1,0 +1,42 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<div class="con">
+	<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+	<section class="ect-text-style">
+		<!-- 如果有收货地址，循环显示用户的收获地址 -->
+		<!-- {foreach from=$consignee_list item=consignee key=sn} -->
+		{if $one_step_buy}
+		{if $order_type eq 1}
+		<form action="{:url('flow/consignee',array('one_step_buy'=>'1','order_type'=>'1'))}" method="post" name="theForm" id="theForm" onSubmit="return checkConsignee(this)">
+		{elseif $order_type eq 9}
+			<form action="{:url('flow/consignee',array('one_step_buy'=>'1','order_type'=>'9'))}" method="post" name="theForm" id="theForm" onSubmit="return checkConsignee(this)">
+		{elseif $order_type eq 10}
+			<form action="{:url('flow/consignee',array('one_step_buy'=>'1','order_type'=>'10'))}" method="post" name="theForm" id="theForm" onSubmit="return checkConsignee(this)">
+		{else}
+			<form action="{:url('flow/consignee')}" method="post" name="theForm" id="theForm" onSubmit="return checkConsignee(this)">
+		{/if}
+		{else}
+		<form action="{:url('flow/consignee',array('order_type'=>'0'))}" method="post" name="theForm" id="theForm" onSubmit="return checkConsignee(this)">
+		{/if}
+			<!-- #BeginLibraryItem "/Library/consignee.lbi" -->
+			<!-- #EndLibraryItem -->
+		</form>
+		<!-- {/foreach} -->
+	</section>
+</div>
+<script type="text/javascript" src="__PUBLIC__/script/region.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/shopping_flow.js"></script> 
+<script type="text/javascript">
+	region.isAdmin = false;
+	{foreach from=$lang.flow_js item=item key=key}
+	var {$key} = "{$item}";
+	{/foreach}
+	{literal}
+	onload = function() {
+	      if (!document.all)
+	      {
+	        document.forms['theForm'].reset();
+	      }
+	}
+	{/literal}
+</script>

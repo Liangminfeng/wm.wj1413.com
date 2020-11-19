@@ -1,0 +1,49 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<ul class="n-user-acc-log">
+		<!--{if $account_log}-->
+	<!--{foreach from=$account_log item=item}-->
+	<li class="dis-shop-list p-r padding-all mb-1 b-color-f  ">
+		<div class="dis-box">
+			<div class="box-flex">
+		
+			    <p class="f-03 m-top04"><span class="col-7 f-05">{$lang.process_notic} : </span><span class="col-3">{$item.bank_card}</span></p>
+			    {if $item.admin_note}<p class="f-03 m-top02 col-red"><span class="f-05">{$lang.admin_notic} : </span><span>{$item.admin_note}</span></p>{/if}
+				<h5 class="f-05 col-hui">{$item.add_time}</h5>
+			</div>
+			<div class="box-flex">
+				<p class="f-04 color-red text-right">{$item.pay_status}</p>
+				<h6 class="f-05 col-3 text-right m-top04">{$item.amount}</h6>
+
+			</div>
+					
+		</div>		
+								
+	</li>
+	
+	<!--{/foreach}-->
+	{include file='library/page.lbi '}
+	<!--{else}-->
+<div class="box text-center bg-white ptb-3">
+  <p><img src="images/new/intnIco6.png" style="width:20rem;"></p>
+  <p class="col-hui">{$lang.no_withdraw_log}</p>
+</div>
+<!--{/if}-->
+</ul>
+  
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+ //没有相關記録时页面底部也显示白底  
+$(function(){
+	if($(".box").hasClass("text-center")){
+    $("body").addClass("bg-white");
+    $(".s-height").addClass("bg-white")
+  }
+}) 
+</script>
+</body>
+</html>

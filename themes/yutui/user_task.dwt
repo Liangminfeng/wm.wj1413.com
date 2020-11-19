@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="description" content="{$meta_description}"/>
+    <meta name="keywords" content="{$meta_keywords}"/>
+    <meta name="cache-control" content="no-cache">
+    <title>{$lang.user_center}</title>
+    <link rel="apple-touch-icon-precomposed" href="/themes/yutui/images/new/card_logo.png"><!--桌面图标收藏-->
+    <link rel="stylesheet" href="__TPL__/statics/css/ectouch.css" />
+    <script type="text/javascript" src="__TPL__/statics/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="__TPL__/statics/layui/layui.js"></script>
+    <script type="text/javascript" >var tpl = '__TPL__';</script>
+    {if shareMeta}
+    <meta property="og:title" content="{$shareMeta.title}"/>
+    <meta property="og:description" content="{$shareMeta.description}"/>
+    <meta property="og:image" content="{$shareMeta.image}"/>
+    <meta property="og:updated_time" content="{:time()}"/>
+    {/if}
+    
+</head>
+<body style="max-width:640px;">
+<div id="loading"><img src="__TPL__/statics/img/loading.gif" /></div>
+
+
+
+<!--2018-04-13个人中心页面优化-->
+<div class="con m-b7">
+  <!--头部-->
+  <div class="s-flex s-space-2 Zect-bg">
+  	<div class="s-flex u-top-img">
+  		<a href="{:url('user/profile')}">
+  			{if $info.user_avatar}
+  			<img class="n-new-pic" src="{$info.user_avatar}" /> {else}
+  			<img class="n-new-pic" src="__TPL__/images/idx_user.png" /> {/if}
+        {if $info.autonym}
+  			<p class="v yes"><img src="images/new/user_ico.png"></p><!--没有实名认证请用not-->
+        {else}
+        <p class="v not"><img src="images/new/user_ico.png"></p><!--没有实名认证请用not-->
+        {/if}
+  		</a>
+  		<div class="s-flex s-align-items u-top-left"><p><span class="f-25">{if $info.nick_name}{$info.nick_name}{else}{$info.user_name}{/if}</span><!-- <span class="u-top-grade">{$info.rank_name}</span> --><br><span class="u-top-name">{$info.user_name}</span></p></div>
+  	</div>
+  	<!-- <div class="u-top-message"><a href="{:url('user/msg_list')}" class="box-flex"><img src="themes/yutui/images/new/info2.png"></a></div> -->
+  </div>
+  
+  <!--金额-->
+  <div class="s-flex u-money s-justify-a line-2">
+    <div><a href='{:url('user/account_detail')}'><span class="onelist-hidden col-lan"><!--{if $list.user_money neq ''}--> {$list.user_money}<!--{else}-->0<!--{/if}--></span><br>{$lang.user_money_balance2}</a></div>
+    <div><a href="{:url('user/user_points_detail')}"><span class="onelist-hidden col-lan">{$list.user_points}</span><br>{$lang.user_integral}</a></div>
+  </div>
+ 
+</div>
+
+
+</body>
+
+</html>

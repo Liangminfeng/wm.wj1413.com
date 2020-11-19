@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>{$page_title}</title>
+	<link rel="stylesheet" href="/themes/yutui/css/style.css">	
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="__TPL__/statics/layui/layui.js"></script>
+</head>
+<body class="con" style="background: #fff;">
+
+<div class="bg-white line-2 l-train-waybill" style="width:100%;" id='nav_bill'>
+
+  
+</div>
+
+<div style="width: 100%; height: 9rem"></div>
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+  $(document).ready(function(){
+      var page=1;
+      var train_id = {$trainId};
+      layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+          elem: '#nav_bill' //指定列表容器
+          , isAuto:true,
+          scrollElem: '#nav_bill',done: function (page,next) {
+            var url = "{:url('Train/ajax_myshares')}";
+             //传递的参数
+            var data = {page:page,train_id:train_id}
+            var lis=[];
+         
+            $.post(url, data, function (params) {
+            console.log(params) 
+              if(params.status==200){
+                if(params.count>0){
+                  $.each(params.data,function(i,item){
+                    console.log(item) 
+                    if(item.nick_name===""&&item.user_avatar===""){
+                      lis.push(`<div class="s-flex"><div><img src="images/idx_user.png"></div><div class="l-show-bottom"><strong>${item.user_name}</strong><p class="col-hui">${item.class_name}</p><p class="col-hui">${item.create_time}</p></div></div>`);
+                    }else if(item.nick_name===""){
+                        lis.push(`<div class="s-flex"><div><img src="${item.user_avatar}"></div><div class="l-show-bottom"><strong>${item.user_name}</strong><p class="col-hui">${item.class_name}</p><p class="col-hui">${item.create_time}</p></div></div>`);
+                    }else if(item.user_avatar===""){
+                        lis.push(`<div class="s-flex"><div><img src="images/idx_user.png"></div><div class="l-show-bottom"><strong>${item.nick_name}</strong><p class="col-hui">${item.class_name}</p><p class="col-hui">${item.create_time}</p></div></div>`);
+                    }else{
+                      lis.push(`<div class="s-flex"><div><img src="${item.user_avatar}"></div><div class="l-show-bottom"><strong>${item.nick_name}</strong><p class="col-hui">${item.class_name}</p><p class="col-hui">${item.create_time}</p></div></div>`);
+                    }
+
+                    
+                  })
+                }else{
+                   lis.push('<div class="box text-center bg-white ptb-3 f-05 a-link-cheng"><p><img src="images/new/intnIco6.png" style="width:20rem;"></p><p class="col-hui">{$lang.you_have_not_share_customer}</p></div>');
+              
+                }  
+              }
+              //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+              //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+              
+              next(lis.join(''), page < params.totalpage);    
+              if(page==1&&params.count<10){
+                  $(".layui-flow-more").hide();
+              }
+
+                    
+                  
+            },'json');
+          }
+        });
+      })
+    })
+ //没有推薦乘客时页面底部也显示白底  
+$(function(){
+	if($(".box").hasClass("text-center")){
+    $("body").addClass("bg-white");
+    $(".s-height").addClass("bg-white")
+  }
+}) 
+</script>
+</body>
+</html>

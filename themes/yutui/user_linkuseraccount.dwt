@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="description" content="{$meta_description}"/>
+    <meta name="keywords" content="{$meta_keywords}"/>
+    <title>关联账号</title>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/name.css" />
+    <script type="text/javascript" src="/data/assets/js/jquery.min.js" ></script> 
+</head>
+<body>
+	<div class="l-train-yes">
+		<h2>{$lang.user_relevance}</h2>
+		<form class="am-form h-form" >
+		<table class="am-table am-table-striped">
+			<tr>
+			<tr>
+				<td><b class="s-color-red">*</b>{$lang.user_relevance}</td>
+				<td><input type="tel" class="h-c1" name='username' minlength="11" maxlength="11" id='username' placeholder="请输入《拓客商城》的登入账号/手机号" value="" required><div id="lb1"></div></td>
+			</tr>
+            <tr>
+                <td><b class="s-color-red">*</b>{$lang.password}</td>
+                <td><input id="password" type="password" class="h-c1" name='password' minlength="6" maxlength="20" placeholder="请输入《拓客商城》的登入密码，6-20位数字或者字母" value="" minlength="6" maxlength="20" required><div id="lb3"></div></td>
+            </tr>            
+		</table>
+		<input name="resource" type="hidden" value="{$resource}" />
+		<div style="width: 100%; text-align: center; padding:0px 0px 20px 0px;"><button id="login" type="button" class="am-btn am-btn-default h-btn hwLayer-ok" disabled="disabled" style="background-color: #cdcdcd;">{$lang.user_concern}</button></div>
+		</form>
+	</div>
+		<script type="text/javascript">
+		$(function(){
+			
+			$("#login").click(function(){
+				login();
+			});
+			
+		});	
+		
+		function login(){
+			$.ajax({
+				url:"/api/bind",
+				data:$("form").serialize(),
+				dataType:"json",
+				type:"post",
+				success:function(data){
+					if(data.code==200){
+						window.parent.postMessage({func:"linkSuccess('"+data.data.username+"','"+data.data.key+"')"},"*");
+						
+					}else{
+						alert(data.msg);
+					}
+					
+				}
+				
+			});
+		}
+//手机验证
+$('#username').on('input propertychange', function(){
+	var phone = $("#username").val();
+	var tele_home = /^1[34578]\d{9}$/;
+	if (phone == "") {
+		$("#lb1").css({'color':'red','display':'block'}).html('账号不能为空');
+	}else if(phone.match(tele_home)){
+		$("#lb1").css({'color':'black','display':'block'}).html('账号符合要求');
+	}else{
+		$("#lb1").css({'color':'red','display':'block'}).html('账号不符合要求');
+	}
+})
+
+//密码验证
+$('#password').on('input propertychange', function(){
+	var password = $("#password").val();
+	var password_home = /^[0-9A-Za-z]{6,20}$/;
+	if (password == "") {
+		$("#lb3").css({'color':'red','display':'block'}).html('密码不能为空');
+	}else if(password.match(password_home)){
+		$("#lb3").css({'color':'black','display':'block'}).html('密码符合要求');
+	}else{
+		$("#lb3").css({'color':'red','display':'block'}).html('密码为6-20位数字或字母');
+	}
+})	
+//按钮符合要求才有效
+$('body').on('input propertychange', function(){
+	var userText =$("#lb1").html()
+	var passText =$("#lb3").html()
+	if(userText=="账号符合要求" && passText=="密码符合要求"){
+		$('#login').attr("disabled", false);
+		$("#login").css("background","#0090d9")
+	}else{
+		$('#login').attr("disabled", true);
+		$("#login").css("background","#cdcdcd")
+	}
+})
+</script>
+</body>
+</html>

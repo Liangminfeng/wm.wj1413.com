@@ -1,0 +1,175 @@
+﻿<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem --> 
+
+
+<div class="con m-b7">    
+	<div class="index-banner "style="margin-top:0">
+		<div ><img src="http://img.vmi31.com/public/tenmax_banner2.png"></div>
+	</div>
+	<nav class="reorder_nav">
+		<div class="reorder_tishi"style="color: #ffd09d;">提示：90天内可补差价升级（商品按差额出货），超过时限需原价升级</div>
+	</nav>
+	<nav class="reorder_nav1">
+		<div class="reorder_tishi">升级优惠时限：&nbsp;<span>{if $overdue}已过期{else}{$days}天{/if}</span></div>
+	</nav>
+  <nav class="reorder_nav1">
+    <div class="reorder_tishi">当前等级：&nbsp;<span>{if $user_rank eq 1}金级经销商{elseif $user_rank eq 2}翡翠级经销商{elseif $user_rank eq 3}金钻级经销商{else}至尊级经销商{/if}</span></div>
+  </nav>
+	<nav class="reorder_nav_class">
+		<div class="reorder_tishi s-flex">
+		<span class="new_dengji">新等级</span>
+		<select class="new_select" name="">
+			
+		</select>
+	</div>
+	</nav>
+	<nav class="reorder_product s-flex">
+		
+	</nav>
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+
+
+<script type="text/javascript ">
+$(document).ready(function(){
+	var goods_vip = {$user_rank};
+	var rtcat_id = '3,4';
+ 
+	$.ajax({
+            url     : "index.php?c=Affiliate&a=getAjaxUpgradeGoodsList",
+            data    : {goods_vip:goods_vip+1,rtcat_id:rtcat_id,current_user_rank:{$user_rank}},
+            dataType: "JSON",
+            type    : "post",
+            success :function(res){
+            
+        		if(res.status==200){
+        			var data=res.data;
+        			var html="";   			
+        			for(pic of data){  				
+        				html+=`<div class="set_meal1_div"><a href="${pic.href}"><div class="set_meal"><img src="${pic.goods_img}"></div><div class="reorder_meal"><p><span class="pic_name">${pic.goods_name}</span></p><p style="flex-direction: column;"><span class="reorder_money">¥${pic.shop_price}</span><span class="reorder_pv">${pic.rtgoods_pv}pv</span></p></div></a></div>`
+        			}
+        			$(".reorder_product").html(html);
+        			//限制字数
+					$(".pic_name").each(function() {
+						var maxwidth =15;//显示多少字符
+						  if ($(this).text().length > maxwidth) {
+						  $(this).text($(this).text().substring(0, maxwidth));
+						  $(this).html($(this).html() + '...');
+						}
+					});
+        		}                        
+            }
+    	});
+    var currentVip={$user_vip};
+
+    $.ajax({
+      url     : "index.php?c=Affiliate&a=ajaxupgrade",
+      data    : {currentVip:currentVip},
+      dataType: "JSON",
+      type    : "post",
+      success :function(res){
+     
+    	if(res.status==200){
+    		var html="";
+    		var data=res.data;
+    		console.log(data);
+    		for(rank of data ){
+    			html+=`<option value="${rank.rank_id}">${rank.rank_name}</option> `
+    		}
+    		$(".new_select").html(html);
+    	}                             
+      }
+  });
+  $(".new_select").change(function(){
+  	var goods_vip = $(this).children('option:selected').val();
+  	console.log(goods_vip)
+	var rtcat_id = '3,4';
+	$.ajax({
+            url     : "index.php?c=Affiliate&a=getAjaxUpgradeGoodsList",
+            data    : {goods_vip:goods_vip,rtcat_id:rtcat_id},
+            dataType: "JSON",
+            type    : "post",
+            success :function(res){
+           
+        		if(res.status==200){
+        			var data=res.data;
+        			var html="";   			
+        			for(pic_rank of data){
+        				html+=`<div class="set_meal1_div"><a href="${pic_rank.href}"><div class="set_meal"><img src="${pic_rank.goods_img}"></div><div class="reorder_meal"><p><span class="pic_name">${pic_rank.goods_name}</span></p><p style="flex-direction: column;"><span class="reorder_money">¥${pic_rank.shop_price}</span><span class="reorder_pv">${pic_rank.rtgoods_pv}pv</span></p></div></a></div>`
+        			}
+        			$(".reorder_product").html(html);
+        		}
+        		if(res.status==422){
+        			$(".reorder_product").html("");
+        			alert("暂无套餐产品");
+        		}                        
+            }
+    	});
+  })
+})
+	
+
+
+
+
+
+
+	 var swiper = new Swiper('.strict_p', {
+        
+        slidesPerView: 2.4,
+        paginationClickable: false,
+        spaceBetween: 10,
+        freeMode: true
+    });
+
+	 var mySwiper = new Swiper ('.swiper-containerS', {
+	 	  
+          direction: 'horizontal', // 垂直切换选项
+          loop: true, // 循环模式选项
+          
+          // 如果需要分页器
+         
+        })        
+
+	$(function($) {
+		var mySwiper = new Swiper('.banner-first', {
+			pagination: '.banner-first-pagination',
+			loop: false,
+			grabCursor: true,
+			paginationClickable: true,
+			autoplayDisableOnInteraction: false,
+			autoplay: 3000
+		});
+	});
+	
+	/*公告滑动*/
+	var mySwiper = new Swiper('.swiper-containerA', {
+	slidesPerView :'auto',
+      autoplay : 2500,
+      speed:300,
+      direction: 'vertical',
+      grabCursor:true,
+      autoplayDisableOnInteraction:false,
+      mousewheelControl:true,
+      autoHeight:true,
+      pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      },
+    });
+</script>
+<script type="text/javascript">
+	get_asynclist("{:url('index/ajax_goods', array('type'=>'best'))}", '__TPL__/images/loader.gif');
+</script>
+
+
+</body>
+</html>

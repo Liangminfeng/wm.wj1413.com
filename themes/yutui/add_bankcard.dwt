@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>{$page_title}</title>
+	<link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">	
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/yutui/css/pic.css"> 
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/js/leftTime.min.js"></script>
+</head>
+<body class="con" style="height: auto;overflow: hidden;overflow-y: scroll;">
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<!--主体内容-->
+<form action="{:url('account/add_bankcard')}" method="post" name="theForm" id="theForm" >
+<div class="s-flex s-autonym l-show-bottom" style="background: rgba(247,247,247,1);padding: 0.5rem 3%;">
+  
+<div style="width: 100%;"><span class="shenfz_sure" style="color:#949494;letter-spacing: 1px;font-size: 1.3rem !important;">请绑定实名身份本人的银行</span></div>
+</div>
+<div class="s-flex s-autonym l-show-bottom">
+  <div>开户姓名</div>
+
+     <div style="width: 100%;"><input style="width: 100%;border:0;" type="text" name="bank_realname" placeholder="请输入真实姓名" readonly="readonly" value="{$real_name}"></div>
+</div>
+
+<div class="s-flex s-autonym l-show-bottom">
+  <div>银行账号</div>
+  <div style="width: 100%;"><input style="width: 100%;" type="number" name="bank_no" placeholder="请输入银行账号" value=""></div>
+</div>
+<div class="s-flex s-autonym l-show-bottom">
+  <div>银行名称</div>
+  <div style="width: 100%;"><input style="width: 100%;" type="text" name="bank_name" placeholder="如：工商银行" value=""></div>
+</div>
+<div class="s-flex s-autonym l-show-bottom">
+  <div>分行名称</div>
+  <div style="width: 100%;"><input style="width: 100%;" type="text" name="bank_sub_name" placeholder="如：松江支行" value=""></div>
+</div>
+
+<div class="add_bank_sub">
+
+  <button name="submit" type="submit" class="btn-submit" style="border-radius: 1rem;" value="">提交</button>
+
+</div>
+
+</form>
+
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+
+<script type="text/javascript">
+	$(function(){
+		 //body变色
+    	//$("body").addClass("bg-white");
+    	//头像上传
+    //底部选中
+    $(".footer-nav").find("a:eq(2)").addClass("active");  
+    $("#theForm").submit(function () {
+        var bankcard = $("input[name='bank_no']").val();
+        var bankname = $("input[name='bank_name']").val();
+        var banksubname=$("input[name='bank_sub_name']").val();
+        var bankrealname=$("input[name='bank_realname']").val();
+        console.log(bankrealname)
+        if (bankcard == "" || bankcard == null || bankcard == undefined) {
+            alert("请输入银行卡号");
+            return false;/*阻止表单提交*/
+        } else if (bankname == "" || bankname == null || bankname == undefined) {
+            alert("请输入银行卡名称");
+            return false;/*阻止表单提交*/
+        } else if(banksubname == "" || banksubname == null || banksubname == undefined){
+            alert("请输入银行卡分行名称");
+            return false;/*阻止表单提交*/
+        } else 
+        {
+            return true;
+        }
+    })
+  })
+</script>
+
+</body>
+</html>

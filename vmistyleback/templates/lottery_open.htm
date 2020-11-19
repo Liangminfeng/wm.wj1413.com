@@ -1,0 +1,24 @@
+
+
+{if $full_page}
+{include file="pageheader.htm"}
+
+<form action="lottery.php" method="post" name="theForm" >
+  <table width="90%" id="general-table">
+    <tbody>
+    <tr>
+      <td class="narrow-label">是否开启</td>
+      <td>
+        <input type="radio" name="open" value="1" {if $open}checked=""{/if}> 开启        <input type="radio" name="open" value="0" {if !$open}checked=""{/if}> 关闭<span class="require-field">*</span></td>
+    </tr>
+  </tbody>
+</table>
+
+  <div class="button-div">
+    <input type="hidden" name="act" value="lottery_open">
+    <input type="submit" value=" 確定 " class="button">
+    <input type="reset" value=" 重置 " class="button">
+  </div>
+</form>
+{include file="pagefooter.htm"}
+{/if}

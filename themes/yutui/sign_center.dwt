@@ -1,0 +1,248 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<!--top-->
+    <div class="task_top" style="height: auto;">
+
+        <div class="task_top_my">    
+            <div>我的</div>
+            <div><a class="kd_counts" href="{:url('user/user_points_detail')}">{$kd}</a></div>
+            <div><img src="images/yubao.png" alt=""></div>
+        </div>
+        {if $sign_already}
+        <div class="sign_inn">
+            <button>已签到</button>
+        </div>
+        {else}
+        <div class="sign_in">
+            <button>签到领鱼宝</button>
+        </div>
+        {/if}
+        <div class="kd_mingxi">
+            <a href="{:url('user/user_points_detail')}">
+                鱼宝明细&gt;
+            </a>
+        </div>
+    </div>
+    <div class="sign_every_day">
+        <div>
+          {if $sign_already}
+            <h4>已经连续签到<span>{$count}</span>天</h4>
+            <p>签到要连续哦，不然就断啦~</p>
+            {else}
+            <h4 id="signmsg">您还没签到哦~</h4>
+            <p>签到要连续哦，不然就断啦~</p>
+            {/if}
+            <div class="sign_every_add">
+                <ul>
+                    <li id="sign_li1" {if $count gte 1}  {/if}>
+                        <p id="day11" style="width: 100%;margin: auto;padding-top: 1.5rem;"><img src="images/yutui/ones_yubao.png"style="width:100%;"></p>
+                        <i class="sign_red_right" id='day1' {if $count gte 1} style='display:block' ' {/if}><img src="images/yutui/one_yubao.png" alt=""></i>
+                    </li>
+                    
+                    <li id="sign_li2" {if $count gte 2}  {/if}><p id="day22" style="width: 100%;margin: auto;padding-top: 1.5rem;"><img src="images/yutui/ones_yubao.png" style="width:98%;"></p>
+                     <i class="sign_red_right" id='day2' {if $count gte 2} style='display:block' ' {/if}><img src="images/yutui/one_yubao.png" alt=""></i>
+
+                    </li>
+                    
+                    <li id="sign_li3" {if $count gte 3}  {/if}><p id="day33" style="width: 100%;margin: auto;padding-top: 1.5rem;"><img src="images/yutui/twos_yubao.png" style="width:98%;"></p>
+                     <i class="sign_red_right" id='day3' {if $count gte 3} style='display:block'  {/if}><img src="images/yutui/two_yubao.png" alt=""></i></li>
+                    
+                    <li id="sign_li4" {if $count gte 4}  {/if}><p id="day44" style="width: 100%;margin: auto;padding-top: 1.5rem;"><img src="images/yutui/twos_yubao.png" style="width:98%;"></p>
+                     <i class="sign_red_right" id='day4' {if $count gte 4} style='display:block'  {/if} ><img src="images/yutui/two_yubao.png" alt=""></i></li>
+                    
+                    <li id="sign_li5" {if $count gte 5}  {/if}><p id="day55" style="width: 100%;margin: auto;padding-top: 1.5rem;"><img src="images/yutui/fours_yubao.png" style="width:98%;"></p>
+                     <i class="sign_red_right" id='day5' {if $count gte 5} style='display:block'  {/if}  ><img src="images/yutui/four_yubao.png" alt=""></i></li>
+                    
+                    <li id="sign_li6" {if $count gte 6}  {/if}><p id="day66" style="width: 100%;margin: auto;padding-top: 1.5rem;"><img src="images/yutui/fours_yubao.png" style="width:98%;"></p>
+                      <i class="sign_red_right" id='day6' {if $count gte 6} style='display:block'  {/if}  ><img src="images/yutui/four_yubao.png" alt=""></i>
+                    </li>
+                    
+                    <li id="sign_li7" {if $count gte 7}  {/if}><p id="day77" style="width: 100%;margin: auto;padding-top: 1.5rem;"><img src="images/yutui/tens_yubao.png" style="width:98%;"></p>
+                      <i class="sign_red_right" id='day7' {if $count gte 7} style='display:block'  {/if}  ><img src="images/yutui/ten_yubao.png" alt=""></i>
+                    </li>
+                  <li style="display: none;"></li>
+                </ul>
+                
+            </div>
+
+            {$lang.sign_seven_day}
+        </div>  
+    </div>
+    <div class="kd_psp_img">
+        <a href="/index.php?c=article&a=info&aid=360">
+            <img src="http://img.vmi31.com/public/yubao_strategy.png" alt="">
+        </a>
+    </div>
+    <div class='t-box-small' id="sign_not"  style="display:none;">
+        {$lang.sign_success}
+    </div>
+    <div class='t-box-small' id="sign_right"  style="display:none;">
+        <div class="t_box_show">
+            <p>{$lang.already_sign}</p>
+        </div>
+    </div>
+    
+    <div class="every_task">
+        <p>每日任务</p>
+        <div class="every_sign">
+            <div class="every_sign_l">
+                <div class="every_sign_img"><img src="images/yutui/sign_icon.png" alt=""></div>
+                <div class="every_or_not invite_or_not">
+                    <p>{$lang.task_invite}</p>
+                    <p class="f-02"><span class="count_yubao">5</span>鱼宝</p>
+                </div>
+            </div>
+            <div class="sign_or_not">
+                 <a  href="/index.php?c=index&a=train_invite&u={$smarty.session.user_id}">去邀请</a>
+            </div>
+        </div>
+        <div class="every_sign">
+            <div class="every_sign_l">
+                <div class="every_sign_img"><img src="images/yutui/sign_icon1.png" alt=""></div>
+                <div class="every_or_not">
+                    <p>{$lang.read_share_article}</p>
+                    <p class="f-02"><span class="count_yubao">5</span>鱼宝<span>({$refferarticlenum}/3)</span></p>
+                </div>
+            </div>
+            <div class="sign_or_not">
+                <a  href="{:url('article/index')}">去分享</a>
+            </div>
+        </div>
+        <div class="every_sign" >
+            <div class="every_sign_l">
+                <div class="every_sign_img"><img src="images/yutui/sign_icon2.png" alt=""></div>
+                <div class="every_or_not">
+                    <p>{$lang.review_order}</p>
+                    <p class="f-02"><span class="count_yubao">5</span>鱼宝</p>
+                </div>
+            </div>
+            <div class="sign_or_not">
+                <a  href="{:url('user/order_comment')}">去评价</a>
+            </div>
+        </div>
+    </div>
+    <div class="every_task">
+        <p>一般任务</p>
+        <div class="every_sign">
+            <div class="every_sign_l">
+                <div class="every_sign_img"><img src="images/yutui/sign_icon3.png" alt=""></div>
+                <div class="every_or_not">
+                    <p>{$lang.kd_register}</p>
+                    <p class="f-02"><span class="count_yubao">50</span>鱼宝</p>
+                </div>
+            </div>
+            <div class="sign_or_not register_or_not">
+                <a class="sign_active" href="javascript:;" style="background-color: #f2f2f2;">{$lang.task_kd_complete}</a>
+            </div>
+        </div>
+        <div class="every_sign">
+            <div class="every_sign_l">
+                <div class="every_sign_img"><img src="images/yutui/sign_icon4.png" alt=""></div>
+                <div class="every_or_not">
+                    <p>{$lang.kd_real_name}</p>
+                    <p class="f-02"><span class="count_yubao">10</span>鱼宝</p>
+                </div>
+            </div>
+            <div class="sign_or_not">
+            {if $autonym eq 3}
+                  <a class="sign_active" href="javascript:;" style="background-color: #f2f2f2;">{$lang.task_kd_complete}</a>
+                  {else}
+                <a  href="{:url('user/autonym')}">去实名</a>
+                {/if}
+            </div>
+        </div>
+       
+    </div>
+    
+    <script>
+
+         $(".invite_or_not a").click(function(){
+            $(this).html("{$lang.task_kd_complete}").addClass("sign_active");
+            
+        })
+          $(".register_or_not a").click(function(){
+            $(this).html("{$lang.task_kd_complete}").addClass("sign_active");
+            
+        })
+         
+        $(".sign_in button").click(function(){
+            
+             $.ajax({
+           type:'POST',
+           url:"{:url('user/ajax_sign_kd')}",
+           data: { kd:5 },
+           type:"POST",
+           dataType:'json',
+           success:function(res){
+            
+        
+            switch(res.code){
+                case 200:
+             
+                     $("#daykd").html(res.daykd);
+                     $(".kd_counts").html(parseInt($(".kd_counts").html()) + parseInt(res.daykd));
+                     $("#signmsg").html("{$lang.you_already_continue_sign}"+res.daykd+"天");
+                     $("#sign_not").show().delay(1000).hide(1);
+                     $('.sign_in >button').text("{$lang.already_sign}");
+                     //$("#sign_li1").addClass('sign_li_active');
+                     $("#day1").css('display','block');
+                     $("#day2").css('display','none');
+                     $("#day3").css('display','none');
+                     $("#day4").css('display','none');
+                     $("#day5").css('display','none');
+                     $("#day6").css('display','none');
+                    
+           
+                     break;
+                case 203:
+     
+                     $("#daykd").html(res.daykd);
+                     
+                     $(".kd_counts").html(parseInt($(".kd_counts").html()) + parseInt(res.daykd));
+                     $("#sign_not").show().delay(1000).hide(1);
+                     $('.sign_in >button').text("{$lang.already_sign}");
+                    
+                     $("#signmsg").html("{$lang.you_already_continue_sign}"+res.count+"天");
+                     $("#day"+res.count).css('display','block');
+                     //$("#sign_li"+res.count).addClass('sign_li_active');
+                     break;
+                case 403:
+                     alert('{$lang.sign_failed}');
+                     break;
+                case 408:
+                     $("#sign_right").show().delay(1000).hide(1);
+                     $('.sign_in >button').text("{$lang.already_sign}");
+                   
+                     break;
+                case 206:
+               
+                     $("#daykd").html(res.daykd);
+                     $(".kd_counts").html(parseInt($(".kd_counts").html()) + parseInt(res.daykd));
+                     $("#sign_not").show().delay(1000).hide(1);
+                     $('.sign_in >button').text("{$lang.already_sign}");
+                     $("#day1").css('display','block');
+                     //$("#sign_li1").addClass('sign_li_active');
+                     $("#day2").css('display','none');
+                     $("#day3").css('display','none');
+                     $("#day4").css('display','none');
+                     $("#day5").css('display','none');
+                     $("#day6").css('display','none');
+                     break;
+            }
+
+
+           }
+       });
+         
+         
+
+
+           
+        })
+    </script>
+    <!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!--海报-->
+</body>
+</html>

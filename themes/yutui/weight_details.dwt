@@ -1,0 +1,50 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<div class="con">
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+    <ul class="n-user-acc-log">
+        <!--{if $list}-->
+         <!--{foreach from=$list item=vo}-->
+        <li class="dis-shop-list p-r padding-all m-top1px b-color-f  ">
+            <div class="dis-box dis-box-align">
+                <div class="box-flex">
+                {if $vo.type eq 1}
+                    <h6 class="f-05 col-7 f05_h6">{$lang.buy_weight}</h6>
+                    {else}
+                      <h6 class="f-05 col-7 f05_h6">{$lang.acquire_weight}<</h6>
+                    {/if}
+                    <h5 class="f-05 col-hui m-top04 ">{$vo.created_at}</h5>
+                </div>
+                <div class="box-flex">
+                    <p class="f-05 col-3 text-right" style="color:#32BDDE">+{$vo.weight}</p>
+                </div>
+            </div>
+        </li>
+        <!--{/foreach}-->
+        <!--{else}-->
+<div class="box text-center bg-white ptb-3">
+  <p><img src="images/new/intnIco6.png" style="width:20rem;"></p>
+  <p class="col-hui">{$lang.no_weight}</p>
+</div>
+        <!--{/if}-->
+    </ul>
+    {include file='library/page.lbi '}
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript">
+ //没有相關記録时页面底部也显示白底  
+$(function(){
+    if($(".box").hasClass("text-center")){
+    $("body").addClass("bg-white");
+    $(".s-height").addClass("bg-white")
+  }
+}) 
+</script>
+</body>
+
+</html>

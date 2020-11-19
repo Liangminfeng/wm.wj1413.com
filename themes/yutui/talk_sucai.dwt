@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="description" content="{$meta_description}"/>
+    <meta name="keywords" content="{$meta_keywords}"/>
+    <title>{$lang.hotnews}</title>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/yutui/statics/css/mui.min.css ">
+    <link rel="stylesheet" type="text/css" href="/themes/yutui/js/mob-share.css?v={$v}">
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/statics/js/mui.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/statics/js/mui.zoom.js"></script>
+    <script type="text/javascript" src="/themes/yutui/statics/js/mui.previewimage.js"></script>
+    <script src="/data/assets/js/clipboard.min.js"></script> 
+    <script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v=1"></script>
+      <!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+      
+</head>
+<style>
+.-mob-share-ui{background-color: #fff; background: rgba(256,256,256,0); filter: progid:DXImageTransform.Microsoft.gradient(GradientType = 0,startColorstr = '#80000000',endColorstr = '#80000000')\9;}
+.-mob-share-ui ul.-mob-share-list{width: 100%; margin: 5rem auto 1rem auto; padding-bottom: 2rem; cursor: default; display: flex; flex-wrap: wrap; bottom: 1rem; background-color: #ffffff; position: absolute;}
+</style>
+<body style="max-width:640px;line-height: normal;">
+  <div class="s-flex s-justify-a" style="padding:1rem 0 2rem;background: #fff;">
+    <p class="dynamic_new dynamic_click"><a href="javascript:;" > {$lang.dongtai} <span class="bottom_xian display_active1"></span><span class="red_point display_active1"  style="display: none;"></span></a></p>
+    <p style="font-size: 1rem;color: #e8e8e8;border-left: 1px solid;margin: auto 0;height: 1.4rem;"></p>
+    <p class="article_new article_click"><a href="javascript:;" >{$lang.article}<span class="bottom_xian display_active2" style="display: none;"></span><span class="red_point display_active2" style="display: none;"></span></a></p>
+  </div>
+  
+    <div class="s-flex s-space to_hot_topic" style="color: #000;border-top: 1px solid #f7f7f7;width:100%;box-sizing: border-box;">
+      <div class="u-order-left"><!-- <span class="A"></span> --><span class="f-07">{$lang.hot_talk}</span></div>
+      
+      <span class="t-jiantou" style="color: #a8a8a8;font-size: 1.4rem;"><i class="gt_big" style="width:2.2rem;font-size:1.4rem;right: -50%; "><img src="themes/yutui/images/gt_big.png" alt=""></i></span>
+
+    </div>
+
+
+<!--主体内容开始-->
+
+  <div class="strict_product" style="background: #fff;padding:1rem 0">
+    <div class="strict_body">
+      <div class="swiper-container strict_p">
+        <div class="swiper-wrapper" id="swiper_length">
+            
+               <!--{foreach from=$talk_list item=talk}-->
+            <div class="swiper-slide slides" >
+              <a class="special_url" href="{:url('Article/special',array('talk_id'=>$this->_var['talk']['talk_id']))}">
+                <div class="slides_pro1" ><img src="{$talk.talk_banner}"></div>
+              </a>
+            </div>
+          {/foreach}
+
+          
+        </div> 
+        </div>
+    </div>
+  </div>
+  <div style="width:100%;height:0.5rem;background:#f3f3f3;"></div>
+<div class="mui-content" style="background: #fff;margin-top: 1rem;">  
+  <nav class="initiation_nav">
+    <div class="container">
+      <div class="swiper-container swiper1">
+        <div class="swiper-wrapper" >
+          <!-- <div class="swiper-slide  initiation_tenmax1 initiation_active" code="1" >
+              <p style="border-right: 1px solid #e8e8e8;"><span  >推荐</span></p>
+              
+          </div>
+          
+          <div class="swiper-slide swiper-slide-next initiation_tenmax1 " code="2">
+              <p><span style="">关注</span></p>
+              
+          </div> -->         
+        </div>
+      <div class="swiper-container swiper2">
+        <div class="swiper-wrapper lkd_n_body" style="height:100%;">
+          <div class="swiper-slide swiper-no-swiping lkd_cnt"  style="color:#000;">
+              <!--{foreach from=$sucai_list item=sucai}-->
+
+            {if $sucai.sucai_type eq 1}
+              <!-- 视频 -->
+              <nav class="reorder_product s-flex  all" id="silver" style="margin-top: 1px;background: #fff;">
+                <div class="tenmax_dynamic">
+                  <p style="width:16%;"><img style="border-radius: 100%;" src="../{$sucai.sucai_user_picture}" alt=""> </p>
+                  <div style="margin:auto 0;">
+                    <b>{$sucai.sucai_user_name}</b>
+                    {if $sucai.sucai_important}<span class="card-sptag">{$lang.editor_recommend}</span>{/if}
+                    <p><span style="color: #bdbdbd;">{$sucai.change_time}</span>
+                    
+                  </div>
+                  
+                </div>
+                <div class="dynamic_content"style="font-size: 1.5rem;">
+                  <p style="color: #356aff;margin-bottom:0;">
+                    #{$sucai.talk}# 
+                  </p>
+                  <p class="sucai_content_zhedie">{$sucai.sucai_content}</p>
+                </div>
+                <div class="dynamic_img mui-content-padded dynamic_p" >
+              
+               <iframe width="100%" src="{$sucai.sucai_vedio}" frameborder="0"></iframe>
+              
+                </div> 
+                <!-- 推荐文章 -->
+                <div class="strict_product" style="padding-left: 1rem; background: #fff; padding-bottom: 1rem;width:100%;padding-right:0.5rem;">
+                  <div class="strict_body" style="padding: 0 0.5rem;">
+                    <div class=" strict_pp">
+                      <div class="swiper-wrapper judge_child">
+                          <div class="" style="background:#f3f3f3;width: 100%;">
+                            <a class="sucai_file_url" href="{$sucai.file_url}">
+                              <div>
+                                <div class="slides_pro11" style="background:#f3f3f3;">
+                                  <div class="sucai_pic" ><img src="{$sucai.pic}" style="padding: 0.6rem 1rem 0.6rem 1rem;width:6rem;height:6rem;"  alt=""></div>
+                                <div class="dynamic_p_name">{$sucai.title}</div>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+                 <div class="card-footer">
+                  <div class="card-zhuanfa sucaiContentCopy" data="{$sucai.sucai_id}"><i class="c-icon-share"></i>{$lang.copy}</div>
+                </div>                             
+              </nav>
+              <div style="width:100%;height:0.5rem;background:#f3f3f3;"></div>
+            {elseif $sucai.sucai_type eq 2}
+                <!-- 图文 -->
+              <nav class="reorder_product s-flex  all" id="silver" style="margin-top: 1px;background: #fff;">
+                <div class="tenmax_dynamic">
+                  <p style="width:16%;"><img style="border-radius: 100%;" src="../{$sucai.sucai_user_picture}" alt=""> </p>
+                  <div style="margin:auto 0;">
+                    <b>{$sucai.sucai_user_name}</b>
+                    {if $sucai.sucai_important}<span class="card-sptag">{$lang.editor_recommend}</span>{/if}
+                    <p><span style="color: #bdbdbd;">{$sucai.change_time}</span>
+                   
+                  </div>
+                  
+                </div>
+                <div class="dynamic_content"style="font-size: 1.5rem;">
+                  <a class="sucai_tiaozhuan" href="{:url('Article/special',array('talk_id'=>$this->_var['talk']['talk_id']))}">
+                    <p class="" style="color: #356aff;margin-bottom:0;">
+
+                      #{$sucai.talk}# 
+                    </p>
+                  </a>
+                  <div class="sucai_content_zhedie">
+                    {$sucai.sucai_content|strip_tags|truncate:64:"...":true}<span class="content-more" id="sucai_content_{$sucai.sucai_id}" data='{$sucai.sucai_content}'>全部</span>
+                  </div>
+                  
+                </div>
+                <div class="dynamic_img mui-content-padded dynamic_p" >
+                   <!--{foreach from=$sucai.imglist item=imglist}-->
+                  <p class="dynamic_pp"><img src="{$imglist}?imageView2/1/w/300/h/300/q/100" data-preview-src="{$imglist}" data-preview-group="1" alt=""></p>
+                 <!--  {/foreach}-->
+                </div>
+                 <!-- 推荐文章 -->
+                <div class="strict_product" style="padding-left: 1rem; background: #fff; padding-bottom: 1rem;width:100%;padding-right:0.5rem;">
+                  <div class="strict_body" style="padding: 0 0.5rem;">
+                    <div class="swiper-container strict_pp">
+                      <div class="swiper-wrapper judge_child">
+                          <div class="" style="background:#f3f3f3;width: 100%;">
+                            <a class="sucai_file_url" href="{$sucai.file_url}">
+                              <div>
+                                  <div class="slides_pro11" style="background:#f3f3f3;">
+                                  <div class="sucai_pic"><img style="padding: 0.6rem 1rem 0.6rem 1rem;" src="{$sucai.pic}?imageView2/1/w/300/h/300/q/100" alt=""></div>
+                                <div class="dynamic_p_name">{$sucai.title}</div>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                        
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+                 <div class="card-footer">
+                  <div class="card-zhuanfa sucaiContentCopy" data="{$sucai.sucai_id}"><i class="c-icon-share"></i>{$lang.copy}</div>
+                  
+                </div>                
+              </nav>
+              <div style="width:100%;height:0.5rem;background:#f3f3f3;"></div>
+            {else}
+              <!-- 文本 -->
+              <nav class="reorder_product s-flex  all" id="silver" style="margin-top: 1px;background: #fff;">
+                <div class="tenmax_dynamic">
+                  <p style="width:16%;"><img style="border-radius: 100%;" src="../{$sucai.sucai_user_picture}" alt=""> </p>
+                  <div style="margin:auto 0;">
+                    <b>{$sucai.sucai_user_name}</b>
+                    {if $sucai.sucai_important}<span class="card-sptag">{$lang.editor_recommend}</span>{/if}
+                    <p><span style="color: #bdbdbd;">{$sucai.change_time}</span>
+                   
+                  </div>
+                  
+                </div>
+                <div class="dynamic_content"style="font-size: 1.5rem;">
+                  <p class="" style="color: #356aff;margin-bottom:0;">
+                      #{$sucai.talk}# 
+                  </p>
+                  <p class="sucai_content_zhedie">{$sucai.sucai_content} </p>
+                </div>
+               
+                <!-- 推荐文章 -->
+                <div class="strict_product" style="padding-left: 1rem; background: #fff; padding-bottom: 1rem;width:100%;padding-right:0.5rem;">
+                  <div class="strict_body" style="padding: 0 0.5rem;">
+                    <div class=" strict_pp">
+                      <div class="swiper-wrapper judge_child">
+                          <div class="" style="background:#f3f3f3;width: 100%;">
+                            <a class="sucai_file_url" href="{$sucai.file_url}">
+                              <div>
+                                <div class="slides_pro11" style="background:#f3f3f3;">
+                                  <div class="sucai_pic"><img style="width: 6rem;height: 6rem;padding: 0.6rem 1rem 0.6rem 1rem;" src="{$sucai.pic}" alt=""></div>
+                                <div class="dynamic_p_name">{$sucai.title}</div>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                        
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+                 <div class="card-footer">
+                  <div class="card-zhuanfa sucaiContentCopy" data="{$sucai.sucai_id}"><i class="c-icon-share"></i>{$lang.copy}</div>
+                </div>
+                
+                                             
+              </nav>
+              <div style="width:100%;height:0.5rem;background:#f3f3f3;"></div>
+            {/if}            
+            {/foreach}
+          </div>   
+        </div>    
+      </div>
+    </div>
+  </nav>
+</div>  
+  <!-- <div class="swiper-wrapper" style="width:100%;padding: 0;">
+    <div class="swiper-slide  initiation_tenmax2" code="1" style="border-right: 1px solid #e8e8e8;">
+      <p class="s-flex s-justify-c"><span  style="width:10%;"><img src="images/tenmax/forward_.png" alt=""></span> <span class="-mob-share-open">复制</span></p>
+    </div>
+    <div class="swiper-slide swiper-slide-next initiation_tenmax2 " code="2" >
+      <p class="s-flex s-justify-c praise">
+        <span id="praise" style="width:14%;padding: 0rem 0.5rem;"><img id="praise-img" src="images/tenmax/goodjob_.png" alt=""></span> 
+        <span id="praise-txt" style="margin: auto 0;">2</span>
+      </p>
+    </div>
+  </div> -->
+<div class="-mob-share-ui ShareBox">
+    <ul class="-mob-share-list" style="justify-content: space-around;">
+        {if $is_wechat}<li class="weixin"><p>Wechat</p></li>{/if}
+        <!--复制网址-->
+       <li class="s-share-url">
+         <button id="copy_button" onclick="copy_button" type="button" /></button>
+         <p>{$lang.copy_url}</p>
+       </li>
+       
+       <li class="erweima-url" style="display: flex;flex-direction: column-reverse;">
+          <img id="erweima-" src="images/erweima-.png" style="width: 60px;height: 60px;background: #2A2B2B; border-radius: 0.3rem;"  />
+          <p>二维码</p>
+       </li>
+       
+    </ul>
+    <div class="-mob-share-close">{$lang.is_cancel}</div>
+</div>
+<!-- <div class="send_to_msg">
+  <a class="send_to_btn" href="#" style="">发布</a>
+</div>  -->
+<script type="text/javascript" src="__TPL__/statics/layui/layui.js"></script>
+<script type="text/javascript" src="/themes/yutui/statics/js/swiper.min.js"></script>
+
+<script>
+    mui.init({
+      tap: true, //默认为true
+      doubletap: true, //默认为false
+      longtap: true, //默认为false
+      swipe: true, //默认为true
+      drag: true, //默认为true
+      hold:true,//默认为false，不监听
+      release:false//默认为false，不监听
+    });
+    mui.previewImage();
+</script>
+<script>
+var shareline = '{$share_link}';
+var sharehref= shareline==''?location.href:shareline;
+var shareTitle = "{$share_title}";
+var shareDesc = "{$share_description}";
+var sharePic  ="{$share_pic}";
+
+</script>
+<script>
+$(function () {
+  $(document).ready(function(){
+
+
+
+    
+//超出折叠
+//加载更多内容
+$(".content-more").click(function(){
+  $(this).parent().html($(this).attr('data'))
+})
+
+
+
+
+// $(".sucai_content_zhedie").each(function(){
+//   var maxwidth=105;//设置最多显示的字数
+//   var text=$(this).html();
+//   //console.log(text)
+//     if($(this).html().length>maxwidth){
+//     $(this).html($(this).text().substring(0,maxwidth));
+//     console.log($(this).html())
+//     $(this).html($(this).html()+"..."+"<a href='###' class='expend' style='color: #356aff;'> 点击展开<span class='arrow'></span></a>");//如果字数超过最大字数，超出部分用...代替，并且在后面加上点击展开的链接；
+//   };
+//   $(this).find("a").click(function(){
+//   $(this).parent().html(text);//点击“点击展开”，展开全文
+//   })
+// })
+ //超出折叠
+  // $(".sucai_content_zhedie").each(function(){
+  //     $(".sucai_content_zhedie p").addClass('sucai_hang_p');
+  //     $(".sucai_hang_p").filter(":lt(0)").show().end().filter(":gt(4)").hide();
+  //     var five_p = $(this).find("p:eq(4)");
+  //     //console.log($(".sucai_content_zhedie").find("p:eq(5)").html())
+  //     five_p.append("...<a class='showall'>全部</a>")
+
+
+  // })    
+ // $(".showall").click(function(){
+ //    $('.sucai_hang_p').show();
+ //    $(this).hide();
+ //  })
+    //显示前六个话题
+    $("#swiper_length").children().filter(":lt(0)").show().end().filter(":gt(5)").hide()
+
+   $(".dynamic_p_name").each(function(){
+
+      if($(this).html()==""){
+      
+      $(this).parent().hide();
+    }
+   })
+    
+
+
+    $(".mui-preview-header").empty(); 
+  })
+ 
+  //body变白色
+$("body").addClass("bg-white");
+  //弹出share层
+  $(".-mob-share-open").click(function(){
+    $(".ShareBox").show()
+  });
+  //关闭share层
+  $(".-mob-share-close").click(function(){
+    $(".ShareBox").hide()
+  });
+  //链接点击
+  $(".sucai_file_url").click(function(){
+   
+   var url=$(this).attr("href");
+   
+   location.href=url;
+  })
+ //专题链接跳转
+ $(".special_url").click(function(){
+  var url=$(this).attr("href");
+   
+   location.href=url;
+ })
+  $(".sucai_tiaozhuan").click(function(){
+  var url=$(this).attr("href");
+   
+   location.href=url;
+ })
+  /*复制网址*/
+  function lineshare(){
+    location.href="https://social-plugins.line.me/lineit/share?url="+encodeURIComponent(sharehref);
+  }
+  function facebookshare(){
+    window.open("https://www.facebook.com/sharer.php?u="+encodeURIComponent(sharehref)+"&t="+shareTitle);
+  }
+  var clipboard = new ClipboardJS('#copy_button', {
+
+      text: function(trigger) {
+
+          return sharehref;
+      }
+  });
+  clipboard.on('success', function(e) {
+  //alert("cccc \n" + sharehref);
+     alert("{$lang.copy_ok_share}");
+  });
+
+  clipboard.on('error', function(e) {
+     $("#shareUrl").addClass("c-cardadd-yes")
+  });
+  
+//复制素材内容
+  var clipboardSucai = new ClipboardJS('.sucaiContentCopy', {
+      text: function(trigger) {
+  		var id="#sucai_content_"+$(trigger).attr("data");
+  		var sucaiContent= $(id).attr("data");
+
+          return sucaiContent;
+      }
+  });
+  clipboardSucai.on('success', function(e) {
+     alert("{$lang.copy_ok}");
+  });
+  
+  //判断图片个数
+  if($(".dynamic_pp").length==1){
+    $(".dynamic_pp").css("width","60%")
+  }else if($(".dynamic_pp").length==4){
+  $(".dynamic_pp").css("width","34%")
+  }
+//去热门话题
+  $(".to_hot_topic").click(function(){
+    location.href='{:url('article/topic_of_conversation')}';
+  })
+  
+ $(".nav-list").click(function(){
+  	location.href=$(this).attr("href");
+  })
+
+
+   var widths_sildes="";
+  //alert($(".judge_child").children('div').length)
+  if($(".judge_child").children('div').length==1){
+    
+    widths_sildes=1;
+    $(".dynamic_p_img1").css("width","14%")
+    console.log($(".slidess").width())
+  }else if($(".judge_child").children('div').length==2){
+    widths_sildes=1.8;
+    $(".dynamic_p_img1").css("width","40%")
+  }else if($(".judge_child").children('div').length==3){
+    widths_sildes=2;
+    $(".dynamic_p_img1").css("width","40%")
+
+  }else if($(".judge_child").children('div').length==4){
+    widths_sildes=2;
+    $(".dynamic_p_img1").css("width","40%")
+  }
+  //热门话题
+   var swiper = new Swiper('.strict_p', {
+        
+        slidesPerView: 3.55,
+        paginationClickable: false,
+        spaceBetween: 10,
+        freeMode: true,
+        
+    
+    });
+   //好物推荐
+  
+   // var swiper = new Swiper('.strict_pp', {
+        
+   //      slidesPerView: widths_sildes,
+   //      paginationClickable: false,
+   //      spaceBetween: 10,
+   //      freeMode: true,
+        
+    
+   //  });
+  //顶部点击事件
+  $(".dynamic_new").click(function(){
+/*     $(".display_active1").show();
+    $(".display_active2").hide(); */
+    location.href="/index.php?m=default&c=article&a=article_index";
+  }) 
+  $(".article_click").click(function(){
+/*     $(".display_active2").show();
+    $(".display_active1").hide(); */
+    location.href="/index.php?m=default&c=article&a=index";
+  })
+}) 
+//点击切换下标
+$(".initiation_tenmax1").click(function(){
+    $(this).addClass('initiation_active').siblings().removeClass('initiation_active')
+}) 
+</script>
+
+<!--主体内容结束-->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script>
+  /* @author:Romey
+   * 动态点赞
+   * 此效果包含css3，部分浏览器不兼容（如：IE10以下的版本）
+  */
+  $(function(){
+    $("#praise").click(function(){
+      var praise_img = $("#praise-img");
+      var praise_txt = $("#praise-txt");
+      var num=parseInt(praise_txt.text());
+      if(praise_img.attr("src") == ("themes/yutui/images/tenmax/goodjob1_.png")){
+        
+        $(this).html("<img src='themes/yutui/images/tenmax/goodjob_.png' id='praise-img' class='animation' />");
+        praise_txt.removeClass("hover");
+       
+        $(".add-animation").removeClass("hover");
+        num -=1;
+        praise_txt.text(num)
+      }else{
+
+        $(this).html("<img src='themes/yutui/images/tenmax/goodjob1_.png' id='praise-img' class='animation' />");
+        praise_txt.addClass("hover");
+       
+        $(".add-animation").addClass("hover");
+        num +=1;
+        praise_txt.text(num)
+      }
+    });
+  })
+</script>
+
+
+
+</body>

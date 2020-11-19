@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>{$lang.train_info}</title>
+    <link rel="stylesheet" href="/data/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/data/assets/swiper/css/swiper.min.css"/>   
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">
+    <link rel="stylesheet" href="/themes/yutui/css/photoswipe.css">
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/js/leftTime.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/js/ectouch.js"></script>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/search.css" >
+    <script src="/data/assets/bootstrap/js/bootstrap.min.js"></script> 
+
+</head>
+<body style="background: #1c1c28;">
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+
+<div style="background: #1c1c28;">
+  <!--预计收益-->
+  <div class="l-show-earnings s-box-sizing" style="padding-top:1rem;">
+    <!-- <div class="l-show-help" onclick="location.href='/index.php?m=default&c=article&a=info&aid=69'"></div> -->
+    <dl class="pb-3">
+      <dt ><span class="f-02 col-hui line-3">{$lang.excepted_earnings} (元)</span><br><span class="color-whie">{format $userLevel.rebate,0}</span></dt>
+      <dd class="col-hui f-02">{$lang.train_dill_remark_1}</dd>
+    </dl>
+    <div class="graphical">
+      <ul class="s-flex s-justify-a pb-2">
+        <li>
+          <!-- <p style="width: {math $train.num / $train.total * 100}%">推荐订单数</p> -->
+          <p class="col-hui">推荐订单数</p>
+          <span class="color-whie f-08">{$userLevel.share}</span>
+        </li>
+        <li>
+          <p class="col-hui">舱位座序</p>
+          <span class="color-whie f-08">{$userLevel.class_name} {if $userLevel.class_ranking}{$userLevel.class_ranking}号{/if}</span>
+        </li>
+        <li>
+          <p class="col-hui">剩余座位总数</p>
+          <span class="color-whie f-08">{math $train.total - $train.num}</span>
+        </li>
+      </ul>
+    
+    </div>
+  </div>
+  <div class="l-show-text s-box-sizing"><p class="train_zhuyi f-03">{$lang.train_share_more}</p></div>
+  <!--车厢-->
+  <div style="width: 100%; height: 10.7rem; overflow: hidden">
+    <div class="l-show-top s-box-sizing">
+      <ul>
+        <li>
+          <div class="text">&nbsp;</div>
+          <div class="carriage">{$lang.train_conductor}</div>
+        </li>
+        <div  class="solid"></div>
+        {foreach from = $classList item = class}
+        <li>
+          <div class="text">
+          {if $class.total==0}
+            {$lang.train_class_limit_no}
+          {else}
+           余{math $class.total sub $class.num}座
+          {/if}
+          </div>
+          <div class="carriage{if $userLevel.class_sort==$class.sort} active{/if}">{$class.name}</div>
+          <div class="text">
+          {if $userLevel.class_sort==-1||$userLevel.class_sort>$class.sort}
+          
+            
+            {if $userLevel.vip eq $class.code}
+            需达{$class.vip_limit}单
+            {else}
+              {if $class.live_limit==-1}
+              客满
+              {else}
+              需达{$class.live_limit}单
+              {/if}
+            {/if}
+            
+            
+          {/if}
+          </div>
+        </li>
+        <div  class="solid"></div>
+        {/foreach}
+        <li>
+          <div class="text">&nbsp;</div>
+          <div class="carriage {if $userLevel.train_class_id==null} active{/if}">{$lang.train_station}</div>
+          <div class="text"></div>
+        </li>
+        <div class="kong">&nbsp;</div>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="s-flex s-box s-box-sizing s-justify-c text-center bg-white">
+  <div class="left">
+    <p class="line-02">{$lang.train_share}<br><strong>{$userLevel.share}</strong></p>
+  </div>
+  <div class="l-show-line"></div>
+  <div class="right">
+    <p class="line-02">{$lang.train_class_ranking}<br><strong>{$userLevel.class_name} 
+      {if $userLevel.class_ranking}
+      {$userLevel.class_ranking}號
+      {/if}</strong></p>
+  </div>
+</div> -->
+<!--套餐信息-->
+
+<div class="s-flex s-box s-box-sizing a-link-white friend_and_invitation">
+  <a href="javascript:;" {if $train.status eq 3 } onclick='alert("该列车已结束")'; {else} onclick="location='/index.php?m=default&c=train&a=goods&train_id={$trainId}'";{/if} class="buying_behalf"><img style="width:100%;" src="http://img.vmi31.com/public/buying-on-behalf1.png" alt=""></a>
+  <div style="width:50%;">
+    {if $userLevel.status!=2}
+    <script type="text/javascript">
+      $(function(){
+        //日期倒计时,现在距离下面的日期
+        var data_show = $('.data-box');  
+
+      });
+    </script> 
+      <a href="javascript:;"  class=" {if $train.status eq 3} invitation_ed  {else} invitation_ed  -mob-share-open{/if}" {if $train.status eq 3 } onclick="alert('该列车已结束');{/if}">
+        <img style="width:100%;" src="http://img.vmi31.com/public/invitation.png" alt="">
+      </a>
+    {else}
+      <a href="javascript:;" {if $train.status eq 3 } onclick="alert('该列车已结束');{/if}" class="{if $train.status eq 3} invitation_ed  {else} invitation_ed  -mob-share-open{/if}">
+        <img style="width:100%;" src="http://img.vmi31.com/public/invitation.png" alt="">
+      </a>
+    {/if}  
+  </div>    
+</div>
+ 
+
+
+<div class="s-box bg-white s-box-sizing s-tuijianren">
+  <div class="u-order-left l-show-ti bg-white train_st_st" style="border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;"><span class="A"></span><span class="f-07">{$lang.train_group_info}</span></div>
+  <div class="s-flex l-show-new s-justify-b bg-white train_st_st">
+    <div>{$lang.train_code}</div>
+    <div>{$train.code}</div>
+  </div>
+  <div class="s-flex l-show-new s-justify-b bg-white train_st_st">
+    <div>{$lang.train_goods_name}</div>
+    <div><a href='/index.php?c=goods&id={$goods.goods_id}'>{$goods.goods_name}</a></div>
+  </div>
+  <div class="s-flex l-show-new s-justify-b bg-white train_st_st" >
+    <div>{$lang.train_goods_price}</div>
+    <div>￥ {format $goods.shop_price,2}</div>
+  </div>
+</div>
+<!--加购套餐提示信息-->
+<div class="t-box s-flex" id="Addbuy" style="display: none;">
+    <div class="l-train-yes">
+      <div class="l-train-set">{$lang.train_addmore_info}</div>
+      <div class="s-flex s-justify-a l-train-tj">
+        <div class="A"><a href="/index.php?c=groupbuy&a=info&id={$goods.activity.act_id}">{$lang.groupbuy}</a></div>
+        <div class="B"><a href="/index.php?c=goods&id={$goods.goods_id}&order_type=10">{$lang.singlebuy}</a></div>
+      </div>  
+      <div class="l-train-more"><a href="/index.php?m=default&c=article&a=info&aid=69&u=1">{$lang.knowmore}</a></div>
+      <div class="l-train-close" onclick="Addbuy.style.display='none';"><span>X</span></div>
+    </div>
+
+</div>
+<div class="s-jiange"><p></p></div>
+<!--推荐人信息-->
+<div class="s-box bg-white s-box-sizing s-tuijianxx" style="">
+
+  <div class="u-order-left l-show-ti bg-white train_st_st" style=""><span class="A"></span><span class="f-07">{$lang.more_info}</span></div>
+  <div class="s-flex l-show-new s-justify-b bg-white train_st_st">
+    <div>{$lang.train_parent_user}</div>
+    <div>{$parentUser.user_name|default:無}</div>
+  </div>
+  <div class="s-flex l-show-new s-justify-b bg-white train_st_st" onclick="location.href='/index.php?c=train&a=myshares&train_id={$train.train_id}'">
+    <div>{$lang.mysharecustomer}</div>
+    <div>{$mysharesNumber}<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 jian-top"></i></span></div>
+  </div>
+  {if $train.status==1}
+<!-- 轉贈  -->
+  <div>
+    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" class="s-flex l-show-zp s-box-sizing train_st_st"style="border-bottom: 0px;border-bottom-left-radius: 0.5rem;border-bottom-right-radius: 0.5rem; ">
+      <p class="f-05">{$lang.allow_give_ticket}</p>
+      <span class="f-05">{:count($this->_var['ticketList'])}<span class="t-jiantou"><i class="iconfont icon-jiantou tf-90AA"></i></span></span>
+    </a>
+  </div>
+  <div id="collapseTwo" class="panel-collapse collapse in" aria-expanded="true" style="background: #f7f7f7;padding: 1rem 0;">
+    {if !$ticketList}
+    <div class="l-notrain f-2" style="border-radius: 0.5rem;">{$lang.no_give_ticket}</div>
+
+    {/if}
+    {foreach from = $ticketList item = ticket}
+    <div class="s-flex l-show-train l-show-no">
+      {if $ticket.order_id==0}<div class="group-yes"><img src="images/new/group_yes.png"></div>{/if}
+      <div class="left">
+        <div class="col-hui">{$train.code}</div>
+        <div class="col-hui">{$ticket.create_time|date_format:"%Y-%m-%d"}</div>
+        <div class="f-2 pb-1">{$goods.goods_name}</div>
+
+        <div class="f-2 pt-1">￥ {format $goods.shop_price,2}</div>
+
+        <div>{$lang.to_give_username_mark_1}</div>
+      </div>
+      <div class="s-flex right">{$lang.give_ticket_button_1}</div>
+      <div class="l-show-radius"></div>
+      <div ticket="{$ticket.train_ticket_id}" onClick="showGive(this)" class="l-show-onclick"></div>
+    </div>
+    {/foreach}
+    </div>
+</div>
+{/if}
+</div>
+<!--弹窗-->
+
+<!--2018-04-21转赠票-->
+<div class="t-box s-flex"  id="Box1" style="visibility:hidden;">
+  <div class="l-train-give">
+    <h2 class="box text-center f-3 col-hong line-06">{$lang.train_give}</h2>
+    <div class="box  padding-1 line-22 col-3" style="padding: 0 2rem 2rem 2rem;">{$lang.train_give_message_1}</div>
+    <div class="s-flex w-input l-train-search">
+      <input class="f-03" type="text" name="to_username" placeholder="{$lang.enter_username}">
+      <input type="hidden" name="ticket_id" >
+      <a href="javascript:giveSearch();">{$lang.search}</a>
+    </div> 
+    <div class="response">
+    
+    </div>
+    <!--如果已經參與列車提示語--> 
+    <div class="s-flex l-train-submit"><a href="javascript:;" onclick="Box1.style.visibility='hidden';">{$lang.is_cancel}</a><a name="confirmGive" href="#" style="color:#BDBDBD">{$lang.is_ok}</a></div>
+  </div>
+</div>
+<!--转赠票结束-->
+
+<div style="height: 5.0rem; width: 100%;"></div>
+<!--分享-->
+<!-- <div class="s-flex s-space-1 s-box-sizing l-show-share"> -->
+<!-- {if $userLevel.status!=2} -->
+ <!--  <div class="data-box" id="dateShow1" data-date='{$ticketTime}'>{$lang.train_ticket_time_show_1}<em><span class="d">00</span>{$lang.day}<span class="h">00</span>{$lang.hour}<span class="m">00</span>{$lang.minute}<span class="s">00</span>{$lang.second}</em>
+  </div> -->
+  <script type="text/javascript">
+
+		// $(function(){
+			//日期倒计时,现在距离下面的日期
+			// var data_show = $('.data-box');
+			// for(var i=1;i<=data_show.length;i++){
+			// 	function_name($("#dateShow"+i).data("date"),"#dateShow"+i);
+			// }
+			// function function_name(time,obj) {
+			// 	$.leftTime(time,function(d){
+			// 		if(d.status){
+			// 			var $dateShow1=$(obj);
+			// 			$dateShow1.find(".d").html(d.d);
+			// 			$dateShow1.find(".h").html(d.h);
+			// 			$dateShow1.find(".m").html(d.m);
+			// 			$dateShow1.find(".s").html(d.s);
+			// 			$(".l-buy").hide();
+			// 		}else{
+			// 			$(".l-buy").show();
+   //          $(".l-share").hide();
+			// 			// $(".l-show-share a").removeClass("ect-bg");
+			// 			// $(".l-show-share a").addClass("ZsubA");
+			// 		}
+			// 	});
+			// }
+		//});
+  </script> 
+    <!-- <div> -->
+    <!-- <div class="l-share"><a href="javascript:;" class="ect-bg -mob-share-open">{$lang.user_invite}</a></div> -->
+  <!--   <div class="l-buy"><a href="/index.php?c=goods&id={$goods.goods_id}&order_type=10" class="ect-bg">{$lang.train_rebuy_ticket}</a></div> -->
+  <!-- </div> -->
+  <!-- {else} -->
+    <!-- <div>&nbsp;</div> -->
+    <!-- <div class="l-share"><a href="#" class="ect-bg s-share-submit2 -mob-share-open">{$lang.user_invite}</a></div> -->
+  <!-- {/if} -->
+<!-- </div> -->
+<!-- #BeginLibraryItem "/library/new_share_train.lbi" --><!-- #EndLibraryItem -->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+		
+		function showGive(ob){
+			$("#Box1").find(".response").html("");
+			var a = $("#Box1").find("a[name=confirmGive]");
+			//$(a).attr("class","Bect-bg");			
+			$(a).unbind();
+			
+			$("#Box1").find("input[name=ticket_id]").val($(ob).attr("ticket"));
+			Box1.style.visibility='visible';
+		}
+		function giveSearch(){
+			var username = $("#Box1").find("input[name=to_username]").val();
+			var ticketid = $("#Box1").find("input[name=ticket_id]").val();
+			
+			$.ajax({
+				url		: "index.php?c=train&a=giveSearch",
+				dataType: "json",
+				data	: {to_username:username,ticket_id:ticketid},
+				type	: "post",
+				success	: function(data){
+				
+					if(data.result==1&&data.msg.error==''){
+						var a = $("#Box1").find("a[name=confirmGive]");
+						a.attr("class","Cect-bg");
+						$(a).click(function(){togive();});
+					}else{
+						var a = $("#Box1").find("a[name=confirmGive]");
+						$(a).unbind();
+						//$(a).attr("class","Bect-bg");
+					}
+					var html = renderTouserHtml(data);
+					$("#Box1").find(".response").html(html);
+				}	
+			});
+			
+		}
+		
+		function renderTouserHtml(data){
+			var html = '';
+			if(data.result==1){
+				var user = data.msg.user;
+				html+='<div class="s-flex l-train-user">';
+			    html+='<p><img src="'+user.user_avatar+'"></p>';
+			    html+='<p><span class="f-04">'+user.user_name+'</span><span class="col-hui">'+user.nick_name+'</span></p>';
+			    html+='<input name="user_id" type="hidden" value="'+user.user_id+'">';
+		    	html+='</div>';
+		    	if(data.msg.error!=''){
+		    		html+='<div class="box padding-1 col-cheng">'+data.msg.error+'</div>';
+		    	}
+	    	}else{
+	    		html+='<div class="box padding-1 col-cheng">'+data.msg+'</div>';
+	    	}
+	    	return html;
+		}
+		
+		function togive(){
+			var userId = $("#Box1").find("input[name=user_id]").val();
+			var ticketid = $("#Box1").find("input[name=ticket_id]").val();
+			
+			 $("#Box1").find("a[name=confirmGive]").unbind();
+			
+			$.ajax({
+				url		: "index.php?c=train&a=giveTicket",
+				dataType: "json",
+				data	: {user_id:userId,ticket_id:ticketid},
+				type	: "post",
+				success	: function(data){
+					if(data.result==1){
+						alert('{$lang.give_ticket_success}');
+						location.reload();
+					}else{
+						alert(data.msg);
+					}
+				}	
+			});
+		}
+	</script>
+
+<script type="text/javascript">
+$(function(){
+	var active = $(".l-show-top").find(".active");
+	var t = $(active).position().left;
+	var w = $(window).width();
+	if(t-w>-80) $(".l-show-top").animate({scrollLeft:t-w+90},600);
+});
+</script>
+<!-- train begin end  -->
+</body>
+</html>

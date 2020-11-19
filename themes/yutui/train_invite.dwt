@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>{$page_title}</title>
+	<link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+</head>
+
+<body class="s-block">
+<div class="restartNew">
+  {foreach from = $viporderlist item = order}
+  <li><p><img src="{$order.user_avatar|default:/themes/yutui/images/idx_user.png}"></p><span>{$order.nick_name}刚刚升级了VIP</span></li>
+  
+  {/foreach}
+</div>
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img.vmi31.com/public/vip_market1_01_001.jpg"></p>
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img.vmi31.com/public/vip_p1.png"></p>
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><a href="/index.php?c=topic&topic_id=17"><img src="http://img.vmi31.com/public/vip_p2.png"></a></p>
+<div style="display:flex;background: #f7f7f7;margin-bottom: -0.1rem;">
+<p ><a href="/index.php?c=goods&id=943&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p1_vip.png"></a></p>
+<p><a href="/index.php?c=goods&id=883&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p2_vip.png"></a></p>
+</div>
+<div style="display:flex;background: #f7f7f7;margin-bottom: -0.1rem;">
+<p><a href="/index.php?c=goods&id=884&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p3_vip11.png"></a></p>
+<p><a href="/index.php?c=goods&id=829&u=2338" style="display:block;"><img src="http://img.vmi31.com/public/p4_vip.png"></a></p>
+</div>
+<div style="display:flex;background: #f7f7f7;margin-bottom: -0.1rem;">
+<p style="background: #f7f7f7;"><a href="/index.php?c=goods&id=830&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p5_vip.png"></a></p>
+<p style="background: #f7f7f7;"><a href="/index.php?c=goods&id=885&u={$uid}" style="display:block;"><img src="http://img.vmi31.com/public/p6_vip.png"></a></p>
+</div>
+
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img.vmi31.com/public/vip_p003.jpg"></p>
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img.vmi31.com/public/vip_p0004.jpg"></p>
+
+<div style="width: 100%; height: 5rem"></div>
+
+<div class="s-flex  c-card-submit -mob-share-open" style="background: #fff;z-index: 999999999;bottom:4.9rem;"><a href="javascript:;" class="" style="width: 100%; padding:0"><img style="width: 100%;"src="http://img02.tenfutenmax.com.cn/public/vip_market1_12.png"></a></div>
+
+
+
+<!-- #BeginLibraryItem "/library/new_share.lbi" --><!-- #EndLibraryItem -->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+  $(function(){
+    $('.restartNew li:first').siblings().hide();
+    setInterval(function(){
+      $('.restartNew li:visible').fadeOut('normal', function(){
+          $(this).next('li')[0] === undefined ? $('.restartNew li:first').fadeIn("slow") : $(this).next('li').fadeIn("slow");
+      });
+    }, 5000)
+  });
+//数据随机显示
+
+</script>
+</body>
+</html>

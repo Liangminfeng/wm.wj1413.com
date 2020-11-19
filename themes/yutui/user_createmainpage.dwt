@@ -1,0 +1,15 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<div class="s-block img">
+  <p><img src="images/like/VIP/create_1.jpg"></p>
+  <p><img src="images/like/VIP/create_2.jpg"></p>
+  <p><img src="images/like/VIP/create_3.jpg"></p>
+  <p><img src="images/like/VIP/create_4.jpg"></p>
+  <p><img src="images/like/VIP/create_5.jpg"></p>
+  <p><img src="images/like/VIP/create_6.jpg"></p>
+  <p><a href="{$yaoqing_url}"><img src="images/like/VIP/create_7.jpg"></a></p>
+  <p><a href="javascript:history.go(-1)"><img src="images/like/VIP/create_8.jpg"></a></p>
+  <p><img src="images/like/VIP/create_9.jpg"></p>
+</div>
+</body>
+</html>

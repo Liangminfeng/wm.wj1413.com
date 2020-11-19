@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>{$page_title}</title>
+  <link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css?v={$v}">
+    <link rel="stylesheet" href="/themes/yutui/css/style.css?v={$v}">  
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css?v={$v}" />
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/statics/js/swiper.min.js"></script>
+    <script src="/data/assets/js/clipboard.min.js"></script> 
+
+    <meta property="og:title" content="{$shareMeta.title}"/>
+    <meta property="og:description" content="{$shareMeta.description}"/>
+    <meta property="og:image" content="{$shareMeta.image}"/>
+    <meta property="og:updated_time" content="{:time()}"/>
+    
+</head>
+<body class="con f-05">
+<!--模版选择-->
+{if $smarty.session.user_id == $smarty.get.u}
+<div class="box s-flex s-align-items c-card-select">
+  <div class="s-flex left">
+<!--{foreach name=mainpagelist from=$mainpagelist item=val}-->
+  {if $val.mid==$mid}
+    <i></i><span class="onetext">我的主页 • {if $val.id==0}一{elseif $val.id==1}二{elseif $val.id==2}三{/if}</span>
+
+    {/if}
+    <!--{/foreach}--> 
+  </div>
+  <div class="s-flex s-justify-a right">
+    {if $defaultmid==$mid}
+    <div class='default1'><span class="defauleTextA">已是默认</span>
+
+      <div class='c-card-default-t' id="Not" style="display: none;">已是默认</div></div>
+    {else}
+    <div class="default"><span class="defauleTextB">设为默认</span></div>
+      {/if}
+      
+
+      {if $num>=3}
+    
+    <div><a href="javascript:;" class="error_mainpagenum">新增</a></div>
+    {else}
+  <div><a href="/index.php?m=default&c=user&a=cardselect" >新增</a></div>
+    {/if}
+    {if $defaultmid==$mid}
+    <div class='deletemain1' id="error_delete">删除</div>
+     {else}
+     <div class='deletemain' >删除</div>
+     {/if}
+  </div>
+  {if $smarty.session.user_id == $smarty.get.u}
+  <div class="s-flex s-wrap t-card-select">
+    <!--{foreach name=mainpagelist from=$mainpagelist item=val}-->
+{if $val.mid==$mid}
+    <div class="box s-flex s-justify-b  color-red" onclick="javascript:location.href='{:url('user/business_card', array('mid'=>$this->_var[val]['mid']))}'">{if $val.id==0}<span class="text"  >我的主页 • 一</span>{elseif  $val.id==1}<span class="text" >我的主页 • 二</span>{elseif  $val.id==2}<span class="text" >我的主页 • 三</span>{/if}{if $val.mid==$mid}<i class="tickIco"></i>{/if}</div>
+    {else}
+    <div class="box s-flex s-justify-b" onclick="javascript:location.href='{:url('user/business_card', array('mid'=>$this->_var[val]['mid']))}'">{if $val.id==0}<span class="text" >我的主页 • 一</span>{elseif  $val.id==1}<span class="text" >我的主页 • 二</span>{/if}{if $val.mid==$mid}<i class="tickIco"></i>{elseif  $val.id==2}<span class="text" >我的主页 • 三</span>{/if}{if $val.mid==$mid}<i class="tickIco"></i>{/if}</div>
+  {/if}
+    
+   
+  <!--{/foreach}-->
+  </div>
+{/if}
+
+<!--设为默认弹窗-->
+<div class="t-box s-flex" id="default" style="display: none;">
+  <div class="c-card-yes">
+    <strong>提示</strong>
+    <p>设为默认后，主页及名片将显示当前默认内容！</p>
+    <div class="box s-flex s-justify-a"><a href="javascript:;" class="c-card-default-no">取消</a><a href="javascript:;" class="c-card-default-yes">确定设置</a></div>
+  </div>
+</div>
+<!--删除弹窗-->
+<div class="t-box s-flex" id="deleteBox" style="display: none;">
+  <div class="c-card-yes">
+    <strong>提示</strong>
+    <p>确认删除</p>
+    <div class="box s-flex s-justify-a"><a href="javascript:;" class="c-card-delete-no">取消</a><a href="javascript:;" class="c-card-delete-yes">确定设置</a></div>
+  </div>
+</div>
+</div>
+{/if}
+<!--logo-->
+<div class="swiper-container box position-rel banner-first c-card-banner">
+  <div class="swiper-wrapper">
+    {if $userinfo.user_banner1}<div class="swiper-slide swiper-slide-active"><img src="{$userinfo.user_banner1}" border="0"></div>{/if}
+   {if $userinfo.user_banner2} <div class="swiper-slide swiper-slide-active"><img src="{$userinfo.user_banner2}" border="0"></div>{/if}
+   {if $userinfo.user_banner3} <div class="swiper-slide swiper-slide-active"><img src="{$userinfo.user_banner3}" border="0"></div>{/if} 
+  </div>
+  <!-- 分页器 -->
+  <div class="swiper-pagination banner-first-pagination"></div>
+  <!--linear-->
+  <div class="linear"></div>
+</div>
+<div class="c-card-logo">
+  <div class="logo"><img src="{$userinfo.user_avatar|default:/themes/yutui/images/idx_user.png}"></div>
+</div>
+
+<!--个人介绍-->
+<div class="box text-center bg-white c-card-introduce">
+  <h2 class="f-2">{if $userinfo.nick_name}{$userinfo.nick_name}{else}{$userinfo.user_name}{/if}</h2>
+  <p class="pt-1">{if $userinfo.company}{$userinfo.company}{else}{$lang.yutui_default_company}{/if} | {if $userinfo.job}{$userinfo.job}{else}{$lang.yutui_default_job}{/if} </p>
+  <p>{$userinfo.address}</p>
+  <p class="color-red pt-1">{if $userinfo.sign}{$userinfo.sign}{else}{$lang.yutui_default_sign}{/if}</p>
+</div>  
+<div class="s-flex s-space-3 c-card-ico">
+  <div><p class="c-card-phone phone"><img src="images/new/card_ico1.png"></p>{$lang.phone}</div>
+  <div><p class="c-card-phone mainA"><img src="images/new/card_ico2.png"></p>E-mail</div>
+  <div><p class="c-card-phone weixinTwo"><img src="images/new/card_ico4.png"></p>微信</div>
+  
+</div>
+<!--个人简介-->
+<div class="box bg-white m-top08 padding-all" style="padding:0rem 0rem 1.3rem 0rem">
+  <div class="s-flex s-justify-b u-card-title"><strong>个人简介</strong></div>
+  <p style="padding:0rem 2rem">{if $userinfo.signcomment}{$userinfo.signcomment}{else}{$lang.signcomment}{/if}</p>
+</div>
+<!--内容-->
+<!--{foreach name=user_profile_article from=$user_profile_article item=val}-->
+<!-- {if $val.type eq '1'}-->
+<div class="box text-center bg-white m-top08" onclick="javascript:location.href='{:url('user/article_show', array('id'=>$this->_var[val]['id'],'u'=>$_GET['u']))}'">
+  <div class="s-flex s-justify-b u-card-title"><strong>{$val.title}</strong><span>more></span></div>
+  <p class="img"><img src="{$val.cover_pic}"></p>
+</div>
+<!--{else}-->
+<div class="box text-center bg-white m-top08" onclick="javascript:location.href='{$val.url}'">
+  <div class="s-flex s-justify-b u-card-title"><strong>{$val.title}</strong><span>more></span></div>
+  <p class="img"><img src="{$val.cover_pic}"></p>
+</div>
+<!--{/if}-->
+ <!--{/foreach}-->
+<!--submit-->
+{if $user_id}
+<section class="s-flex s-space-3 c-card-submit">
+  <a href="{:url('user/edit_business_card')}" class="s-btn-cheng" style="width: 45%; padding: 0.8rem 0rem;">{$lang.edit_show}</a>
+  <a href="{:url('user/edit_business_profile')}" class="s-btn-cheng" style="width: 45%; padding: 0.8rem 0rem;">{$lang.edit_business_profile}</a>
+  
+</section>
+{else}
+{/if}
+<div class="t-box s-flex" id="Box1" style="display: none;">
+    <div class="l-train-yes">
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico6.png"></div>
+      <div class="c-card-dh">{$lang.contact_phone}</div>
+      <div class="box text-center ptb-3 f-2" id="phone">{if $userinfo.mobile_phone_business}{$userinfo.mobile_phone_business}{else}{$lang.no_contact_phone}{/if}</div>
+      <div class="l-card-phone mb-2" id="phoneClick" onclick="phoneClick">{$lang.copy}</div>      
+      <div class="l-train-close" onclick="Box1.style.display='none';"><span>X</span></div>
+    </div>
+</div>
+<!--郵件弹窗-->
+<div class="t-box s-flex" id="eMain" style="display: none;">
+    <div class="l-train-yes">
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico5.png"></div>
+      <div class="c-card-dh">{$lang.email_address} </div>
+      <div class="box text-center ptb-3 f-2" id="main">{if $userinfo.email}{$userinfo.email}{else}{$lang.no_email_address}{/if}</div>
+      <div class="l-card-phone mb-2" id="mainClick" onclick="mainClick">{$lang.copy}</div>
+      <div class="l-train-close" onclick="eMain.style.display='none';"><span>X</span></div>
+    </div>
+</div>
+<!--微信弹窗-->
+<div class="t-box s-flex" id="Box4" style="display: none;">
+    <div class="l-train-yes">
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico8.png"></div>
+      <div class="c-card-dh">{$lang.wechat}ID</div>
+      <div class="box text-center ptb-3 f-2" id="weixin">{if $userinfo.vx_no}{$userinfo.vx_no}{else}{$lang.no_wechat}{/if}</div>
+      <div class="l-card-phone mb-2" id="weixinClick" onclick="weixinClick">{$lang.copy}</div>
+      <div class="l-train-close" onclick="Box4.style.display='none';"><span>X</span></div>
+    </div>
+</div>
+<!--主体菜单-->
+{if $smarty.session.user_id != $smarty.get.u}
+<!-- #BeginLibraryItem "/library/endline.lbi" --><!-- #EndLibraryItem -->
+<div style="width: 100%; height: 6rem"></div>
+<div class="s-flex s-space-3 c-card-submit" style="bottom:0rem"><a href="{:url('user/createmainpage',array('u'=>$_GET['u']))}" class="btm-yes" style="width: 80%;">{$lang.creatorbutton}</a></div>
+{else}
+<section class="s-flex s-space-3 c-card-submit">
+ <a href="/index.php?m=default&c=user&a=edit_business_card&mid={$mid}&u={$smarty.session.user_id}" class="s-btn-cheng" style="width: 45%; padding: 0.8rem 0rem;">{$lang.edit_show}</a>
+
+  <a href="/index.php?m=default&c=user&a=edit_business_profile&mid={$mid}" class="s-btn-cheng" style="width: 45%; padding: 0.8rem 0rem;">{$lang.edit_business_profile}</a>
+</section>
+<!-- #BeginLibraryItem "/library/endline.lbi" --><!-- #EndLibraryItem -->
+<div style="width: 100%; height: 6rem"></div>
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+{/if}
+<!--苹果手机无法复制弹窗提示-->
+<!--弹窗提示-->
+<div id="u-card-window" class="c-cardadd-no">
+  <div class="t-box s-flex">
+    <div class="l-train-yes">
+      <h2 style="line-height: 2rem; padding: 4rem 3rem; font-size: 1.7rem; box-sizing: border-box;">{$lang.train_window_error}</h2>
+      <div class="s-box text-center padding-1 line-2 u-card-error">{$lang.phone}</div>
+      <div class="s-flex l-train-submit" style="justify-content: center; margin:1rem 3%;"><a href="" class="btm-yes"  onclick="shareUrl.style.display='none';">{$lang.close_window}</a></div>
+    </div>
+  </div>
+</div>
+<!-- #BeginLibraryItem "/library/new_share.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript ">
+//轮播图
+  $(function($) {
+    var mySwiper = new Swiper('.banner-first', {
+      pagination: '.banner-first-pagination',
+      loop: false,
+      grabCursor: true,
+      paginationClickable: true,
+      autoplayDisableOnInteraction: false,
+      autoplay: 3000
+    });
+  });
+//弹窗
+$(".phone").click(function(){
+  $("#Box1").show()
+});
+$(".mainA").click(function(){
+  $("#eMain").show()
+});
+$(".weixinTwo").click(function(){
+  $("#Box4").show()
+});
+
+$(".error_mainpagenum").click(function(){
+  alert("最多只能创建三个主页");
+});
+$("#error_delete").click(function(){
+  alert("不能删除默认模板");
+  return false;
+});
+//电话复制到剪贴板
+var phonetext= $("#phone").html();
+var clipboard = new ClipboardJS('#phoneClick', {
+    text: function(trigger) {
+        return phonetext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("{$lang.copy_ok}");
+});
+clipboard.on('error', function(e) {
+   $("#u-card-window").addClass("c-cardadd-yes");
+   $(".u-card-error").html(phonetext)
+});
+//邮件复制到剪贴板
+var maintext= $("#main").html();
+var clipboard = new ClipboardJS('#mainClick', {
+    text: function(trigger) {
+        return maintext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("{$lang.copy_ok}");
+});
+clipboard.on('error', function(e) {
+   $("#u-card-window").addClass("c-cardadd-yes");
+   $(".u-card-error").html(maintext)
+});
+//line复制到剪贴板
+var linetext= $("#line").html();
+var clipboard = new ClipboardJS('#lineClick', {
+    text: function(trigger) {
+        return linetext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("{$lang.copy_ok}");
+});
+clipboard.on('error', function(e) {
+   $("#u-card-window").addClass("c-cardadd-yes");
+   $(".u-card-error").html(linetext)
+});
+//weixin复制到剪贴板
+var weixintext= $("#weixin").html();
+var clipboard = new ClipboardJS('#weixinClick', {
+    text: function(trigger) {
+        return weixintext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("{$lang.copy_ok}");
+});
+clipboard.on('error', function(e) {
+   $("#u-card-window").addClass("c-cardadd-yes");
+   $(".u-card-error").html(weixintext)
+});
+//模版选择
+$(".cardSelect").click(function(){
+  $(this).addClass("cardSelectBg")
+  $(this).children().children(".rec-active").addClass("active");
+  $(this).siblings().children().children(".rec-active").removeClass("active");
+  $(this).siblings().removeClass("cardSelectBg")
+})
+</script>
+<!--新增模版选择-->
+<script>
+//弹出一级目录
+$(".left").click(function(){
+  $(".t-card-select").toggleClass("active")
+});
+//勾选一级目录并写入left
+$(".t-card-select div").on("click",function(){
+  $(this).children("i").addClass("tickIco");  
+  $(this).addClass("color-red"); 
+  $(this).siblings().children("i").removeClass("tickIco");
+  $(this).siblings().removeClass("color-red"); 
+  $(".t-card-select").removeClass("active");
+  var text = $(this).children(".text").text();
+  $(".onetext").text(text)
+});
+//设为默认
+ $(".defauleTextB").click(function(){
+   $("#default").show()
+ })
+//关闭设为默认
+$(".c-card-default-no").click(function(){
+ $("#default").hide() 
+})
+//弹窗删除
+$(".deletemain").click(function(){
+  $("#deleteBox").show();
+
+ $(".c-card-delete-yes").click(function(){
+      var mid = "{$mid}";
+      var userid = {$smarty.session.user_id};
+      $.ajax({
+          url   : "index.php?c=user&a=delete_mainpage",
+          data  : {mid:mid},
+          dataType: "JSON",
+          type  : "post",
+          success :function(data){
+         
+            if(data.status){
+              window.location.href='/index.php?m=default&c=user&a=business_card&u='+userid;
+            }else{
+
+              defaultText = data.msg;
+              alert(defaultText);
+             //$(".defauleTextA").text(defaultText);
+             $("#deleteBox").hide() 
+            }
+            
+            
+          }
+  });
+ })
+
+ 
+})
+//关闭删除
+$(".c-card-delete-no").click(function(){
+  $("#deleteBox").hide();
+})
+//设为默认确定后文字修改
+$(".c-card-default-yes").click(function(){
+  var defaultText="已是默认";
+ 
+  var mid = "{$mid}";
+  
+      $.ajax({
+          url   : "index.php?c=user&a=setdefaultmainpage",
+          data  : {mid:mid},
+          dataType: "JSON",
+          type  : "post",
+          success :function(data){
+            console.log(data);
+        
+           
+            if(data.status){
+               //$(".defauleTextB").text(defaultText);
+               $("#default").hide() 
+            }else{
+                  $("#default").hide() 
+            }
+            window.location.reload()
+            
+          }
+  });
+ 
+})
+//判断是否已经是默认
+$(".defauleTextA").on("click",function(){
+  $("#Not").show().delay(3000).hide(1);
+})
+</script>
+</body>
+</html>

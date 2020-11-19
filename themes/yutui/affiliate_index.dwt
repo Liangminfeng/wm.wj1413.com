@@ -1,0 +1,549 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<!--top-->
+<div class="box box_bgc" style="background-color: #f7f7f7;">
+<div class="li-sales-top">
+  <div class="content">
+    <div class="s-flex s-justify-b"style="padding-top:0.5rem;">
+      <div class="s-flex s-align-items">
+        {if $info.user_avatar}
+        <div><img src="{$info.user_avatar}"></div>
+        {else}
+        <div><img src="__TPL__/images/idx_user.png"></div>
+        {/if}
+        <div class="name"><strong class="f-04" >{if $info.nick_name}{$info.nick_name}{else}{$info.user_name}{/if}</strong>
+        <div class="grade s-flex">
+        <span style="width:26%;">
+           {if $user_info.user_vip eq '1'}
+           <img src="images/like/vip_dianzhu.png" style="width: 100%;">
+           {elseif $user_info.user_vip eq '2'}
+           <img src="images/like/vip_fuwushang.png"style="width: 100%;">
+            {elseif $user_info.user_vip eq '3'}
+           <img src="images/like/vip_hehuo.png"style="width: 100%;">
+            {elseif $user_info.user_vip eq '4'}
+           <img src="images/like/tv_hehuoren.png"style="width: 100%;">
+
+            {/if}
+
+        </span>
+        {if $user_info.resource eq 2}
+              <span style="display:none;"><img style="width:9rem;" src="images/like/tianmeishi.png"></span>
+        {else}
+         {if $user_info.user_rank eq '1'}
+      <span style="display:none;"><img style="width:9rem;" src="images/like/baiyin.png"></span>
+        {elseif $user_info.user_rank eq '2'}
+      <span style="display:none;"><img style="width:9rem;" src="images/like/huangjin.png"></span>
+        {elseif $user_info.user_rank eq '3'}
+      <span style="display:none;"><img style="width:9rem;" src="images/like/zhuanshi.png"></span>
+        {elseif $user_info.user_rank eq '4'}
+      <span style="display:none;"><img style="width:9rem;" src="images/like/zhizun.png"></span>
+        {elseif $user_info.user_rank eq '5'}
+      <span style="display:none;"><img style="width:9rem;" src="images/like/provincial.png"></span>
+      {elseif $user_info.user_rank eq '6'}
+      <span style="display:none;"><img style="width:9rem;" src="images/like/all_state.png"></span>
+      {elseif $user_info.user_rank eq ''}
+      <span style="display:none;"><img style="width:9rem;" src="images/like/initiate.png"></span>
+        {/if}
+        {/if}
+       
+    </div>
+        </div>
+      </div>
+      <!--<div class="privilege"><a href="/index.php?m=default&c=user&a=VIPprivilege">VIP说明 &nbsp;></a></div>-->
+
+    </div>
+    
+    <p style="padding-top:1.2rem;">
+       
+        <span>{$lang.my_invitation}:</span>
+
+        <span id="phone" style="padding-right: 1rem;">{$user_info.vip_manage_account}</span>
+
+        <span id="phoneClick" onclick="phoneClick" style="border: 1px solid;border-radius: 0.5rem;padding: 0 0.3rem;font-size:1.2rem;">{$lang.click_copy}</span></p>
+
+   
+    {if $userprofit.get_share_limit}
+    <div class="progress_bar">
+      <div class="progress_bar_b" style="width: {math $userprofit.get_share div $userprofit.get_share_limit mak 100}%"></div>
+    </div>
+
+
+
+    <div class="buy_again">
+      <div class="buy_address">
+        <span >{$user_info.province}</span>
+        <span >{$user_info.city}</span>
+      </div>
+      <div style="display: flex;">
+        <p class="again_1">{$lang.already_get}：</p>
+        <p class="again_2">
+        <span>{$userprofit.get_share}</span> /
+        {if $userprofit.get_share_limit eq -1}
+           <span>{$lang.no_limit} &nbsp;</span>
+        {else}
+           <span>{$userprofit.get_share_limit}</span>
+        {/if}
+     
+        </p>
+        <p class="again_3">{$text}</p>
+      </div>
+      
+      
+    </div>
+    {/if}
+    <div style="padding-right: 1rem;box-sizing: border-box;">
+      <p style="text-align: right;color: #8e754b;padding-bottom: 0.3rem;">
+        <span id="nani">成长值
+          <span>{$user_info.level_xp}</span>/<span>{$resultchengzhangzhi.aim}</span>
+          <span class="nani" ><img style="width:100%" src="images/like/nani.png"></span>
+        </span>
+      </p> 
+      <p class="progress">
+        <span class="progress_span"></span>
+      </p>
+    </div>
+  </div>
+</div>
+<div class="li-sales-money s-flex s-justify-a">
+  <a href="{:url('Account/bill_accounts')}">
+    <div>
+      <span class="shuzhi" style="display: inline-block;">{if $unpaymoney}{$unpaymoney}{else}0{/if}</span>
+      <p>{$lang.pending_account}(元)</p>
+    </div>
+  </a>
+  <div class="money_xian"></div>
+  <a href="/index.php?m=default&c=account&a=center_data">
+    <div>
+        <span class="shuzhi">{if $cumsum_money}{$cumsum_money}{else}0{/if}</span>
+        <p>{$lang.sum_profit}(元)</p>
+    </div>
+  </a>
+  <div class="money_xian"></div>
+  <a href="/index.php?m=default&c=account&a=center_data">
+    <div> 
+      <span class="shuzhi">{if $userprofit_money}{$userprofit_money}{else}0{/if}</span>
+      <p>{$lang.profit_account}(元)</p>
+    </div>
+  </a>
+  
+</div>
+</div>
+
+
+<div class="join_the_tuan s-flex s-justify-a">
+  <div>
+    <a href="/index.php?c=index&a=train_invite"><img src="images/tenmax/invite_friend.png"></a>
+  </div>
+  <div><a href="{:url('User/my_bonus_center')}"><img src="images/tenmax/management.png"></a></div>
+
+  <div><a href="{:url('Account/center_data')}"><img src="images/tenmax/records_center.png"></a></div>
+  <!--<div><a href="{:url('Account/center_data')}"><img src="images/tenmax/records_center.png"></a></div>-->
+
+
+ <!-- <div class="tuan_item">
+    <a href="{:url('User/my_bonus_center')}"><div><img src="images/like/vip_item1.png"><span>{$lang.my_profit}</span></div></a>
+    <a href="{:url('User/bonus_withdraw')}"><div><img src="images/like/vip_item2.png"><span>{$lang.profit_withdraw}</span></div></a>
+    <a href="/index.php?m=default&c=user&a=affiliate_partner_new" style="position:relative;">
+      <span class="my_partner">{$children_users}</span>
+      <div ><img src="images/like/vip_item3.png"><span>{$lang.user_invite_partner_new}</span></div>
+    </a>
+    <a href="{:url('Affiliate/groupcenter')}" style="position:relative;">
+    <span class="my_partner">{$totalpeiduika}</span>
+    <div><img src="images/like/vip_item4.png"><span>{$lang.group_center}</span></div>
+    </a>
+  </div>
+  -->
+</div>
+
+<div class="li-sales-vip s-flex">
+<a class="s-flex" style="width:100%;" href="/index.php?m=default&c=user&a=affiliate_partner_new">
+ <p class="sales_my"><span></span>{$lang.my_chilldusers}&nbsp;&nbsp; &nbsp;<d>{$children_users}</d></p>
+ <div class="li_my_img">
+  <p class="li_myfriend_p">
+      <!--{foreach from=$children_userslist item=usersitem}-->
+    <span><img src="{$usersitem.user_avatar|default:/themes/yutui/images/idx_user.png}"></span>
+
+  <!--{/foreach}-->
+  </p>  
+    <p style="width:18%;margin: auto;"><span style="width:2.2rem;"><img src="themes/yutui/images/gt_big.png" alt=""></span></p> 
+ </div>
+</a>   
+</div>
+<!--迎新-->
+
+{if ($resource eq 1) and ($user_info.user_rank>0) }
+<div class="li-sales-vip s-flex" style="margin-top: 1.4rem;">
+  <a class="s-flex" style="width:100%;" href="{:url('account/pair_ornot')}">
+   <div class="sales_my" style="width:100%">
+      <span></span>
+      <p class="">
+        <d style="font-weight:bold;">活动倒计时</d>
+        <d  class="joind f-14 p-padding_s">90</d><d style="font-size:1.3rem;">&nbsp;天</d>
+        <d class="joinh f-14 p-padding_s">00</d>&nbsp;:
+        <d class="joinm f-14 p-padding_s">00</d>&nbsp;:
+        <d class="joins f-14 p-padding_s">00</d>
+        
+      </p>
+  </div>
+   <div class="li_my_img" style="width:auto;">
+    <p class="li_myfriend_p">
+       
+    </p>  
+      
+   </div>
+  </a> 
+
+</div>
+{if $lefttime}
+<div style="background:#fff;">
+  <a href="{:url('account/pair_ornot')}">
+    <p style="padding-bottom:1rem;"><img src="http://img02.tenfutenmax.com.cn/public/invite_good_friends.png"></p>
+  </a>
+</div> 
+{else}
+<div style="background:#fff;">
+  <a href="{:url('account/pair_ornot')}">
+    <p style="padding-bottom:1rem;"><img src="http://img02.tenfutenmax.com.cn/public/invite_good_friends1.jpg"></p>
+  </a>
+</div>
+{/if}
+
+ 
+<!--经销商服务-->
+
+{if ($resource eq 1) and ($user_info.user_rank>0) }
+
+
+<div class="li-sales-vip" style="margin-top: 1.4rem;">
+
+
+  <p class="sales_my"><span></span>经销商服务</p>
+  
+  <div class="s-flex s-justify-a">
+
+    <a style="width: 25%;" href="http://vip.vmi31.com/login"><div><img src="images/tenmax/register_.png"><br>
+    <span>注册会员</span></div></a>
+    {if $user_info.user_rank eq 4}
+    <a class="up_hide" style="width: 25%;" href="javascript:;"><div><img src="images/tenmax/up_shop.png"><br><span>升级专区</span></div></a>
+    {else}
+  
+       <a style="width: 25%;" href="/index.php?m=default&c=Affiliate&a=upgrade"><div><img src="images/tenmax/up_shop.png"><br><span>升级专区</span></div></a>
+    {/if}
+    <a style="width: 25%;" href="/index.php?m=default&c=Affiliate&a=initiation"><div><img src="images/tenmax/add_shop.png"><br><span>
+    重购专区</span></div></a>
+    <a style="width: 25%;" href="/index.php?m=default&c=Affiliate&a=reorder"><div><img src="images/tenmax/shop_baobao.png"><br><span>重消专区</span></div></a>
+    
+  </div>
+  <div class="s-flex">
+    <a style="width: 25%;" href="{:url('account/pair_ornot')}"><div><img src="images/tenmax/yingxin.png"><br><span>
+    迎新奖励</span></div></a>
+  </div>
+
+</div>
+
+{/if}
+
+
+
+{/if}
+
+<!--营销管理-->
+<div class="li-sales-vip" style="margin-top: 1.4rem;">
+
+  <p class="sales_my"><span></span>{$lang.marketing_manage}</p>
+  
+  <div class="s-flex s-justify-b" style="flex-wrap:wrap;">
+    <a style="width:25%" href="/index.php?m=default&c=account&a=bill_accounts">
+      <div><img src="images/like/vip_12.png"><br>销售订单</div>
+    </a>
+    <a  style="width:25%" href="{if $user_info['user_vip']}{:url('user/business_card')}{else}javascript:alert('{$lang.error_nochuangke}');{/if}">
+    <div><img src="images/like/vip_2.png"><br>{$lang.user_homepage}</div>
+    </a>
+    <a  style="width:25%" href="/index.php?m=default&c=article&a=index"><div><img src="images/like/vip_10.png"><br>{$lang.my_article}</div></a>    
+    <a  style="width:25%" href="/index.php?m=default&c=user&a=postersshow&u={$u}"><div><img src="images/like/vip_3.png"><br>{$lang.postersshow}</div></a>
+    <a  style="width:25%" href="javascript:;" class="haibao_show"><div><img src="images/like/vip_erweima.png"><br>我的二维码</div></a>
+  </div>
+
+</div>
+
+
+<!--vip服务-->
+<div class='t-box-small' id="Not" style="display:none;">
+  <div class="t_box_show">
+    <p>功能开发中，敬请期待</p>
+  </div>
+</div>
+<!--升级订单服务-->
+<div class='t-box-small'id="Not1" style="display:none;">
+  <div class="t_box_show" style="width:50%">
+    <p>您已达到最高等级,无法升级</p>
+  </div>
+</div>
+<div class="li-sales-vip1">
+  
+  <div class="s-flex s-justify-a s-justify-a1">
+    <!--<a class="my_shop" style="width: 25%;" href="jacascript:;"><div><img src="images/like/vip_11.png"><br>{$lang.my_shop}</div></a>-->
+    <!--<a href="javascript:;" class="analyzeOpen" style="position: relative;width: 25%;"><div><img src="images/like/vip_6.png"><br>{$lang.customer_analyse}</div>
+    </a>-->
+    
+    <!--<a style="width: 25%;" href="/index.php?m=default&c=user&a=service"><div><img src="images/like/vip_4.png"><br>{$lang.consult_supervisor}</div></a>-->
+    
+  </div>
+    
+</div>
+<div style="width: 100%; height: 2rem; overflow: hidden;"></div>
+ 
+<!--普通用户弹窗-->
+  <div class="body_pop_up" id="address_div" style="display:none;">
+    <div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+      <div class="iknow" style="border-radius:0.5rem;">
+        <h2 style="padding: 2rem 0;text-align: center;">距离升级分数</h2>
+        <div class="earnings_input" style="padding: 0rem 2rem 4rem 2rem;">
+          <p style="text-align: center;font-size: 2.5rem;"><span>{$user_info.level_xp}</span>/<span>{$resultchengzhangzhi.aim}</span></p>
+            <div style="padding-top: 2rem;">
+            
+            {if $user_info.user_vip==0}
+              <p class="p_sell_style">累计零售消费<span class="">{$user_info.level_xp}</span>分</p>
+              {/if}
+              {if $user_info.user_vip==1}
+              <p class="p_sell_style">累计套餐销售&nbsp;<span class="">{$user_info.xp_detail[0]}</span>分</p>
+              <p class="p_sell_style">累计零售销售&nbsp;<span>{$user_info.xp_detail[1]}</span>分</p>
+              {/if}
+              {if $user_info.user_vip==2}
+              <p class="p_sell_style">辅导服务伙伴&nbsp;<span class="">{$user_info.xp_detail[0]}/50</span>分</p>
+              <p class="p_sell_style">辅导销售获益VIP&nbsp;<span>{$user_info.xp_detail[1]}/250</span>分</p>
+              {/if}
+              {if $user_info.user_vip==3}
+              <p class="p_sell_style">辅导服务合伙人&nbsp;<span class="">{$user_info.xp_detail}</span>分</p>
+              {/if}
+              {if $user_info.user_vip==4}
+              <p class="p_sell_style">您已达商城合伙人&nbsp;</p>
+              {/if}
+            </div>
+        </div>
+        <div class="close_know" style="padding:1.5rem 0;background: #2596f4;color: #fff;">确定</div>
+      </div>
+    </div>    
+  </div>
+
+
+
+
+</div>
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+
+
+
+<!--海报-->
+<div class='t-box s-flex s-justify-c' id='qrimg' style="display: none;"><strong class="qrloading"><div><img src="/themes/yutui/images/like/loading.gif"><br>图片努力读取中...</div></strong><div class='l-train-yes'><p style="border:0px solid #ffffff;" id='qrimgPic'><img style="display: block;"></p><p class="l-like-wx" style="display: none;"><img src="themes/yutui/images/like/share_bottom.png"></p><div class='l-train-close' style="display: none;position:absolute;top:-3%;right:7%;"><em>X</em></div></div></div>
+<script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v={$v}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+//海报显示
+$(".haibao_show").click(function(){
+  $("#qrimg").show();
+ 
+  $(".l-like-close").show();
+})
+$(".l-like-close").click(function(){
+  $("#qrimg").hide();
+})
+
+
+
+
+
+ //90天倒计时
+ var setTimer = null;
+ var chazhi = 0;
+ //差值计算
+ //例子(模拟)
+ chazhi = {$lefttime};
+ //真实时间(注意月份需减掉1，否则时间会计算错误)
+ //chazhi = (new Date(year,month-1,day,hour,minute,second)) - (new Date()); //计算剩余的毫秒数
+ //chazhi = (new Date(2018,8-1,6,6,6,6)) - (new Date());
+  
+ //执行函数部分
+countFunc(chazhi);
+setTimer = setInterval(function() {
+  chazhi = chazhi - 1000;
+  countFunc(chazhi);
+}, 1000);
+function countFunc(leftTime) {
+   if(leftTime >= 0) {
+    var days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数 
+    var hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时 
+    var minutes = parseInt(leftTime / 1000 / 60 % 60, 10); //计算剩余的分钟 
+    var seconds = parseInt(leftTime / 1000 % 60, 10); //计算剩余的秒数 
+    days = checkTime(days);
+    hours = checkTime(hours);
+    minutes = checkTime(minutes);
+    seconds = checkTime(seconds);
+    $(".joind").html(days);
+    $(".joinh").html(hours);
+    $(".joinm").html(minutes);
+    $(".joins").html(seconds);
+   } else {
+    clearInterval(setTimer);
+    $(".joind").html("00");
+    $(".joinh").html("00");
+    $(".joinm").html("00");
+    $(".joins").html("00");
+   }
+ }
+function checkTime(i) { //将0-9的数字前面加上0，例1变为01 
+   if(i < 10) {
+    i = "0" + i;
+   }
+   return i;
+}
+
+  //var a_zhi={$resultchengzhangzhi.points};
+
+  var a_zhi={$user_info.level_xp};
+  {if $resultchengzhangzhi.aim} 
+  var b_zhi={$resultchengzhangzhi.aim};
+  {else}
+  var b_zhi=0; 
+  {/if}
+  var c_zhi="";
+  c_zhi=(a_zhi/b_zhi).toFixed(2);
+  
+  $(".progress_span").css("width",`${c_zhi*100}%`);
+  if($(".progress_span").width()==0){
+    $(".progress_span").css("display","none")
+  }
+
+ 
+  if($(".li_myfriend_p").children().length==2){
+    $(".li_myfriend_p span:first-child").css("left","10px");
+  }else if($(".li_myfriend_p").children().length==3){
+    $(".li_myfriend_p span:first-child").css("left","20px");
+    $(".li_myfriend_p span:nth-child(2)").css("left","10px");
+  }else if($(".li_myfriend_p").children().length==4){
+    $(".li_myfriend_p span:first-child").css("left","30px");
+    $(".li_myfriend_p span:nth-child(2)").css("left","20px");
+    $(".li_myfriend_p span:nth-child(3)").css("left","10px");
+  } else if($(".li_myfriend_p").children().length==5){
+    $(".li_myfriend_p span:first-child").css("left","40px");
+    $(".li_myfriend_p span:nth-child(2)").css("left","30px");
+    $(".li_myfriend_p span:nth-child(3)").css("left","20px");
+    $(".li_myfriend_p span:nth-child(4)").css("left","10px");
+  }
+
+  if($(".progress_bar_b").width()==0){
+    $(".progress_bar_b").css({border:"0"})
+  }else{
+    $(".progress_bar_b").css({border:"1.5px solid #8E754B"})
+  }
+  //超出点点点
+  $(".product_names").each(function() {
+var maxwidth =24;//显示多少字符
+  if ($(this).text().length > maxwidth) {
+  $(this).text($(this).text().substring(0, maxwidth));
+  $(this).html($(this).html() + '...');
+}
+});
+})
+
+$(window).load(function(){
+  
+
+
+  //提现弹窗普通用户
+    $("#nani").click(function(){
+   
+      $("#address_div").show();
+    })
+
+
+
+
+
+  //提现关闭
+  $(".close_know").click(function(){
+    $("#address_div").hide();
+  })
+
+  var link = '{$share_link}';
+
+  console.log(link)
+  if(link=="")link=location.href;
+  Mqrcode.makeCode({
+    //设定返回函数
+    callback:function(img){
+        $("#qrimgPic").find("img")[0].src=img;
+        $(".l-like-wx").show();
+        $(".l-train-close").show()
+      },
+    //设定背景图片   可为空
+    bgImg:"/themes/yutui/images/success123.jpg",
+    //有背景图片时二维码的定位
+    position:{l:238,t:894},
+    width:276,  //宽度
+    height:276, //高度
+    link:link,  //二维码链接
+    pluginText:[
+      {text:"{$info.nick_name|default:$info.user_name}",l:320,t:780,font:"40px 微软雅黑",style:"#ffffff"},//文字1
+      //{text:"向您推荐",l:430,t:274,font:"35px 微软雅黑",style:"#ffffff"},//文字1
+    ],
+    pluginImg:[
+      
+      /**
+      * src 图片链接（只接受当前域名下图片）
+      * l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+      * circle 是否圆形裁切
+      */
+      {src:"{$info.user_avatar|default:/themes/yutui/images/like/like.png}",l:330,t:600,w:115,h:115,circle:true},//头像
+      {src:"/themes/yutui/images/like/like.png",l:346,t:1006,w:60,h:60},    
+    ],
+  });
+  console.log(Mqrcode )
+})
+$(".poster").click(function(){
+  $("#qrimg").show();
+});
+$(".l-train-close").click(function(){
+  $("#qrimg").hide();
+});
+//敬请期待弹窗
+$(".analyzeOpen").click(function(){
+  $("#Not").show().delay(1000).hide(1);
+});
+//无法升级
+$(".up_hide").click(function(){
+  $("#Not1").show().delay(1000).hide(1);
+  //href="/index.php?m=default&c=Affiliate&a=upgrade" 升级选项卡链接
+});
+//我的小店敬请期待弹窗
+$(".my_shop").click(function(){
+  $("#Not").show().delay(1000).hide(1);
+});
+</script>
+<!--电话复制到剪贴板-->
+<script src="/data/assets/js/clipboard.min.js"></script> 
+<script type="text/javascript">
+var phonetext= $("#phone").html();
+var clipboard = new ClipboardJS('#phoneClick', {
+    text: function(trigger) {
+        return phonetext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("编号复制成功，快分享给小伙伴吧！");
+});
+//控制字数
+$(".textNumber").each(function(){
+       var len=$(this).text().length;   //当前HTML对象text的长度
+       if(len>20){
+           var str="";
+           str=$(this).text().substring(0,20)+"...";  //使用字符串截取，获取前30个字符，多余的字符使用“......”代替
+           $(this).html(str);                   //将替换的值赋值给当前对象
+       }
+});
+
+</script>
+</body>
+</html>

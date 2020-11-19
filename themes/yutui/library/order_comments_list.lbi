@@ -1,0 +1,218 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="/themes/yutui/statics/layui/layui.js"></script>
+<div class="bg-white ect-padding-tb"> 
+<!--vip服务-->
+<div class='t-box-small' id="Not3" style="display:none;">
+  <div class="t_box_show">
+    <p>图片上传中...请耐心等待</p>
+  </div>
+</div>
+  <!--商品评论-->
+  <section class="user-tab ect-border-bottom0">
+    <div id="is-nav-tabs" style="height:3.15em; display:none;"></div>
+    
+    <!--评论表单 start-->
+    <div class="submit-comments">
+      <form action="javascript:;" onsubmit="submitComment(this)" method="post" name="commentForm" id="commentForm">
+        <div>
+          <div class="s-flex s-autonym s-img7" style="padding: 0.5rem 3%;">
+            <div><img src="{$goods_info.goods_thumb}"></div>
+            <div>
+              <p>{$goods_info.goods_name}</p>
+              <p class="col-hui">{$lang.user_money_nt}{$goods_info.shop_price}元</p>
+            </div>
+          </div>
+          <ul class="ect-padding-lr comment-radio ect-radio ect-margin-tb mb-1">
+            <li class="pr-1">
+              <input name="comment_rank" type="radio" value="5" checked="checked" id="comment_rank5" />
+              <label for="comment_rank5"><i></i>{$lang.five_stars}</label>
+            </li>
+            <li class="pr-1">
+              <input name="comment_rank" type="radio" value="4" id="comment_rank4"/>
+              <label for="comment_rank4"><i></i>{$lang.four_stars}</label>
+            </li>
+            <li class="pr-1">
+              <input name="comment_rank" type="radio" value="3" id="comment_rank3"/>
+              <label for="comment_rank3"><i></i>{$lang.three_stars}</label>
+            </li>
+            <li class="pr-1">
+              <input name="comment_rank" type="radio" value="2" id="comment_rank2"/>
+              <label for="comment_rank2"><i></i>{$lang.two_stars}</label>
+            </li>
+            <li class="pr-1">
+              <input name="comment_rank" type="radio" value="1" id="comment_rank1"/>
+              <label for="comment_rank1"><i></i>{$lang.one_stars}</label>
+            </li>
+          </ul>
+        <!--   <p class="ect-padding-tb">
+            <input placeholder="E-mail"  type="text" name="email" id="email"  maxlength="100" value="{$smarty.session.email|escape}" >
+          </p> -->
+          <p class="w-input">
+            <textarea name="content" class="bg-hui" placeholder="{$lang.comment_content}"></textarea>
+            <input type="hidden" name="cmt_type" value="{$comment_type}" />
+            <input type="hidden" name="id" value="{$id}" />
+            <input type="hidden" name="order_id" value="{$order_id}" />
+          </p>
+          <!-- 判断是否启用验证码{if $enabled_captcha_comments} -->
+          <p class="ect-padding-tb code"><span>
+            <input placeholder="{$lang.comment_captcha}" type="text" name="captcha"/>
+            </span> <img class="pull-right" src="{:url('public/captcha', array('rand'=>$this->_var['rand']))}" alt="captcha" onClick="this.src='{:url('public/captcha')}&t='+Math.random()"  /> </p>
+          <!-- {/if} -->
+          <!--2018-04-16添加上传图片-->
+          <div class="Zbox bg-white">
+            <div class="col-hui c-comment-submit"><button type="button" class="layui-btn" id="UploadButton"></button></div>
+            <div class="img-5"  id="upload_view"></div>
+            <div class="img_gif_wait" style="width: 100%;padding: 2rem 11%; display:none;"><img src="images/loader.gif"></div>
+          </div>
+          <!--end-->
+          <p class="ect-padding-lr ptb-1">
+            <input type="submit" class="btn btn-info ect-btn-info" style="background:#ff5400;" value="{$lang.submit_comment}"/>
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+  <!--用户评论 END--> 
+</div>
+<script type="text/javascript">
+ //判断最多只能添加三张图片
+    $(".layui-btn").click(function(){
+      var numberimg =($("#upload_view").find('img').length)
+      
+  
+     
+      
+      if(numberimg > 2){
+        $(".layui-upload-file").attr('type','text'); 
+        //alert("親，只能上傳3張圖片哦")
+      }else{
+        $(".layui-upload-file").attr('type','file');
+      }
+    }); 
+//<![CDATA[
+{foreach from=$lang.cmt_lang item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+{literal}
+/**
+ * 提交评论信息
+*/
+function submitComment(frm)
+{
+  var cmt = new Object;
+
+  // cmt.username        = frm.elements['username'].value;
+  //cmt.email           = frm.elements['email'].value;
+  cmt.content         = frm.elements['content'].value;
+  cmt.type            = frm.elements['cmt_type'].value;
+  cmt.id              = frm.elements['id'].value;
+  cmt.order_id        = frm.elements['order_id'].value;
+  cmt.enabled_captcha = frm.elements['enabled_captcha'] ? frm.elements['enabled_captcha'].value : '0';
+  cmt.captcha         = frm.elements['captcha'] ? frm.elements['captcha'].value : '';
+  cmt.rank            = 0; 
+  cmt.pictures		  = "";
+  
+  var imgb = $("#upload_view").find("img");
+  
+  if(imgb.length>0){
+  	var pics = new Array();
+  	$.each(imgb,function(index,ob){
+  		pics.push($(ob).attr("data"));
+  	});
+  	cmt.pictures = pics.join(";");
+  }	
+
+  for (i = 0; i < frm.elements['comment_rank'].length; i++)
+  {
+    if (frm.elements['comment_rank'][i].checked)
+    {
+       cmt.rank = frm.elements['comment_rank'][i].value;
+     }
+  }
+/*
+  if (cmt.username.length == 0)
+  {
+     alert(cmt_empty_username);
+     return false;
+  } */
+
+ 
+   if (cmt.content.length == 0)
+   {
+      alert(cmt_empty_content);
+      return false;
+   }
+
+   if (cmt.enabled_captcha > 0 && cmt.captcha.length == 0 )
+   {
+      alert(captcha_not_null);
+      return false;
+   }
+	
+   $.post(
+     '{:url('comment/index')}', 
+     {'cmt':$.toJSON(cmt)},
+     function(data){
+   	commentResponse(data);
+   }, 'json');
+   //Ajax.call('{:url('comment/index')}', 'cmt=' + cmt.toJSONString(), commentResponse, 'POST', 'JSON');
+   return false;
+}
+
+/**
+ * 处理提交评论的反馈信息
+*/
+  function commentResponse(result)
+  {
+    var cart_url = 'index.php?c=user&a=order_comment';
+    if (result.message)
+    {
+      alert(result.message);
+	  location.href = cart_url;
+    }
+
+    if (result.error == 0)
+    {
+      var layer = document.getElementById('ECS_COMMENT');
+
+      if (layer)
+      {
+        layer.innerHTML = result.content;
+      }
+    }
+  }
+{/literal}
+//]]>
+</script>
+<!--上传图片-->
+<script type="text/javascript" src="/themes/yutui/js/qiniu-upload.js"></script>
+<script type="text/javascript">
+$(function(){
+
+	//上传方法1  封装好input框
+	$("#UploadButton").click(function(){
+		if($("#upload_view").find("img").length>2){
+			alert("{$lang.comment_picture_limit}");
+			return false;
+		}
+
+		QiniuManager.QiniuUpload({multiple:false,number:1,callback:function(img){
+      $("#Not3").show().delay(1000).hide(1);
+			$("#upload_view").append("<div class='c-cardadd-pic c-cardadd-ok'><p><img class='view_picture' data='"+img+"' src='"+img+"?imageView2/0/w/115/h/75'></p><p class='c-cardadd-close'>删除图片</p></div>");
+     
+      $(".c-cardadd-pic").click(function(){
+
+                  $(this).remove();
+                   })
+		}
+
+    });
+		
+	});
+	
+	$("#upload_view").on("click",".view_picture",function(){
+		$(this).remove();
+	});
+	
+});
+</script>

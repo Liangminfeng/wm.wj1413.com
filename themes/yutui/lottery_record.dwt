@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>{$page_title}</title>
+	<link rel="stylesheet" href="/themes/yutui/css/style.css">
+	<link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+	<script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+</head>
+<body class="con" style="background-color: #ffb586">
+{if $logList}
+<div class="s-box">
+  <h2 class="z-lottery-title">/ 中獎紀錄 /</h2>
+  <div class="box z-lottery-con">
+  	
+    <ul class="s-flex s-justify-b title">
+      <li>獎品名稱</li>
+      <li>中獎日期</li>
+      <li>狀態</li>
+    </ul>
+    {foreach from=$logList item = log}
+    <ul class="s-flex s-justify-b conten">
+      <li><strong>{$log.prize_name}</strong></li>
+      <li>{dateformat $log.create_time,"Y-m-d"}</li>
+      <li><span>{if $log.status==2}已領取{else}待發貨{/if}</span></li>
+    </ul>
+    {/foreach}
+    <!-- #BeginLibraryItem "/library/page.lbi" --><!-- #EndLibraryItem --> 
+  </div>
+    
+</div>
+  {else}
+  <div class="box text-center ptb-3">
+    <p><img src="images/new/turntable_noC.png" style="width:14rem; padding-top: 3rem;"></p>
+  </div>
+  {/if}
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->	
+<script type="text/javascript">
+//解决记录太少时出现高度不够视觉问题
+var lottery_height = $(window).height()
+var lottery_con=lottery_height-200
+if(lottery_height<500){
+  $(".z-lottery-con").height(lottery_con);
+}
+</script>
+</body>
+</html>

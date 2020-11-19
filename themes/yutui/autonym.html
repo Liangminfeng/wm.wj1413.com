@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>autonym</title>
+	<link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">	
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/js/leftTime.min.js"></script>
+</head>
+<body class="con">
+<!--头部-->
+<header class="dis-box header-menu Zect-bg color-whie">
+  <a class="" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou"></i></a>
+  <h3 class="box-flex">實名認證</h3>
+  <div class="header-kong">&nbsp;</div>
+</header>
+<!--主体内容-->
+<div class="s-flex s-autonym l-show-bottom">
+  <div>真實姓名</div>
+  <div><input type="text" placeholder="真實姓名"></div>
+</div>
+<div class="s-flex s-autonym l-show-bottom">
+  <div>身份證號</div>
+  <div><input type="text" placeholder="身份證號"></div>
+</div>
+<div class="s-flex s-autonym l-show-bottom">
+  <div>銀行</div>
+  <div><input type="text" placeholder="台灣銀行xx分行"></div>
+</div>
+<div class="s-flex s-autonym l-show-bottom">
+  <div>銀行卡號</div>
+  <div><input type="text" placeholder="將用於提現賬戶"></div>
+</div>
+<div class="s-flex s-autonym l-show-bottom">
+  <div>手機號碼</div>
+  <div><input type="text" placeholder="將用於提現驗證"></div>
+</div>
+<div class="s-flex s-autonym l-show-bottom">
+  <div>簡訊驗證碼</div>
+  <div class="s-autonym-number"><input type="text" placeholder="簡訊驗證碼"> <button type="button" class="ect-bg" id="dateBtn1">獲取驗證碼</button></div>
+</div>
+<div class="s-flex s-autonym s-autonym-submit">
+  <a href="#" class="ect-bg">修改認證信息</a>
+</div>
+<script type="text/javascript">
+	$(function(){
+	    //30秒倒计时
+	    $("#dateBtn1").on("click",function(){
+	    	var _this=$(this);
+	    	if(!$(this).hasClass("on")){
+	    		$.leftTime(30,function(d){
+	    		if(d.status){
+	    			_this.addClass("on");
+	    			_this.html((d.s=="00"?"30":d.s)+"秒後重新獲取");
+	    			}else{
+	    			_this.removeClass("on");
+	    			_this.html("獲取驗證碼");
+	    		}
+	    	});
+	    }
+	});
+  });
+</script>
+</body>
+</html>

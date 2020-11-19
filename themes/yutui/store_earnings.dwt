@@ -1,0 +1,210 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="/themes/yutui/statics/js/swiper.min.js"></script>
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<body>
+<div class="con m-b7">
+  <!--头部-->
+  <div class="earnings_top">
+    <div class="earnings_yuan">
+      <p>店铺收益（元）</p>
+      <p >{$money}</p>
+    </div>
+  </div>
+
+<!--明细--> 
+{if $total>0} 
+  <div class="earnings_body"style="padding-bottom: 34%;box-sizing:border-box;">
+  <!--明细列表-->
+      
+  </div>
+{else}
+<!--没有订单-->
+  <div class="LsTabMc" style="padding-bottom: 10rem;background: #fff;">
+    <div class="Zbox u-bg-text"><p><img src="images/new/intnIco6.png"></p><p class="col-hui" style="font-size:18px;">还没有相关的收益记录</p></div>
+  </div>
+  {/if}
+</div>
+<div class="s-height" style="display: none;"></div>
+<div class="s-height" style="display: none;"></div>
+<div class="s-height" style="display: none;"></div>
+<div class="s-flex s-space-3 c-card-submit no_yzm_span"><a href="javascript:;" class="Cect-bg" style="width: 80%;">提取至零钱</a></div>
+<!--提现弹窗-->
+  <div class="body_pop_up" id="address_div" style="display:none;">
+    <div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+      <div class="iknow" style="border-radius:0.5rem;">
+        <p style="text-align: -webkit-right;"><span class="close_span" style="font-size: 2rem;padding-right:1rem;">x</span></p>
+        <h2 style="text-align: center;">提取收益</h2>
+        <div class="earnings_input">
+          <p><input class="ear_input" id="ear_num" placeholder="请输入提取金额" type="number" name="" value="" /></p>
+          <p style="color: #333;padding-top: 0.5rem;">可提取金额<span class="earnings_money">{$money}</span>元</p>
+          <p style="color: #333;padding-top: 0.5rem;">本月已累计提取<span id="yijing_num">{$totalwithdraw}</span>元</p> 
+          <p  style="color: #333;padding-top: 0.5rem;">预计纳个税<span id="nashui">0</span>元</p> 
+        </div>
+        <div class="close_know" style="padding:1.5rem 0;font-size: 1.8rem;background: #2596f4;color: #fff;">确定</div>
+      </div>
+    </div>    
+  </div>
+
+  <div class="s-flex s-space-3 c-card-submit no_yzm_span"><a href="javascript:;"  class="Cect-bg" style="width: 80%;">提取至钱包</a></div>
+<script type="text/javascript" src="__TPL__/statics/layui/layui.js"></script>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+  <script>
+  $(document).ready(function(){
+  //关闭提现弹窗
+  $(".close_span").click(function(){
+    $("#address_div").hide();
+  })
+  $("body").addClass("bg-white");
+  $(".s-height").hide();
+    var page = 1;
+  
+   layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '.earnings_body' //指定列表容器
+            , isAuto:true,
+            scrollElem: '.earnings_body',done: function (page,next) {
+               var url = "{:url('Account/ajax_store_earnings')}";
+             //传递的参数
+                var data = {
+                    page:page
+                }
+                var lis=[];
+         
+                $.post(url, data, function (params) {
+                console.log(params);
+                if(params.count>0){
+                    $.each(params.data,function(i,item){
+                    console.log(parseInt(item.amount))
+                    if(parseInt(item.amount)<0){
+                      lis.push(`<div class="earnings_show s-flex s-justify-b"><p class="slides_pro_a"><span class="earnings">${item.change_desc}</span><span class="earnings_time">${item.time}</span></p><p style="color:#333">${item.amount}</p></div>`)
+                      
+                      }else{
+                       lis.push(`<div class="earnings_show s-flex s-justify-b"><p class="slides_pro_a"><span class="earnings">${item.change_desc}</span><span class="earnings_time">${item.time}</span></p><p >+${item.amount}</p></div>`)
+                      }
+                      
+                      
+                  })
+
+                   
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    
+                    
+                      
+                    if(page==1&&params.count<10)
+                    $(".layui-flow-more").hide();
+                    }else{
+                      lis.push(`<div class="LsTabMc" style="width: 100%;padding:0;"><div class="Zbox u-bg-text"><p style="width:56%;margin:auto;"><img src="images/new/intnIco6.png"></p><p class="col-hui" style="font-size:18px;">还没有相关收益记录</p></div></div>`);
+                    $(".layui-flow-more").hide();
+                    $("body").addClass("bg-white");
+                    }
+                    next(lis.join(''), page < params.totalpage);
+                },'json');
+            }
+        });
+})
+
+  //提现弹窗
+    $(".no_yzm_span").click(function(){
+      {if $user_info.autonym eq 3}
+
+      $("#address_div").show();
+      {else}
+        alert("请先实名认证");
+       window.location.replace("{$locateurl}");
+
+      {/if}
+
+      
+  })
+  //判断是否要交税
+  $("#ear_num").keyup(function () {
+    var amount=$("#ear_num").val();
+    var yijing_num=$("#yijing_num").html();
+    var nashui_num=$("#nashui").html();
+ 
+    var inamout = parseInt(amount)+parseInt(yijing_num);
+  
+    $.ajax({
+      type: "post",
+      url: "{:url('Account/ajax_getIncomeTax')}",
+      data: {amount:inamout,withdrawmoney:amount},
+      dataType: "json",
+      async: false,
+      success: function(result){
+      console.log(result)
+          if(result.status==200 ){
+              $("#nashui").html(result.data);
+          }
+      }
+    });
+  });
+
+
+
+
+  //提现关闭
+$(".close_know").click(function(){
+  
+  
+
+    var type=3;
+    var money=$(".ear_input").val();
+    var month = $("#yijing_num").html();
+
+
+    if(parseInt(money)>parseInt($(".earnings_money").html())){
+    
+  
+      alert("提取金额不足");
+      return false;
+    }
+    if(money<0){
+      alert("提取金额必须大于0");
+      return false;
+    }
+
+    if(!parseInt(money)){
+      alert("提取金额必须大于0");
+      return false;
+    }else{
+    
+      $.ajax({
+      type: "post",
+      url: "{:url('Account/withDrowMoney')}",
+      data: {type:type,amount:money,month:month},
+      dataType: "json",
+      async: false,
+      success: function(result){
+         
+         if(parseInt(result.result)){
+            alert("提取至零钱成功");
+            return true;
+         }else{
+            alert(result.msg);
+            return false;
+         }
+      }
+    },"json");
+
+      window.location.reload();
+      $("#address_div").hide();
+    } 
+
+    
+  })
+})  
+  </script>
+  
+</body>
+</html>

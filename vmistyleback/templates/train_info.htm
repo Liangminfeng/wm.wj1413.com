@@ -1,0 +1,114 @@
+<!-- $Id: train_info.htm 14361 2008-04-07 09:26:17Z zhuwenyuan $ -->
+{include file="pageheader.htm"}
+<script type="text/javascript" src="../data/assets/js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../data/assets/js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+{insert_scripts files="validator.js,../js/transport.js}
+<div class="main-div">
+<form method="post" action="train.php" name="theForm" enctype="multipart/form-data" onSubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">{$lang.label_name}</td>
+    <td><input name="name" type="text" id="name" value="{$train.name}" size="40" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_start_time}</td>
+    <td><input name="start_time" type="text" id="start_time" value="{$train.start_time}" readonly="readonly" />
+        <input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('start_time', '%Y-%m-%d %H:%M:%S', '24', false, 'selbtn1');" value="{$lang.btn_select}" class="button" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.label_end_time}</td>
+    <td><input name="end_time" type="text" id="end_time" value="{$train.end_time}" readonly="readonly" />
+        <input name="selbtn2" type="button" id="selbtn2" onclick="return showCalendar('end_time', '%Y-%m-%d %H:%M:%S', '24', false, 'selbtn2');" value="{$lang.btn_select}" class="button" /></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.train_total}</td>
+    <td><input name="total" type="text" id="total" value="{$train.total}"/>
+  </tr>
+  <tr>
+    <td class="label">{$lang.train_price}</td>
+    <td><input name="price" type="text" id="price" value="{$train.price}"/>
+  </tr>
+  <tr>
+    <td class="label">{$lang.summary}</td>
+    <td><input name="summary" type="text" id="summary" value="{$train.summary}"/>
+  </tr>
+  <tr>
+    <td class="label">{$lang.train_sort}</td>
+    <td><input name="sort" type="text" id="sort" value="{$train.sort}"/>
+  </tr>
+  <tr>
+    <td class="label">列车套餐:</td>
+    <td>
+  {foreach from=$goodsList item=goods}
+    	<input type='file' name='goods[{$goods.goods_id}]' size='35' /> {$goods.goods_name}-{$goods.goods_sn}<br/>
+  {foreachelse}
+    	暂无套餐
+   {/foreach}
+   </td>
+    </tr>
+  <tr>
+    <td class="label">{$lang.train_status}</td>
+    <td>
+    	<input type="radio" name="status" value="0" {if $train.status eq 0} checked="true" {/if} />{$lang.train_status_0}
+    	<input type="radio" name="status" value="1" {if $train.status eq 1} checked="true" {/if} />{$lang.train_status_1}
+    	<input type="radio" name="status" value="2" {if $train.status eq 2} checked="true" {/if} />{$lang.train_status_2}
+    	<input type="radio" name="status" value="3" {if $train.status eq 3} checked="true" {/if} />{$lang.train_status_3}
+    	<input type="radio" name="status" value="8" {if $train.status eq 8} checked="true" {/if} />{$lang.train_status_8}
+    	<input type="radio" name="status" value="9" {if $train.status eq 9} checked="true" {/if} />{$lang.train_status_9}
+    </td>
+  </tr>
+  <tr>
+  		<td class="label">{$lang.train_parent}</td>
+  		<td>
+  			<select name="parent_train_id">
+  				<option value="0"> ==== 未選擇  ==== </option>
+  				{html_options options=$parentTrainList selected=$train.parent_train_id}
+  			</select>
+  		</td>
+  </tr>
+  <tr>
+      <td  class="label">
+        <img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.upfile_img}</td>
+      <td>
+        <input type='file' name='img' size='35' />
+      </td>
+    </tr>
+  <tr>
+    <td class="label">商機</td>
+    <td>{$fckeditor1}
+  </tr>
+	<tr>
+    <td class="label">制度</td>
+    <td>{$fckeditor2}
+  </tr>
+  <tr>
+    <td class="label">細則</td>
+    <td>{$fckeditor3}
+  </tr>
+ <tr>
+    <td class="label">保留字段</td>
+    <td>{$fckeditor4}
+  </tr>
+
+  
+  <tr>
+    <td colspan="2" align="center">
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="train_id" value="{$train.train_id}" />
+      <input type="hidden" name="desc[train_desc_id]" value="{$desc.train_desc_id}" />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+
+{literal}
+<script language="JavaScript">
+<!--
+
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

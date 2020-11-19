@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>train_invite</title>
+	<link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+<!--头部-->
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<div>
+<p>cache-time:{$cacheTime}</p>
+<p>now-time:{:date('Y-m-d H:i:s')}</p>
+Welcome!
+
+<a href="https://social-plugins.line.me/lineit/share?url=http://test1.yoyo1.com.cn" target='_blank'>line分享链接</a>
+
+<br/><br/>
+</div>
+<div id="img"></div>
+<a class="uploadbutton">clickMeUpload1</a>
+<br/><br/>
+<input type='file' name="upload2" id="upload2"/>
+<a class="upload2">clickMeUpload2</a>
+ <a id="addnew" class="upload2">addnew</a>
+<script type="text/javascript" src="/themes/yutui/js/qiniu-upload.js?{:time()}"></script>
+<script type="text/javascript" src="/themes/yutui/js/myqrcode.js"></script>
+<script src="//cdn.bootcss.com/eruda/1.4.2/eruda.min.js"></script>
+<script>eruda.init();</script>
+
+<script type="text/javascript">
+var link = "{$share_link}";
+if(link=="")link=location.href;
+
+$(function(){
+	jQuery("#addnew").click(function(){
+		Mqrcode.makeCode({
+			//设定返回函数
+			callback:function(img){
+					$("body").append("<div id='mmmm'><img src='"+img+"'></div>")
+				},
+			width:280,	//宽度
+			height:280,	//高度
+			link:link,	//二维码链接
+		});
+		
+		
+	});
+	
+	jQuery(".uploadbutton").click(function(){
+		QiniuManager.QiniuUpload({multiple:true,number:2,callback:function(img){
+			$("#img").append("<img src='"+img+"'>");
+		}});
+		
+	});
+	
+	//上传方法2  自定义的file input  需传入file对象
+	jQuery(".upload2").click(function(){
+		var ob = jQuery("#upload2:file")[0].files[0];
+		QiniuManager.QiniuUploadProgress(ob,{callback:function(img){
+			$("#img").append("<img src='"+img+"'>");
+		}});
+		
+	});
+	
+});
+
+$(window).load(function(){
+
+	
+	Mqrcode.makeCode({
+		//设定返回函数
+		callback:function(img){
+				$("body").append("<div id='mmmm'><img src='"+img+"'></div>")
+			},
+		//设定背景图片   可为空
+		bgImg:"/themes/yutui/images/new/share_bg.jpg?v=1",
+		//有背景图片时二维码的定位
+		position:{l:235,t:650},
+		width:280,	//宽度
+		height:280,	//高度
+		link:link,	//二维码链接
+		pluginText:[
+			//{text:"aaaaaaaaaaaa",l:50,t:50,font:"40px Verdana",style:"blue"},//文字1
+			{l:80,t:380,w:200,h:30,bgcolor:"red"},//背景图
+			{text:"123456",l:80,t:400,w:40,h:20,font:"30px Verdana",style:"white",align:"center"},//文字2
+		],
+		pluginImg:[
+			
+			//
+			//* src 图片链接（只接受当前域名下图片）
+			//* l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+			//* circle 是否圆形裁切
+			//
+			{src:"http://img.yoyo1.com.cn/201841/15262894006823.png",l:72,t:58,w:150,h:150,circle:true},
+			{src:"/themes/yutui/images/new/share_logo.png?v=1",l:335,t:760,w:80,h:80},		
+		],
+		after:function(object){
+			var c = object.ctx;
+			var text = "3800.00";
+			c.font = "60px Verdana";
+			var t = 60;l = 50;h=70; s=40;
+			
+			var bw = Math.round(c.measureText(text).width)+20;
+			console.log(bw);
+			c.textAlign = "start";
+			c.fillStyle = "#ff0000";
+			c.globalAlpha=0.6;
+			c.fillRect(l,t-h,bw,h);
+			object.drawS(l+bw, t-h, l+bw+s, t-h, l+bw, t-h+h/3*2, "#ff0000", "fill",c);
+			object.drawS(l+bw, t, l+bw+s, t, l+bw, t-h+h/3*2, "#ff0000", "fill",c);
+			c.globalAlpha=1.0;
+			c.fillStyle = "#ffff00";
+			c.fillText(text,t,l);
+		}
+	});
+	
+})
+
+	
+</script>
+
+
+</body>
+</html>

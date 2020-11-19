@@ -1,0 +1,25 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<!--top-->
+   <div class="remaining">
+        <p>您的余额（元）</p>
+        <h2 style="padding-top:0.5rem;">{$money}</h2>
+    </div>
+    <div class="qian_mingxi">
+        <a href="{:url('user/surplusTransfer')}"><p><img src="images/yen_.png"></p>
+        <p style="font-size: 1.2rem;">转账</p></a>
+    </div>
+    <div class="qian_mingxi" style="border:0;">
+        <a href="/index.php?m=default&c=user&a=account_list"><p><img src="images/m_search.png"></p>
+        <p style="font-size: 1.2rem;">明细</p></a>
+    </div>
+
+
+
+        
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

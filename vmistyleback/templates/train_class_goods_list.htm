@@ -1,0 +1,44 @@
+<!-- $Id: train_list.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+
+
+<!-- start train list -->
+<div class="list-div" id="listDiv">
+{/if}
+<form action="train.php" method="post">
+  <table cellpadding="3" cellspacing="1" class="trainTable">
+    <tr>
+      <th>{$lang.train_class_goods}</th>
+      <th>{$lang.train_class_goods_sn}</th>
+      <th>{$lang.train_class_rebate}</th>
+    </tr>
+
+    {foreach from=$train_list item=train}
+    <tr>
+      <td>{$train.goods_name|escape:html}<input type="hidden" name="goods_id[]" value="{$train.goods_id}"></td>
+      <td align="right">{$train.goods_sn}</td>
+      <td align="right"><input name='rebate[]' value='{$train.rebate}' ></td>
+    </tr>
+    {foreachelse}
+    <tr><td class="no-records" colspan="13">{$lang.no_records}</td></tr>
+    {/foreach}
+  </table>
+ <input type="hidden" name="train_class_id" value="{$train_class_id}">
+  <table cellpadding="4" cellspacing="0">
+    <tr>
+      <td>
+      	<input type="submit" onclick="addClass();" name="submit" id="btnSubmit" value="{$lang.button_submit}" class="button"/>
+      	<input type="hidden" name="act" value="class_goods_save" />
+      </td>
+    </tr>
+  </table>
+ </form>
+{if $full_page}
+</div>
+
+
+{include file="pagefooter.htm"}
+{/if}

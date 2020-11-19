@@ -1,0 +1,32 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+
+	<div class="succeed_pay">
+		<div class="gou_img">
+			<img src="images/right_.png">
+		</div>
+		<div class="pay_explain">
+			<p class="p_suc">{$lang.withdraw_success}</p>
+		</div>
+		<div class="pay_count">
+			<p style="padding-bottom: 1rem;">{$money}<span style="font-size:3rem;">元</span></p>
+			<p class="p_to_suc">{$lang.waiting_admin_deal}</p>
+		</div>
+		<div class="wancheng">
+			<a href="/index.php?m=default&c=user&a=my_bonus_center">{$lang.complete_ok}</a>
+		</div>
+	</div>
+
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+ 
+<!-- #BeginLibraryItem "/library/new_search.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<script>
+	//body白底
+    $("body").addClass("bg-white");
+   
+  
+</script>
+</body>
+</html>

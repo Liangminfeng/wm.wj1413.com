@@ -1,0 +1,37 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<div class="box s-flex s-justify-c bg-white f-2 line-3 color-red">--- 模版选择 ---</div>
+<div class="box s-flex s-justify-a bg-white m-top08">
+  <div class="c-card-pick"></div>
+</div>
+<div class="c-card-pick-con">
+    <ul class="box s-flex s-wrap">
+     <!--{foreach name=templatelist from=$templatelist item=val}-->
+      <li {if $num<3}onclick="javascript:location.href='/index.php?m=default&c=user&a=add_business_card&u={$user_id}&template={$val.mainpage_id}'"{else}onclick="alert('您已经有三个模板了');"{/if}>
+        <p><img src="{$val.pic}"></p>
+        <div class="text">
+          <strong>{$val.title}</strong>
+          <div class="s-flex s-justify-b s-align-items" style="width: 94%; padding:0rem 3%;"><em>{$val.click_count}</em><span class="color-red">免费</span></div>
+        </div>
+      </li>
+      
+      <!--{/foreach}-->
+    </ul>
+</div>
+<!-- <div class="s-flex s-justify-b bg-white u-card-title"><strong>渠道专属</strong></div>
+<div class="c-card-pick-con m-top08">
+    <ul class="box s-flex s-wrap"> -->
+    <!--{foreach name=templatelistt from=$templatelistt item=val}-->
+<!--       <li onclick="javascript:location.href='/index.php?m=default&c=user&a=add_business_card&u={$user_id}&template={$val.mainpage_id}'">
+        <p><img src="{$val.pic}"></p>
+        <div class="text">
+          <strong>{$val.title}</strong>
+          <div class="s-flex s-justify-b s-align-items" style="width: 94%; padding:0rem 3%;"><em>{$val.click_count}</em><span class="color-red"></span></div>
+        </div>
+      </li> -->
+       <!--{/foreach}-->
+      
+<!--     </ul>
+</div> -->
+</body>
+</html>

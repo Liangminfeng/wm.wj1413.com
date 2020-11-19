@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>{$lang.user_invite_order}</title>
+    <link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/data/assets/swiper/css/swiper.min.css"/>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/yutui/css/photoswipe.css">
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+<!--金额-->
+<div class="s-flex l-sell-money">
+  <div class="s-flex tb-lr-center"><p><img src="images/new/sell_left.png"></p><p>{$lang.unsend_bonus}<br><em class="col-red f-2"><span class="money-number">{if $affiliate_money_yet_done}{$affiliate_money_yet_done}{else}0{/if}</span></em></p></div>
+  <div class="border-right"></div>
+  <div class="s-flex tb-lr-center"><p><img src="images/new/sell_right.png"></p><p>{$lang.total_bonus}<br><em class="col-red f-2"><span class="money-number2">{if $affiliate_money_done}{$affiliate_money_done}{else}0{/if}</span></em></p></div>
+</div>
+<div class="a-affiliate-text">{$lang.affiliate_text}</div>
+<!--主体内容-->
+<div>
+  <ul class="s-flex l-sell-title">
+    <li class="active" id="s1_h_1" onClick="LsTab('s1',1,3)">{$lang.user_all}</li>
+    <div class="border-right"></div>
+    <li id="s1_h_2" onClick="LsTab('s1',2,3)">{$lang.user_unfinished}</li>
+    <div class="border-right"></div>
+    <li id="s1_h_3" onClick="LsTab('s1',3,3)">{$lang.user_ stocks}</li>
+  </ul>
+</div>  
+<!--全部-->
+<div class="LsTabMc" id="s1_c_1">
+ <!--{foreach name=logdb from=$logdb item=orders}-->
+  <ul class="s-flex s-space tb-lr-center wallet-bt line-2">
+    <li>
+      <p>{$lang.buyer}:{if $orders.nick_name}{$orders.nick_name}{else}<span class="phoneNumber">{$orders.user_name}</span>{/if}</p>
+      <p class="col-hui f-02" style="margin-top: 0.3rem;">{$lang.affiliate_order_no}:{$orders.order_sn}</p>
+      <p class="col-hui f-02" style="margin-top: -0.3rem;">{$orders.add_time}</p>
+    </li>
+    <li class="text-right">
+      <p class="col-red">+{$orders.money|default:$orders.separate.money}</p>
+      <p>{if $orders.is_separate==1}{$lang.finish_affiliate}{else}{$lang.waiting_deal}{/if}</p>
+    </li>
+  </ul>
+<!--{/foreach}-->
+
+</div>
+<!--未完成-->
+<div class="LsTabMcN" id="s1_c_2">
+ <!--{foreach name=logdb1 from=$logdb1 item=orders1}-->
+  <ul class="s-flex s-space tb-lr-center wallet-bt line-2">
+    <li>
+      <p>买家:{if $orders1.nick_name}{$orders1.nick_name}{else}<span class="phoneNumber">{$orders.user_name}</span>{/if}</p>
+      
+      <p class="col-hui f-02" style="margin-top: 0.3rem;">{$lang.affiliate_order_no}:{$orders1.order_sn}</p>
+      <p class="col-hui f-02" style="margin-top: -0.3rem;">{$orders1.add_time}</p>
+    </li>
+    <li class="text-right">
+      <p class="col-red">+{$orders1.money|default:$orders1.separate.money}</p>
+      <p>{if $orders1.is_separate==1}{$lang.finish_affiliate}{else}{$lang.waiting_deal}{/if}</p>
+    </li>
+  </ul>
+<!--{/foreach}-->
+</div>
+<!--已完成-->
+<div class="LsTabMcN" id="s1_c_3">
+<!--{foreach name=logdb2 from=$logdb2 item=orders2}-->
+  <ul class="s-flex s-space tb-lr-center wallet-bt line-2">
+    <li>
+      <p>买家:{if $orders2.nick_name}{$orders2.nick_name}333{else}<span class="phoneNumber">{$orders2.user_name}123</span>{/if}</p>
+  
+      <p class="col-hui f-02" style="margin-top: 0.3rem;">{$lang.affiliate_order_no}:{$orders2.order_sn}</p>
+
+      <p class="col-hui f-02" style="margin-top: -0.3rem;">{$orders2.add_time}</p>
+    </li>
+    <li class="text-right">
+      <p class="col-red">+{$orders2.money|default:$orders2.separate.money}</p>
+      <p>{if $orders2.is_separate==1}{$lang.finish_affiliate}{else}{$lang.waiting_deal}{/if}</p>
+    </li>
+  </ul>
+<!--{/foreach}-->
+
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+  <script type="text/javascript">
+function LsTab(obj,thisNum,totalNum){ 
+            for(i=1;i<=totalNum;i++){ 
+                if(i==thisNum){ 
+                    document.getElementById(obj+'_h_'+i).className="active"; 
+                    document.getElementById(obj+'_c_'+i).className="LsTabMc"; 
+                }else{ 
+                    document.getElementById(obj+'_h_'+i).className=''; 
+                    document.getElementById(obj+'_c_'+i).className="LsTabMcN"; 
+                } 
+            } 
+} 
+//手机号码隐藏4位数
+$(".phoneNumber").each(function(){
+  phone =$(this).html().substring(0,3)+"****"+$(this).html().substring(7,11)
+  $(this).html(phone)
+})
+  </script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

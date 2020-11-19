@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>{$lang.edit_user_profile}</title>
+  <script type="text/javascript" src="__TPL__/statics/js/jquery-2.1.4.min.js"></script>
+  <link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css?v={$v}">
+  <link rel="stylesheet" href="/themes/yutui/css/pic.css?v={$v}">  
+  <link rel="stylesheet" href="/themes/yutui/css/style.css?v={$v}">  
+  <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css?v={$v}" />
+</head>
+<body class="bg-white f-05">
+<form method="post" action="{:url('user/edit_business_profile')}" name="searchForm" id='search_form' enctype='multipart/form-data'>
+  <div class='t-box-small' id="Not" style="display:none;">
+  <div class="t_box_show">
+    <p style="font-size: 1.2rem;">{$lang.user_uploading}</p>
+  </div>
+</div>
+<div class="Zbox text-c bg-white u-profile">
+<!--头像上传-->
+<div class="u-profile-one"> 
+  <div class="c-card-img-oneBg">
+    <div class="u-profile-img u-profile-btn" id="headimg"><img src="{$userinfo.user_avatar|default:/themes/yutui/images/idx_user.png}?imageView2/1/w/300/h/300/q/100!|imageslim"></div>
+    <!-- <div class="c-card-imgok1 u-profile-btn"><img src="/themes/yutui/images/new/3.jpg" ></div> -->
+    <p class="col-hui u-profile-btn">{$lang.change_avatar}</p>
+  </div>
+</div>
+<!--图片裁剪-->
+<div class="clipbg displaynone">
+  <div id="clipArea"></div>
+  <div class="loading displaynone">{$lang.loading_pic}...</div>
+  <div class="footer">
+    <dl>
+      <dd style="background: #fe1041; color: #ffffff;border: none;">{$lang.open_album}<input type="file" id="file" name='file[]' accept="image/*"  ></dd>
+      <dd id="clipBtn">{$lang.complete_tailor}</dd>
+    </dl>
+    <div class="back">{$lang.is_cancel}</div>
+  </div>
+</div> 
+</div>
+<!--基本信息-->
+<div class="box pt-3">
+
+  <ul class="s-space">
+    <li class="s-flex c-card-ine w-input"><p>{$lang.nickname}</p><input class="f-02" type="text" name="nick_name" placeholder="" value='{if $userinfo.nick_name}{$userinfo.nick_name}{else}{$userinfo.user_name}{/if}'></li>
+    <li class="s-flex c-card-ine w-input"><p>{$lang.job_name}</p><input class="f-02" type="text" name="company" placeholder="" value='{if $userinfo.company}{$userinfo.company}{else}{$lang.yutui_default_company}{/if}'></li>
+    <li class="s-flex c-card-ine w-input"><p>{$lang.job_career}</p><input class="f-02" type="text" name="job" placeholder="" value='{if $userinfo.job}{$userinfo.job}{else}{$lang.user_job_default}{/if}'></li>
+    <li class="s-flex c-card-ine w-input"><p>{$lang.user_sign}</p><input class="f-02" type="text" name="sign" placeholder="" value='{if $userinfo.sign}{$userinfo.sign}{else}{$lang.yutui_default_sign}{/if}'></li>
+    
+  </ul>
+</div>
+<!--基本信息-->
+<div class="box pt-3">
+
+  <ul class="s-space">
+    <li class="s-flex c-card-ine w-input"><p>{$lang.mobile_phone}</p><input class="f-02" type="text" name="mobile_phone_business" placeholder="" value='{$userinfo.mobile_phone_business}'></li>
+    <li class="s-flex c-card-ine w-input"><p>{$lang.vx_no}</p><input class="f-02" type="text" name="vx_no" placeholder="" value='{$userinfo.vx_no}'></li>
+    <li class="s-flex c-card-ine w-input"><p>{$lang.email}</p><input class="f-02" type="text" name="email" placeholder="" value='{$userinfo.email}'></li>
+    <li class="s-flex c-card-ine w-input"><p>{$lang.user_area}</p><input cols=""  name='address' placeholder="" value='{$userinfo.address}'></input></li>
+    <li class="s-flex c-card-ine w-input"><p>{$lang.user_introduction}</p>
+
+      <input class="f-02" contenteditable="true" name='othercontact' placeholder="" value='{$userinfo.othercontact}'></li>
+
+  </ul>
+</div>
+
+<!--添加信息-->
+
+<!--提交按钮-->
+<div id="demo1"></div>
+<div style="width: 100%; height: 6.5rem"></div>
+<input type="hidden" name="mid" value="{$mid}">
+<input type="hidden" name="back_act" value="{$back_act}">
+
+<div class="c-card-editor"><a style="color:#FFF" href="#" onclick="document.getElementById('search_form').submit();" class="btm-yes">{$lang.save_ok}</a></div>
+</form>
+<script type="text/javascript" src="/themes/yutui/photo/js/camera.js/hammer.min.js" ></script>
+<script type="text/javascript" src="/themes/yutui/photo/js/camera.js/lrz.all.bundle.js" ></script>
+<script type="text/javascript" src="/themes/yutui/photo/js/camera.js/iscroll-zoom-min.js" ></script>
+<script type="text/javascript" src="/themes/yutui/photo/js/camera.js/PhotoClip.js" ></script>
+<script type="text/javascript" src="/themes/yutui/js/qiniu-upload.js?v=3" ></script>
+<script type="text/javascript">
+$(".u-profile-btn").click(function(){
+    $(".clipbg").fadeIn()
+  })
+  var clipArea = new  PhotoClip("#clipArea", {
+        size: [300, 300],//裁剪框大小
+        outputSize:[0,0],//打开图片大小，[0,0]表示原图大小
+        file: "#file",
+        view: "#headimg",
+        ok: "#clipBtn",
+        loadStart: function() { //图片开始加载的回调函数。this 指向当前 PhotoClip 的实例对象，并将正在加载的 file 对象作为参数传入。（如果是使用非 file 的方式加载图片，则该参数为图片的 url）
+          $(".loading").removeClass("displaynone");
+
+        },
+        loadComplete: function() {//图片加载完成的回调函数。this 指向当前 PhotoClip 的实例对象，并将图片的 <img> 对象作为参数传入。
+          $(".loading").addClass("displaynone");
+
+        },
+        done: function(dataURL) { //裁剪完成的回调函数。this 指向当前 PhotoClip 的实例对象，会将裁剪出的图像数据DataURL作为参数传入。      
+          console.log(dataURL);//dataURL裁剪后图片地址base64格式提交给后台处理
+          $("#Not").show();
+          var x = 12;       
+      
+        var y = 0;           
+        QiniuManager.uploadB64(dataURL,{callback:function(img){
+        $.ajax({
+          url :'{$upload_url}',
+          type:"post",
+          data:{img:img},
+          dataType:"JSON",
+    //       beforeSend: function(){
+    //  $("#Not").show();
+    // },
+          success:function(res){
+            console.log(img);
+            if(res.code!=0){alert(res);}
+             $("#Not").hide();
+          }
+        });
+      }});
+        
+        var rand = parseInt(Math.random() * (x - y + 1) + y);  
+      
+          $("#demo1").append('<input type="hidden" name="contentpic1" id="'+ rand + '" value="' + dataURL + '">')
+          $("#headimg").find("img").attr("src",dataURL);
+          $(".clipbg").fadeOut()
+        }
+      });
+  $(".back").click(function(){
+    $(".clipbg").fadeOut()
+  })
+   //移除背景1
+  $(".c-one").click(function(){
+    $("#headimg").css("background-image" ,"url()")
+  })
+   //移除编辑后的图片
+  $(".c-one").click(function(){
+    $(".c-card-imgok1").remove()
+  })
+  
+
+</script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+﻿<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem --> 
+<!--首页弹窗-->
+	{if !$user_id}
+<div class="body_pop_up" id="address_div" style="display:none;">
+	<div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+	<a href="{:url('user/sign_center')}">
+		<img src="images/red_packet.png">
+	</a>
+	</div>
+	<div class="x_clase">
+		<img src="images/x_close.png">
+	</div>
+	
+</div>
+{/if}
+<!--会员登入弹窗-->
+
+<div class="body_pop_up" id="address_div2" style="display:none;">
+	<div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+	<a href="{:url('user/invite_myfriend')}">
+		<img src="images/logined_pop.png">
+	</a>
+	</div>
+	<div class="x_clase">
+		<img src="images/x_close.png">
+	</div>
+</div>
+<div class="body_pop_up" id="address_div3" class="address_div3" style="display:none;">
+	<div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+	<a href="{:url('user/invite_myfriend')}">
+		<img src="images/erweima.png">
+	</a>
+	</div>
+	<div class="x_clase">
+		<img src="images/x_close.png">
+	</div>
+</div>
+
+
+<div class="con m-b7">
+    <!--首页悬浮广告-->
+    <!--<div class="i-banner-fixed" style="display"><a href="/index.php?c=article&a=info&aid=182"><img src="/themes/yutui/images/like/shopping.png"></a></div>-->
+    <div class="i-banner-fixed" style="display"><a href="javascript:;"><img src="/themes/yutui/images/like/shopping.png"></a></div>
+    <!--返回顶部-->
+    <!--<div class="i-icon-toTop">
+    	<a href="javascript:;">
+    		<img src="images/toTop.png">
+    	</a>
+    </div>-->
+    {if $user_id && $user_rank}
+	{if $user_info}<div class="s-flex s-top"><p><img src="{$user_info.user_avatar|default:/themes/yutui/images/new/card_logo.png}"></p><span>{if $user_info.nick_name}{$user_info.nick_name}{else}{$user_info.user_name}{/if}的拓客商城VIP商城</span></div>{/if}
+	{/if}
+	<div class="index-banner swiper-container box position-rel banner-first">
+		<div class="swiper-wrapper">{insert name='ads' id=255 num=3}</div>
+		<!-- 分页器 -->
+		<div class="swiper-pagination banner-first-pagination"></div>
+		<!--linear-->
+		<div class="linear"></div>
+		<div class="my_terrace">
+			<a href="/index.php?c=article&a=info&aid=255">查看平台资质  &gt; </a>
+		</div>
+	</div>
+	
+	<!--导航-->
+	<nav class="bg-white ptb-1 index-nav">
+		<ul class="box ul-4 text-c bg-white flex_show">
+			<a class="display_inline" href="/index.php?c=topic&topic_id=17">
+				<li>
+					<p>
+						<img src="/themes/yutui/images/new/liwu1-.png">
+					</p>
+					<p class="index-menu-text">{$lang.join_the_youth_league}</p>
+			</li>
+			</a>
+			<a class="display_inline" href="{:url('User/invite_myfriend')}">
+				<li >
+					<p>
+						<img src="/themes/yutui/images/new/invite1-.png">
+					</p>
+					<p class="index-menu-text">{$lang.user_invite}</p>
+			</li>
+			</a>
+			<a class="display_inline" href="/index.php?m=default&c=user&a=sign_center">
+				<li  style="position: relative;top: 0;left: 0;">
+					<p>
+						<img src="/themes/yutui/images/new/hot1-.png">
+					</p>
+					<p class="index-menu-text">领KD豆</p>
+					<p style="position: absolute;top: -4%;right: 4%;width: 32%;">
+					<img src="/themes/yutui/images/new/hot_hot.png" style="width: 100%;">
+					</p>
+			</li>
+			</a>
+			<a class="display_inline" id="new_buy" class="index-menu-text" href="/index.php?c=topic&topic_id=26">
+				<li >
+					<p>
+						<img src="/themes/yutui/images/new/retail1.png">
+					</p>
+					<p class="index-menu-text">零售专区</p>
+			</li>
+			</a>
+			<a class="index-menu-text display_inline" href="/index.php?m=default&c=category&a=index&u=275">
+				<li >
+					<p>
+						<img  src="/themes/yutui/images/new/classify1-.png">
+					</p>
+					<p class="index-menu-text">{$lang.far_all}</p>
+			</li>
+			</a>
+		</ul>
+	</nav>
+<!--<div  class='t-box-small' id="Not" style="display:none;">
+	  	<div class="t_box_show">
+	    <p style="font-size:1.5rem">筹备中，敬请期待</p>
+  	</div>-->
+</div>
+	<!--公告-->
+	<!--<div class="s-new s-flex swiper-containerA"
+		onclick="location='/index.php?c=article&a=notice'">
+		<strong><a href="/index.php?c=article&a=notice"><font
+				style="color: #ffffff">公告</font></a></strong>
+		<div class="s-content swiper-wrapper">
+			{foreach from = $notice_list item = notice}
+			<div class="swiper-slide ellipsis-one">
+				<a href="/index.php?c=article&a=notice">{$notice.title}</a>
+			</div>
+			{/foreach}
+		</div>
+		<div class="swiper-pagination"></div>
+	</div>-->
+<!--新闻轮播 -->
+<div style="height:auto;" class="s-new s-flex swiper-containerA">
+		<div class="new_dyncmic"><img  src="images/new_news.png"></div>
+
+		<div class="swiper-wrapper">
+				{foreach from = $notice_list item = notice}
+			<div class="swiper-slide ">
+				<div class="like2_dynamic">
+					<a href="{$notice.url}">
+						
+						<div class="new_message_page">
+							<p>{$notice.title}</p>
+							<p>
+								<span>{$notice.author}</span>
+								<span>{$notice.add_time}</span>
+								<span class="eye_bgc">{$notice.click_count}</span>
+							</p>
+						</div>
+						<div class="new_message_img"><img src="{$notice.file_url}"></div>
+					</a>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		<div class="swiper-pagination"></div>		
+</div>
+	
+
+
+<div class="jion_to_chunk">
+	<div class="vip_meal">
+		<a style="display: block;" href="/index.php?c=topic&topic_id=17"><img style="width:100%;" src="/themes/yutui/images/like/newlike/vip_meal.jpg"></a>
+	</div>
+	<div class="taiwan-">
+		<div class="shoop_fingerpost">
+			<a style="display: block;" href="/index.php?c=article&a=info&aid=188"><img style="width:100%;" src="/themes/yutui/images/like/newlike/shoop_fingerpost.jpg"> </a>
+		</div>
+		<div>
+			<a style="display: block;" href="/index.php?c=topic&topic_id=32"><img style="width:100%;" src="/themes/yutui/images/like/newlike/lipstick.jpg""> </a>
+		</div>
+	</div>
+</div>
+<div>
+	<div class="choiceness_c"><h3>精选套餐</h3></div>
+	<div class="taocan300-"><a href="/index.php?m=default&c=goods&a=index&id=304&u=262"><img style="width:100%;" src="http://img.yoyo1.com.cn/public/newlike/join300_one1.jpg"></a></div>
+	<div class="taocan300-"><a href="/index.php?m=default&c=goods&a=index&id=265&u=262"><img style="width:100%;" src="http://img.yoyo1.com.cn/public/newlike/join300_two2.jpg"></a></div>
+	<div class="taocan300-"><a href="/index.php?m=default&c=goods&a=index&id=286"><img style="width:100%;" src="http://img.yoyo1.com.cn/public/newlike/join300_three3.jpg"></a></div>
+	<div class="taocan300-"><a href="/index.php?m=default&c=goods&a=index&id=290&u=262"><img style="width:100%;" src="http://img.yoyo1.com.cn/public/newlike/join300_four4.jpg"></a></div>
+	<div class="taocan300-"><a href="/index.php?m=default&c=goods&a=index&id=306&u=262"><img style="width:100%;" src="http://img.yoyo1.com.cn/public/newlike/join300_five5.jpg"></a></div>
+	<div class="taocan300-"><a href="/index.php?m=default&c=goods&a=index&id=305&u=262"><img style="width:100%;" src="http://img.yoyo1.com.cn/public/newlike/join300_six6.jpg"></a></div>
+	<div class="taocan300-"><a href="/index.php?m=default&c=goods&a=index&id=293&u=262"><img style="width:100%;" src="http://img.yoyo1.com.cn/public/newlike/join300_seven7.jpg"></a></div>
+</div>
+
+	<!--猜你喜欢-->
+  <div class="N_Recommend" style="margin-top:0;">
+    <h3>猜你喜欢<span></span></h3>
+    <section class="product-list2 j-product-list n-index-box " data="1" style="padding:0px;">
+      <ul class="index-more-list" id="J_ItemList">
+        <div class="single_item"></div>
+        <a href="javascript:;" style="text-align:center" class="get_more"></a>
+        </ul>
+    </section>
+    <div style="width: 100%; height: 5rem; overflow: hidden;"></div>
+  </div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+<script>
+$(".i-banner-fixed").click(function(){
+	$("#address_div3").show();
+})
+function setCookie(cname,cvalue,exdays)
+{
+	var d=new Date();
+	d.setTime(d.getTime()+(exdays*24*60*60*1000));
+	var expires="expires="+d.toGMTString();
+	document.cookie="olreadyshow="+cvalue+";"+expires;
+}
+function getCookie(cname)
+{
+	var name=cname+"=";
+	var ca=document.cookie.split(';');
+	for(var i=0;i<ca.length;i++)
+	{
+		var c=ca[i].trim();
+		if(c.indexOf(name)==0)
+		{return c.substr(name.length,c.length);}
+	}
+}
+function checkCookie()
+{
+	var olreadyshow=getCookie("olreadyshow");
+
+	if(olreadyshow!='' && olreadyshow!=undefined)
+	{
+		
+		$("#address_div2").hide();
+		$("#address_div3").hide();
+	}
+	else
+	{	
+
+
+		setCookie("olreadyshow","yes",1);
+		$("#address_div2").show();
+
+	}
+}
+</script>
+
+<script type="text/javascript ">
+<!--首页弹窗-->
+window.onload=function(){ 
+	<!--{if $user_id}-->
+
+	checkCookie();
+	<!--{/if}-->
+	
+	
+	$("#address_div").show();
+	
+}
+
+
+//关闭弹窗
+$(".x_clase").click(function(){
+
+	$(".address_div").hide();
+	$("#address_div3").show();
+})
+$(".x_clase3").click(function(){
+
+	$(".address_div3").hide();
+
+})
+$("#address_div").bind('click', function(e) {
+        var e = e || window.event; //浏览器兼容性 
+        var elem = e.target || e.srcElement;
+        while (elem) { //循环判断至跟节点，防止点击的是div子元素 
+          if (elem.id && elem.id == 'l_trainYes') {
+            return;
+          }
+          elem = elem.parentNode;
+        }
+        $('#address_div').css('display', 'none'); //点击的不是div或其子元素 
+  });
+$("#address_div2").bind('click', function(e) {
+        var e = e || window.event; //浏览器兼容性 
+        var elem = e.target || e.srcElement;
+        while (elem) { //循环判断至跟节点，防止点击的是div子元素 
+          if (elem.id && elem.id == 'l_trainYes') {
+            return;
+          }
+          elem = elem.parentNode;
+        }
+        $('#address_div2').css('display', 'none'); //点击的不是div或其子元素 
+  });
+$("#address_div3").bind('click', function(e) {
+        var e = e || window.event; //浏览器兼容性 
+        var elem = e.target || e.srcElement;
+        while (elem) { //循环判断至跟节点，防止点击的是div子元素 
+          if (elem.id && elem.id == 'l_trainYes') {
+            return;
+          }
+          elem = elem.parentNode;
+        }
+        $('#address_div3').css('display', 'none'); //点击的不是div或其子元素 
+  });
+
+//$("#new_buy").click(function(){
+  //$(".t-box-small").show().delay(1000).hide(1);
+//});
+	 var swiper = new Swiper('.strict_p', {
+        
+        slidesPerView: 2.4,
+        paginationClickable: false,
+        spaceBetween: 10,
+        freeMode: true
+    });
+
+	 var mySwiper = new Swiper ('.swiper-containerS', {
+	 	  
+          direction: 'horizontal', // 垂直切换选项
+          loop: true, // 循环模式选项
+          
+          // 如果需要分页器
+         
+        })        
+
+	$(function($) {
+		var mySwiper = new Swiper('.banner-first', {
+			pagination: '.banner-first-pagination',
+			loop: false,
+			grabCursor: true,
+			paginationClickable: true,
+			autoplayDisableOnInteraction: false,
+			autoplay: 3000
+		});
+	});
+	/*立即关注*/
+	if ($(".index-weixin-box").hasClass("index-weixin-box")) {
+		$(".index-banner").css({
+			"marginTop": "0rem",
+
+		})
+	} else {
+		$(".index-banner").css({
+			"marginTop": "0rem",
+
+		})
+	}
+	/*公告滑动*/
+	var mySwiper = new Swiper('.swiper-containerA', {
+	slidesPerView :'auto',
+      autoplay : 2500,
+      speed:300,
+      direction: 'vertical',
+      grabCursor:true,
+      autoplayDisableOnInteraction:false,
+      mousewheelControl:true,
+      autoHeight:true,
+      pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      },
+    });
+</script>
+<script type="text/javascript">
+	get_asynclist("{:url('index/ajax_goods', array('type'=>'best'))}", '__TPL__/images/loader.gif');
+</script>
+<script>
+	$(function(){
+		$('.i-icon-toTop').hide();
+		$(window).scroll(function(){
+		if($(this).scrollTop() > 100){
+		$('.i-icon-toTop').fadeIn();
+		}else{
+		$('.i-icon-toTop').fadeOut();
+		}
+	});
+		$('.i-icon-toTop a').click(function(){
+			$('html ,body').animate({scrollTop: 0}, 300);
+			return false;
+		})
+	})
+</script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con">
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+	<form action="{:url('user/bonus_out_action')}" method="post" name="theForm" onsubmit="return check_form()">
+	<!--2018-04-10提现优化-->
+	<div class="money_out_or">
+		<div class="money_out money_active"><a class="money_active1" href="{:url('user/bonus_out')}">转出</a></div>
+		<div class="money_out"><a href="{:url('user/bonus_withdraw')}">提现</a></div>
+	</div>
+	<div class="s-flex s-autonym l-show-bottom s-box-sizing" style="border:0;">
+		<div>{$lang.repay_out_money}</div>
+	</div>
+	<div class="s-flex s-autonym l-show-bottom s-box-sizing">
+	  <div style="width: 100%;"><span class="f-2">{$lang.user_money_nt}</span> 
+	  <input style="font-size:2rem;width: 90%;" name="amount"  type="text" class="j-input-text" value="" />
+	  <input style="font-size:2rem;width: 90%;" id="cantransfer" type="hidden" class="j-input-text" value="{$cansmall_change}" />
+	  </div>		
+	</div>
+	<div class="s-flex s-autonym l-show-bottom s-box-sizing" style="padding:0.6rem 3%">
+	  <div> <span class="col-9">{$lang.user_bonus_out_amount}<span class="col-red">{$small_change}</span>元</span> </div>
+	</div>
+	<div class="s-flex s-autonym-transparency s-box-sizing f-05 line-2">
+		<div class="pt-1">
+		  <h2 class="f-05">{$lang.bonus_out_explain}</h2>
+		  <div class="say_right">
+		  	<div class="say_right1">
+		  		<span>1、</span>
+		  		<span>{$lang.user_bonus_say1}</span>
+		  	</div>
+		  	<div class="say_right2">
+		  		<span>2、</span>
+		  		<span>{$lang.user_bonus_say2}</span>
+		  	</div>
+		  </div>
+		</div>
+	</div>
+	<!--2018-04-10提现优化结束-->
+		<div class="padding-all">
+			<input type="hidden" name="surplus_type" value="1" />
+			
+			<button name="submit" type="submit" class="btn-submit" value="{$lang.submit_request}">{$lang.submit_bonus_out}</button>
+		</div>
+	</form>
+</div>
+</div>
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/script/region.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/shopping_flow.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+		$("input[name='amount']").focus();
+	}
+	$(".money_out").click(function(){
+		$(this).addClass("money_active").siblings().removeClass("money_active");
+		
+	})
+	function check_form(){
+
+		var amount = $("input[name='amount']").val();
+		var user_note = $("input[name='user_note']").val();
+		if(amount < 0){	
+			 alert("{$lang.withdraw_min_alert}");
+             return false;
+		}
+		if(amount>$("#cantransfer").val()){
+			 alert("超过可转金额");
+             return false;
+		}
+		if(amount==0){
+			alert("收益转出至余额必须大于0元！");
+			return false;
+		}
+		
+		
+	};
+	/*银行号码隐藏*/
+	//var str= ($(".bank-number").html());
+    //var str2 = str.substr(0,3)+"****"+str.substr(7);  
+    //$(".bank-number").html(str2)
+</script>
+
+</body>
+
+</html>

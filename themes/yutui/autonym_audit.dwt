@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>{$page_title}</title>
+	<link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">	
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/js/leftTime.min.js"></script>
+</head>
+<body class="con">
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<!--主体内容-->
+<div class="s-flex s-autonym l-show-bottom">
+  <div>{$lang.true_name}</div>
+  <div>{$user.real_name}</div>
+</div>
+<div class="s-flex s-autonym l-show-bottom">
+  <div>{$lang.id_type}</div>
+  <div>{$user.ID_type}</div>
+</div>
+<div class="s-flex s-autonym l-show-bottom">
+  <div>{$lang.id_card}</div>
+  <div>{$user.ID_card}</div>
+</div>
+
+<div class="s-flex s-autonym l-show-bottom">
+  <div>{$lang.autonym_submit_time}</div>
+  <div>{$user.autonym_submit_time}</div>
+</div>
+{if $user.autonym!=1}
+<div class="s-flex s-autonym l-show-bottom">
+  <div>{$lang.autonym_audit_time}</div>
+  <div>{$user.autonym_audit_time}</div>
+</div>
+{/if}
+<div class="s-flex s-autonym l-show-bottom">
+  <div>{$lang.autonym_audit_status}</div>
+  <div><span class="col-red">
+		{if $user.autonym==1}{$lang.autonym_audit_status_1}{/if}
+		{if $user.autonym==2}{$lang.autonym_audit_status_2}{/if}
+		{if $user.autonym==3}{$lang.autonym_audit_status_3}{/if}
+	</span></div>
+</div>
+{if $user.autonym==2}
+<div class="s-flex s-autonym l-show-bottom">
+  <div>{$lang.autonym_audit_status_3_des}</div>
+  <div><span class="col-red">{$user.autonym_remark}</span></div>
+</div>
+{/if}
+<!-- <div class="s-flex s-autonym l-show-bottom">
+  <div>{$lang.autonym_mobile_phone}</div>
+  <div>{$user.autonym_mobile_phone}</div>
+</div> -->
+{if $user.autonym eq '1' or $user.autonym eq '3'}
+<div class="s-flex s-autonym s-autonym-submit">
+  <a href="index.php?c=user&a=autonymEdit" class="ect-bg">查看认证信息</a>
+</div>
+{else}
+<div class="s-flex s-autonym s-autonym-submit">
+  <a href="index.php?c=user&a=autonymEdit" class="ect-bg">{$lang.autonym_edit}</a>
+</div>
+{/if}
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

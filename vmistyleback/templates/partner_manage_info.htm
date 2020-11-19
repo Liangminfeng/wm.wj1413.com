@@ -1,0 +1,59 @@
+<!-- $Id: brand_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+<div class="main-div">
+<form method="post" action="partner_manage.php" name="theForm" enctype="multipart/form-data" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">供应商名称</td>
+    <td><input type="text" name="partner_name" maxlength="60" value="{$partner_manage_list.partner_name}" />{$lang.require_field}</td>
+  </tr>
+
+
+
+
+  <tr>
+    <td class="label">APPID</td>
+    <td><input type="text" name="appid" maxlength="40" size="15" value="{$partner_manage_list.appid}" /></td>
+  </tr>
+    <tr>
+    <td class="label">APPKEY</td>
+    <td><input type="text" name="appkey" maxlength="40" size="15" value="{$partner_manage_list.appkey}" /></td>
+  </tr>
+ <tr>
+    <td class="label">权限</td>
+    <td><input type="text" name="permission" maxlength="40" size="15" value="{$partner_manage_list.permission}" /></td>
+  </tr>
+   
+
+  <tr>
+    <td colspan="2" align="center"><br />
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+ 
+      <input type="hidden" name="id" value="{$partner_manage_list.partner_id}" />
+   
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("partner_name",  "请输入供应商名字");
+
+    return validator.passed();
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

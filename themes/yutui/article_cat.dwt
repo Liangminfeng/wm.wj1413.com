@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="description" content="{$meta_description}"/>
+    <meta name="keywords" content="{$meta_keywords}"/>
+    <title>{$lang.hotnews}</title>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+     <!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+</head>
+<body style="max-width:640px;">
+  <div class="s-flex s-justify-a" style="padding:1rem 0 2rem;background: #fff;">
+    <p class="dynamic_new dynamic_click"><a href="javascript:;" > {$lang.dongtai} <span class="bottom_xian display_active1"style="display: none;"></span><span class="red_point display_active1"style="display: none;"></span></a></p>
+    <p style="font-size: 1rem;color: #e8e8e8;border-left: 1px solid;margin: auto 0;height: 1.4rem;"></p>
+    <p class="article_new article_click"><a href="javascript:;" >{$lang.article}<span class="bottom_xian display_active2" ></span><span class="red_point display_active2" style="display: none;"></span></a></p>
+  </div>
+  
+<!--动态选项开始-->
+<div class="s-flex n-new">
+    <!-- {if $article_categories} -->
+     <!--{foreach from=$article_categories item=cat name="article_cat" key=key}-->
+    <div {if $id eq $cat.cat_id or $parentid eq $cat.cat_id } class="active" {else} class="activeOver" {/if} id="s1_h_{$key}"  onclick="toCate({$cat.cat_id})">{$cat.cat_name|escape:html}<i></i></div>    
+    <!--{/foreach}-->
+   <!-- {/if}-->  
+</div>
+ <!-- {if $subdata} -->
+<div class="s-flex a-article-two bg-white m-top08 f-05">
+ 
+ 
+    <!--{foreach from=$subdata item=subcat name="sub_article_cat" key=key}-->
+  <a href="#" onclick="toCate({$subcat.cat_id})">{$subcat.cat_name}</a>
+  <!--{/foreach}-->
+  
+</div>
+  <!-- {/if}--> 
+<!--动态选项结束-->
+<!--主体内容开始-->
+<div class="n-content" id="s1_c_0" style="margin-bottom: 0rem;">
+  <div class="n-content-pad title tab-menu">
+    {$lang.sort}：
+    <span {if $type eq 'default'}class="active" {/if}   onclick="changeType('default')">{$lang.sort_default}</span>
+    <span {if $type eq 'click'}class="active" {/if}   onclick="changeType('click')">{$lang.sort_byview}</span>
+  </div>
+ 
+<div class="tab-content">
+  <div class="displayYes">
+      <!-- {if $artciles_list} -->
+ 
+    <!-- {else} -->
+    <p class="n-img50"><img src="images/new/cart.png"><br>{$lang.no_centent}</p>
+      <!-- {/if} -->
+  </div>
+</div>
+<script type="text/javascript" src="__TPL__/statics/layui/layui.js"></script>
+<script>
+$(function () {
+   //顶部点击事件
+  $(".dynamic_new").click(function(){
+/*     $(".display_active1").show();
+    $(".display_active2").hide(); */
+    location.href="/index.php?m=default&c=article&a=article_index";
+  }) 
+  $(".article_click").click(function(){
+/*     $(".display_active2").show();
+    $(".display_active1").hide(); */
+    location.href="/index.php?m=default&c=article&a=index";
+  })
+  var cat_id = {$id}?{$id}:{$cat_id};
+  var page = 1;
+  var type ='{$type}';
+   
+  layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+          elem: '.tab-content' //指定列表容器
+          , isAuto:true,
+          scrollElem: '.tab-content',done: function (page,next) {
+             var url = "{:url('article/ajax_asynclist')}";
+           //传递的参数
+              var data = {
+                  page:page,
+                  cat_id:cat_id,
+                  type:type
+              }
+              var lis = [];
+              
+              $.post(url, data, function (params) {       
+                  $.each(JSON.parse(params).list,function(i,item){
+                      // 模拟tag数据
+                      item.tags = item.keywords;
+                      var tags = item.tags.split(' ');
+                      var tag_html = ''
+                      for(var i = 0; i < tags.length; i++){
+                        tag_html += `<span>${tags[i]}</span>`
+                      }
+
+                      // 模拟文章封面数据
+                      item.covers = [item.file_url];
+                      if(typeof(item.file_url2)!=='undefine'&&item.file_url2!==''){
+                    	  item.covers.push(item.file_url2);
+                      }
+                      var cover_html = ''
+                      for(var i = 0; i < item.covers.length; i++){
+                        cover_html += `<img src="${item.covers[i]}?imageView2/1/w/300/h/150/q/100!|imageslim">`
+                      }
+          
+                      lis.push(`
+                    		  <a href="/article/info?aid=${item.article_id}&u={$smarty.session.user_id}">
+                      			<div class="n-content-pad n-con">
+                                  <div class="n-create-info">
+                                    <span class="n-author">${item.author}</span>
+                                    <span class="n-add_time">${item.add_time}</span>
+                                  </div>
+                                  <div class="n-cover s-flex">
+                                    ${cover_html}
+                                  </div>
+                                  <div class="n-title">${item.title}</div>
+                                  <div class="n-info">
+                                    <div class="n-tags">${tag_html}</div>
+                                    <div class="n-hot-info">
+                                      <i class="n-icon-eye"></i>
+                                      <span>${item.click_count}</span>
+                                
+                                    </div>
+                                  </div>
+                                </div>
+                                </a>`)
+                               
+                                /*点赞代码  <i class="n-icon-like"></i>
+                                <span>${item.zan}</span>*/
+
+                  })
+                 
+                  //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                  //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                  next(lis.join(''), page < JSON.parse(params).totalpage);
+                  var arr = Object.keys(JSON.parse(params).list);
+                  if(page==1&&arr.length<10)
+                  $(".layui-flow-more").hide();
+              });
+            }
+        });
+  })
+})  
+</script>
+
+<!--主体内容结束-->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+
+<script type="text/javascript">
+$(function(){
+    function tabs(tabTit,on,tabCon){
+        $(tabTit).children().click(function(){
+            $(this).addClass(on).siblings().removeClass(on);
+            var index = $(tabTit).children().index(this);
+            $(tabCon).children().eq(index).show().siblings().hide();
+        });
+    };
+    tabs(".tab-menu","active",".tab-content");
+});
+</script>
+<script type="text/javascript">
+var tid='{$id}';
+var ttype = '{$type}';
+function toCate(id){
+	var url = "/index.php?c=article&a=index&id="+id+"&type="+ttype;
+	location.href=url;
+}
+function changeType(type){
+	var url = "/index.php?c=article&a=index&id="+tid+"&type="+type;
+	location.href=url;
+}
+
+</script>
+
+</body>

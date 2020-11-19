@@ -1,0 +1,54 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+<div class="con">
+	<section class="text-center purse-f red-bg padding-tb">
+		<h5 class=" f-03 col-f">{$lang.surplus_amount}</h5>
+		<h2 class="col-f">{$amount}</h2>
+	</section>
+	<ul class="n-user-acc-log">
+		<li class="dis-shop-list p-r padding-all m-top10 b-color-f  ">
+			<div class="dis-box">
+				<div class="box-flex">
+					<h5 class="f-05 col-7">{$lang.payment_name}</h5>
+					<h6 class="f-05 col-7  m-top04">{$lang.payment_fee}</h6>
+				</div>
+				<div class="box-flex">
+					<p class="f-05 color-red text-right">{$payment.pay_name}</p>
+					<h6 class="f-05 col-3 text-right m-top04">{$pay_fee}</h6>
+				</div>
+			</div>
+			<p class="f-05 m-top04"><span class="col-7 f-05">{$lang.payment_desc} </span><span class="col-3">{$payment.pay_desc}</span></p>
+		</li>
+	</ul>
+	<div class="padding-all">
+		<div class="n-acc-but-queding">{$payment.pay_button}</div>
+	</div>
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/script/region.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/shopping_flow.js"></script>
+<script type="text/javascript">
+	region.isAdmin = false; {
+		foreach from = $lang.flow_js item = item key = key
+	}
+	var {
+		$key
+	} = "{$item}"; {
+		/foreach} {
+		literal
+	}
+	onload = function() {
+			if (!document.all) {
+				document.forms['theForm'].reset();
+			}
+		} {
+			/literal}
+</script>
+</body>
+
+</html>

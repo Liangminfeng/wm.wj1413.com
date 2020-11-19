@@ -1,0 +1,76 @@
+<!-- $Id: brand_list.htm 15898 2009-05-04 07:25:41Z liuhui $ -->
+
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<!-- 品牌搜索 -->
+{include file="brand_search.htm"}
+<form method="post" action="" name="listForm">
+<!-- start brand list -->
+<div class="list-div" id="listDiv">
+{/if}
+
+  <table cellpadding="3" cellspacing="1">
+    <tr>
+      <th>VIP名字</th>
+   
+
+    
+      <th>等级大小</th>
+      <th>KD都比例</th>
+      <th>现金比例</th>
+      <th>{$lang.handler}</th>
+    </tr>
+    {foreach from=$user_rank_list item=vip}
+    <tr>
+      <td class="first-cell">
+       
+        <span onclick="javascript:listTable.edit(this, 'edit_brand_name', {$vip.rank_id})">{$vip.rank_name|escape:html}</span>
+      </td>
+     
+    
+      <td align="right"><span onclick="javascript:listTable.edit(this, 'edit_sort_order', {$vip.rank_id})">{$vip.level}</span></td>
+     <td class="first-cell">
+       
+        <span onclick="javascript:listTable.edit(this, 'edit_brand_name', {$vip.rank_id})">{$vip.kd_ratio|escape:html}</span>
+      </td>
+      <td class="first-cell">
+       
+        <span onclick="javascript:listTable.edit(this, 'edit_brand_name', {$vip.rank_id})">{$vip.cash_ratio|escape:html}</span>
+      </td>
+      <td align="center">
+        <a href="user_vip_rank.php?act=edit&id={$vip.rank_id}" title="{$lang.edit}">{$lang.edit}</a> 
+      <!--   <a href="javascript:;" onclick="listTable.remove({$vip.rank_id}, '{$lang.drop_confirm}')" title="{$lang.edit}">{$lang.remove}</a> --> 
+      </td>
+    </tr>
+    {foreachelse}
+    <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+    {/foreach}
+   
+  </table>
+
+{if $full_page}
+<!-- end brand list -->
+</div>
+</form>
+
+<script type="text/javascript" language="javascript">
+  <!--
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+
+  {literal}
+  onload = function()
+  {
+      // 开始检查订单
+      startCheckOrder();
+  }
+  {/literal}
+  //-->
+</script>
+{include file="pagefooter.htm"}
+{/if}

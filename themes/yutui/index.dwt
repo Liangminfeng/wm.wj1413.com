@@ -1,0 +1,829 @@
+﻿<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem --> 
+<!--首页弹窗1-->
+	
+	<div class="body_pop_up" id="address_div4" style="display:none;z-index:99999">
+		<div id="l_trainYes"  class="red_packet index_tan_c" style="max-width:640px;margin:auto;">
+		<a href="/index.php?c=topic&topic_id=48">
+			<img src="http://img.vmi31.com/public/index_gif1.gif" style="width:100%;">
+		</a>
+		</div>
+		
+	
+	</div>
+
+<!--首页弹窗-->
+{if !$user_id}
+<div class="body_pop_up" id="address_div" style="display:none;">
+	<div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+	<a style="display:block;width:67%;margin:auto;" href="{:url('user/sign_center')}">
+		<img style="width:100%;" src="http://img.vmi31.com/public/new_people.png">
+	</a>
+	</div>
+	<div class="x_clase">
+		<img src="images/x_close.png">
+	</div>
+	
+</div>
+{/if}
+<!--会员登入弹窗-->
+
+
+<div class="body_pop_up" id="address_div3" class="address_div3" style="display:none;">
+	<div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+	<a href="{:url('user/invite_myfriend')}">
+		<img src="http://img.vmi31.com/public/erweima.png">
+	</a>
+	</div>
+	<div class="x_clase">
+		<img src="images/x_close.png">
+	</div>
+</div>
+
+
+<div class="con m-b7">
+    <!--首页悬浮广告-->
+    <div class="i-banner-fixed" style="display"><a href="/index.php?c=article&a=info&aid=182"><img src="/themes/yutui/images/like/shopping.png"></a></div>
+    <div class="i-banner-fixed" style="display"><a href="javascript:;"><img src="/themes/yutui/images/like/shopping.png"></a></div>
+    <!--返回顶部-->
+    <div class="i-icon-toTop">
+    	<a href="javascript:;">
+    		<img src="images/toTop2.png">
+    	</a>
+    </div>
+
+    {if  $user_vip}
+
+	{if $user_info}
+	<div class="s-flex s-top" style="width:100%;"><p><img src="{$user_info.user_avatar|default:/themes/yutui/images/new/card_logo.png}"></p><span>
+	{if $user_info.nick_name}
+	{$user_info.nick_name}
+	{else}
+	{$user_info.user_name}
+	{/if}的拓客系统</span></div>
+	{/if}
+	{/if}
+	<div><img src="images/search_bgc.png" style="width:100%;"></div>
+	<!--头部搜索-->
+	{if  $user_vip}
+
+	{if $user_info}
+	
+
+
+		<div class="top_search j-text-all text-all-back" style="top:6.8rem">
+
+
+
+			<ul class="top_search_ul dis-box ">
+				<a class="a-search-input j-search-input" href="javascript:void(0)"><li class="top_search_li1"><div><span style="color:#818181;padding-left:13%;">请输入您搜索的关键词</span></div></li></a>
+				<li class="top_search_li2"><a href="/index.php?m=default&c=flow&a=cart&u={$smarty.session.user_id}"><span><img src="images/shopping_write.png" style="width:100%;"></span></a></li>
+			</ul>
+		</div>
+	{else}
+
+	<div class="top_search j-text-all text-all-back" style="top:1.8rem;">
+
+
+			<ul class="top_search_ul dis-box ">
+				<a class="a-search-input j-search-input" href="javascript:void(0)"><li class="top_search_li1"><div><span style="color:#818181;padding-left:13%;">请输入您搜索的关键词</span></div></li></a>
+				<li class="top_search_li2"><a href="/index.php?m=default&c=flow&a=cart&u={$smarty.session.user_id}"><span><img src="images/shopping_write.png" style="width:100%;"></span></a></li>
+			</ul>
+		</div>
+	{/if}
+	{else}
+		<div class="top_search j-text-all text-all-back" style="top:1.8rem;">
+
+			<ul class="top_search_ul dis-box ">
+				<a class="a-search-input j-search-input" href="javascript:void(0)"><li class="top_search_li1"><div><span style="color:#818181;padding-left:13%;">请输入您搜索的关键词</span></div></li></a>
+				<li class="top_search_li2"><a href="/index.php?m=default&c=flow&a=cart&u={$smarty.session.user_id}"><span><img src="images/shopping_write.png" style="width:100%;"></span></a></li>
+			</ul>
+		</div>
+	{/if}
+	<div class="index-banner banner_img swiper-container box position-rel banner-first" style="width:94%;">
+
+		<div class="swiper-wrapper">{insert name='ads' id=255 num=5}</div>
+		<!-- 分页器 -->
+		<div class="swiper-pagination banner-first-pagination"></div>
+		<!--linear-->
+		<div class="linear"></div>
+		
+		
+	</div>
+	<!--网站说明-->
+		
+	<nav class="bg-white">
+		<a style="display:block;" href="javascript:;">
+			<div class="website_say">
+				<p><span><img src="images/red_gou.png"></span><span>会员优惠</span></p>
+				<p><span><img src="images/red_gou.png"></span><span>正品保证</span></p>
+				<p><span><img src="images/red_gou.png"></span><span>假一赔十</span></p>
+			</div>
+		</a>
+	</nav>
+	<!--导航-->
+	<nav class="bg-white ptb-1 index-nav">
+		<ul class="box ul-4 text-c bg-white flex_show">
+			<a class="display_inline" href="{:url('goods/hot_sell')}">
+				<li>
+					<p>
+						<img src="/themes/yutui/images/new/hot_sell.png">
+					</p>
+					<p class="index-menu-text">热卖排行</p>
+			</li>
+			</a>
+			<a class="display_inline" href="/index.php?c=topic&topic_id=12&u={$uid}">
+				<li >
+					<p>
+						<img src="/themes/yutui/images/new/new.png">
+					</p>
+					<p class="index-menu-text">每日上新</p>
+			</li>
+			</a>
+			<a class="display_inline" href="/index.php?m=default&c=user&a=sign_center">
+				<li  style="position: relative;top: 0;left: 0;">
+					<p>
+						<img src="/themes/yutui/images/new/yubao.png">
+					</p>
+					<p class="index-menu-text">领鱼宝</p>
+					<!--<p style="position: absolute;top: -4%;right: 4%;width: 32%;">
+					<img src="/themes/yutui/images/new/hot_hot.png" style="width: 100%;">
+					</p>-->
+			</li>
+			</a>
+			<a class="display_inline" id="new_buy" class="index-menu-text" href="/index.php?m=default&c=train&a=index&u={$uid}">
+				<li >
+					<p>
+						<img src="/themes/yutui/images/new/lieche.png">
+					</p>
+					<p class="index-menu-text">快推列车</p>
+			</li>
+			</a>
+			<a class="index-menu-text display_inline" href="/index.php?m=default&c=category&a=top_all&u={$uid}">
+				<li >
+					<p>
+						<img  src="/themes/yutui/images/new/classify1-.png">
+					</p>
+					<p class="index-menu-text">全部分类</p>
+			</li>
+			</a>
+		</ul>
+	</nav>
+<!--<div  class='t-box-small' id="Not" style="display:none;">
+	  	<div class="t_box_show">
+	    <p style="font-size:1.5rem">筹备中，敬请期待</p>
+  	</div>-->
+</div>
+	<!--公告-->
+	<!--<div class="s-new s-flex swiper-containerA"
+		onclick="location='/index.php?c=article&a=notice'">
+		<strong><a href="/index.php?c=article&a=notice"><font
+				style="color: #ffffff">公告</font></a></strong>
+		<div class="s-content swiper-wrapper">
+			{foreach from = $notice_list item = notice}
+			<div class="swiper-slide ellipsis-one">
+				<a href="/index.php?c=article&a=notice">{$notice.title}</a>
+			</div>
+			{/foreach}
+		</div>
+		<div class="swiper-pagination"></div>
+	</div>-->
+<!--新闻轮播 -->
+<!--<div style="height:auto;" class="s-new s-flex swiper-containerA">
+		<div class="new_dyncmic"><img  src="images/new_news.png"></div>
+
+		<div class="swiper-wrapper">
+				{foreach from = $notice_list item = notice}
+			<div class="swiper-slide ">
+				<div class="like2_dynamic">
+					<a href="{$notice.url}">
+						
+						<div class="new_message_page">
+							<p>{$notice.title}</p>
+							<p>
+								<span>{$notice.author}</span>
+								<span>{$notice.add_time}</span>
+								<span class="eye_bgc">{$notice.click_count}</span>
+							</p>
+						</div>
+						<div class="new_message_img"><img src="{$notice.file_url}"></div>
+					</a>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		<div class="swiper-pagination"></div>		
+</div>-->
+
+
+
+
+
+<div class="jion_to_chunk" style="padding-top:1.5rem;padding-bottom: 1rem;">
+
+	<div class="vip_meal">
+
+		<a href="/index.php?c=topic&topic_id=17&u={$uid}"><img src="http://img.vmi31.com/public/shopkeeper2.png"></a>
+
+	</div>
+	<div class="taiwan-">
+		{if !$user_rank}
+			{if $resource eq 2}
+
+			<a href="http://shop.tenfutenmax.com.cn/tmxwebmobile/Login.aspx"><img src="http://img.vmi31.com/public/dealer2.png"></a>
+			{else}
+			<a href="/index.php?m=default&c=Affiliate&a=join_member&order_type=1"><img src="http://img.vmi31.com/public/dealer2.png"></a>
+			{/if}
+		{else}
+			{if $resource eq 2}
+			<a href="http://shop.tenfutenmax.com.cn/tmxwebmobile/Login.aspx"><img src="http://img.vmi31.com/public/dealer2.png"></a>
+			{else}
+			<a href="/index.php?m=default&c=Affiliate&a=initiation"><img src="http://img.vmi31.com/public/dealer2.png"></a>
+
+			{/if}
+		
+		{/if}
+
+	</div>
+	<!--<div class="seeding_guide">
+		<a href="/index.php?c=topic&topic_id=15&u={$uid}"><img src="http://img02.tenfutenmax.com.cn/public/seeding_guide12.png"></a>
+	</div>
+	<div class="new_everyday">
+		<a href="/index.php?c=topic&topic_id=12&u={$uid}"><img style="border-left: 1px solid #f7f7f7;box-sizing: border-box;" src="http://img02.tenfutenmax.com.cn/public/new_everyday12.png"></a>
+	</div>-->
+</div>
+<div class="s-flex zhuanti">
+	<div>
+		<a href="/index.php?c=topic&topic_id=34&u={$uid}">
+			<img style="width:100%" src="http://img.vmi31.com/public/manglitouxian1.png">
+		</a>
+	</div>
+	<div class="ximo_pad">
+		<a href="/index.php?c=topic&topic_id=46&u={$uid}"> 
+			<img style="width:100%" src="http://img.vmi31.com/public/ximo1.png">
+		</a>
+	</div>
+	<div>
+		<a href="/index.php?c=topic&topic_id=42&u={$uid}">
+			<img style="width:100%" src="http://img.vmi31.com/public/taiwanxianding1.png">
+		</a>
+	</div>
+</div>
+
+<div style="width:100%; background: #fff;">
+
+
+	<a style="display:block;" href="/index.php?c=topic&topic_id=39&u={$uid}">
+		<img style="width:100%;" src="http://img.vmi31.com/public/former.png">
+	</a>
+</div>
+{if $begintrainproductlist}
+<div class="li-sales-vip s-flex" style="margin-top:-0.2rem;background: #f7f7f7;">
+	<a class="s-flex" style="width:100%;" href="/index.php?m=default&c=train&a=index">
+	 <p class="sales_my"><span></span>快推列车</p>
+	 <div class="li_my_img" style="display: block;font-size: 1.2rem;">
+	  	<p>查看更多>></p>
+	 </div>
+	</a>   
+</div>
+
+<!--{foreach  from=$begintrainproductlist item=trainproduct}-->
+<div class="kuai_train">
+	 <!--{if $trainproduct.ontrain}-->
+	<a href="/index.php?m=default&c=train&a=info&train_id={$trainproduct.train_id}">
+	{else}
+	<a href="/index.php?m=default&c=train&a=goods&train_id={$trainproduct.train_id}">
+	{/if}
+		<div class="s-flex">
+			<div class="train_p_img">
+				<img src="{$trainproduct.img}?imageView2/1/w/300/h/300/q/75|imageslim/">
+			</div>
+			<div class="train_p_right">
+				<p class="f-05 topic_clolr" style="margin-right: 2rem;">{$trainproduct.code}{$trainproduct.name}</p>
+				
+					<!--<p class="f-03 col-orange">国资参股 能量补充</p>-->
+					<div class="train_progress">
+						<p class="sell_width" style="width: {math $trainproduct.num div $trainproduct.total mak 100}%" ></p>
+						<span class="progress_tiao" >{$trainproduct.ratio}%</span>
+						<div class="f-02" style="color:#bdbdbd;background: none;padding-top: 0.5rem;">{$lang.left}{$trainproduct.lefttime}</div>
+					</div>
+					
+				
+				<div class="s-flex s-justify-b">
+					<p class="col-red"><span style="font-size:1.3rem;">￥</span>{format $trainproduct.price,0}</p>
+					<p class="train_join">立即参与</p>
+				</div>
+			</div>
+		</div>
+	</a>	
+</div>
+  <!--{/foreach}-->
+  {/if}
+<div class="li-sales-vip s-flex" style="margin-top:-0.2rem;background: #f7f7f7;">
+	<a class="s-flex" style="width:100%;" href="javascript:;">
+	 <p class="sales_my"><span></span>超值精选</p>
+	 <div class="li_my_img">
+	  
+	 </div>
+	</a>   
+</div>
+<!--健康管家 banner-->
+	<div class="washing">
+		<div class="washing_title">
+			<a href="/index.php?c=category&id=99&u={$uid}" class="washing_to">
+				<img src="http://img.vmi31.com/public/healthy.png">
+			</a>
+		</div>
+	</div>	
+	<div class="strict_product">
+		<div class="strict_body">
+			<div class="swiper-container strict_p">
+		        <div class="swiper-wrapper" >
+		            {foreach from = $hot_goods_four item = goods}
+
+		            <div class="swiper-slide slides first_pro1" >
+		            	<a href="/index.php?m=default&c=goods&a=index&id={$goods.goods_id}&u={$uid}">
+			            	<div class="slides_pro1"><img src="{$goods.goods_thumb}"></div>
+			            	<div class="slides_details">
+			            		<h4 class="erhuang">{$goods.goods_name}</h4>
+			            		<p>{$goods.shop_price}</p>
+			            	</div>
+		            	</a>
+		            </div>
+		           
+		            	{/foreach}
+		            <div class="swiper-slide slides" style="background:#f3f3f3;">
+		            	<a href="/index.php?c=category&id=99&u={$uid}">
+			            	<div class="slides_pro1" style="background:#f3f3f3;"><img src="images/see_all.png"></div>
+		            	</a>
+		            </div>
+		        </div> 
+	    	</div>
+		</div>
+	</div>
+<!--全球美食 banner-->
+	<div class="vintage_wine">
+		<div class="wine_title"style="padding-top: 2rem;">
+			<a href="/index.php?c=category&id=12&u={$uid}">
+				<img src="http://img.vmi31.com/public/delicious_food.png" style="width: 100%;">
+			</a>
+		</div>
+	</div>
+	<div class="strict_product">
+		<div class="strict_body">
+			<div class="swiper-container strict_p">
+		        <div class="swiper-wrapper" >
+		            {foreach from = $hot_goods_one item = goods}
+
+		            <div class="swiper-slide slides first_pro1" >
+		            	<a href="/index.php?m=default&c=goods&a=index&id={$goods.goods_id}&u={$uid}">
+			            	<div class="slides_pro1"><img src="{$goods.goods_thumb}"></div>
+			            	<div class="slides_details">
+			            		<h4 class="erhuang">{$goods.goods_name}</h4>
+			            		<p>{$goods.shop_price}</p>
+			            	</div>
+		            	</a>
+		            </div>
+		           
+		            	{/foreach}
+		            <div class="swiper-slide slides" style="background:#f3f3f3;">
+		            	<a href="/index.php?c=category&id=12&u={$uid}">
+			            	<div class="slides_pro1" style="background:#f3f3f3;"><img src="images/see_all.png"></div>
+		            	</a>
+		            </div>
+		        </div> 
+	    	</div>
+		</div>
+	</div>
+<!--茗茶酒饮品 banner-->
+	<div class="stride_shopping">
+		<div class="stride_title">
+			<a href="/index.php?c=category&id=112&u={$uid}" class="stride_to">
+				<img src="http://img.vmi31.com/public/wine.png">
+			</a>
+		</div>
+	</div>
+	<div class="strict_product">
+		<div class="strict_body">
+			<div class="swiper-container strict_p">
+		        <div class="swiper-wrapper" >
+		        		{foreach from = $hot_goods_two item = goods}
+
+		            <div class="swiper-slide slides first_pro1" >
+		            	<a href="/index.php?m=default&c=goods&a=index&id={$goods.goods_id}&u={$uid}">
+			            	<div class="slides_pro1"><img src="{$goods.goods_thumb}"></div>
+			            	<div class="slides_details">
+			            		<h4 class="erhuang">{$goods.goods_name}</h4>
+			            		<p>{$goods.shop_price}</p>
+			            	</div>
+		            	</a>
+		            </div>
+		           
+		            	{/foreach}
+		            <div class="swiper-slide slides" style="background:#f3f3f3;">
+		            	<a href="/index.php?c=category&id=112&u={$uid}">
+			            	<div class="slides_pro1" style="background:#f3f3f3;"><img src="images/see_all.png"></div>
+			            	
+		            	</a>
+		            </div>
+		        </div> 
+	    	</div>
+		</div>
+	</div>
+<!--美妆个护 banner-->
+	<div class="big_health">
+		<div class="health_title">
+			<a href="/index.php?c=category&id=125&u={$uid}" class="health_to">
+				<img src="http://img.vmi31.com/public/beauty_makeup.png">
+			</a>
+		</div>
+	</div>
+	<div class="strict_product">
+		<div class="strict_body">
+			<div class="swiper-container strict_p">
+		        <div class="swiper-wrapper" >
+		           {foreach from = $hot_goods_three item = goods}
+
+		            <div class="swiper-slide slides first_pro1" >
+		            	<a href="/index.php?m=default&c=goods&a=index&id={$goods.goods_id}&u={$uid}">
+			            	<div class="slides_pro1"><img src="{$goods.goods_thumb}"></div>
+			            	<div class="slides_details">
+			            		<h4 class="erhuang">{$goods.goods_name}</h4>
+			            		<p>{$goods.shop_price}</p>
+			            	</div>
+		            	</a>
+		            </div>
+		           
+		            	{/foreach}
+		            <div class="swiper-slide slides" style="background:#f3f3f3;">
+		            	<a href="/index.php?c=category&id=125&u={$uid}">
+			            	<div class="slides_pro1" style="background:#f3f3f3;"><img src="images/see_all.png"></div>
+		            	</a>
+		            </div>
+		        </div> 
+	    	</div>
+	    </div>
+	</div>
+
+<!--家具生活 banner-->
+	<div class="vintage_wine"style="padding-top:1rem;">
+		<div class="wine_title">
+			<a href="/index.php?c=category&id=62&u={$uid}" class="wine_to">
+				<img src="http://img.vmi31.com/public/furniture-.png">
+			</a>
+		</div>
+	</div>
+	<div class="strict_product">
+		<div class="strict_body">
+			<div class="swiper-container strict_p">
+		        <div class="swiper-wrapper" >
+		            {foreach from = $hot_goods_five item = goods}
+
+		            <div class="swiper-slide slides first_pro1" >
+		            	<a href="/index.php?m=default&c=goods&a=index&id={$goods.goods_id}&u={$uid}">
+			            	<div class="slides_pro1"><img src="{$goods.goods_thumb}"></div>
+			            	<div class="slides_details">
+			            		<h4 class="erhuang">{$goods.goods_name}</h4>
+			            		<p>{$goods.shop_price}</p>
+			            	</div>
+		            	</a>
+		            </div>
+		           
+		            	{/foreach}
+		            <div class="swiper-slide slides" style="background:#f3f3f3;">
+		            	<a href="/index.php?c=category&id=62&u={$uid}" class="wine_to">
+			            	<div class="slides_pro1" style="background:#f3f3f3;"><img src="images/see_all.png"></div>
+		            	</a>
+		            </div>
+		        </div> 
+	    	</div>
+		</div>
+	</div>
+<!--母婴 banner-->
+	<div class="vintage_wine"style="padding-top:1rem;">
+		<div class="wine_title">
+			<a href="/index.php?c=category&id=136&u={$uid}" class="wine_to">
+				<img src="http://img.vmi31.com/public/mother_and_infant.png">
+			</a>
+		</div>
+	</div>
+	<div class="strict_product">
+		<div class="strict_body">
+			<div class="swiper-container strict_p">
+		        <div class="swiper-wrapper" >
+		            {foreach from = $hot_goods_six item = goods}
+
+		            <div class="swiper-slide slides first_pro1" >
+		            	<a href="/index.php?m=default&c=goods&a=index&id={$goods.goods_id}&u={$uid}">
+			            	<div class="slides_pro1"><img src="{$goods.goods_thumb}"></div>
+			            	<div class="slides_details">
+			            		<h4 class="erhuang">{$goods.goods_name}</h4>
+			            		<p>{$goods.shop_price}</p>
+			            	</div>
+		            	</a>
+		            </div>
+		           
+		            	{/foreach}
+		            <div class="swiper-slide slides" style="background:#f3f3f3;">
+		            	<a href="/index.php?c=category&id=136&u={$uid}" class="wine_to">
+			            	<div class="slides_pro1" style="background:#f3f3f3;"><img src="images/see_all.png"></div>
+		            	</a>
+		            </div>
+		        </div> 
+	    	</div>
+		</div>
+	</div>
+
+
+
+	<!--猜你喜欢-->
+  <div class="N_Recommend" style="margin-top:0;background:#f7f7f7;">
+    <h3>猜你喜欢<span></span></h3>
+    <section class="product-list2 j-product-list n-index-box " data="1" style="padding:0px;">
+      <ul class="index-more-list" id="J_ItemList">
+        <div class="single_item"></div>
+        <a href="javascript:;" style="text-align:center" class="get_more"></a>
+        </ul>
+    </section>
+    <div style="width: 100%; height: 5rem; overflow: hidden;"></div>
+  </div>
+<!--主体菜单-->
+<!--列车赠票强制弹出-->
+{if $shouzengorders}
+<div class="t-box s-flex" >
+  <div class="t-conten">
+    <div class="text-center f-3 col-cheng">恭喜您</div>
+    <div class="text-center s-2 color-whie pb-2">获得{$ticketnum}张其他会员赠送的列车票套餐</div>
+    <div class="t-swiper">
+    <!--{foreach name=shouzengorders from=$shouzengorders item=orders}-->
+    <div class="s-flex t-give">
+      <div class="t-give-left"><p class="col-hui">{$orders.code}</p><p class="col-cheng"><span class="f-03">¥</span>{$orders.shop_price}</p></div>
+      <div class="t-give-right"><div class="order_name">{$orders.goods_name}</div><span class="people">赠送人：{$orders.user_name}</span></div><!--程序控制字数，css宽度自由拉伸-->
+      <div class="roundA"></div>
+      <div class="roundB"></div>
+    </div>
+    <!--{/foreach}-->
+    </div>
+    <div class="t-submit"><a href="/index.php?m=default&c=user&a=modifygivenorderaddress">{$lang.train_get_ticket}</a></div>
+  </div>
+</div>
+{/if}
+<!--列车赠票强制弹出结束-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+<script>
+$(".order_name").each(function() {
+
+var maxwidth =14;//显示多少字符
+  if ($(this).text().length > maxwidth) {
+  $(this).text($(this).text().substring(0, maxwidth));
+  $(this).html($(this).html() + '...');
+}
+});
+//限制字数
+$(".people").each(function() {
+
+var maxwidth =12;//显示多少字符
+  if ($(this).text().length > maxwidth) {
+  $(this).text($(this).text().substring(0, maxwidth));
+  $(this).html($(this).html() + '...');
+}
+});
+
+
+//限制字数
+$(".erhuang").each(function() {
+var maxwidth =12;//显示多少字符
+  if ($(this).text().length > maxwidth) {
+  $(this).text($(this).text().substring(0, maxwidth));
+  $(this).html($(this).html() + '...');
+}
+});
+$(".i-banner-fixed").click(function(){
+	$("#address_div3").show();
+})
+function setCookie(cname,cvalue)
+{
+	 var Days = 30;
+    var exp = new Date();
+    exp.setTime(exp.getTime() + 60 * 60 * 1000);//过期时间 1小时
+    document.cookie = cname + "=" + escape(cvalue) + ";expires=" + exp.toGMTString();
+
+}
+
+function getCookie(cname)
+{
+	var name=cname+"=";
+	var ca=document.cookie.split(';');
+	for(var i=0;i<ca.length;i++)
+	{
+		var c=ca[i].trim();
+		if(c.indexOf(name)==0)
+		{return c.substr(name.length,c.length);}
+	}
+}
+
+function newGetCookie(name) {
+    var arg = name + "=";
+    var alen = arg.length;
+    var clen = document.cookie.length;
+    var i = 0;
+    while (i < clen) {
+        var j = i + alen;
+        if (document.cookie.substring(i, j) == arg) return getCookieVal(j);
+        i = document.cookie.indexOf(" ", i) + 1;
+        if (i == 0) break;
+    }
+    return null;
+}
+function getCookieVal(offset) {
+    var endstr = document.cookie.indexOf(";", offset);
+    if (endstr == -1) endstr = document.cookie.length;
+    return unescape(document.cookie.substring(offset, endstr));
+}
+function checkCookie()
+{
+
+	var olreadyshow=newGetCookie("olreadyshow");
+	console.log(olreadyshow);
+
+	if(olreadyshow!='' && olreadyshow!=undefined)
+	{
+
+		$('#address_div').show();
+
+		$("#address_div4").hide();
+		//$("#address_div2").hide();
+		{if $user_id}
+		$("#address_div").hide();
+		{/if}
+		
+	}
+	else
+	{	
+
+
+
+		setCookie("olreadyshow","yes");
+		var olreadyshow=newGetCookie("olreadyshow");
+		console.log(olreadyshow);
+
+		$("#address_div2").show();
+		$("#address_div4").show();
+		$("#address_div").show();
+		
+
+	}
+}
+</script>
+
+<script type="text/javascript ">
+<!--首页弹窗-->
+window.onload=function(){ 
+
+
+//进度条购买进度
+//$(".progress_tiao").each(function(index,element) {
+	//console.log(element)
+	//console.log(index)
+	//console.log($(this).html());
+//})
+
+//$(".sell_width").each(function() {
+	//if($(this)){}
+//})
+
+
+
+	checkCookie();
+	//$("#address_div").show();
+	
+}
+
+
+//关闭弹窗
+$(".x_clase").click(function(){
+
+	$(".address_div").hide();
+	$("#address_div3").show();
+})
+$(".x_clase3").click(function(){
+
+	$(".address_div3").hide();
+
+})
+//点击区以外部分，关不弹窗
+$("#address_div").bind('click', function(e) {
+        var e = e || window.event; //浏览器兼容性 
+        var elem = e.target || e.srcElement;
+        while (elem) { //循环判断至跟节点，防止点击的是div子元素 
+          if (elem.id && elem.id == 'l_trainYes') {
+            return;
+          }
+          elem = elem.parentNode;
+        }
+        $('#address_div').css('display', 'none'); //点击的不是div或其子元素 
+  });
+$("#address_div2").bind('click', function(e) {
+        var e = e || window.event; //浏览器兼容性 
+        var elem = e.target || e.srcElement;
+        while (elem) { //循环判断至跟节点，防止点击的是div子元素 
+          if (elem.id && elem.id == 'l_trainYes') {
+            return;
+          }
+          elem = elem.parentNode;
+        }
+        $('#address_div2').css('display', 'none'); //点击的不是div或其子元素 
+  });
+$("#address_div3").bind('click', function(e) {
+        var e = e || window.event; //浏览器兼容性 
+        var elem = e.target || e.srcElement;
+        while (elem) { //循环判断至跟节点，防止点击的是div子元素 
+          if (elem.id && elem.id == 'l_trainYes') {
+            return;
+          }
+          elem = elem.parentNode;
+        }
+        $('#address_div3').css('display', 'none'); //点击的不是div或其子元素 
+  });
+
+//$("#new_buy").click(function(){
+  //$(".t-box-small").show().delay(1000).hide(1);
+//});
+	 var swiper = new Swiper('.strict_p', {
+        
+        slidesPerView: 3.55,
+        paginationClickable: false,
+        spaceBetween: 10,
+        freeMode: true,    
+    });
+
+	       
+
+	$(function($) {
+		var mySwiper = new Swiper('.banner-first', {
+			pagination: '.banner-first-pagination',
+			loop: false,
+			grabCursor: true,
+			paginationClickable: true,
+			autoplayDisableOnInteraction: false,
+			autoplay: 3000
+		});
+	});
+	/*立即关注*/
+	if ($(".index-weixin-box").hasClass("index-weixin-box")) {
+		$(".index-banner").css({
+			"marginTop": "0rem",
+
+		})
+	} else {
+		$(".index-banner").css({
+			"marginTop": "0rem",
+
+		})
+	}
+	/*公告滑动*/
+	var mySwiper = new Swiper('.swiper-containerA', {
+	slidesPerView :'auto',
+      autoplay : 2500,
+      speed:300,
+      direction: 'vertical',
+      grabCursor:true,
+      autoplayDisableOnInteraction:false,
+      mousewheelControl:true,
+      autoHeight:true,
+      pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      },
+    });
+</script>
+<script type="text/javascript">
+	get_asynclist("{:url('index/ajax_goods', array('type'=>'best'))}", '__TPL__/images/loader.gif');
+</script>
+<script>
+	$(function(){
+		$('.i-icon-toTop').hide();
+		$(window).scroll(function(){
+		if($(this).scrollTop() > 100){
+		$('.i-icon-toTop').fadeIn();
+		}else{
+		$('.i-icon-toTop').fadeOut();
+		}
+	});
+		$('.i-icon-toTop a').click(function(){
+			$('html ,body').animate({scrollTop: 0}, 300);
+			return false;
+		})
+	})
+</script>
+
+</body>
+</html>
+

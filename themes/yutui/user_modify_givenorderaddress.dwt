@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>拓客商城</title>
+    <link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/data/assets/swiper/css/swiper.min.css"/>
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <link rel="stylesheet" href="/themes/yutui/css/photoswipe.css">
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+<div class="con">
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" -->
+<!-- #EndLibraryItem -->
+<!--产品-->
+<div class="s-flex w-product m-auto" >
+  <div><img src="{$order.goods_img}"></div>
+  <div>
+    <div class="col-hui f-03">{$order.code}</div>
+    <div class="f-05">{$order.goods_name}</div>
+    <div class="col-cheng f-05">￥{$order.shop_price}</div>
+    <div class="m-top08">{$lang.to_give_username}：{$order.user_name}</div>
+  </div>
+</div>
+<!--说明-->
+<div class="w-explain m-auto">{$lang.pls_writedown_shipping_address}</div>
+<!--地址-->
+<form action="{:url('user/modifygivenorderaddress')}" method="post" name="formUser" id="formUser" class="validforms">
+<div class="s-flex s-autonym l-show-bottom m-auto">
+  <div>{$lang.consignee_name}</div>
+  <div><input type="text" name='consignee' placeholder="请输入收货人姓名"></div>
+</div>
+<div class="s-flex s-autonym l-show-bottom m-auto">
+  <div>{$lang.mobile}</div>
+  <div><input type="text" name='mobile' placeholder="{$lang.pls_input_consi_phone}"></div>
+</div>
+<div class="s-flex s-autonym l-show-bottom w-input l-train-select m-auto">
+  <div>{$lang.site_country}</div>
+  <select name="country" id="selCountry_{$sn}" onchange="region.changed(this, 1, 'selprovince_{$sn}')">
+          <option value="0">{$lang.please_select}{$name_of_region[0]}</option>
+          <!-- {foreach from=$country_list item=country} -->
+          <option value="{$country.region_id}" {if $consignee.country eq $country.region_id}selected{/if}>{$country.region_name}</option>
+          <!-- {/foreach} -->
+        </select>
+</div>
+<div class="s-flex s-autonym l-show-bottom w-input l-train-select m-auto">
+  <div>{$lang.site_distribution}</div>
+  <select name="province" id="selprovince_{$sn}" onchange="region.changed(this, 2, 'selCities_{$sn}')">
+          <option value="0">{$lang.please_select}{$name_of_region[1]}</option>
+          <!-- {foreach from=$province_list item=province} -->
+          <option value="{$province.region_id}" {if $consignee.province eq $province.region_id}selected{/if}>{$province.region_name}</option>
+          <!-- {/foreach} -->
+        </select>
+</div>
+<div class="s-flex s-autonym l-show-bottom w-input l-train-select m-auto">
+  <div>{$lang.city}</div>
+  <select name="city" id="selCities_{$sn}" onchange="region.changed(this, 3, 'selDistricts_{$sn}')">
+          <option value="0">{$lang.please_select}{$name_of_region[2]}</option>
+          <!-- {foreach from=$city_list.$sn item=city} -->
+          <option value="{$city.region_id}" {if $consignee.city eq $city.region_id}selected{/if}>{$city.region_name}</option>
+          <!-- {/foreach} -->
+        </select>
+</div>
+<div class="s-flex s-autonym l-show-bottom w-input l-train-select m-auto" id="selDistricts_{$sn}_box" {if !$district_list.$sn}style="display:none"{/if}>
+  <div>{$lang.area}</div>
+  <select name="district" id="selDistricts_{$sn}" class="selectA">
+          <option value="0">{$lang.please_select}{$name_of_region[3]}</option>
+          <!-- {foreach from=$district_list.$sn item=district} -->
+          <option value="{$district.region_id}" {if $consignee.district eq $district.region_id}selected{/if}>{$district.region_name}</option>
+          <!-- {/foreach} -->
+        </select>
+</div>
+<div class="s-flex s-autonym l-show-bottom w-input m-auto">
+  <div>{$lang.detailed_address} </div>
+  <div style="width: 100%"><textarea name="address" placeholder="{$lang.detailed_address_msg}"></textarea></div>
+</div>
+<div class="s-flex s-box s-autonym-submit m-auto">
+  <input type="hidden" name="train_id" value="{$order.train_id}" />
+  <input type="hidden" name="order_id" value="{$order.order_id}" />
+  <a id="submit" href="javascript:;" onclick="document.getElementById('formUser').submit();" class="ect-bg">确定</a>
+</div>
+</form>
+<!-- <div class="s-box8 m-auto">
+  <p>★{$lang.train_info1}</p>
+  <p class="pt-1">★{$lang.train_info2}</p>
+</div> -->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/script/region.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/js/shopping_flow.js"></script> 
+<script type="text/javascript">
+  region.isAdmin = false;
+  {foreach from=$lang.flow_js item=item key=key}
+  var {$key} = "{$item}";
+  {/foreach}
+  {literal}
+  onload = function() {
+        if (!document.all)
+        {
+          document.forms['theForm'].reset();
+        }
+  }
+  {/literal}
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="/themes/yutui/js/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="/themes/yutui/css/likeduo_new.css">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <form name="formEdit" action="{:url('flow/updateuservipprovince')}" method="post" class="registerform">
+    <div class="join_tuan">
+        <div class="join_sheng">
+            <div class="input-text_s">
+                <b class="pull-left_s">业务省份</b>
+                <span style="top: 1.2rem;">
+                    <select id="changeprovince" name='province' onChange="LoadSheng()" >
+                        <option >请选择省</option>
+
+                          <!-- {foreach from=$shop_province_list item=province} -->
+                          <option name='province' value="{$province.region_id}"  >{$province.region_name}</option>
+                          <!-- {/foreach} -->
+                                
+                    </select>
+                </span>
+            </div>
+        </div>
+        <div class="join_shi">
+            <div class="input-text_s">
+                <b class="pull-left_s">业务城市</b>
+                <span style="top: 1.2rem;">
+                    <select id="citylist" name='city'>
+        
+
+                        <!-- {foreach from=$city_list item=city} -->
+          <option   value="{$city.region_id}" {if $consignee.city eq $city.region_id}selected{/if}>{$city.region_name}</option>
+          <!-- {/foreach} -->
+                                
+                    </select>
+                </span>
+            </div>    
+        </div>
+        
+        <div class="join_yaoqing">
+            <div class="input-text_s">
+                <b class="pull-left_s">邀请码：</b>
+                <span style="top: 1.2rem;"><input name='other_invite_code' type="text" placeholder="请输入推荐人邀请码"></span>
+            </div>
+        </div>
+    </div>
+    <div class="join_explain">
+        <h4>入团信息说明</h4>
+        <p><span>1、</span><span>业务地区将用于计算同城共享奖，建议选择自己业务主要开展城市。</span></p>
+        <p>2、填写邀请码可与推荐人绑定成团队伙伴。</p>
+        <p>3、入团信息一旦确定不可更改。</p>
+    </div>
+    <div class="join_btn">
+        <button>提交信息</button>
+    </div> 
+</form>
+    <script type="text/javascript">
+   
+      
+        //30秒倒计时
+        function LoadSheng(){
+        
+          var province = $("#changeprovince").val();
+     
+                $.ajax({
+                    url     : "index.php?c=flow&a=changeprovince",
+                    data    : {province:province},
+                    dataType: "JSON",
+                    type    : "post",
+                    success :function(data){
+                      
+                             var str="";
+                          //遍历数组，把它放入sj
+                         
+                          for(var k in data){
+                           str=str+"<option value='"+data[k]['region_id']+"'>"+data[k]['region_name']+"</option>";
+                          }
+
+                          $("#citylist").html(str);   
+                    
+                    }
+                });
+                
+           
+        }
+       
+        
+
+  
+
+  
+</script>
+</body>
+</html>

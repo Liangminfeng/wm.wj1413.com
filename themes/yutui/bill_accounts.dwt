@@ -1,0 +1,475 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem --> 
+
+
+<div class="con m-b7">    
+  <nav class="initiation_nav">
+    <div class="container">
+      <div class="swiper-container swiper1">
+            <div class="swiper-wrapper bill_header">
+              <div class="swiper-slide bill_active bill_tc click_tc" code="0" total0="{$total0}" ><span style="display: inline-block;width: 100%;border-right: 1px solid #DEDEDE;" >全部</span></div>
+              <div class="swiper-slide swiper-slide-next bill_tc click_tc1" code="1" total1="{$total1}"  ><span style="display: inline-block;width: 100%;border-right: 1px solid #DEDEDE;">待结算</span></div>
+              <div class="swiper-slide bill_tc click_tc2" code="2" total2="{$total2}"  ><span href="javascript:;" style="border-right:1px solid #DEDEDE;display: inline-block;width: 100%;">已结算</span></div>
+              <div class="swiper-slide bill_tc click_tc3" code="3" total3="{$total3}" >已退款<span href="javascript:;" style="border-right: none;"></span></div>
+            </div>
+      </div>
+    <div class="swiper-container swiper2">
+      <div class="swiper-wrapper lkd_n_body">
+        <!-- 全部 -->
+        <div class="swiper-slide swiper-no-swiping lkd_cnt "  style="color:#000;">
+            <nav class="reorder_product s-flex all " id="nav_bill">
+              
+              
+              
+            </nav>
+        </div> 
+        <!-- 待结算 -->
+        <div class="swiper-slide swiper-no-swiping lkd_new_card uncompletegroup"  style="color:#000;">
+            <nav class="reorder_product s-flex all " id="nav_bill1">
+    
+            </nav>
+        </div>
+        <!-- 已结算 -->
+        <div class="swiper-slide swiper-no-swiping lkd_new_cardc completegroup"  style="color:#000;">
+            <nav class="reorder_product s-flex all " id="nav_bill2">
+    
+            </nav>
+        </div>
+        <!-- 已退款 -->
+        <div class="swiper-slide swiper-no-swiping lkd_new_cardc completegroup"  style="color:#000;">
+            <nav class="reorder_product s-flex all " id="nav_bill3">
+   
+            </nav>
+        </div>
+      </div>    
+    </div>
+  </div>
+  </nav>
+  
+  
+</div>
+  
+
+  
+
+
+
+
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+
+<script type="text/javascript" src="__TPL__/statics/layui/layui.js"></script>
+<script type="text/javascript ">
+  
+  $(document).ready(function(){
+    
+    //底部选中
+    $(".footer-nav").find("a:eq(2)").addClass("active");
+      
+ 
+  var page=1;
+  
+    layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '#nav_bill' //指定列表容器
+            , isAuto:true,
+            scrollElem: '#nav_bill',done: function (page,next) {
+               var url = "{:url('Account/ajax_all_bill_accounts')}";
+             //传递的参数
+                var data = {
+                    page:page,
+                    
+                }
+                var lis=[];
+         
+                $.post(url, data, function (params) {
+                  console.log(params.count)
+                 
+                 
+               
+                    if(params.status==200){
+                      if(params.count>0){
+                    $.each(params.data,function(i,item){
+                       if(item.order_status_name == "已结算"){
+                          lis.push(`<div class="all_bill_top"style="color: #BDBDBD;"><p>订单编号：${item.order_sn}</p><p>${item.created_at}</p></div><div class="all_bill_body all_bill_top" style="margin-bottom:0.7rem;"><div class="s-flex"><span class="all_bill_span"><img class="n-new-pic" src="${item.avatar}" style="width:5rem;height:5rem;"></span><p class="s-flex flex_direct s-justify-e"><span class="f-05 col-3">${item.buyname}</span><span class="" style="color: #BDBDBD;">${item.user_name}</span></p></div><div class="bill_state"><p class="f-04 col-3">${item.order_status_name}</p><p class="f-08 f-weigth col-3" style="color:#2797F3">￥${item.money}</p></div></div>`);
+                       }else{
+                          lis.push(`<div class="all_bill_top"style="color: #BDBDBD;"><p>订单编号：${item.order_sn}</p><p>${item.created_at}</p></div><div class="all_bill_body all_bill_top" style="margin-bottom:0.7rem;"><div class="s-flex"><span class="all_bill_span"><img class="n-new-pic" src="${item.avatar}" style="width:5rem;height:5rem;"></span><p class="s-flex flex_direct s-justify-e"><span class="f-05 col-3">${item.buyname}</span><span class="" style="color: #BDBDBD;">${item.user_name}</span></p></div><div class="bill_state"><p class="f-04 col-3">${item.order_status_name}</p><p class="f-08 f-weigth col-3">￥${item.money}</p></div></div>`);
+                       }
+                      
+
+                    })
+                     $("body").addClass("bg-33");
+
+                    }else{
+                 
+              
+                    $("#nav_bill").html('<div class="LsTabMc" style="width: 100%;padding:0;"><div class="Zbox u-bg-text"><p style="width:56%;margin:auto;"><img src="images/new/intnIco6.png"></p><p class="col-hui" style="font-size:18px;">还没有相关订单</p></div></div>');
+                    $("body").addClass("bg-white").removeClass("bg-33");
+                  }  
+                    }
+                
+                   
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    
+                    next(lis.join(''), page < params.totalpage);
+                      
+
+                   
+                    if(page==1&&params.count<5){
+                        $(".layui-flow-more").hide();
+                    }
+
+                    
+                  
+                },'json');
+          }
+      });
+    })
+    $(".click_tc").click(function(){
+      var page=1;
+      var count=parseInt($(this).attr("total0"));
+    
+        if(count>0){
+
+            layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '#nav_bill' //指定列表容器
+            , isAuto:true,
+            scrollElem: '#nav_bill',done: function (page,next) {
+               var url = "{:url('Account/ajax_all_bill_accounts')}";
+             //传递的参数
+                var data = {page:page,}
+                var lis=[];
+                $.post(url, data, function (params) {
+                  
+
+                    if(params.status==200){
+                      if(params.count>0){
+                          $.each(params.data,function(i,item){
+                            if(item.order_status_name == "已结算"){
+                              lis.push(`<div class="all_bill_top"style="color: #BDBDBD;"><p>订单编号：${item.order_sn}</p><p>${item.created_at}</p></div><div class="all_bill_body all_bill_top" style="margin-bottom:0.7rem;"><div class="s-flex"><span class="all_bill_span"><img class="n-new-pic" src="${item.avatar}" style="width:5rem;height:5rem;"></span><p class="s-flex flex_direct s-justify-e"><span class="f-05 col-3">${item.buyname}</span><span class="" style="color: #BDBDBD;">${item.user_name}</span></p></div><div class="bill_state"><p class="f-04 col-3">${item.order_status_name}</p><p class="f-08 f-weigth col-3" style="color:#2797F3">￥${item.money}</p></div></div>`);
+                            }else{
+                              lis.push(`<div class="all_bill_top"style="color: #BDBDBD;"><p>订单编号：${item.order_sn}</p><p>${item.created_at}</p></div><div class="all_bill_body all_bill_top" style="margin-bottom:0.7rem;"><div class="s-flex"><span class="all_bill_span"><img class="n-new-pic" src="${item.avatar}" style="width:5rem;height:5rem;"></span><p class="s-flex flex_direct s-justify-e"><span class="f-05 col-3">${item.buyname}</span><span class="" style="color: #BDBDBD;">${item.user_name}</span></p></div><div class="bill_state"><p class="f-04 col-3">${item.order_status_name}</p><p class="f-08 f-weigth col-3">￥${item.money}</p></div></div>`);
+                            }
+                          })
+                            $("body").addClass("bg-33");          
+                      }
+                    }
+                   
+                //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                next(lis.join(''), page < params.totalpage);
+                    
+                if(page==1&&parseInt(params.count)<5){
+                  $(".layui-flow-more").hide();
+                }else{
+                  $(".layui-flow-more").show();
+                }
+
+              },'json');
+          }
+      });
+    })
+        }else{
+           $("#nav_bill").html('<div class="LsTabMc" style="width: 100%;padding:0;"><div class="Zbox u-bg-text"><p style="width:56%;margin:auto;"><img src="images/new/intnIco6.png"></p><p class="col-hui" style="font-size:18px;">还没有相关订单</p></div></div>');
+          $("body").addClass("bg-white").removeClass("bg-33");
+        }
+    })
+    $(".click_tc1").click(function(){
+      var page=1;
+      var type1=parseInt($(this).attr("code"));
+       var count=parseInt($(this).attr("total1"));
+      
+      if(count>0){
+              layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '#nav_bill1' //指定列表容器
+            , isAuto:true,
+            scrollElem: '#nav_bill1',done: function (page,next) {
+               var url = "{:url('Account/ajax_all_bill_accounts')}";
+             //传递的参数
+                var data = {
+                    page:page,
+                    type:type1
+                }
+                
+                var lis=[];
+                
+                $.post(url, data, function (params) {
+                 
+                 if(params.status==200){
+                    if(params.count>0){
+                  $.each(params.data,function(i,item){
+                    
+                    lis.push(`<div class="all_bill_top" style="color: #BDBDBD;"><p>订单编号：${item.order_sn}</p><p>${item.created_at}</p></div><div class="all_bill_top" style="margin-bottom:0.7rem;"><div class="s-flex"><span class="all_bill_span"><img class="n-new-pic" src="${item.avatar}" style="width:5rem;height:5rem;"></span><p class="s-flex flex_direct s-justify-e"><span class="f-05 col-3">${item.buyname}</span><span class="" style="color: #BDBDBD;">${item.user_name}</span></p></div><div class="bill_state"><p class="f-04 col-3">${item.order_status_name}</p><p class="f-08 f-weigth col-3">￥${item.money}</p></div></div>`);
+                    
+                  })
+                  $("body").addClass("bg-33");
+                   
+                  }
+                  }
+                
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    
+                    next(lis.join(''), page < params.totalpage);
+                   if(page==1&&parseInt(params.count)<5){
+                      $(".layui-flow-more").hide();
+                    }else{
+                      $(".layui-flow-more").show();
+                    }
+                },'json');
+          }
+        });
+      })
+      }else{
+          $("#nav_bill1").html('<div class="LsTabMc" style="width: 100%;padding:0;"><div class="Zbox u-bg-text"><p style="width:56%;margin:auto;"><img src="images/new/intnIco6.png"></p><p class="col-hui" style="font-size:18px;">还没有相关订单</p></div></div>');
+          $("body").addClass("bg-white").removeClass("bg-33");
+      }
+
+    })
+
+    $(".click_tc2").click(function(){
+      var page=1;
+      var type2=parseInt($(this).attr("code"));
+       var count=parseInt($(this).attr("total2"));
+     
+      if(count>0){
+        layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '#nav_bill2' //指定列表容器
+            , isAuto:true,
+            scrollElem: '#nav_bill2',done: function (page,next) {
+               var url = "{:url('Account/ajax_all_bill_accounts')}";
+             //传递的参数
+                var data = {
+                    page:page,
+                    type:type2
+                }
+               
+                var lis=[];
+         
+                $.post(url, data, function (params) {
+                if(params.status==200){
+                  if(params.count>0){
+                    $.each(params.data,function(i,item){
+                   
+
+                    lis.push(`<div class="all_bill_top" style="color: #BDBDBD;"><p>订单编号：${item.order_sn}</p><p>${item.created_at}</p></div><div class="all_bill_top" style="margin-bottom:0.7rem;"><div class="s-flex"><span class="all_bill_span"><img class="n-new-pic" src="${item.avatar}" style="width:5rem;height:5rem;"></span><p class="s-flex flex_direct s-justify-e"><span class="f-05 col-3">${item.buyname}</span><span class="" style="color: #BDBDBD;">${item.user_name}</span></p></div><div class="bill_state"><p class="f-04 col-3">${item.bonusstatus}</p><p class="f-08 f-weigth" style="color:#2797F3">￥${item.money}</p></div></div>`)
+                   
+                    
+                     
+                    })
+                    $("body").addClass("bg-33");
+                  
+                  }
+                  }
+                  
+                   
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    
+                    next(lis.join(''), page < params.totalpage);
+                      
+                    if(page==1&&parseInt(params.count)<5){
+                      $(".layui-flow-more").hide();
+                    }else{
+                      $(".layui-flow-more").show();
+                    }
+                },'json');
+          }
+        });
+      })
+      }else{
+         $("#nav_bill2").html('<div class="LsTabMc" style="width: 100%;padding:0;"><div class="Zbox u-bg-text"><p style="width:56%;margin:auto;"><img src="images/new/intnIco6.png"></p><p class="col-hui" style="font-size:18px;">还没有相关订单</p></div></div>');
+         $("body").addClass("bg-white").removeClass("bg-33");
+      }
+
+    })
+      
+    $(".click_tc3").click(function(){
+
+      var page=1;
+      var type3=parseInt($(this).attr("code"));
+      var count=parseInt($(this).attr("total3"));
+
+     if(count>0){
+
+      layui.use('flow', function () {
+        var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+        var flow = layui.flow;
+        flow.load({
+            elem: '#nav_bill3' //指定列表容器
+            , isAuto:true,
+            scrollElem: '#nav_bill3',done: function (page,next) {
+               var url = "{:url('Account/ajax_all_bill_accounts')}";
+             //传递的参数
+                var data = {
+                    page:page,
+                    type:type3
+                }
+                
+                var lis=[];
+            
+                $.post(url, data, function (params) {
+               
+                    if(params.status==200){
+                      if(params.count>0){
+                        $.each(params.data,function(i,item){
+                     
+
+                        lis.push(`<div class="all_bill_top" style="color: #BDBDBD;"><p>订单编号：${item.order_sn}</p><p>${item.created_at}</p></div><div class="all_bill_top" style="margin-bottom:0.7rem;"><div class="s-flex"><span class="all_bill_span"><img class="n-new-pic" src="${item.avatar}" style="width:5rem;height:5rem;"></span><p class="s-flex flex_direct s-justify-e"><span class="f-05 col-3">${item.buyname}</span><span class="" style="color: #BDBDBD;">${item.user_name}</span></p></div><div class="bill_state"><p class="f-04 col-3">${item.bonusstatus}</p><p class="f-08 f-weigth col-3">￥${item.money}</p></div></div>`);
+                       
+                      })
+                       $("body").addClass("bg-33");
+                       
+
+                      
+                  }
+                  }
+            
+                   
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    
+                    next(lis.join(''), page < params.totalpage);
+                      
+                    if(page==1&&parseInt(params.count)<5){
+                      $(".layui-flow-more").hide();
+                    }else{
+                      $(".layui-flow-more").show();
+                    }
+                },'json');
+          }
+        });
+      })
+     }else{
+     
+      $("body").addClass("bg-white").removeClass("bg-33");
+        $("#nav_bill3").html('<div class="LsTabMc" style="width: 100%;padding:0;"><div class="Zbox u-bg-text"><p style="width:56%;margin:auto;"><img src="images/new/intnIco6.png"></p><p class="col-hui" style="font-size:18px;">还没有相关订单</p></div></div>');
+        
+     }
+
+      
+    })
+
+  })
+
+
+
+
+
+  //导航栏滑动
+   $(function($) {          
+    function setCurrentSlide(ele, index) {
+      $(".swiper1 .swiper-slide").removeClass("bill_active");
+      ele.addClass("bill_active");
+      //swiper1.initialSlide=index;
+      }
+
+    var swiper1 = new Swiper('.swiper1', {
+      //设置slider容器能够同时显示的slides数量(carousel模式)。
+      //可以设置为number或者 'auto'则自动根据slides的宽度来设定数量。
+      //loop模式下如果设置为'auto'还需要设置另外一个参数loopedSlides。
+        slidesPerView: 5.5,
+        paginationClickable: true,//此参数设置为true时，点击分页器的指示点分页器会控制Swiper切换。
+        spaceBetween: 0,//slide之间的距离（单位px）。
+        freeMode: true,//默认为false，普通模式：slide滑动时只滑动一格，并自动贴合wrapper，设置为true则变为free模式，slide会根据惯性滑动且不会贴合。
+        loop: false,//是否可循环
+        onTab: function(swiper) {
+          var n = swiper1.clickedIndex;
+        }
+    });
+    swiper1.slides.each(function(index, val) {
+      var ele = $(this);
+      ele.on("click", function() {
+        setCurrentSlide(ele, index);
+        swiper2.slideTo(index, 500, false);
+        //mySwiper.initialSlide=index;
+      });
+    });
+    var swiper2 = new Swiper('.swiper2', {
+      //freeModeSticky  设置为true 滑动会自动贴合  
+      direction: 'horizontal',//Slides的滑动方向，可设置水平(horizontal)或垂直(vertical)。
+      loop: false,
+      //effect : 'fade',//淡入
+      //effect : 'cube',//方块
+      //effect : 'coverflow',//3D流
+      //effect : 'flip',//3D翻转
+      autoHeight: true,//自动高度。设置为true时，wrapper和container会随着当前slide的高度而发生变化。
+      onSlideChangeEnd: function(swiper) {  //回调函数，swiper从一个slide过渡到另一个slide结束时执行。
+        var n = swiper.activeIndex;
+        setCurrentSlide($(".swiper1 .swiper-slide").eq(n), n);
+        swiper1.slideTo(n, 500, false);
+      }
+    });
+  });
+
+   var swiper = new Swiper('.strict_p', {
+        
+        slidesPerView: 2.4,
+        paginationClickable: false,
+        spaceBetween: 10,
+        freeMode: true
+    });
+
+   var mySwiper = new Swiper ('.swiper-containerS', {
+      
+          direction: 'horizontal', // 垂直切换选项
+          loop: true, // 循环模式选项
+          
+          // 如果需要分页器
+         
+        })        
+
+  $(function($) {
+    var mySwiper = new Swiper('.banner-first', {
+      pagination: '.banner-first-pagination',
+      loop: false,
+      grabCursor: true,
+      paginationClickable: true,
+      autoplayDisableOnInteraction: false,
+      autoplay: 3000
+    });
+  });
+  
+  /*公告滑动*/
+  var mySwiper = new Swiper('.swiper-containerA', {
+  slidesPerView :'auto',
+      autoplay : 2500,
+      speed:300,
+      direction: 'vertical',
+      grabCursor:true,
+      autoplayDisableOnInteraction:false,
+      mousewheelControl:true,
+      autoHeight:true,
+      pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      },
+    });
+</script>
+<script type="text/javascript">
+  get_asynclist("{:url('index/ajax_goods', array('type'=>'best'))}", '__TPL__/images/loader.gif');
+</script>
+
+
+</body>
+</html>

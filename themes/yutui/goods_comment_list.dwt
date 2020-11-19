@@ -1,0 +1,197 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem -->
+
+<style>
+
+
+	/*page 分页样式 - 数字*/
+	
+	.ect-page {
+		padding: 0.6em;
+		margin: 0;
+		overflow: hidden;
+	}
+	
+	.ect-page ul li {
+		float: left;
+	}
+	
+	.ect-page select {
+		background: #FFF;
+	}
+	
+	.ect-page li a,
+	.ect-page li a {
+		background: #FFF;
+		border-radius: 5px !important;
+		padding: 0.4em 0.4em;
+		font-size: 1.1em;
+		border: 1px solid #e3e3e3;
+		display: block;
+	}
+	
+	.ect-page .form-select select {
+		padding: 0.9em 5em;
+	}
+	
+	.ect-page .form-select i.fa {
+		margin-top: -0.6em;
+	}
+	
+	.form-select i.fa {
+		display: block;
+		display: inline-block;
+		position: absolute;
+		top: 50%;
+		margin-top: -0.65em;
+		right: 0.6em;
+		z-index: 1;
+		color: #aaa;
+	}
+	
+	select {
+		-webkit-appearance: none;
+		border: 0;
+		color: #555;
+		padding-left: 0;
+		border: 1px solid #e3e3e3;
+		border-radius: 5px;
+		padding: 0.2em 0.4em;
+		padding-right: 1.2em;
+		font-size: 1.1em;
+	}
+	
+	.form-select {
+		position: relative;
+		overflow: hidden;
+		height: auto;
+		text-align: center;
+		margin-top: 0.1em;
+		height: 2.5em;
+	}
+	
+	.form-select select {
+		position: relative;
+	}
+	
+	.ect-page .form-select select {
+		padding: 0.4em 3em;
+		position: relative;
+	}
+	
+	.pager li {
+		display: inline;
+	}
+	
+	.pager {
+		margin: 20px 0;
+		text-align: center;
+		list-style: none;
+	}
+	
+	.n-nav-box {}
+	
+	.goods-evaluation-page .tab-title-1 ul li {
+		padding: 1.2rem 0;
+		padding-bottom: .8rem;
+		font-size: 1.5rem;
+		text-align: center;
+	}
+	
+	.goods-evaluation-page .tab-title-1 ul li span {
+		color: #777;
+	}
+	
+	.daifukan-ts {
+		text-align: center;
+		color: #555;
+		font-size: 1.7rem;
+		margin-top: 2rem;
+	}
+</style>
+<div class="con comment-con">
+	<div class="n-nav-box">
+		<div class="goods-evaluation-page of-hidden ect-tab j-ect-tab">
+			<div class="hd j-tab-title tab-title-1 b-color-f of-hidden">
+				<ul class="dis-box">
+					<li class="box-flex {if $type == 1}active{/if}"><a href="{:url('goods/comment_list',array('type'=>1,'id'=>$this->_var['id'],'page'=>1))}"><span>{$lang.all_comment}</span></a><em class="dis-block m-top04">{$comments_info.count}</em></li>
+					<li class="box-flex {if $type == 2}active{/if}"><a href="{:url('goods/comment_list',array('type'=>2,'id'=>$this->_var['id'],'page'=>1))}"><span>{$lang.favorable_comment}</span></a><em class="dis-block m-top04">{$comments_info.favorable_count}</em></li>
+					<li class="box-flex {if $type == 3}active{/if}"><a href="{:url('goods/comment_list',array('type'=>3,'id'=>$this->_var['id'],'page'=>1))}"><span>{$lang.medium_comment}</span></a><em class="dis-block m-top04">{$comments_info.medium_count}</em></li>
+					<li class="box-flex {if $type == 4}active{/if}"><a href="{:url('goods/comment_list',array('type'=>4,'id'=>$this->_var['id'],'page'=>1))}"><span>{$lang.bad_comment}</span></a><em class="dis-block m-top04">{$comments_info.bad_count}</em></li>
+				</ul>
+			</div>
+			<div id="j-tab-con">
+				<div id="content"></div>
+<!--2018-05-07代码优化，有删除了一些代码，查看源码可查询default-->
+
+{foreach from=$comment_list item =comment}
+<div class="s-flex g-comment-box s-justify-b f-05 b-color-f m-top06" style="padding: 1.2rem 8% 0.5rem 8%;">
+  <div class="s-flex s-justify-a g-comment-img">
+    <div><img src="{$comment.user_avatar|default:/themes/yutui/images/new/card_logo.png}"></div>
+    <div><strong>{$comment.nick_name|default:$comment.user_name}</strong><br><span class="grade-star g-star-{$comment.comment_rank} fl"></span></div>
+  </div>
+
+  <div class="col-hui">{$comment.add_time}</div>
+</div>
+
+<div class="g-comment-box f-05 b-color-f" style="padding: 0rem 8% 1rem 8%;">{$comment.content}
+{foreach from=$comment.reply item =reply}
+<div class="tips tops"><span>店铺回复:</span><span>{$reply.content}</span></div>
+{/foreach}
+</div>
+
+{if $comment.imgs}
+<div class="s-flex g-comment-box b-color-f" style="padding: 0.5rem 8% 0.5rem 8%;">
+  {foreach from=$comment.imgs item=img}
+  <div class="g-comment-pic"><img data="{$img}?imageView2/2/w/500/q/100!|imageslim" src="{$img}?imageView2/1/w/75/h/75/q/75|imageslim"></div>
+  {/foreach}
+</div>
+{/if}
+{/foreach}
+
+<!--点击查看大图-->
+<div class="t-box s-flex" id="Box1" style="display: none;">
+	<div class="s-box" id="s_box_close" onclick="Box1.style.display='none';"><div class="commentpic"></div>
+	<div class="l-train-close" ><span>X</span></div>
+</div>
+
+</div>
+<!--2018-05-07优化结束-->
+			</div>
+
+		</div>
+
+	</div>
+	{include file='library/page.lbi '}
+</div>
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+
+
+</div>
+<script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+<script>
+    //弹窗 
+    $(".g-comment-pic").click(function(){
+    	$("#Box1").show();
+    	var img = $(this).find("img").attr("data");
+    	$(".commentpic").prepend("<img src='"+img+"'>")
+    });
+    //移除
+
+	$("#s_box_close").click(function(){
+    	$(".commentpic img").remove()
+    })
+    $(".l-train-close").click(function(){
+
+    	$(".commentpic img").remove()
+    })
+</script>
+</body>
+
+</html>

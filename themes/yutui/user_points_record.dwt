@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>{$lang.user_integral_detail}</title>
+	<link rel="stylesheet" href="/themes/yutui/css/style.css">
+	<link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+</head>
+<body>		
+<!-- <div class="s-flex s-space Zect-bg s-pall">
+  <div class="line-03">{$lang.my_user_integral}<br><span class="f-3">{$user_info.pay_points}</span></div>
+ 	<div class="jifen">
+	 	<a href="/index.php?c=article&a=info&aid=193" class="jifenA">
+	 		<img src="images/kd_jifen.png" alt="" class="jifenImg">
+	 	</a>
+ 	</div>
+</div>
+<div class="kd_item_img">
+	<a href="/index.php?m=default&c=user&a=sign_center&u=264">
+		<img src="images/kd_item.png" alt="">
+	</a>
+</div> -->
+<div class="con">
+{if $account_log}
+	<ul class="n-user-acc-log">
+	
+	</ul>
+
+
+{else}
+<!--没有记录请用下面-->
+<div class="box text-center bg-white ptb-3">
+  <p><img src="images/new/intnIco6.png" style="width:20rem;"></p>
+  <p class="col-hui">{$lang.no_detail_record}</p>
+</div>
+{/if}
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">
+ //没有订单时页面底部也显示白底  
+  if($(".box").hasClass("text-center")){
+    $("body").addClass("bg-white");
+    $(".s-height").addClass("bg-white")
+  }
+</script>
+<script type="text/javascript">
+	$(function () {
+		$.ajax({ url: '{:url('user/ajax_user_points_detail')}', data: { page: 1}, cache: false, dataType: 'json', success: function (html) {
+         
+              //点击切换的时候把之前的数据清空掉
+              var html1="";
+              for(var i = 0;i<html.data.length;i++){
+              	
+              	if(parseFloat(html.data[i].amount)<0){
+              		html1+=`<li class="dis-shop-list padding-all b-color-f"><div class="dis-box dis-box-align"><div class="box-flex"><h6 class="f-05 col-7"><span class="f05_span">${html.data[i].change_desc}</span></h6><h5 class="f-05 col-hui m-top04 ">${html.data[i].change_time}</h5></div><div class="box-flex"><p class="f-05 c_blur text-right text-right-${i}" style="color:#000">${html.data[i].amount}</p></div></div></li>`;
+              	}else{
+
+              		html1+=`<li class="dis-shop-list padding-all b-color-f"><div class="dis-box dis-box-align"><div class="box-flex"><h6 class="f-05 col-7"><span class="f05_span">${html.data[i].change_desc}</span></h6><h5 class="f-05 col-hui m-top04 ">${html.data[i].change_time}</h5></div><div class="box-flex"><p class="f-05 c_blur text-right text-right-${i}" style="color:#2596f4">+${html.data[i].amount}</p></div></div></li>`;
+              	}	
+              	
+              }
+           
+              $('.n-user-acc-log').html(html1);
+              	
+              	for(var i=0;i<html.data.length;i++){
+	              		if(html.data[i].user_points>0){
+	              			$(".text-right-"+i).addClass('color-red').prepend("+");
+	              		}else{
+	              			$(".text-right-"+i).removeClass('color-red').prepend("");
+	              		}
+              	}
+              	var htmlgengduo = '';
+              	if(html.data.length>=1){
+
+                htmlgengduo +=' <div class="sb1" style="background: #fff;text-align: center;">';
+                
+               
+
+                 if(p==1&&html.data.length<8){
+                	
+                	htmlgengduo +='  <a href="javascript:;" class="gengduo more1" style="display:none">加载更多</a></div>  ';
+              	}else{
+              		htmlgengduo +='  <a href="javascript:;" class="gengduo more1" >加载更多</a></div>  ';
+              	}
+                $('.n-user-acc-log').append(htmlgengduo);
+            }
+
+               
+              }});
+		var p =1;
+
+		$(document).on('click','.gengduo',function(){
+	 		 p += 1;
+	 		
+	 		 $.ajax({ url: '{:url('user/ajax_user_points_detail')}', data: { page: p}, cache: false, dataType: 'json', success: function (htmlmore) {
+	 		 	
+	 		 	var html1 ='';
+	 		 	if(htmlmore.data.length&&htmlmore.status==200){
+		 			for(var i=0;i<htmlmore.data.length;i++){
+		 				html1+='<li class="dis-shop-list padding-all b-color-f">';
+		 				html1+='<div class="dis-box dis-box-align">';
+		 				html1+='<div class="box-flex"><h6 class="f-05 col-7">';
+		 				html1+='<span class="f05_span">'+htmlmore.data[i].change_desc+'</span></h6>';
+		 				html1+='<h5 class="f-05 col-hui m-top04 ">'+htmlmore.data[i].change_time+'</h5></div><div class="box-flex">';
+		 				if(htmlmore.data[i].amount>0){
+
+		 				html1+='<p class="f-05 text-right color-red text-right+'+i+'">'+'+'+htmlmore.data[i].amount+'</p></div></div></li>';
+		 					}else{
+	html1+='<p class="f-05 text-right text-right-'+i+'">'+'+'+htmlmore.data[i].amount+'</p></div></div></li>';
+		 					}
+		 				
+		 				}
+	 			}
+
+	 			$(".sb1").remove();
+	 			$(".more1").remove();
+              //点击切换的时候把之前的数据清空掉
+              //
+              	$('.n-user-acc-log').append(html1);
+              	 var htmlgengduo = '';
+              	
+              	if(htmlmore.data.length>=1&&htmlmore.status==200){
+              	
+                htmlgengduo +=' <div class="sb1" style="background: #fff;text-align: center;">';
+
+                htmlgengduo +='  <a href="javascript:;" class="gengduo more1" >加载更多</a></div>  ';
+
+                $('.n-user-acc-log').append(htmlgengduo);
+            }else{
+          
+                $('.n-user-acc-log').append("<li style='text-align:center;color:#333;font-size:14px;padding-top: 1.3rem;padding-bottom: 1.3rem;background: #fff;'>已经到底啦！</li>");
+            }
+              		
+	              		
+              	
+                    
+              }});
+
+
+	 })
+	})
+	 
+ //实际应用
+            
+
+</script>
+</div>
+</body>

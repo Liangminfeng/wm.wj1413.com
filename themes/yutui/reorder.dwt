@@ -1,0 +1,118 @@
+﻿<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem --> 
+
+
+<div class="con m-b7">    
+	<div class="index-banner" style="margin-top:0">
+		<div ><img src="http://img.vmi31.com/public/tenmax_banner4.png"></div>
+	</div>
+	<nav class="reorder_nav">
+		<div class="reorder_tishi"style="color: #ffd09d;">每月重消满200元，即可满足月度重消期限</div>
+	</nav>
+	
+	<nav class="reorder_nav2">
+		<div class="reorder_tishi">月度重消期限：<span>2020-09-30</span></div>
+	</nav>
+	<nav class="reorder_product s-flex">
+		
+	</nav>
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+
+
+<script type="text/javascript ">
+	$(document).ready(function(){
+
+		var rtcat_id = '2';
+		$.ajax({
+            url     : "index.php?c=Affiliate&a=getAjaxGoodsList",
+            data    : {goods_vip:0,rtcat_id:rtcat_id},
+            dataType: "JSON",
+            type    : "post",
+            success :function(res){
+        		if(res.status==200){
+        			var data=res.data;
+        			var html="";   			
+        			for(pic_anew of data){  				
+        				html+=`<div class="set_meal1_div"><a href="${pic_anew.href}"><div class="set_meal"><img src="${pic_anew.goods_img}"></div><div class="reorder_meal"><p><span class="pic_name">${pic_anew.goods_name}</span></p><p style=" flex-direction: column;"><span class="reorder_money">¥${pic_anew.shop_price}</span><span class="reorder_pv">${pic_anew.rtgoods_pv}pv</span></p></div></a></div>`
+        			}
+        			$(".reorder_product").html(html);
+        			//限制字数
+					$(".pic_name").each(function() {
+						var maxwidth =6;//显示多少字符
+						  if ($(this).text().length > maxwidth) {
+						  $(this).text($(this).text().substring(0, maxwidth));
+						  $(this).html($(this).html() + '...');
+						}
+					});
+        		}                        
+            }
+    	});
+	})
+
+
+
+
+
+
+
+
+	 var swiper = new Swiper('.strict_p', {
+        
+        slidesPerView: 2.4,
+        paginationClickable: false,
+        spaceBetween: 10,
+        freeMode: true
+    });
+
+	 var mySwiper = new Swiper ('.swiper-containerS', {
+	 	  
+          direction: 'horizontal', // 垂直切换选项
+          loop: true, // 循环模式选项
+          
+          // 如果需要分页器
+         
+        })        
+
+	$(function($) {
+		var mySwiper = new Swiper('.banner-first', {
+			pagination: '.banner-first-pagination',
+			loop: false,
+			grabCursor: true,
+			paginationClickable: true,
+			autoplayDisableOnInteraction: false,
+			autoplay: 3000
+		});
+	});
+	
+	/*公告滑动*/
+	var mySwiper = new Swiper('.swiper-containerA', {
+	slidesPerView :'auto',
+      autoplay : 2500,
+      speed:300,
+      direction: 'vertical',
+      grabCursor:true,
+      autoplayDisableOnInteraction:false,
+      mousewheelControl:true,
+      autoHeight:true,
+      pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+      },
+    });
+</script>
+<script type="text/javascript">
+	get_asynclist("{:url('index/ajax_goods', array('type'=>'best'))}", '__TPL__/images/loader.gif');
+</script>
+
+
+</body>
+</html>

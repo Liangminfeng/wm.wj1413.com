@@ -1,0 +1,122 @@
+<!-- #BeginLibraryItem "/library/user_header.lbi" --><!-- #EndLibraryItem -->
+<div class="Zorderlist">
+{if $current eq "not_pay_order_list"}
+  <ul>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=order_list">{$lang.all_order}</a></li>
+    <li class="Out" ><a href="/index.php?m=default&c=user&a=not_pay_order_list">{$lang.unpay_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=not_shoushuo">{$lang.unreceived_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=order_comment">{$lang.unreview_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=aftermarket_list">{$lang.return_order}</a></li>
+  </ul>
+{elseif $current eq "not_shoushuo"}
+  <ul>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=order_list">{$lang.all_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=not_pay_order_list">{$lang.unpay_order}</a></li>
+    <li class="Out" ><a href="/index.php?m=default&c=user&a=not_shoushuo">{$lang.unreceived_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=order_comment">{$lang.unreview_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=aftermarket_list">{$lang.return_order}</a></li>
+  </ul>
+
+  {elseif $current eq "order_comment"}
+   <ul>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=order_list">{$lang.all_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=not_pay_order_list">{$lang.unpay_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=not_shoushuo">{$lang.unreceived_order}</a></li>
+    <li class="Out" ><a href="/index.php?m=default&c=user&a=order_comment">{$lang.unreview_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=aftermarket_list">{$lang.return_order}</a></li>
+  </ul>
+
+ 
+   {elseif $current eq "aftermarket_list"}
+   <ul>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=order_list">{$lang.all_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=not_pay_order_list">{$lang.unpay_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=not_shoushuo">{$lang.unreceived_order}</a></li>
+    <li class="Out" ><a href="/index.php?m=default&c=user&a=order_comment">{$lang.unreview_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=aftermarket_list">{$lang.return_order}</a></li>
+  </ul>
+
+  {else}
+  <ul>
+    <li class="Out" ><a href="/index.php?m=default&c=user&a=order_list">{$lang.all_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=not_pay_order_list">{$lang.unpay_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=not_shoushuo">{$lang.unreceived_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=order_comment">{$lang.unreview_order}</a></li>
+    <li class="Over" ><a href="/index.php?m=default&c=user&a=aftermarket_list">{$lang.return_order}</a></li>
+  </ul>
+{/if}
+</div>
+{if $orders_list}
+<div class="LsTabMc" >
+  <div class="ect-pro-list2 user-order">
+    <ul id="J_ItemList">
+     <!--{foreach name=orders_list from=$orders_list item=orders}-->
+     <div class="Zbox">
+      <li>
+      <a href="{:url('user/order_detail', array('order_id'=>$this->_var['orders']['order_id']))}"><img src="{$orders.img}" class="pull-left">
+      <dl class="pl-5">
+        <dt><i class="TiLeft4">{$lang.order_number}：</i>{$orders.order_sn}</dt>
+        <dd><i class="TiLeft4">{$lang.order_status}：</i>{$orders.order_status}</dd>
+        <dd><i class="TiLeft4">{$lang.order_total_fee}：</i><span><font style="color: #ff5400;">¥{$orders.total_fee}  (含运费¥{$orders.shipping_fee})</font></span></dd>
+        <dd><i class="TiLeft4">{$lang.order_addtime}：</i>{$orders.order_time}</dd>
+      </dl>
+      <i class="pull-right fa fa-angle-right"></i> </a> 
+      </li> 
+      <div class="Zorder-L-border">
+      {$orders.handler}
+      </div>
+    </div>   
+    <!--{/foreach}-->
+  </ul>
+  </div>
+</div>
+{include file='library/page.lbi '}
+{else}
+<!--没有订单-->
+<div class="LsTabMc" >
+  <div class="Zbox u-bg-text"><p><img src="images/new/order.png"></p><p>{$lang.no_orders}~~</p></div>
+</div>
+{/if}
+
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript">
+function LsTab(obj,thisNum,totalNum){ 
+            /* 
+            obj 元素ID号前缀 
+            thisNum 当前元素的ID标识 
+            totalNum 总的选项卡数 
+            */ 
+
+            for(i=1;i<=totalNum;i++){ 
+                if(i==thisNum){ 
+                    document.getElementById(obj+'_h_'+i).className="Out"; 
+                    document.getElementById(obj+'_c_'+i).className="LsTabMc"; 
+                }else{ 
+                    document.getElementById(obj+'_h_'+i).className='Over'; 
+                    document.getElementById(obj+'_c_'+i).className="LsTabMcN"; 
+                } 
+            } 
+} 
+  </script>
+
+<script type="text/javascript">
+
+{foreach from=$lang.merge_order_js item=item key=key}
+    var {$key} = "{$item}";
+{/foreach}
+//if({$show_asynclist}){
+//get_asynclist('index.php?m=default&c=user&a=async_order_list&pay={$pay}' , '__TPL__/images/loader.gif');
+//}
+</script> 
+<script type="text/javascript">
+ //没有订单时页面底部也显示白底  
+  if($(".Zbox").hasClass("u-bg-text")){
+    $("body").addClass("bg-white")
+  }
+</script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+</body></html>

@@ -1,0 +1,211 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+<!-- {if $step eq "cart"} 购物车列表-->
+<!-- #BeginLibraryItem "/flow_cart.dwt" --><!-- #EndLibraryItem -->
+<!-- {/if} -->
+
+<!-- {if $step eq "label_favourable"} 购物车中的优惠活动 -->
+<!-- #BeginLibraryItem "/flow_label_favourable.dwt" --><!-- #EndLibraryItem -->
+<!-- {/if} -->
+
+<!-- {if $step eq "checkout"} 开始订单确认界面 -->
+<!-- #BeginLibraryItem "/flow_checkout.dwt" --><!-- #EndLibraryItem -->
+<!-- {/if} -->
+
+<!-- {if $step eq "done"} 订单提交成功 -->
+<!-- #BeginLibraryItem "/flow_done.dwt" --><!-- #EndLibraryItem -->
+<!-- {/if} -->
+
+<!-- {if $step eq "consignee"} 开始收货人信息填写界面 -->
+<!-- #BeginLibraryItem "/flow_consignee.dwt" --><!-- #EndLibraryItem -->
+<!-- {/if} -->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/shopping_flow.js?v={$v}"></script>
+<script>
+function back_goods_number(id){
+ var goods_number = document.getElementById('goods_number'+id).value;
+  document.getElementById('back_number'+id).value = goods_number;
+}
+function change_goods_number(type, id)
+{
+  var goods_number = document.getElementById('goods_number'+id).value;
+  if(type != 2){  back_goods_number(id) }
+  if(type == 1){  goods_number--;  }
+  if(type == 3){  goods_number++;  }
+  if(goods_number <=0 ){ goods_number=1; }
+  if(!/^[0-9]*$/.test(goods_number)){ goods_number = document.getElementById('back_number'+id).value; }
+  document.getElementById('goods_number'+id).value = goods_number;
+	$.post('{:url("flow/ajax_update_cart")}', {
+		rec_id : id,goods_number : goods_number
+	}, function(data) {
+		change_goods_number_response(data,id);
+	}, 'json');
+}
+// 处理返回信息并显示
+function change_goods_number_response(result,id)
+{
+	if (result.error == 0){
+		var rec_id = result.rec_id;
+		$("#goods_number_"+rec_id).val(result.goods_number);
+		document.getElementById('total_number').innerHTML = result.total_number;//更新数量
+		document.getElementById('goods_subtotal').innerHTML = result.total_desc;//更新小计
+		if (document.getElementById('ECS_CARTINFO')){
+			//更新购物车数量
+			document.getElementById('ECS_CARTINFO').innerHTML = result.cart_info;
+		}
+	}else if (result.message != ''){
+		alert(result.message);
+		var goods_number = document.getElementById('back_number'+id).value;
+ 		document.getElementById('goods_number'+id).value = goods_number;
+	}
+}
+
+	/*点击下拉手风琴效果*/
+	$('.collapse').collapse()
+	$(".checkout-select a").click(function(){
+		if(!$(this).hasClass("select")){
+			$(this).addClass("select");
+		}else{
+			$(this).removeClass("select");
+		}
+	});
+
+/* *
+ * 检查提交的订单表单
+ */
+function checkOrderForm(frm)
+{
+var order_type = {$order_type};
+if(!$("#invitecode").val()&&order_type>0){
+  alert("请输入正确的邀请人编号");return false;
+}
+  
+  var paymentSelected = false;
+  var shippingSelected = false;
+
+  // 检查是否选择了支付配送方式
+  for (i = 0; i < frm.elements.length; i ++ )
+  {
+    if (frm.elements[i].name == 'shipping' && frm.elements[i].checked)
+    {
+      shippingSelected = true;
+    }
+
+    if (frm.elements[i].name == 'payment' && frm.elements[i].checked)
+    {
+      paymentSelected = true;
+    }
+  }
+   if (document.getElementById("shippingaddress").value=="0"){
+
+   alert("{$lang.pls_input_your_address}");
+   return false;
+   }
+ 
+  if ( ! shippingSelected)
+  {
+    alert(flow_no_shipping);
+    return false;
+  }
+
+  if ( ! paymentSelected)
+  {
+    alert(flow_no_payment);
+    return false;
+  }
+var ECS_SURPLUS = '';
+var ECS_INTEGRAL = '';
+  // 检查用户输入的余额
+  if (document.getElementById("ECS_SURPLUS"))
+  {
+    var surplus = document.getElementById("ECS_SURPLUS").value;
+
+    var info = $.ajax({
+                  url : 'index.php?m=default&c=flow&a=check_surplus',
+                  async : false,
+                  data: {surplus:surplus},
+                  success: function(data){
+                	  ECS_SURPLUS = data;
+                  },
+                  dataType: 'text'
+                });
+
+    if (ECS_SURPLUS)
+    {
+      try
+      {
+        document.getElementById("ECS_SURPLUS_NOTICE").innerHTML = ECS_SURPLUS;
+      }
+      catch (ex)
+      {
+      }
+      return false;
+    }
+  }
+
+  // 检查用户输入的积分
+  if (document.getElementById("ECS_INTEGRAL"))
+  {
+    var integral = document.getElementById("ECS_INTEGRAL").value;
+
+    var info = $.ajax({
+                  url : 'index.php?m=default&c=flow&a=check_integral',
+                  async : false,
+                  data: {integral:integral},
+                  success: function(data){
+                	  ECS_INTEGRAL = data;
+                  },
+                  dataType: 'text'
+                });
+
+    if (ECS_INTEGRAL)
+    {
+      return false;
+      try
+      {
+        document.getElementById("ECS_INTEGRAL_NOTICE").innerHTML = ECS_INTEGRAL;
+      }
+      catch (ex)
+      {
+      }
+    }
+  }
+  //避免重复提交
+ 
+  
+  frm.action = frm.action + '&step=done';
+  //frm.action = frm.action + '?step=done';
+  return true;
+}
+/* *
+ * 改变配送方式
+ */
+function selectShipping1(obj)
+{
+
+  if (selectedShipping == obj)
+  {
+    return;
+  }
+  else
+  {
+    selectedShipping = obj;
+  }
+
+  var supportCod = obj.attributes['supportCod'].value + 0;
+  var theForm = obj.form;
+
+
+
+  var now = new Date();
+
+  $.get('index.php?m=default&c=flow&a=select_shipping', {shipping: obj.value}, function(data){
+    orderShippingSelectedResponse(data);
+  }, 'json');
+}
+</script>
+</body>
+</html>

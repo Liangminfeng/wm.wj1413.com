@@ -1,0 +1,24 @@
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con">
+  <div  style="text-align:center; margin-top:2em; font-size:1.3em;">
+<p style="padding:1rem">{$message.content}</p>
+<!-- {if $message.url_info} -->
+<div class="a-link-cheng"> 
+  <!--{foreach from=$message.url_info key=info item=url}-->
+  <!--{if $info==0}-->
+  <span class="p-link" style="margin-right:0.2em;"><a href="{$url.href}">{$url.name}</a></span>或
+  <!--{else}-->
+  <span class="p-link" style="margin-right:0.2em;"><a href="{$url.href}">{$url.name}</a></span>
+  <!--{/if}-->
+  <!--{/foreach}--> 
+</div>
+<!--{/if}-->
+<div style="width:1px; height:1px; overflow:hidden">{foreach from=$lang.p_y item=pv}{$pv}{/foreach}</div>
+</div>
+</div>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

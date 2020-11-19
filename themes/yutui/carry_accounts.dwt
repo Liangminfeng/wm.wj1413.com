@@ -1,0 +1,113 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem --> 
+
+
+<div class="con m-b7">    
+  <div class="bank_content">
+    {foreach from = $cardlist item = card}
+    <div class="bank_card1" id="{$card.bank_id}">
+      <div class="bank_internal">
+        <p>{$card.bank_name} <span>{$card.bank_sub_name}</span></p>
+        <p>{$card.bank_realname}</p>
+        <p>{$card.bank_no}</p> 
+      </div>
+      <span class="close_bank"><img src="images/tenmax/close_bank.png"></span>
+    </div>
+    {/foreach}
+   
+  </div>
+  <div class="add_bank"> 
+    <a class="add_bank_a" style="color:#fff;" href="{:url('Account/add_bankcard')}">+添加银行卡</a>
+  </div>
+</div>
+<!--关闭弹窗-->
+<div class="body_pop_up" id="address_div" class="address_div1" style="display:none;">
+  <div id="l_trainYes"  class="red_packet" style="max-width:640px;margin:auto;">
+    <div class="close_show">
+        <p style="padding:7rem 0;">您确定删除银行卡?</p>
+        <p class="s-flex s-justify-a show_sure" style="border-top: 1px solid #bdbdbd;">
+          <a href="javascript:;" class="cancel_close">取消</a>
+          <a href="javascript:;" class="delete_close" style="background: #2596F4;color: #fff;border-bottom-right-radius: 0.5rem;">确定</a>
+        </p>
+    </div>
+  </div>
+</div>
+<div><input type="hidden" id="setbank_id" value='' ></div>
+<!--主体菜单-->
+
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+
+<script type="text/javascript" src="__TPL__/statics/layui/layui.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+  //底部选中
+  $(".footer-nav").find("a:eq(2)").addClass("active");
+
+  //循环颜色
+    $("body").css("background","#303030");
+    for(var i=0;i<100;i+=3){
+      $(".bank_card1").find("div").eq(i).css("background","linear-gradient(to right, #FF8671, #FE5263)")
+    }
+    for(var i=1;i<100;i+=3){
+      $(".bank_card1").find("div").eq(i).css("background","linear-gradient(to right, #5C9FD6, #5C9FD6)")
+    }
+    for(var i=2;i<100;i+=3){
+      $(".bank_card1").find("div").eq(i).css("background","linear-gradient(to right, #F9C25B, #F99046)")
+    }
+
+    //关闭银行卡弹窗
+   
+
+   $(".close_bank").click(function(){   
+      $("#setbank_id").val($(this).parent().attr("id"));
+      $("#address_div").show();
+      $(this).parent().attr('off',false);
+      $(this).parent().siblings().attr("off",true); 
+
+    })
+    
+    //取消
+    $(".cancel_close").click(function(){
+        $("#address_div").hide(); 
+    })
+    //确定删除
+
+      $(".delete_close").click(function(){
+        var bank_id= $("#setbank_id").val();
+
+        
+        $.ajax({
+            url :"{:url('Account/ajax_del_bankcard')}",
+            type:"POST",
+            data:{bank_id:bank_id},
+            dataType:"JSON",
+            success:function(res){
+
+            console.log(res)
+              $("#address_div").hide();
+              $(".bank_card1[off='false']").remove();
+            }
+          
+        });
+
+
+        
+          
+      })
+        
+
+  })
+  
+</script>
+
+
+</body>
+</html>

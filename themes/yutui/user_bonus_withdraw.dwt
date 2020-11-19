@@ -1,0 +1,206 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" --><!-- #EndLibraryItem -->
+<div class="con">
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+	<form action="{:url('user/act_account_bonus')}" method="post" name="theForm" onsubmit="return check_form()">
+	<!--2018-04-10提现优化-->
+	<div class="money_out_or">
+		<div class="money_out "><a href="{:url('user/bonus_out')}">{$lang.user_roll_out}</a></div>
+		<div class="money_out money_active"><a class="money_active1" href="{:url('user/bonus_withdraw')}">{$lang.user_roll_in}</a></div>
+	</div>
+	<div class="flow_path s-flex s-justify-a ">
+		<div >
+			<p class="flow_write_"><img src="images/tenmax/write_.png"></p>
+			<p>提交申请</p>
+		</div>
+		<div>
+			<p style="width: 40%;"><img src="images/tenmax/gt_jt.png"></p>
+		</div>
+		<div>
+			<p class="flow_timer_"><img src="images/tenmax/timer.png"></p>
+			<p>财务审核</p>
+		</div>
+		<div>
+			<p style="width: 40%;"><img src="images/tenmax/gt_jt.png"></p>
+		</div>
+		<div>
+			<p class="right_"><img src="images/tenmax/right_.png"></p>
+			<p>到账成功</p>
+		</div>
+	</div>
+	<div class="s-flex s-autonym  s-box-sizing" id="bank_show" style="border-bottom: 1px solid #e3e3e3;">
+		<div class="s-flex" style="width:90%;">
+			<div>{$lang.user_money_name}</div>
+			<!--<div class="bank-number1">{$user.bank}({$bank_card})({$user.real_name})</div>-->
+			<div class="bank_messages"  style="padding-left: 0.5rem;"><span class="nickname_bank">{$default_bank.bank_name}</span> <span class="bank_num">{$default_bank_no}</span> <span class="bank_name">{$default_bank.bank_realname}</span></div>
+		</div>
+		<p style="width:10%; margin: auto 0;text-align: -webkit-center;"><span style="width:2.2rem;display: block;"><img src="themes/yutui/images/gt_big.png" alt=""></span></p>
+	</div>  
+	<div class="s-flex s-autonym  s-box-sizing">
+		<div>{$lang.repay_money}</div>
+	</div>
+	<div class="s-flex s-autonym l-show-bottom s-box-sizing" style=" border:0;">
+	  <div style="width: 100%;"><span class="f-2">{$lang.user_money_nt}</span> <input id="oInput"  style="width: 90%;font-size:2rem;" name="amount" type="number" class="j-input-text" value="{$order.amount|escape}" /></div>		
+	</div>
+	<div class="s-flex s-autonym l-show-bottom s-box-sizing" style="padding:0.6rem 3%;border-top: 1px solid #e3e3e3;">
+	  <div> <span class="col-9">{$lang.user_money_cash_balance}<span class="col-red" id='bonusmoney'>{$cansmall_change}</span>元</span> </div>
+	</div>
+	<div class="padding-all">
+		<input type="hidden" name="surplus_type" value="1" />
+		
+		<input type='hidden' name="bank_id" id='bank_id' value="{$default_bank.bank_id}" />
+		<button name="submit" type="submit" class="btn-submit" value="{$lang.submit_request}">{$lang.submit_request}</button>
+	</div>
+	<div class="s-flex s-autonym-transparency s-box-sizing f-05 line-2">
+		<div class="pt-1">
+		  <h2 class="f-05" style="padding-bottom:1rem;">{$lang.user_money_explain}</h2>
+		  {$lang.withdraw_explanation}
+
+		</div>
+	</div>
+	<!--2018-04-10提现优化结束-->
+<section class="j_showed" style="display:none;">				
+	<div class="mask-filter-div show"></div>
+	<div class="show-goods-attr j-filter-show-div ts-3 b-color-1 show">
+		<section class="s-g-attr-con b-color-f m-top1px swiper-container-vertical swiper-container-free-mode">
+			<div class="swiper-wrapper">
+				<div id="collapseTwo" class="t-box panel-collapse collapse in" aria-expanded="true" style="">
+		          <ul class="ect-radio f-pay-block phone_li" style="padding:0 2rem;">
+		          	<li style="padding:2.2rem 0;">
+		          	<p class="n-iphone5-top1" style="font-size: 2rem;">选择到账银行卡</p>
+		          	
+		          	</li>
+		          	{foreach from = $cardlist item = card}
+		            <li class="select_bank s-flex s-justify-b" name="{$card.bank_realname}" bank_id="{$card.bank_id}" bank_no={$card.bank_no}>            
+		              <div>
+		              	<p class="n-iphone5-top1"><span>{$card.bank_name}</span> <span>{$card.bank_sub_name}</span><span>({$default_bank_no})</span></p>
+		              	<p style="font-size: 1.3rem;color: #bdbdbd;">{$card.bank_realname}</p>
+		              </div>
+		              <div class="select_bank_img" style="width:5%;margin:auto 0;">
+		              	<img src="images/tenmax/no_select_bank.png" style="width:100%">
+		              </div>
+		            </li>
+		             {/foreach}
+		             <li class="s-flex s-justify-b" id="use_new_bank">
+		             	<div>
+		              	<p class="n-iphone5-top1">使用新银行卡</p>
+		              	
+		              </div>
+		              <div class="select_bank_img" style="width:5%;margin:auto 0;">
+		              	<img src="images/tenmax/no_select_bank.png" style="width:100%">
+		              </div>
+		             </li>
+		          </ul>
+        		</div>
+			</div>
+			<div class="swiper-scrollbar" style="display: none; opacity: 0;">
+				<div class="swiper-scrollbar-drag" style="height: 0px;"></div>
+			</div>
+		</section>
+	</div>
+</section>		
+	</form>
+
+
+
+
+</div>
+</div>
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/script/region.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/shopping_flow.js"></script>
+<script type="text/javascript">
+window.onload = function(){
+	if($(".nickname_bank").html()==""&&$(".bank_num").html()==""){
+		$(".bank_messages").html("选择银行卡");
+	}
+
+
+    	var oInput = document.getElementById("oInput");
+    	oInput.focus();
+}
+	
+	function check_form(){
+		var amount = $("input[name='amount']").val();
+		var user_note = $("input[name='user_note']").val();
+		var bonusmoney = parseInt($("#bonusmoney").html());
+		
+		if($(".bank_messages").html()=="选择银行卡"){
+			alert("请选择到款账户");
+			return false;
+		}
+		if(parseInt($("#oInput").val()) > parseInt($("#bonusmoney").html()) ){
+			
+			alert("提现金额不足");
+			return false;
+		}
+		if($("#oInput").val()<10){
+			alert("提现金额不能低于10元");
+			return false;
+		}else{
+			return true;
+		}
+		
+		//if(amount < 1){	
+			 //alert("{$lang.bonus_withdraw_min_alert}");
+             //return false;
+		//}
+		
+		if(amount>=bonusmoney){
+		
+		    alert("{$lang.bonus_withdraw_error}");
+		   return false;
+		}else{
+
+			return fasle;
+		}
+		
+		if(user_note == ''){	
+			 alert("{$lang.withdraw_alert}");
+             return false;
+		}
+		
+	};
+	/*银行号码隐藏*/
+	//var str= ($(".bank-number").html());
+    //var str2 = str.substr(0,3)+"****"+str.substr(7);  
+    //$(".bank-number").html(str2)
+
+
+
+
+    $("#bank_show").click(function() {
+		document.addEventListener("touchmove", handler, false);
+		$(".j_showed").show();
+		$(".j-filter-show-div").addClass("show");
+		$(".mask-filter-div").addClass("show");
+	});
+
+	
+	    $(".select_bank").click(function() {
+	    	//alert($(this).attr("bank_no"));
+	    	//alert($(this).attr("name"));
+	    	var bank_lengt=$(this).attr("bank_no");
+	    	$(this).find("div:eq(1) img").attr("src","themes/yutui/images/tenmax/select_bank.png");
+	    	$(this).siblings().find("div:eq(1) img").attr("src","themes/yutui/images/tenmax/no_select_bank.png");
+	    	$(".bank_num").html(`(${bank_lengt.substring(bank_lengt.length-4)})`)
+	    	$(".bank_name").html($(this).attr("name"))
+	      	$(".nickname_bank").html($(this).find("div:eq(0) p span:eq(0)").html());
+	      	$("#bank_id").val($(this).attr("bank_id"));
+	      	$(".j_showed").hide();  
+	    })
+   //使用新银行卡
+   		$("#use_new_bank").click(function(){
+   			
+   			$(this).find("div:eq(1) img").attr("src","themes/yutui/images/tenmax/select_bank.png");
+   			 location.href='{:url('Account/add_bankcard')}';
+   		})
+</script>
+
+</body>
+
+</html>

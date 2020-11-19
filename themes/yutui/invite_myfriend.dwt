@@ -1,0 +1,49 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+<!-- #EndLibraryItem --> 
+<div class="s-block img" style="padding-top: 4rem; background-color: #0b0b17;;">
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img02.tenfutenmax.com.cn/public/vip_p1.png"></p>
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><a href="/index.php?c=topic&topic_id=17"><img src="http://img02.tenfutenmax.com.cn/public/vip_p2.png"></a></p>
+<div style="display:flex;background: #f7f7f7;margin-bottom: -0.1rem;">
+<p ><a href="/index.php?m=default&c=goods&a=index&id=378&u=2338" style="display:block;"><img src="http://img02.tenfutenmax.com.cn/public/p1_vip.png"></a></p>
+<p><a href="/index.php?m=default&c=goods&a=index&id=438&u=2338" style="display:block;"><img src="http://img02.tenfutenmax.com.cn/public/p2_vip.png"></a></p>
+</div>
+<div style="display:flex;background: #f7f7f7;margin-bottom: -0.1rem;">
+<p><a href="/index.php?m=default&c=goods&a=index&id=380&u=2338" style="display:block;"><img src="http://img02.tenfutenmax.com.cn/public/p3_vip.png"></a></p>
+<p><a href="/index.php?m=default&c=goods&a=index&id=378&u=2338" style="display:block;"><img src="http://img02.tenfutenmax.com.cn/public/p4_vip.png"></a></p>
+</div>
+<div style="display:flex;background: #f7f7f7;margin-bottom: -0.1rem;">
+<p style="background: #f7f7f7;"><a href="/index.php?m=default&c=goods&a=index&id=374&u=2338" style="display:block;"><img src="http://img02.tenfutenmax.com.cn/public/p5_vip.png"></a></p>
+<p style="background: #f7f7f7;"><a href="/index.php?m=default&c=goods&a=index&id=377&u=2338" style="display:block;"><img src="http://img02.tenfutenmax.com.cn/public/p6_vip.png"></a></p>
+</div>
+
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img02.tenfutenmax.com.cn/public/vip_p3.png"></p>
+<p style="margin-bottom: -0.1rem;background: #f7f7f7;"><img src="http://img02.tenfutenmax.com.cn/public/vip_p4.png"></p>
+
+
+
+  
+  
+  
+
+</div>
+<div class="s-flex c-card-submit" style="background: #fff;z-index:99999999"><a href="/index.php?c=topic&topic_id=17" class="" style="width: 100%;padding:0"><img style="width: 100%;"src="http://img02.tenfutenmax.com.cn/public/vip_market1_11.png"></a></div>
+<!-- #BeginLibraryItem "/library/new_share.lbi" --><!-- #EndLibraryItem -->
+
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript ">
+	$(".btn_gif").click(function(){
+		$(".ShareBox").show();
+	})
+
+	
+</script>
+
+</body>
+</html>

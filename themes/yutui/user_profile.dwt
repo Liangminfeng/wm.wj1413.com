@@ -1,0 +1,332 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" -->
+
+<!-- #EndLibraryItem -->
+<!--头部-->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<link rel="stylesheet" href="/themes/yutui/css/pic.css"> 
+<div class='t-box-small' id="Not" style="display:none;">
+  <div class="t_box_show">
+    <p style="font-size: 1.2rem;">头像上传中，请耐心等待...</p>
+  </div>
+</div>
+<form name="formEdit" action="{:url('user/profile')}" method="post" class="registerform">
+<!--2018-04-03优化-->
+<div class="Zbox text-c bg-white u-profile">
+<!--头像上传-->
+<div class="u-profile-one"> 
+  <div class="c-card-img-oneBg">
+    <div class="u-profile-img u-profile-btn" id="headimg"><img src="{$profile.user_avatar|default:/themes/yutui/images/idx_user.png}?imageView2/1/w/300/h/300/q/100!|imageslim"></div>
+    <!-- <div class="c-card-imgok1 u-profile-btn"><img src="/themes/yutui/images/new/3.jpg" ></div> -->
+    <p class="col-hui u-profile-btn">{$lang.change_avatar}</p>
+  </div>
+</div>
+
+<!--图片裁剪-->
+<div class="clipbg displaynone">
+  <div id="clipArea"></div>
+  <div class="loading displaynone">{$lang.loading_pic}...</div>
+  <div class="footer">
+    <dl>
+      <dd style="background: #fe1041; color: #ffffff;border: none;">{$lang.open_album}<input type="file" id="file" name='file[]' accept="image/*"  ></dd>
+      <dd id="clipBtn">{$lang.complete_tailor}</dd>
+    </dl>
+    <div class="back">{$lang.is_cancel}</div>
+  </div>
+</div> 
+</div>
+<div class="s-flex pl-1 col-hui bg-white f-04">{$lang.base_profile}</div>
+<div class="s-flex s-space l-show-bottom" onClick="LsTab('box',1)" style="width:100%;">
+  <div>{$lang.nickname}</div>
+  <div class="s-flex col-hui">{if $profile.nick_name}{$profile.nick_name}{else}{$profile.user_name}{/if}<span style="margin-top: 0.33rem;" class="t-jiantou"><i class="iconfont icon-jiantou tf-180 col-hui"></i></span></div>
+</div>
+<!--弹窗-->
+<div class="u-profile-t" id="C_box1" style="display: none">
+  <header class="dis-box header-menu Zect-bg color-whie"><a class="s-shut" href="javascript:;"><i class="iconfont icon-jiantou"></i></a>
+    <h3 class="box-flex">{$lang.modify_nickname}</h3>
+    <div class="header-kong">&nbsp;</div>
+  </header> 
+  <div class="s-flex s-space"><input type="text" name="nick_name" class="s-width" maxlength="15" value='{if $profile.nick_name}{$profile.nick_name}{else}{$profile.user_name}{/if}'></div>
+  <div class="s-flex s-end col-hui">好名字可以让朋友更容易记住你</div>
+  <div class="padding-all">
+    <button name="submit" type="submit" class="btm-yes" value="保存">{$lang.user_save}</button>
+  </div>
+</div>
+<div class="s-flex s-space l-show-bottom" style="width:100%;">
+  <div>{$lang.label_username}</div>
+  <div class="s-flex col-hui">{$profile.user_name}</div>
+</div>
+</form>
+<form name="formEdit" action="{:url('user/modifyphone')}" method="post" class="registerform">
+<div class="s-flex s-space l-show-bottom" onClick="LsTab('box',2)" style="width:100%;">
+  <div>{$lang.mobile_phone}</div>
+  <div class="s-flex col-hui"><span class="u-profile-ico"></span>{$profile.mobile_phone} <span class="t-jiantou" ><i class="iconfont icon-jiantou tf-180 col-hui" style="top: 0.2rem;"></i></span></div>
+</div>
+<!--弹窗-->
+<div class="u-profile-t" id="C_box2" style="display: none">
+  <header class="dis-box header-menu Zect-bg color-whie"><a class="s-shut" href="javascript:;"><i class="iconfont icon-jiantou"></i></a>
+    <h3 class="box-flex">{$lang.modify_mobile_phone}</h3>
+    <div class="header-kong">&nbsp;</div>
+  </header> 
+  <div class="s-flex s-space l-show-bottom" style="width:100%;">{$lang.user_get_phone}：{$profile.mobile_phone}
+  </div>
+  <!--<div class="s-flex s-space l-show-bottom">
+  <input type="text" name="mobile_phone" class="s-width" id="mobile_phone" value=""  placeholder='{$lang.no_mobile}' >
+  </div>-->
+  <div class="d-login-center" id="iphone_center" style="padding:0;">
+  
+    <p class="phone_input j-show-div" style="border:none;background:#fff;padding-left: 0.2rem;border-bottom: 1px solid #f1f1f1;display: flex;padding: 0.5rem 0;">
+    <span id="mobilezone" class="mobilezone" style="padding-left: 1rem;padding-right:1.5rem;font-size: 1.5rem;margin: auto 0;" name="zone"> +86</span>
+    <input class="box-flex reg-left-input" type="tel" name="mobile" id='mobile_phone' placeholder="{$lang.pls_input_mobile}" datatype="m" nullmsg="{$lang.pls_input_mobile}" />
+  </p>
+  
+  
+</div>
+  <div class="s-flex s-space l-show-bottom" style="position: relative;">
+    <input placeholder="{$lang.no_code}" name="sms_code" id="mobile_code" type="text" /></span>
+      <a class="pull-right btm-password " id="zphone" name="sendsms" onclick="newsendsms();" type="botton" style="position: absolute; top: 1rem; right: 1rem;">{$lang.get_code}</a>
+
+   <input type="hidden" name="modify_phone_status" value="0">
+
+   <input type="hidden" name="flag" id="flag" value="modifyphone">
+  </div>
+
+  <div class="padding-all">
+    <button name="submit" type="submit" class="btm-yes" value="保存">{$lang.user_save}</button>
+  </div>
+</div>
+</form>
+
+
+<!--<div class="s-flex s-space l-show-bottom" onclick="location.href='{:url('user/edit_password')}'">
+  <div>{$lang.modify_pass}</div>
+  <div class="s-flex col-hui"><span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 col-hui"></i></span></div>
+</div>-->
+<!--<div class="s-flex s-space l-show-bottom m-top08" onclick="location.href='{:url('user/select_lang')}'">
+  <div>网站语言</div>
+  <div class="s-flex col-hui ">简体中文<span class="t-jiantou"><i class="iconfont icon-jiantou tf-180 col-hui"></i></span></div>
+</div>-->
+
+<!--2018-04-03优化结束-->
+
+
+</div>
+<section class="j_showed" style="display:none;">        
+  <div class="mask-filter-div show"></div>
+  <div class="show-goods-attr j-filter-show-div ts-3 b-color-1 show">
+    <section class="s-g-attr-con b-color-f m-top1px swiper-container-vertical swiper-container-free-mode">
+      <div class="swiper-wrapper">
+        <div id="collapseTwo" class="t-box panel-collapse collapse in" aria-expanded="true" style="">
+              <ul class="ect-radio f-pay-block phone_li">
+                <li value="86">            
+                  +86 大陆
+                </li>
+                <li value="886">     
+                  +886 台湾
+                </li>
+                <li value="852">     
+                  +852 香港
+                </li>
+                <li value="853">     
+                  +853 澳门
+                </li>
+              </ul>
+            </div>
+      </div>
+      <div class="swiper-scrollbar" style="display: none; opacity: 0;">
+        <div class="swiper-scrollbar-drag" style="height: 0px;"></div>
+      </div>
+    </section>
+  </div>
+</section>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+
+<script type="text/javascript" src="/themes/yutui/photo/js/camera.js/hammer.min.js" ></script>
+<script type="text/javascript" src="/themes/yutui/photo/js/camera.js/lrz.all.bundle.js" ></script>
+<script type="text/javascript" src="/themes/yutui/photo/js/camera.js/iscroll-zoom-min.js" ></script>
+<script type="text/javascript" src="/themes/yutui/photo/js/camera.js/PhotoClip.js" ></script>
+<script type="text/javascript" src="/themes/yutui/js/qiniu-upload.js?v=3" ></script>
+
+<script type="text/javascript">
+//点击显示号码段
+$("#mobilezone").click(function() {
+  document.addEventListener("touchmove", handler, false);
+  $(".j_showed").show();
+  $(".j-filter-show-div").addClass("show");
+  $(".mask-filter-div").addClass("show");
+});
+$(".reg-left-input").click(function(){
+  $(".j_showed").hide();
+})
+
+$('.phone_li').find('li').each(function() {
+  $(this).click(function() {
+  console.log($(this).html());
+    $("#mobilezone").html(RemoveChinese($(this).html()));
+    $(".j_showed").hide();  
+  })
+})
+
+function RemoveChinese(strValue) {  
+    if(strValue!= null && strValue != ""){  
+       var reg = /[\u4e00-\u9fa5]/g;   
+       return strValue.replace(reg, "");   
+    }else{  
+       return "";
+  }  
+}
+
+//$("#clipBtn").click(function(){
+ // $("#Not").show();
+//})
+$(".u-profile-btn").click(function(){
+    $(".clipbg").fadeIn()
+  })
+  var clipArea = new  PhotoClip("#clipArea", {
+        size: [300, 300],//裁剪框大小
+        outputSize:[0,0],//打开图片大小，[0,0]表示原图大小
+        file: "#file",
+        view: "#headimg",
+        ok: "#clipBtn",
+        loadStart: function() { //图片开始加载的回调函数。this 指向当前 PhotoClip 的实例对象，并将正在加载的 file 对象作为参数传入。（如果是使用非 file 的方式加载图片，则该参数为图片的 url）
+
+          $(".loading").removeClass("displaynone");
+
+        },
+        loadComplete: function() {//图片加载完成的回调函数。this 指向当前 PhotoClip 的实例对象，并将图片的 <img> 对象作为参数传入。
+          $(".loading").addClass("displaynone");
+
+        },
+        done: function(dataURL) { //裁剪完成的回调函数。this 指向当前 PhotoClip 的实例对象，会将裁剪出的图像数据DataURL作为参数传入。      
+          console.log(dataURL);//dataURL裁剪后图片地址base64格式提交给后台处理
+          $("#Not").show(); 
+          var x = 12;       
+			
+     	  var y = 0;           
+	      QiniuManager.uploadB64(dataURL,{callback:function(img){
+  	 			$.ajax({
+  	 				url :'{$upload_url}',
+  	 				type:"post",
+  	 				data:{img:img},
+  	 				dataType:"JSON",
+  	 				success:function(res){
+  	 					if(res.code!=0){alert(res);}
+              if(res.code==0){
+              $("#Not").hide();
+            }
+  	 			}
+  	 		});
+
+	     }});
+	      
+          var rand = parseInt(Math.random() * (x - y + 1) + y);  
+      		
+          $("#demo1").append('<input type="hidden" name="contentpic1" id="'+ rand + '" value="' + dataURL + '">')
+          $("#headimg").find("img").attr("src",dataURL);
+          $(".clipbg").fadeOut()
+        }
+  });
+  $(".back").click(function(){
+    $(".clipbg").fadeOut()
+  })
+   //移除背景1
+  $(".c-one").click(function(){
+    $("#headimg").css("background-image" ,"url()")
+  })
+   //移除编辑后的图片
+  $(".c-one").click(function(){
+    $(".c-card-imgok1").remove()
+  })
+  
+
+</script>
+<!--彈窗-->
+<script type="text/javascript">
+  function LsTab(obj,thisNum){ 
+    for(i=1;i<=9;i++){ 
+      if(i==thisNum){ 
+        $("#"+"C_"+obj+i).show();  
+        $(".s-shut").click(function(){
+          $(".u-profile-t").hide();
+        })             
+      }
+    } 
+  } 
+</script>
+<script>
+function newsendsms(){
+    var flag ='modifyphone';
+   var zone = $("#mobilezone").text().match(/\d+/g);
+   var mobile = $('#mobile_phone').val();
+ 
+          $.post("index.php?m=default&c=sms&a=newsendsms&flag="+flag, { "mobile": mobile,"zone":zone[0],"flag":flag },function(result){
+
+          if (result.result==1){
+            RemainTime();
+            alert('验证码已成功发送');
+          }else{
+
+            if(result.msg){
+              alert(result.msg);
+              return false;
+          }else{
+              alert('手机验证码发送失败');
+          }
+        }
+      },"json")
+
+
+}
+
+
+
+
+
+ 
+
+
+function RemainTime(){
+  //document.getElementById('zphone').disabled = true;
+  var iSecond,sSecond="",sTime="";
+  if (iTime >= 0){
+    iSecond = parseInt(iTime%60);
+    if (iSecond >= 0){
+      sSecond = iSecond + "秒";
+    }
+    sTime=sSecond;
+    if(iTime==0){
+      clearTimeout(Account);
+      sTime=' ';
+      iTime = 59;
+    c=1;
+      document.getElementById('zphone').disabled = false;
+    }else{
+   
+      Account = setTimeout("RemainTime()",1000);
+      iTime=iTime-1;
+    c=0;
+    }
+  }else{
+    sTime='没有倒计时';
+  }
+  //document.getElementById('zphone').value = sTime;
+  $('#zphone').html(sTime);
+  
+  if(sTime==" "){
+    $('#zphone').html("重新发送");
+  }
+}
+</script>
+<script type="text/javascript">
+$(function(){  
+  $(".registerform").Validform({
+    tiptype:2  //提示样式
+  });
+
+
+})
+</script>
+</body>
+</html>

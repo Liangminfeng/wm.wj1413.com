@@ -1,0 +1,334 @@
+Searching 9953 files for "关联账号"
+
+D:\WWW\kangyang\app\Http\Controllers\WebApi\MemberController.php:
+  250          
+  251          if($res->code != 200){
+  252:             return $this->tool->response(['status' => 0, 'msg' => '充值失败，关联账号已变更或不存在，请解绑后重新绑定新账号或联系客服。']);
+  253          }
+  254          
+
+D:\WWW\kangyang\resources\views\web\orders\consume.blade.php:
+  121      <div class="right am-u-lg-6 am-u-sm-12 o-consume-top">
+  122           
+  123:       <h3 style="margin-bottom: 0.5rem;">我的关联账号：</h3>
+  124        <!--未关联-->
+  125        @if(empty($third))
+  ...
+  149  </div>
+  150  </div>
+  151: <!-- 关联账号弹窗 -->
+  152  <div class="c-box s-flex" id="link" style="display: none;">
+  153  <div class="consume-close"><span>X</span></div>
+
+D:\WWW\kangyang\storage\framework\views\90763135ba708967e6379e00fc17f841e42e4743.php:
+  120      <div class="right am-u-lg-6 am-u-sm-12 o-consume-top">
+  121           
+  122:       <h3 style="margin-bottom: 0.5rem;">我的关联账号：</h3>
+  123        <!--未关联-->
+  124        <?php if(empty($third)): ?>
+  ...
+  148  </div>
+  149  </div>
+  150: <!-- 关联账号弹窗 -->
+  151  <div class="c-box s-flex" id="link" style="display: none;">
+  152  <div class="consume-close"><span>X</span></div>
+
+5 matches across 3 files
+
+
+Searching 9953 files for "请输入《拓客全球购》的登入密码，6-20位数字或者字母"
+
+0 matches
+
+Searching 9953 files for "请输入账号/手机号"
+
+0 matches
+
+Searching 9953 files for "s-color-red"
+
+D:\WWW\kangyang\public\static\tai1\css\admin.css:
+  291  .s-align-center{align-items: center;}/*垂直居中*/
+  292  .s-text-center{text-align: center;}/*水平居中*/
+  293: .s-color-red{color: #ff0000;}
+  294  .s-color-lan{color: #0f9ae0;}
+  295  .s-color-lan2{color: #a7bed1;}
+
+D:\WWW\kangyang\resources\views\admin\adminMember\add.blade.php:
+  532                  <h2>注册会员</h2>
+  533              </div>
+  534:             <p class="s-color-red" style="margin-top:0px;">红色部分为必填项</p>
+  535          </div>
+  536          <div class="h-card-body h-reg-body">
+
+D:\WWW\kangyang\resources\views\web\index.blade.php:
+   80      <div class="l-train-yes" style="background-color: #ffffff;"> 
+   81          <h2>重消友情提示</h2>
+   82:         <div class="i-anew-text">您的重消期限为（<span class="s-color-red">{{date('Y-m-d',$user['cx_expire'])}}</span>），为避免影响您的奖励发放，请尽快完成重消考核
+   83          </div>
+   84          <div class="l-train-close closeOne"><span>X</span></div>
+
+D:\WWW\kangyang\resources\views\web\orders\address.blade.php:
+   32  			<table class="am-table am-table-striped">
+   33  				<tr>
+   34: 					<td><b class="s-color-red">*</b>收货人姓名</td>
+   35  					<td><input type="text" class="h-c1" name='receive_name'
+   36  						id='receive_name' placeholder="请输入收货人姓名" value=""></td>
+   37  				</tr>
+   38  				<tr>
+   39: 					<td><b class="s-color-red">*</b>收货人手机号</td>
+   40  					<td><input type="text" class="h-c1" name='consignee_phone' id='consignee_phone'
+   41  						placeholder="请输入收货人手机号" value=""></td>
+   ..
+   43  				@if($user->resource!=3)
+   44  				<tr>
+   45: 					<td><b class="s-color-red">*</b>收货地区</td>
+   46  					<td><input id="myAddrs" class="h-c1" type="text" name="area4"
+   47  						placeholder="请选择地区" value="" readonly> <input
+   ..
+   49  				</tr>
+   50  				<tr>
+   51: 					<td><b class="s-color-red">*</b>收货地址</td>
+   52  					<td><input type="text" class="h-c1" name='address' id='address'
+   53  						placeholder="请输入具体地址" value=""></td>
+
+D:\WWW\kangyang\resources\views\web\orders\anewOrders.blade.php:
+   78          </div>
+   79          <div class="s-color-hui">单笔重消满额（至少500元）即可满足月度重消期限</div>
+   80:         <div class="s-color-red s-pt1">月度重消期限 {{$account['cx_expire']}}</div>
+   81          <div class="a-anew-introduce">
+   82              <p>★优惠活动期间，重消满额调整为250元<p>★买一送一优惠各级别配套限量：</p>
+
+D:\WWW\kangyang\resources\views\web\orders\consume.blade.php:
+  179  			</tr>
+  180  			<tr>
+  181: 				<td style="width: 140px;"><b class="s-color-red">*</b>充值的商城消费金</td>
+  182  				<td><input type="text" fund="@if(session('fund')){{ session('fund')}}@else 0 @endif" class="h-c1" id="point" name="point" placeholder="请输入消费金金额" pattern="^[0-9]*$" required><span class="s-color-hui">(兑换比例1:100)</span></td>
+  183  			</tr>
+  184              <tr>
+  185:                 <td><b class="s-color-red">*</b>兑换消费积分</td>
+  186                  <td><input type="text" class="h-c1" id="con_integral" value="" readonly></td>
+  187              </tr>            
+
+D:\WWW\kangyang\resources\views\web\orders\upgrade.blade.php:
+   91  				<tr>
+   92  					<td>升级优惠时限</td>
+   93: 					<td class="s-color-red">{{$account['lefttime']}}</td>
+   94  				</tr>
+   95  				<tr>
+
+D:\WWW\kangyang\resources\views\web\profile\info.blade.php:
+   41                                      @if($user['is_idcard']=='1'&& $idcard_info['card_status']=='1')<td>认证成功 若要修改实名信息，请 <a href="/apital">点击这里</a> 重新提交</td>
+   42                                      @elseif($user['is_idcard']=='2'&&$idcard_info['card_status']=='2')<td>您已提交实名信息，请耐心等待审核</td>
+   43:                                     @elseif($user['is_idcard']=='2'&&$idcard_info['card_status']=='0')<td>您提交的实名信息审核失败，请<a href="/apital">点击这里</a>重新提交<br>拒绝原因：<span class="s-color-red">{{$idcard_info['nopass_remark']}}</span></td>
+   44                                      @else<td>未验证&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您还没有提交相关 信息，请<a href="/apital">点击这里</a>提交</td>@endif
+   45                                  </tr>
+
+D:\WWW\kangyang\resources\views\web\register\batchRegister.blade.php:
+  259                  </nav>
+  260              </div>
+  261:             <p class="s-color-red" style="margin-top:0px;">红色部分为必填项</p>
+  262          </div>
+  263          <div class="h-card-body h-reg-body">
+
+D:\WWW\kangyang\resources\views\web\register\register.blade.php:
+  468                  </nav> -->
+  469              </div>
+  470:             <p class="s-color-red" style="margin-top:0px;">红色部分为必填项</p>
+  471          </div>
+  472          <div class="h-card-body h-reg-body">
+
+D:\WWW\kangyang\storage\framework\views\15f1e0ae177fb7e9a2ed564d95ecc4afc0811211.php:
+   32  			<table class="am-table am-table-striped">
+   33  				<tr>
+   34: 					<td><b class="s-color-red">*</b>收货人姓名</td>
+   35  					<td><input type="text" class="h-c1" name='receive_name'
+   36  						id='receive_name' placeholder="请输入收货人姓名" value=""></td>
+   37  				</tr>
+   38  				<tr>
+   39: 					<td><b class="s-color-red">*</b>收货人手机号</td>
+   40  					<td><input type="text" class="h-c1" name='consignee_phone' id='consignee_phone'
+   41  						placeholder="请输入收货人手机号" value=""></td>
+   ..
+   43  				<?php if($user->resource!=3): ?>
+   44  				<tr>
+   45: 					<td><b class="s-color-red">*</b>收货地区</td>
+   46  					<td><input id="myAddrs" class="h-c1" type="text" name="area4"
+   47  						placeholder="请选择地区" value="" readonly> <input
+   ..
+   49  				</tr>
+   50  				<tr>
+   51: 					<td><b class="s-color-red">*</b>收货地址</td>
+   52  					<td><input type="text" class="h-c1" name='address' id='address'
+   53  						placeholder="请输入具体地址" value=""></td>
+
+D:\WWW\kangyang\storage\framework\views\3ffb15465b06af00c021b1468381aef846d79b41.php:
+   39                                      <?php if($user['is_idcard']=='1'&& $idcard_info['card_status']=='1'): ?><td>认证成功 若要修改实名信息，请 <a href="/apital">点击这里</a> 重新提交</td>
+   40                                      <?php elseif($user['is_idcard']=='2'&&$idcard_info['card_status']=='2'): ?><td>您已提交实名信息，请耐心等待审核</td>
+   41:                                     <?php elseif($user['is_idcard']=='2'&&$idcard_info['card_status']=='0'): ?><td>您提交的实名信息审核失败，请<a href="/apital">点击这里</a>重新提交<br>拒绝原因：<span class="s-color-red"><?php echo e($idcard_info['nopass_remark']); ?></span></td>
+   42                                      <?php else: ?><td>未验证&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您还没有提交相关 信息，请<a href="/apital">点击这里</a>提交</td><?php endif; ?>
+   43                                  </tr>
+
+D:\WWW\kangyang\storage\framework\views\50b740ddc4546dd9d994672b3421d119533bf46f.php:
+   91  				<tr>
+   92  					<td>升级优惠时限</td>
+   93: 					<td class="s-color-red"><?php echo e($account['lefttime']); ?></td>
+   94  				</tr>
+   95  				<tr>
+
+D:\WWW\kangyang\storage\framework\views\90763135ba708967e6379e00fc17f841e42e4743.php:
+  179  			</tr>
+  180  			<tr>
+  181: 				<td style="width: 140px;"><b class="s-color-red">*</b>充值的商城消费金</td>
+  182  				<td><input type="text" fund="<?php if(session('fund')): ?><?php echo e(session('fund')); ?><?php else: ?> 0 <?php endif; ?>" class="h-c1" id="point" name="point" placeholder="请输入消费金金额" pattern="^[0-9]*$" required><span class="s-color-hui">(兑换比例1:100)</span></td>
+  183  			</tr>
+  184              <tr>
+  185:                 <td><b class="s-color-red">*</b>兑换消费积分</td>
+  186                  <td><input type="text" class="h-c1" id="con_integral" value="" readonly></td>
+  187              </tr>            
+
+D:\WWW\kangyang\storage\framework\views\93d4466af29bde7c95f4707a6f088f6adc4d6e05.php:
+  466                  </nav> -->
+  467              </div>
+  468:             <p class="s-color-red" style="margin-top:0px;">红色部分为必填项</p>
+  469          </div>
+  470          <div class="h-card-body h-reg-body">
+
+D:\WWW\kangyang\storage\framework\views\b50519866d6f1bf52b1c0b2ee1d711773690e240.php:
+   77          </div>
+   78          <div class="s-color-hui">单笔重消满额（至少500元）即可满足月度重消期限</div>
+   79:         <div class="s-color-red s-pt1">月度重消期限 <?php echo e($account['cx_expire']); ?></div>
+   80          <div class="a-anew-introduce">
+   81              <p>★优惠活动期间，重消满额调整为250元<p>★买一送一优惠各级别配套限量：</p>
+
+D:\WWW\kangyang\storage\framework\views\b8883a708f7de1f4e2e4889b651a7046ac687704.php:
+   78      <div class="l-train-yes" style="background-color: #ffffff;"> 
+   79          <h2>重消友情提示</h2>
+   80:         <div class="i-anew-text">您的重消期限为（<span class="s-color-red"><?php echo e(date('Y-m-d',$user['cx_expire'])); ?></span>），为避免影响您的奖励发放，请尽快完成重消考核
+   81          </div>
+   82          <div class="l-train-close closeOne"><span>X</span></div>
+
+25 matches across 17 files
+
+
+Searching 9953 files for "minlength="11""
+
+0 matches
+
+Searching 9953 files for "l-train-yes"
+
+D:\WWW\kangyang\public\static\tai1\css\admin.css:
+  211  .u-proheight{height: 320px;}
+  212  .bg-content{background:url("../images/new/bg_content.png") repeat-y center top;}
+  213: .l-train-yes{position: relative; margin:0px auto; width: 50%; background-color:#ffffff; z-index: 3;  border-radius: 1rem;}
+  214  .d-pl1{padding:0px 0px 0px 1rem!important;}
+  215  .i-statistics{padding:1rem 0rem 0rem 1rem; border-left:1px solid #e6e6e6;}
+  ...
+  241  .s-kong{display: block; width: 100%; height: 102px;}
+  242  .u-proheight{height: 220px;}
+  243: .l-train-yes{position: relative; margin:0px auto; width: 80%; background-color: #ffffff; z-index: 3;  border-radius: 1rem;}
+  244  .d-pl1{padding:0px!important;}
+  245  .apital-p0 th, .apital-p0 tr, .apital-p0 td{padding: .7rem 0rem!important;}
+  ...
+  356  .t-box{position: fixed; align-items: center; max-width: 100%; margin: 0 auto; height: 100%; background-color: #000; z-index: 9999; left: 0px; right: 0px; top: 0px; background: rgba(0,0,0,0.6); filter: progid:DXImageTransform.Microsoft.gradient(GradientType = 0,startColorstr = '#80000000',endColorstr = '#80000000')\9;}
+  357  .c-box{position: fixed; max-width: 100%; margin: 0 auto; height: 100%; background-color: #000; z-index: 9999; left: 0px; right: 0px; top: 0px; background: rgba(0,0,0,0.6); filter: progid:DXImageTransform.Microsoft.gradient(GradientType = 0,startColorstr = '#80000000',endColorstr = '#80000000')\9;}
+  358: .l-train-yes h2{width:100%; background-color: #2596f4; text-align: center; font-size: 18px; color: #ffffff; line-height: 35px;border-top-right-radius: 1rem;border-top-left-radius: 1rem;}
+  359  .l-train-close{position: relative; z-index: 5;}
+  360  .l-train-close span{position: absolute; width: 3rem; height: 3rem; background: url('/static/tai1/images/new/close_new.png') no-repeat center center; left: 50%; bottom: 0px; margin: -5rem 0rem -5rem -1.5rem; background-size: 3rem 3rem; border-radius: 50%; text-indent: -9999px;}
+
+D:\WWW\kangyang\public\static\tai1\css\name.css:
+   11  @media only screen and (min-width: 641px){
+   12  /*pc端*/
+   13: #add .l-train-yes, #addTwo .l-train-yes{position: relative; margin:0px auto; width: 30%; background-color: transparent; z-index: 3;  border-radius: 1rem;}
+   14  #link .consume-close{position: absolute; left: 48.5%; top: 350px; z-index: 4;}
+   15  }
+   16  @media only screen and (max-width:640px ) {
+   17  /*移动端*/
+   18: #add .l-train-yes, #addTwo .l-train-yes{ margin:0px auto; width: 80%; background-color: transparent; border-radius: 1rem;}
+   19  #link .consume-close{position: absolute; left: 43%; top: 350px; z-index: 4; width: 5rem; height: 5rem;}
+   20  #link .consume-close span{display: block; width: 3rem; height: 3rem; background: url('/static/tai1/images/new/close_new.png') no-repeat center center; background-size: 3rem 3rem; border-radius: 50%; text-indent: -9999px; margin:1rem;}
+   ..
+   25  #addTwo .l-train-close{position: relative; z-index: 5;}
+   26  #add .l-train-close span, #addTwo .l-train-close span{position: absolute; width: 3rem; height: 3rem; background: url('/themes/yutui/images/new/close_new.png') no-repeat center center; left: 50%; background-size: 3rem 3rem; border-radius: 50%; text-indent: -9999px;}
+   27: #add .l-train-yes h2, #addTwo .l-train-yes h2{width:100%; background-color: #2596f4; text-align: center; font-size: 18px; color: #ffffff; line-height: 35px;border-top-right-radius: 1rem;border-top-left-radius: 1rem; margin-top: 60px;}
+   28  .likeCreatBox{width: 100%; border-bottom-left-radius: 1rem;  border-bottom-right-radius: 1rem; padding-bottom: 14px;}
+   29  .likeCreat{width: 100%; font-size: 14px; text-align: center;}
+
+D:\WWW\kangyang\resources\views\web\index.blade.php:
+   78  
+   79  <div class="t-box boxOne s-flex" id="cxmessage" style="display: none;">
+   80:     <div class="l-train-yes" style="background-color: #ffffff;"> 
+   81          <h2>重消友情提示</h2>
+   82          <div class="i-anew-text">您的重消期限为（<span class="s-color-red">{{date('Y-m-d',$user['cx_expire'])}}</span>），为避免影响您的奖励发放，请尽快完成重消考核
+   ..
+   89  <!--首页广告弹窗-->
+   90  <div class="t-box boxTwo s-flex" id="bannerPop" @if($alertindex) style="display: block;"@else style="display: none;"@endif>
+   91:     <div class="l-train-yes i-index-top">
+   92          <div class="s-img"><a href="/notice/26"><img src="http://img.yoyo1.com.cn//public/images/oneone4.jpg"></a></div>
+   93          <div class="l-train-close closeTwo"><span>X</span></div>
+
+D:\WWW\kangyang\resources\views\web\orders\address.blade.php:
+   28  </table>
+   29  <div class="t-box s-flex" id="address_div" style="display: none;">
+   30: 	<div class="l-train-yes">
+   31  		<h2 id="add_title">新增收货地址</h2>
+   32  			<table class="am-table am-table-striped">
+
+D:\WWW\kangyang\resources\views\web\orders\consume.blade.php:
+  140  <!-- 创建账号弹窗 -->
+  141  <div class="c-box s-flex" id="add" style="display: none;">
+  142: <div class="l-train-yes">
+  143  		<h2>访问应用</h2> 
+  144  		<div class="likeCreatBox img box" style="margin-bottom: 0px">
+  ...
+  157  <!-- 关联后 -->
+  158  <div class="c-box s-flex" id="addTwo" style="display: none;">
+  159: <div class="l-train-yes">
+  160  		<h2>访问应用</h2> 
+  161  		<div class="likeCreatBox img box">
+  ...
+  168  <!-- 充值弹窗 -->
+  169  <div class="t-box s-flex" id="integral" style="display: none;">
+  170:   <div class="l-train-yes">
+  171  		<h2>充值商城消费金</h2>
+  172  		<form class="am-form h-form" action="/webApi/member/pointCharge" method="post" style="background-color: #ffffff; border-radius: 1rem;">
+
+D:\WWW\kangyang\storage\framework\views\15f1e0ae177fb7e9a2ed564d95ecc4afc0811211.php:
+   28  </table>
+   29  <div class="t-box s-flex" id="address_div" style="display: none;">
+   30: 	<div class="l-train-yes">
+   31  		<h2 id="add_title">新增收货地址</h2>
+   32  			<table class="am-table am-table-striped">
+
+D:\WWW\kangyang\storage\framework\views\90763135ba708967e6379e00fc17f841e42e4743.php:
+  139  <!-- 创建账号弹窗 -->
+  140  <div class="c-box s-flex" id="add" style="display: none;">
+  141: <div class="l-train-yes">
+  142  		<h2>访问应用</h2> 
+  143  		<div class="likeCreatBox img box" style="margin-bottom: 0px">
+  ...
+  156  <!-- 关联后 -->
+  157  <div class="c-box s-flex" id="addTwo" style="display: none;">
+  158: <div class="l-train-yes">
+  159  		<h2>访问应用</h2> 
+  160  		<div class="likeCreatBox img box">
+  ...
+  167  <!-- 充值弹窗 -->
+  168  <div class="t-box s-flex" id="integral" style="display: none;">
+  169:   <div class="l-train-yes">
+  170  		<h2>充值商城消费金</h2>
+  171  		<form class="am-form h-form" action="/webApi/member/pointCharge" method="post" style="background-color: #ffffff; border-radius: 1rem;">
+
+D:\WWW\kangyang\storage\framework\views\b8883a708f7de1f4e2e4889b651a7046ac687704.php:
+   76  
+   77  <div class="t-box boxOne s-flex" id="cxmessage" style="display: none;">
+   78:     <div class="l-train-yes" style="background-color: #ffffff;"> 
+   79          <h2>重消友情提示</h2>
+   80          <div class="i-anew-text">您的重消期限为（<span class="s-color-red"><?php echo e(date('Y-m-d',$user['cx_expire'])); ?></span>），为避免影响您的奖励发放，请尽快完成重消考核
+   ..
+   87  <!--首页广告弹窗-->
+   88  <div class="t-box boxTwo s-flex" id="bannerPop" <?php if($alertindex): ?> style="display: block;"<?php else: ?> style="display: none;"<?php endif; ?>>
+   89:     <div class="l-train-yes i-index-top">
+   90          <div class="s-img"><a href="/notice/26"><img src="http://img.yoyo1.com.cn//public/images/oneone4.jpg"></a></div>
+   91          <div class="l-train-close closeTwo"><span>X</span></div>
+
+21 matches across 8 files

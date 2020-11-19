@@ -1,0 +1,64 @@
+<!-- $Id: brand_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+<div class="main-div">
+<form method="post" action="user_vip_rank.php" name="theForm" enctype="multipart/form-data" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">等级名称</td>
+    <td><input type="text" name="rank_name" maxlength="60" value="{$user_rank_list.rank_name}" />{$lang.require_field}</td>
+  </tr>
+
+
+
+
+  <tr>
+    <td class="label">等级数字</td>
+    <td><input type="text" name="level" maxlength="40" size="15" value="{$user_rank_list.level}" /></td>
+  </tr>
+    <tr>
+    <td class="label">KD豆比例</td>
+    <td><input type="text" name="kd_ratio" maxlength="40" size="15" value="{$user_rank_list.kd_ratio}" /></td>
+  </tr>
+    <tr>
+    <td class="label">现金比例</td>
+    <td><input type="text" name="cash_ratio" maxlength="40" size="15" value="{$user_rank_list.cash_ratio}" /></td>
+  </tr>
+   
+
+  <tr>
+    <td colspan="2" align="center"><br />
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+ 
+      <input type="hidden" name="id" value="{$user_rank_list.rank_id}" />
+   
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+document.forms['theForm'].elements['brand_name'].focus();
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("rank_name",  "请输入等级名称");
+
+    return validator.passed();
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

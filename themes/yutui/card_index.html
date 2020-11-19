@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<title>个人名片首页</title>
+	<link rel="stylesheet" href="/data/assets/bootstrap/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/themes/yutui/css/style.css">	
+    <link rel="stylesheet" href="/themes/yutui/statics/css/ectouch.css" />
+    <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/themes/yutui/statics/js/swiper.min.js"></script>
+    <script src="/data/assets/js/clipboard.min.js"></script> 
+</head>
+<body class="con f-05">
+<!--头部-->
+<header class="dis-box header-menu Zect-bg color-whie">
+  <a class="" href="javascript:history.go(-1)"><i class="iconfont icon-jiantou"></i></a>
+  <h3 class="box-flex">XXX個人主頁</h3>
+  <div class="header-kong">&nbsp;</div>
+</header>
+<!--logo-->
+<div class="swiper-container box position-rel banner-first c-card-banner">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide swiper-slide-active"><a href="#"><img src="images/new/1.png" border="0"></a></div>
+		<div class="swiper-slide swiper-slide-active"><a href="#"><img src="images/new/1.jpg" border="0"></a></div>
+		<div class="swiper-slide swiper-slide-active"><a href="#"><img src="images/new/2.png" border="0"></a></div>
+	</div>
+	<!-- 分页器 -->
+	<div class="swiper-pagination banner-first-pagination"></div>
+	<!--linear-->
+	<div class="linear"></div>
+</div>
+<div class="c-card-logo">
+  <div class="logo"><img src="images/new/card_logo.png"></div>
+</div>
+
+<!--个人介绍-->
+<div class="box text-center bg-white c-card-introduce">
+  <h2 class="f-2">MR.YUTUI</h2>
+  <p class="col-hui pt-1">廈門宏倫網絡科技有限公司 | 市场代表</p>
+  <p class="col-hui">廈門</p>
+  <p class="pt-1">歡迎進入魚推大健康平台，創造無限可能</p>
+</div>	
+<div class="s-flex s-space-3 c-card-ico">
+	<div><p class="c-card-phone phone"><img src="images/new/card_ico1.png"></p>電話</div>
+	<div><p class="c-card-phone mainA"><img src="images/new/card_ico2.png"></p>E-mail</div>
+	<div><p class="c-card-phone line"><img src="images/new/card_ico3.png"></p>LINE</div>
+	<div><p class="c-card-phone weixin"><img src="images/new/card_ico4.png"></p>微信</div>
+</div>
+<!--个人简介-->
+<div class="box text-center bg-white m-top08 padding-all">
+  <h2 class="f-3">個人簡介</h2>
+  <p class="m-top10">魚推列車大健康平台魚推列車大健康平台魚推列車大健康 平台魚推列車大健康平台魚推列車大健康平台魚推列車大 健康平台</p>
+</div>
+<!--内容-->
+<div class="box text-center bg-white m-top08">
+  <h2 class="f-3 mt-22">魚推大健康財富列車</h2>
+  <p class="mt-22 img"><img src="images/new/3.jpg"></p>
+</div>
+<div class="box text-center bg-white m-top08">
+  <h2 class="f-3 mt-22">企業背景</h2>
+  <p class="mt-22 img"><img src="images/new/4.jpg"></p>
+</div>
+<div class="box text-center bg-white m-top08">
+  <h2 class="f-3 mt-22">業務展示</h2>
+  <p class="mt-22 img"><img src="images/new/5.jpg"></p>
+</div>
+<div style="height: 6rem"></div>
+<!--submit-->
+<section class="s-flex s-space-3 c-card-submit">
+  <a class="s-btn-huang -mob-share-open">分享</a>
+  <a href="/themes/yutui/card_editor.html" class="s-btn-cheng">編輯</a>
+</section>
+<!--其他用户登陆显示这个
+<div class="s-flex s-space-3 c-card-submit"><a href="#" class="Cect-bg" style="width: 80%;">完成并保存</a></div>-->
+<!-- #BeginLibraryItem "/library/new_share.lbi" --><!-- #EndLibraryItem -->
+<!--手机弹窗-->
+<div class="t-box s-flex" id="Box1" style="display: none;">
+    <div class="l-train-yes">
+      <div class="l-train-close" onclick="Box1.style.display='none';"><span>X</span></div>
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico6.png"></div>
+      <div class="c-card-dh">聯繫電話</div>
+      <div class="box text-center ptb-3 f-2" id="phone">13799645612</div>
+      <div class="l-card-phone mb-2" id="phoneClick">撥打</div>
+    </div>
+</div>
+<!--郵件弹窗-->
+<div class="t-box s-flex" id="Box2" style="display: none;">
+    <div class="l-train-yes">
+      <div class="l-train-close" onclick="Box2.style.display='none';"><span>X</span></div>
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico5.png"></div>
+      <div class="c-card-dh">郵件地址</div>
+      <div class="box text-center ptb-3 f-2" id="main">11054842126@168.com</div>
+      <div class="l-card-phone mb-2" id="mainClick">複製</div>
+    </div>
+</div>
+<!--line弹窗-->
+<div class="t-box s-flex" id="Box3" style="display: none;">
+    <div class="l-train-yes">
+      <div class="l-train-close" onclick="Box3.style.display='none';"><span>X</span></div>
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico7.png"></div>
+      <div class="c-card-dh">LINE ID</div>
+      <div class="box text-center ptb-3 f-2" id="line">11111</div>
+      <div class="l-card-phone mb-2" id="lineClick">複製</div>
+    </div>
+</div>
+<!--微信弹窗-->
+<div class="t-box s-flex" id="Box4" style="display: none;">
+    <div class="l-train-yes">
+      <div class="l-train-close" onclick="Box4.style.display='none';"><span>X</span></div>
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico7.png"></div>
+      <div class="c-card-dh">微信ID</div>
+      <div class="box text-center ptb-3 f-2" id="weixin">zhengzj</div>
+      <div class="l-card-phone mb-2" id="weixinClick">複製</div>
+    </div>
+</div>
+<script type="text/javascript ">
+//轮播图
+	$(function($) {
+		var mySwiper = new Swiper('.banner-first', {
+			pagination: '.banner-first-pagination',
+			loop: false,
+			grabCursor: true,
+			paginationClickable: true,
+			autoplayDisableOnInteraction: false,
+			autoplay: 3000
+		});
+	});
+//弹窗
+$(".phone").click(function(){
+	$("#Box1").show()
+});
+$(".mainA").click(function(){
+	$("#Box2").show()
+});
+$(".line").click(function(){
+	$("#Box3").show()
+});
+$(".weixin").click(function(){
+	$("#Box4").show()
+});
+//电话复制到剪贴板
+var phonetext= $("#phone").html();
+var clipboard = new ClipboardJS('#phoneClick', {
+    text: function(trigger) {
+        return phonetext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("復制成功，你可以在電話薄黏貼撥打了");
+});
+//邮件复制到剪贴板
+var maintext= $("#main").html();
+var clipboard = new ClipboardJS('#mainClick', {
+    text: function(trigger) {
+        return maintext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("復制成功，你可以發送郵件了");
+});
+//line复制到剪贴板
+var linetext= $("#line").html();
+var clipboard = new ClipboardJS('#lineClick', {
+    text: function(trigger) {
+        return linetext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("復制成功，請粘貼給你的好友");
+});
+//weixin复制到剪贴板
+var weixintext= $("#weixin").html();
+var clipboard = new ClipboardJS('#weixinClick', {
+    text: function(trigger) {
+        return weixintext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("復制成功，請粘貼給你的好友");
+});
+
+
+</script>
+</body>
+</html>

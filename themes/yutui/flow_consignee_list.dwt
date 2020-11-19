@@ -1,0 +1,114 @@
+<!-- #BeginLibraryItem "/library/new_page_header.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<section class="flow-consignee-list j-get-consignee-one select-three" id="J_ItemList" style="margin-bottom: 3rem;">
+	<li class="flow-checkout-adr m-bottom08 single_item "> </li>
+	<a href="javascript:;" style="text-align:center" class="get_more"></a>
+</section>
+<div class="filter-btn dis-box" style="bottom:0rem; position: relative;">
+	
+		{if $order_type eq 1}
+	<a href="{:url('flow/consignee',array('one_step_buy'=>'1','order_type'=>'1'))}" type="button"  class="btn-submitPro color-whie box-flex n-iphone5-top1 j-goods-attr j-show-div">{$lang.add_address}</a>
+	{elseif $order_type eq 9}
+	<a href="{:url('flow/consignee',array('one_step_buy'=>'1','order_type'=>'9'))}" type="button"  class="btn-submitPro color-whie box-flex n-iphone5-top1 j-goods-attr j-show-div">{$lang.add_address}</a>
+{elseif $order_type eq 10}
+	<a href="{:url('flow/consignee',array('one_step_buy'=>'1','order_type'=>'10'))}" type="button"  class="btn-submitPro color-whie box-flex n-iphone5-top1 j-goods-attr j-show-div">{$lang.add_address}</a>
+	{else}
+	<a href="/index.php?m=default&c=flow&a=consignee&order_type={$order_type}" type="button" class="btn-submitPro color-whie box-flex n-iphone5-top1 j-goods-attr j-show-div">{$lang.add_address}</a>
+	{/if}
+	
+</div>
+
+</div>
+<!-- #BeginLibraryItem "/library/new_search.lbi" -->
+<!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_footer.lbi" -->
+<!-- #EndLibraryItem -->
+<script type="text/javascript" src="__PUBLIC__/js/jquery.more.js"></script>
+<script type="text/javascript">
+	 <!-- {if $one_step_buy}-->
+	 get_asynclist('index.php?m=default&c=flow&a=consignee_list&one_step_buy=1&order_type='+{$order_type}, '__TPL__/images/loader.gif');
+	 <!-- {else} --> 
+	get_asynclist('index.php?m=default&c=flow&a=consignee_list', '__TPL__/images/loader.gif');
+	<!-- {/if}-->
+</script>
+<script>
+	
+	/*设置默认收货地址*/
+	function flow_edit_address_info(address_id) {
+		var url = 'index.php?m=default&c=flow&a=edit_address_info';
+		var order_type = {$order_type};
+		$.get(url, {'id':address_id}, function(data){
+			if (1 == data.status) {		
+					 if(order_type){
+					 		 window.location.href = 'index.php?m=default&c=flow&a=checkout&order_type='+order_type+'&one_step_buy=1';
+					 }else{
+					 		 window.location.href = 'index.php?m=default&c=flow&a=checkout&order_type='+order_type;
+					 }
+				 
+				 		
+											
+			}
+		}, 'json');
+		return false;
+
+	}
+	
+    function getLocation(){
+	    var options={
+		    enableHighAccuracy:true, 
+		    maximumAge:1000
+	    }
+	    if(navigator.geolocation){
+		    navigator.geolocation.getCurrentPosition(onSuccess,onError,options);		   
+	    }else{
+		    onError();
+	    }
+   }
+    //成功时
+    function onSuccess(position){
+	    //返回用户位置	   
+	    var longitude =position.coords.longitude; //经度	    
+	    var latitude = position.coords.latitude;//纬度
+		
+		$.post('{:url("user/positions")}', {
+            lng: longitude,
+            lat: latitude
+        }, function (data) {
+            if (data.error == 0) {
+                window.location.href = data.url;
+            } else {
+                alert(data.message);
+            }
+        }, 'json');
+	   }
+    //失败时
+    function onError(error){
+	   switch(error.code){
+		   case 1:
+		   alert("位置服务被拒绝");
+		   break;
+
+
+		   case 2:
+		   alert("暂时获取不到位置信息");
+		   break;
+
+
+		   case 3:
+		   alert("获取信息超时");
+		   break;
+
+
+		   case 4:
+			alert("未知错误");
+		   break;
+	   }
+
+
+    }
+
+
+ </script>
+</body>
+
+</html>

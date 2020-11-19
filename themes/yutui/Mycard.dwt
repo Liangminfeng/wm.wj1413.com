@@ -1,0 +1,313 @@
+<!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
+<script src="/data/assets/js/clipboard.min.js"></script> 
+<script src="/data/assets/console/js/jquery.cookie.js"></script> 
+<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
+<!--生成名片-->
+<div class="s-box img bg-white c-card-pic">
+ <!-- <strong class="qrloading"><div><img src="/themes/yutui/images/like/loading.gif"><br>图片努力读取中...</div></strong> -->
+
+  <div id='qrimgCard'>
+   <a style="display:block;" href="/index.php?m=default&c=user&a=business_card&u={$id}">
+     <!--<img style="display:block"> -->
+     <div class="qrimgCard-img">
+        <img src="images/like/Mycard.png">
+        
+     </div>
+     <div class="nameImg">
+          <span><img src="{$userinfo.user_avatar|default:/themes/yutui/images/like/like.png}"></span>
+          <!--<span><img src="/themes/yutui/images/like/VIP_yes.png"></span>-->
+      </div>
+      <div class="jianjie">
+          <p>{$userinfo.nick_name}</p>
+          <p>{$userinfo.job}</p>
+          <p>{$userinfo.company}</p>
+      </div>
+      <div class="messages">
+          <p>{if $userinfo.mobile_phone_business}{$userinfo.mobile_phone_business}{else}{$lang.no_enter}{/if}</p>
+          <p>{if $userinfo.email}{$userinfo.email}{else}{$lang.no_enter}{/if}</p>
+          <p>{$userinfo.sign}</>
+      </div>
+      <img src="" id="erweima" style="z-index:-1;">
+      <strong class="qrloading1"><div class="img_jz"><img src="/themes/yutui/images/like/loading.gif"><br>图片读取中</div></strong>
+    </a>
+     
+  </div>
+</div>
+<!--记录-->
+<div class="s-flex s-justify-a bg-white ptb-1">
+  <div class="m-record-one">访客 <span class="Myone">{$userinfo.viewguest}</span></div>
+  <div class="m-record-two">靠谱 <span class="Mytwo">{$userinfo.kaopu}</span></div>
+</div>
+<!--资料-->
+<div class="s-flex s-space-3 c-card-ico m-top08">
+  <div><p class="c-card-phone phone"><img src="images/new/card_ico1.png"></p></br>{$lang.phone}</div>
+  <div><p class="c-card-phone mainA"><img src="images/new/card_ico2.png"></p></br>E-mail</div>
+  <div><p class="c-card-phone weixinTwo"><img src="images/new/card_ico4.png"></p></br>微信</div>
+</div>
+<section class="s-flex s-space-3 c-card-submit">
+ <a href="javascript:;" class="s-btn-cheng MycardOpen" style="width: 45%; padding: 0.8rem 0rem;">生成名片码</a>
+  {if $id eq $user_id}
+  <a href="/index.php?m=default&c=user&a=edit_business_profile" class="s-btn-cheng" style="width: 45%; padding: 0.8rem 0rem;">编辑资料</a>
+  {else}
+
+  {if $smarty.session.user_rank && $id neq $user_id}
+  <a href="/index.php?m=default&c=user&a=mycard&u={$user_id}" class="s-btn-cheng" style="width: 45%; padding: 0.8rem 0rem;">回到我的名片</a>
+ {elseif !$user_id}
+   <a href="/index.php?m=default&c=user&a=login&u={$id}" class="s-btn-cheng" style="width: 45%; padding: 0.8rem 0rem;">创建我的名片</a>
+  {else}
+   <a href="/index.php?m=default&c=user&a=vipmarket&u={$id}" class="s-btn-cheng" style="width: 45%; padding: 0.8rem 0rem;">创建我的名片</a>
+  {/if}
+  {/if}
+
+</section>
+<!--主体菜单-->
+<!-- #BeginLibraryItem "/library/yutui_global_footer.lbi" --><!-- #EndLibraryItem -->
+<!--手机弹窗-->
+<div class="t-box s-flex" id="Box1" style="display: none;">
+    <div class="l-train-yes">
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico6.png"></div>
+      <div class="c-card-dh">{$lang.contact_phone}</div>
+      <div class="box text-center ptb-3 f-2" id="phone">{if $userinfo.mobile_phone_business}{$userinfo.mobile_phone_business}{else}{$lang.no_contact_phone}{/if}</div>
+      <div class="l-card-phone mb-2" id="phoneClick" onclick="phoneClick">{$lang.copy}</div>      
+      <div class="l-train-close" onclick="Box1.style.display='none';"><span>X</span></div>
+    </div>
+</div>
+<!--郵件弹窗-->
+<div class="t-box s-flex" id="eMain" style="display: none;">
+    <div class="l-train-yes">
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico5.png"></div>
+      <div class="c-card-dh">{$lang.email_address} </div>
+      <div class="box text-center ptb-3 f-2" id="main">{if $userinfo.email}{$userinfo.email}{else}{$lang.no_email_address}{/if}</div>
+      <div class="l-card-phone mb-2" id="mainClick" onclick="mainClick">{$lang.copy}</div>
+      <div class="l-train-close" onclick="eMain.style.display='none';"><span>X</span></div>
+    </div>
+</div>
+<!--微信弹窗-->
+<div class="t-box s-flex" id="Box4" style="display: none;">
+    <div class="l-train-yes">
+      <div class="c-card-star"></div>
+      <div class="c-card-main"><img src="images/new/card_ico8.png"></div>
+      <div class="c-card-dh">{$lang.wechat}ID</div>
+      <div class="box text-center ptb-3 f-2" id="weixin">{if $userinfo.vx_no}{$userinfo.vx_no}{else}{$lang.no_wechat}{/if}</div>
+      <div class="l-card-phone mb-2" id="weixinClick" onclick="weixinClick">{$lang.copy}</div>
+      <div class="l-train-close" onclick="Box4.style.display='none';"><span>X</span></div>
+    </div>
+</div>
+<!--生成名片弹窗-->
+<div class='t-box s-flex MycardBox' style="display: none;">
+  <div class='l-train-yes'>
+    <p class="img mycardUrl"><img style="display: block;" src="images/like/mycard3.png"></p>
+    <p class="img"><img src="themes/yutui/images/like/share_bottom.png" style="display: block;"></p>
+    <div class='l-train-close'><em>X</em></div>
+  </div>
+</div>
+<!--生成二维码-->
+<script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v={$v}"></script>
+<script type="text/javascript">
+  var link = "{$share_link}";
+  if(link=="")link='http://'+document.domain+'/index.php?m=default&c=user&a=mycard&u={$userinfo.user_id}';
+
+
+
+window.onload=function(){
+
+
+  Mqrcode.makeCode({
+    width:120,  //宽度
+    height:120, //高度
+    link:link,  //二维码链接
+    callback:function(img){
+        $("#erweima").attr("src",img);
+      },
+  });
+}
+//生成名片弹窗
+$(".MycardOpen").click(function(){
+  
+  Mqrcode.makeCode({
+    //设定返回函数
+    callback:function(img){
+        $(".mycardUrl img").attr("src", img)
+      },
+    //设定背景图片   可为空
+    bgImg:"/themes/yutui/images/like/mycard3.png",
+    //有背景图片时二维码的定位
+    position:{l:489,t:229},
+    width:120,  //宽度
+    height:120, //高度
+    link:link,  //二维码链接
+    pluginText:[
+      {text:"{$userinfo.nick_name}",l:200,t:75,font:"25px 微软雅黑",style:"#ffffff",w:390,h:60},//昵称
+      {text:"{$userinfo.job}",l:200,t:115,font:"25px 微软雅黑",style:"#ffffff"},//职位
+      {text:"{$userinfo.company}",l:200,t:155,font:"25px 微软雅黑",style:"#ffffff"},//公司
+      {text:"{if $userinfo.mobile_phone_business}{$userinfo.mobile_phone_business}{else}{$lang.no_enter}{/if}",l:86,t:250,font:"25px 微软雅黑",style:"#ffffff"},//电话
+      {text:"{if $userinfo.email}{$userinfo.email}{else}{$lang.no_enter}{/if}",l:86,t:300,font:"25px 微软雅黑",style:"#ffffff"},//邮箱
+      {text:"{$userinfo.sign}",l:86,t:350,font:"25px 微软雅黑",style:"#ffffff"},//介绍
+    ],
+    pluginImg:[
+      
+      //
+      // src 图片链接（只接受当前域名下图片）
+      // l 距离左边距  t 距离上边距  w 图片宽度  h 图片高度
+      // circle 是否圆形裁切
+      //
+     
+      {src:"{$userinfo.user_avatar|default:/themes/yutui/images/like/like.png}",l:40,t:40,w:120,h:120,circle:true},//头像
+      {if $smarty.session.user_rank==2}
+      {src:"/themes/yutui/images/like/VIP_yes.png",l:135,t:120,w:0,h:0},
+       {else}
+      {src:"/themes/yutui/images/like/VIP_no.png",l:135,t:120,w:0,h:0}, 
+      {/if}
+     
+      //是否为VIP，加判断  
+    ],
+
+  });
+
+
+  $(".MycardBox").show();
+});
+
+
+$(".l-train-close").click(function(){
+  $(".MycardBox").hide();
+});
+
+</script>
+<!--苹果手机无法复制弹窗提示-->
+<!--弹窗提示-->
+<div id="u-card-window" class="c-cardadd-no">
+  <div class="t-box s-flex">
+    <div class="l-train-yes">
+      <h2 style="line-height: 2rem; padding: 4rem 3rem; font-size: 1.7rem; box-sizing: border-box;">{$lang.train_window_error}</h2>
+      <div class="s-box text-center padding-1 line-2 u-card-error">{$lang.phone}</div>
+      <div class="s-flex l-train-submit" style="justify-content: center; margin:1rem 3%;"><a href="" class="Cect-bg"  onclick="shareUrl.style.display='none';">{$lang.close_window}</a></div>
+    </div>
+  </div>
+</div>
+<!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
+<script>
+//弹窗
+$(".phone").click(function(){
+  $("#Box1").show()
+});
+$(".mainA").click(function(){
+  $("#eMain").show()
+});
+$(".weixinTwo").click(function(){
+  $("#Box4").show()
+});
+//电话复制到剪贴板
+var phonetext= $("#phone").html();
+var clipboard = new ClipboardJS('#phoneClick', {
+    text: function(trigger) {
+        return phonetext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("{$lang.copy_ok}");
+});
+clipboard.on('error', function(e) {
+   $("#u-card-window").addClass("c-cardadd-yes");
+   $(".u-card-error").html(phonetext)
+});
+//邮件复制到剪贴板
+var maintext= $("#main").html();
+var clipboard = new ClipboardJS('#mainClick', {
+    text: function(trigger) {
+        return maintext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("{$lang.copy_ok}");
+});
+clipboard.on('error', function(e) {
+   $("#u-card-window").addClass("c-cardadd-yes");
+   $(".u-card-error").html(maintext)
+});
+//line复制到剪贴板
+var linetext= $("#line").html();
+var clipboard = new ClipboardJS('#lineClick', {
+    text: function(trigger) {
+        return linetext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("{$lang.copy_ok}");
+});
+clipboard.on('error', function(e) {
+   $("#u-card-window").addClass("c-cardadd-yes");
+   $(".u-card-error").html(linetext)
+});
+//weixin复制到剪贴板
+var weixintext= $("#weixin").html();
+var clipboard = new ClipboardJS('#weixinClick', {
+    text: function(trigger) {
+        return weixintext;
+    }
+});
+clipboard.on('success', function(e) {
+   alert("{$lang.copy_ok}");
+});
+clipboard.on('error', function(e) {
+   $("#u-card-window").addClass("c-cardadd-yes");
+   $(".u-card-error").html(weixintext)
+});
+
+</script>
+<script>
+  var num=$(".Myone").text();
+//只能点一次
+$(function(){
+  if($.cookie("recordOne") != 'yes'){
+      num = $(".Myone").text();
+      $(".Myone").text(parseInt(num) +1);
+      $.cookie("recordOne",'yes',{ expires:1000});
+      $.ajax({
+          url   : "index.php?c=user&a=updateviewguest",
+          data  : {num: num, userid: {$id}},
+          dataType: "JSON",
+          type  : "post",
+          success :function(data){
+           
+                  $(".Myone").text(data.num);
+          }
+        });
+  }
+    if($.cookie("recordTwo") != 'yes'){
+    $(".m-record-two").one("click",function(){
+      var num = $(".Mytwo").text()
+          num++;
+     
+      $.ajax({
+          url   : "index.php?c=user&a=updatekaopunum",
+          data  : {num: num, userid: {$id}},
+          dataType: "JSON",
+          type  : "post",
+          success :function(data){
+            
+          }
+        });
+      $(".Mytwo").text(num);
+
+      $.cookie("recordTwo",'yes',{ expires:1000});
+    })
+  }else{
+    $(".m-record-two").click(function(){
+      alert("亲，你已经点过了")
+    })   
+  }
+});
+
+</script>
+<script>
+  $("#erweima").load(function(){
+  // 加载完成  
+    $(this).css("z-index",9)
+    $(".qrloading1").css("z-index",-1);
+});
+</script>
+</body>
+</html>
