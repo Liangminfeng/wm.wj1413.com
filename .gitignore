@@ -1,30 +1,21 @@
-.DS_Store
-html
-test
-node_modules
-themes/default
-data/install.lock
-data/database.php
-data/smslog
+# the composer package lock file and install directory
+# Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
+# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+# /composer.lock
+/fuel/vendor
 
-vendor/
-robots.txt
+# the fuelphp document
+/docs/
 
-config.php
-.project
+# you may install these packages with `oil package`.
+# http://fuelphp.com/docs/packages/oil/package.html
+# /fuel/packages/auth/
+# /fuel/packages/email/
+# /fuel/packages/oil/
+# /fuel/packages/orm/
+# /fuel/packages/parser/
 
-# IDE Files
-#-------------------------
-/nbproject/
-.idea
-
-## Sublime Text cache files
-*.tmlanguage.cache
-*.tmPreferences.cache
-*.stTheme.cache
-*.sublime-workspace
-*.sublime-project
-/.settings/
-/.buildpath
-themes/yutui/images/tenmax/gt_jt1.png
-*test.php
+# dynamically generated files
+/fuel/app/logs/*/*/*
+/fuel/app/cache/*/*
+/fuel/app/config/crypt.php
