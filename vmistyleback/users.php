@@ -487,20 +487,20 @@ elseif ($_REQUEST['act'] == 'edit')
         }
     }
 
-    if($user['user_vip']&&$user['resource']==1){
+    // if($user['user_vip']&&$user['resource']==1){
        
-        $userdata = array(
+    //     $userdata = array(
                                                 
-                                                "account" => $user['vip_manage_account'],
+    //                                             "account" => $user['vip_manage_account'],
 
-                                             );
+    //                                          );
 
-        $postdata = post_log($userdata,API_URL."/api/user/info/detail",5,$user['user_id']);
-        // $user['parent_username'] = $postdata['data']['recommender'];
-        $smarty->assign('esettlement',          $postdata['data']['esettlement']);
-        $smarty->assign('recommender',$postdata['data']['recommender']);
-        $smarty->assign('esettlementArea',       isset($postdata['data']['area'])?$postdata['data']['area']:'');
-    }
+    //     $postdata = post_log($userdata,API_URL."/api/user/info/detail",5,$user['user_id']);
+    //     // $user['parent_username'] = $postdata['data']['recommender'];
+    //     $smarty->assign('esettlement',          $postdata['data']['esettlement']);
+    //     $smarty->assign('recommender',$postdata['data']['recommender']);
+    //     $smarty->assign('esettlementArea',       isset($postdata['data']['area'])?$postdata['data']['area']:'');
+    // }
                           
     assign_query_info();
     $smarty->assign('ur_here',          $_LANG['users_edit']);

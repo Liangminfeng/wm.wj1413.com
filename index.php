@@ -14,8 +14,8 @@
  */
 
 define('IN_ECTOUCH', true);
-echo 'openid:'.$_SESSION['openid'];
-echo 'user_id:'.$_SESSION['user_id'];
+// echo 'openid:'.$_SESSION['openid'];
+// echo 'user_id:'.$_SESSION['user_id'];
 
 require dirname(__FILE__) . '/vendor/autoload.php';
 require dirname(__FILE__) . '/include/bootstrap.php';
