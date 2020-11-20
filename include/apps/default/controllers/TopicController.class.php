@@ -167,11 +167,11 @@ class TopicController extends CommonController {
                 $visitor["sign"] = "健康新蓝海，财富新未来!";
                 $visitor["company"] = "青彤心大健康";
                 $visitor = array_merge($visitor,$user_info);
-                
+                dump($visitor);
                 $this->assign('visitor', $visitor);
             }
         }
-        
+        return;
         $this->assign('share_link', $shortUrl);//
         $this->assign('share_title', $topic['title']);//
         $this->assign('share_description', $topic['description']);//
