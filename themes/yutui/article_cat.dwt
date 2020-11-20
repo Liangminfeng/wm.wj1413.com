@@ -107,7 +107,7 @@ $(function () {
                       }
                       var cover_html = ''
                       for(var i = 0; i < item.covers.length; i++){
-                        cover_html += `<img src="${item.covers[i]}?imageView2/1/w/300/h/150/q/100!|imageslim">`
+                        cover_html += `<img src="${item.covers[i]}?imageView2/0/|imageslim">`
                       }
           
                       lis.push(`
