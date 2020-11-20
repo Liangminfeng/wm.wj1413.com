@@ -46,11 +46,10 @@
 
   <ul class="s-space">
     <li class="s-flex c-card-ine w-input"><p>{$lang.nickname}</p><input class="f-02" type="text" name="nick_name" placeholder="" value='{if $userinfo.nick_name}{$userinfo.nick_name}{else}{$userinfo.user_name}{/if}'></li>
-    <li class="s-flex c-card-ine w-input"><p>{$lang.job_name}</p><input class="f-02" type="text" name="company" placeholder="" disabled value='{if $userinfo.company}{$userinfo.company}{else}{$lang.yutui_default_company}{/if}'></li>
+    <li class="s-flex c-card-ine w-input"><p>{$lang.job_name}</p><input class="f-02" type="text" name="company" placeholder="" disabled value="{$userinfo.company}"></li>
     <!-- <li class="s-flex c-card-ine w-input"><p>{$lang.job_career}</p><input class="f-02" type="text" name="job" placeholder="" value='{if $userinfo.job}{$userinfo.job}{else}{$lang.user_job_default}{/if}'></li> -->
     <li class="s-flex c-card-ine w-input"><p>{$lang.user_sign}</p>
-      <textarea class="f-02" type="text" name="sign" placeholder="" style="height:12rem;">
-        {if $userinfo.sign}{$userinfo.sign}{else}{$lang.yutui_default_sign}{/if}
+      <textarea class="f-02" type="text" name="sign" placeholder="" style="height:12rem;">{if $userinfo.sign}{$userinfo.sign}{else}{$lang.yutui_default_sign}{/if}
       </textarea>
     
   </ul>
