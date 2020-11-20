@@ -36,7 +36,7 @@
   <!--{/if}-->
   
   <!--{if $topic.intro neq ''}-->
-  <div class="topic-title">{$topic.intro}</div>
+  <!-- <div class="topic-title">{$topic.intro}</div> -->
   <!--{/if}-->
   
   {if $visitor}
