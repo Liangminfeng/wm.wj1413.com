@@ -5706,9 +5706,9 @@ class UserController extends CommonController
         if (!$userinfo['mainpage_id']) {
 
             $data['signcomment'] = '会员可打造定制化主页，展示个人品牌从而获得有效的人脉。';
-            $data['sign'] = '一个人的梦,只能是梦! 一群人的梦,就是一个时代! ';
+            $data['sign'] = '健康新蓝海，财富新未来 ';
             $data['job'] = '新零售经销商';
-            $data['company'] = '拓客(拓客)全球事业';
+            $data['company'] = '青彤心大健康';
             $data['address'] = '中国';
             $data['template_id'] = '1';
             $data['user_id'] = $_SESSION['user_id'];
