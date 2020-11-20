@@ -468,7 +468,8 @@ class ArticleController extends CommonController {
              
         if(!empty($uid)){
            $shareUser = $this->assginUserCard($uid);
-           
+           $shareUser["sign"] = "健康新蓝海，财富新未来!";
+           $shareUser["company"] = "青彤心大健康";
            $userinfo = model('Users')->get_users($uid);
            
             //非动态栏目下面的文章只显示原作者

@@ -164,6 +164,8 @@ class TopicController extends CommonController {
                 
                 $user_info = model('Users')->getusermainpagebyuserid($visitor['user_id']);
                 unset($user_info['nick_name']);
+                $visitor["sign"] = "健康新蓝海，财富新未来!";
+                $visitor["company"] = "青彤心大健康";
                 $visitor = array_merge($visitor,$user_info);
                 
                 $this->assign('visitor', $visitor);

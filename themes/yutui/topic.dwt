@@ -48,7 +48,7 @@
       <div class="some_info">
         <p class="user_names">{$visitor.nick_name}</p>
         <p class="user_img"><img style="width:100%;border-radius: 100%;" src="{$visitor.user_avatar|default:/themes/yutui/images/web_logo.png}?imageView2/0/|imageslim" alt=""></p>
-        <p class="user_jobs"><span style="font-size: 1.5rem;">{$visitor.company}</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span style="font-size: 1.5rem;">{$visitor.job}</span></p>
+        <p class="user_jobs"><span style="font-size: 1.5rem;">{$visitor.company}</p>
         <p class="user_lianxi"><a style="color:#fff;font-size: 1.5rem;" href="{:url('user/business_card')}&u={$u}">{$lang.business_card_msg_2}</a></p><p class="user_myselfes"><span>{$lang.i_am}{$visitor.nick_name}，{$visitor.sign}</span></p>
         
       </div>

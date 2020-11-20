@@ -5921,6 +5921,8 @@ class UserController extends CommonController
         $mainpageinfo['user_avatar'] =$userinfo['user_avatar'] ;
         $mainpageinfo['nick_name'] = $userinfo['nick_name'];
          $mainpageinfo['user_name'] = $userinfo['user_name'];
+         $mainpageinfo["sign"] = "健康新蓝海，财富新未来！";
+         $mainpageinfo["company"] = "青彤心大健康";
         //公告
         $notice_list = model('ArticleBase')->get_cat_articles(4, 1, 5,"","",1);
         $this->assign('notice_list',$notice_list);
