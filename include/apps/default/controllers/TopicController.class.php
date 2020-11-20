@@ -168,7 +168,7 @@ class TopicController extends CommonController {
                 $visitor = array_merge($visitor,$user_info);
                 $visitor["sign"] = "健康新蓝海，财富新未来!";
                 $visitor["company"] = "青彤心大健康";
-                dump($visitor);
+                
                 $this->assign('visitor', $visitor);
             }
         }
