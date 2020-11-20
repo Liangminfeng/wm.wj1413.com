@@ -3089,11 +3089,15 @@ span.raise-pro-right{position: absolute;top:25%;right:1.2rem;}
 .n-author{font-size: 1.3rem;margin-right: 1rem;}
 .n-add_time{font-size: 1.3rem;color: #bcbcbc;}
 .n-cover{justify-content: space-between;}
-.n-cover img{width: 1px !important;height: 150px;
+.n-cover img{
+    width: 1px !important;
+    height: auto;
+    max-height: 21rem;
     display: block;
     border-radius: 0.7rem;
     flex: 1;
-    margin-right: 1rem;}
+    margin-right: 1rem;
+    }
 .n-cover>img:last-child{margin-right: 0;}
 .n-title{margin:2.2rem 0;font-size:1.6rem;}
 .n-tags{display: inline-block;}

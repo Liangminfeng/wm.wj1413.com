@@ -156,7 +156,7 @@
                 </div>
                 <div class="dynamic_img mui-content-padded dynamic_p" >
                    <!--{foreach from=$sucai.imglist item=imglist}-->
-                  <p class="dynamic_pp"><img src="{$imglist}?imageView2/1/w/300/h/300/q/100" data-preview-src="{$imglist}" data-preview-group="1" alt=""></p>
+                  <p class="dynamic_pp"><img src="{$imglist}?imageView2/0/|imageslim" data-preview-src="{$imglist}" data-preview-group="1" alt=""></p>
                  <!--  {/foreach}-->
                 </div>
                  <!-- 推荐文章 -->
@@ -168,7 +168,7 @@
                             <a class="sucai_file_url" href="{$sucai.file_url}">
                               <div>
                                   <div class="slides_pro11" style="background:#f3f3f3;">
-                                  <div class="sucai_pic"><img style="padding: 0.6rem 1rem 0.6rem 1rem;" src="{$sucai.pic}?imageView2/1/w/300/h/300/q/100" alt=""></div>
+                                  <div class="sucai_pic"><img style="padding: 0.6rem 1rem 0.6rem 1rem;" src="{$sucai.pic}?imageView2/0/|imageslim" alt=""></div>
                                 <div class="dynamic_p_name">{$sucai.title}</div>
                                 </div>
                               </div>
@@ -180,7 +180,7 @@
                   </div>
                 </div>
                  <div class="card-footer">
-                  <div class="card-zhuanfa sucaiContentCopy" data="{$sucai.sucai_id}"><i class="c-icon-share"></i>{$lang.copy}</div>
+                  <div class="card-zhuanfa sucaiContentCopy" style="cursor: pointer" onclick="" data="{$sucai.sucai_id}"><i class="c-icon-share"></i>{$lang.copy}</div>
                   
                 </div>                
               </nav>
@@ -226,7 +226,7 @@
                   </div>
                 </div>
                  <div class="card-footer">
-                  <div class="card-zhuanfa sucaiContentCopy" data="{$sucai.sucai_id}"><i class="c-icon-share"></i>{$lang.copy}</div>
+                  <div class="card-zhuanfa sucaiContentCopy" style="cursor: pointer" onclick="" data="{$sucai.sucai_id}"><i class="c-icon-share"></i>{$lang.copy}</div>
                 </div>
                 
                                              
@@ -381,6 +381,9 @@ $("body").addClass("bg-white");
    
    location.href=url;
  })
+ function remHtmlTag(str){
+		return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+	}
   /*复制网址*/
   function lineshare(){
     location.href="https://social-plugins.line.me/lineit/share?url="+encodeURIComponent(sharehref);
@@ -405,10 +408,11 @@ $("body").addClass("bg-white");
   });
   
 //复制素材内容
+
   var clipboardSucai = new ClipboardJS('.sucaiContentCopy', {
       text: function(trigger) {
   		var id="#sucai_content_"+$(trigger).attr("data");
-  		var sucaiContent= $(id).attr("data");
+  		var sucaiContent= remHtmlTag($(id).attr("data"));
 
           return sucaiContent;
       }

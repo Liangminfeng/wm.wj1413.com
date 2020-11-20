@@ -531,7 +531,7 @@ class ArticleController extends CommonController {
         $this->assign('meta_description', htmlspecialchars($article['description']));
 
 
-        // $this->model->query('UPDATE ' . $this->model->pre . "article SET click_count = click_count + 1 WHERE article_id = '$article_id'");
+        $this->model->query('UPDATE ' . $this->model->pre . "article SET click_count = click_count + 1 WHERE article_id = '$article_id'");
         
         // 微信JSSDK分享
          if (!empty($article['file_url'])) {
