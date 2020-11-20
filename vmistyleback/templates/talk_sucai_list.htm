@@ -11,7 +11,7 @@
   <table cellpadding="3" cellspacing="1">
     <tr>
       <th width="13%">
-        <input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox">
+        <input onclick='listTable.selectAll(this, "checkboxs")' type="checkbox">
         <a href="javascript:listTable.sort('topic_id'); ">{$lang.record_id}</a>{$sort_topic_id}</th>
       <th width="26%"><a href="javascript:listTable.sort('title'); ">发布者</a>{$sort_title}</th>
       <th width="26%"><a href="javascript:listTable.sort('sucai_content'); ">内容</a>{$sort_title}</th>
@@ -25,7 +25,7 @@
       
       <td>{$talk_sucai.sucai_content}</td>
       <td align="center"><a href="../index.php?c=talk&talk_id={$talk_sucai.sucai_id}" title="{$lang.view}" target="_blank">{$lang.view}</a>    <a href="sucai.php?act=edit&sucai_id={$talk_sucai.sucai_id}" title="{$lang.edit}">{$lang.edit}</a>
-      <a href="javascript:;" on title="{$lang.drop}" onclick="listTable.remove({$talk_sucai.sucai_id},"确定删除么",'delete');">{$lang.drop}</a>
+      <a href="javascript:;" on title="{$lang.drop}" onclick="listTable.remove({$talk_sucai.sucai_id},'确定删除么','delete');">{$lang.drop}</a>
 
       <!-- <a href="flashplay.php?act=add&ad_link={$topic.url}" title="{$lang.publish_to_player}" >{$lang.publish_to_player}</a> -->
     </td>
@@ -81,12 +81,8 @@
   
   document.getElementById("btnSubmit").onclick = function()
   {
-    if (confirm(delete_talk_sucai_confirm))
-    {
-      alert(333);
-      document.forms["listForm"].action = "sucai.php?act=delete";
-      return;
-    }
+    document.forms["listForm"].action = "sucai.php?act=delete";
+    return;
     else
     {
       return false;
