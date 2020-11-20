@@ -1,0 +1,28 @@
+
+-- 2020-08-04 01:31:43 --------------------------------------------------------------
+FILE: 
+LINE: 
+  oauth:0  |  执行日期：2020-08-04 01:36:39
+ common:1228 
+执行日期：2020-08-04 01:36:39
+uri:/index.php?m=default&c=oauth&a=index&type=weixin&back_url=http%3A%2F%2Fwm.vmi31.com%2Findex.php%3Fm%3Ddefault%26c%3Darticle%26a%3Dinfo%26aid%3D160%26u%3D1228&u=0 | 
+执行日期：2020-08-04 01:36:39
+ common:1228 
+执行日期：2020-08-04 01:36:40
+uri:/index.php?m=default&c=oauth&a=index&type=weixin&back_url=http%3A%2F%2Fwm.vmi31.com%2Findex.php%3Fm%3Ddefault%26c%3Darticle%26a%3Dinfo%26aid%3D160%26u%3D1228&u=0 | 
+执行日期：2020-08-04 01:36:41
+uri:/index.php?m=default&c=oauth&a=index&type=weixin&back_url=http%3A%2F%2Fwm.vmi31.com%2Findex.php%3Fm%3Ddefault%26c%3Darticle%26a%3Dinfo%26aid%3D160%26u%3D1228&u=0&code=001YV2Ym0n8Ren1bu0Xm0HkAY43YV2Yi&state=wechat_oauth | 
+执行日期：2020-08-04 01:36:42
+  oauth:0  |  
+执行日期：2020-08-04 01:39:53
+uri:/index.php?m=default&c=oauth&a=index&type=weixin&back_url=http%3A%2F%2Fwm.vmi31.com%2Findex.php%3Fm%3Ddefault%26c%3Darticle%26a%3Dinfo%26aid%3D160%26u%3D1228&u=0 | 
+执行日期：2020-08-04 01:39:53
+uri:/index.php?m=default&c=oauth&a=index&type=weixin&back_url=http%3A%2F%2Fwm.vmi31.com%2Findex.php%3Fm%3Ddefault%26c%3Darticle%26a%3Dinfo%26aid%3D160%26u%3D1228&u=0 | 
+执行日期：2020-08-04 01:39:54
+uri:/index.php?m=default&c=oauth&a=index&type=weixin&back_url=http%3A%2F%2Fwm.vmi31.com%2Findex.php%3Fm%3Ddefault%26c%3Darticle%26a%3Dinfo%26aid%3D160%26u%3D1228&u=0&code=011883Ym0QvSen1KLfXm0XRfdw3883Y1&state=wechat_oauth | 
+执行日期：2020-08-04 01:39:55
+  oauth:1228  |  
+执行日期：2020-08-04 01:43:46
+  register:{"parent_id":0,"sex":1}  |
+执行日期：2020-08-04 01:44:23
+  register:{"parent_id":"1228","sex":1}  |
