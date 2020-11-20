@@ -170,7 +170,7 @@ listTable.remove = function(id, cfm, opt)
   {
     opt = "remove";
   }
-alert(333);
+
   if (confirm(cfm))
   {
     var args = "act=" + opt + "&id=" + id + this.compileFilter();

@@ -231,12 +231,12 @@ elseif ($_REQUEST["act"] == "delete")
 
     if (!empty($_POST['checkboxs']))
     {
-        $sql .= db_create_in($_POST['checkboxs'], 'topic_id');
+        $sql .= db_create_in($_POST['checkboxs'], 'sucai_id');
     }
     elseif (!empty($_GET['id']))
     {
         $_GET['id'] = intval($_GET['id']);
-        $sql .= "topic_id = '$_GET[id]'";
+        $sql .= "sucai_id = '$_GET[id]'";
     }
     else
     {
