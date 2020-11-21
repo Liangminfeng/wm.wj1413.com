@@ -6422,6 +6422,8 @@ class UserController extends CommonController
         $this->assign('mid',$mid);
         $mainpageinfo['user_avatar']  = $userinfo['user_avatar'];
         $mainpageinfo['nick_name'] = $userinfo['nick_name'];
+        $mainpageinfo['company'] = "青彤心大健康";
+        $mainpageinfo['sign'] = "健康新蓝海，财富新未来！";
         $this->assign('userinfo', $mainpageinfo);
         $this->display('user_edit_business_profile.dwt');
 
