@@ -4,7 +4,7 @@ return array(
     'DB_HOST'   => '127.0.0.1:3306',
     'DB_USER'   => 'wanmao',
     'DB_PWD'   => '6wNX5iH7xK5BfPd6',
-    'DB_NAME'   => 'wanmao',
+    'DB_NAME'   => 'wanmao', 
     'DB_PREFIX'   => 'ecs_',
     'DB_PORT'   => '3306',
     'DB_CHARSET'   => 'utf8',
