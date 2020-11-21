@@ -5695,6 +5695,9 @@ class UserController extends CommonController
         $list = model('Users')->getusermainpagelist($_SESSION['user_id']);
         $num = count($list);
         $user_profile_article = model('Users')->getuserprofilearticleinfo($_SESSION['user_id']);
+        dump($_REQUEST);
+        dump($_SESSION);
+        dump($_SERVER);return;
         if($_REQUEST ['u']){
 
          $_SESSION["tmp_parent_id"] = $_REQUEST ['u'] ;
