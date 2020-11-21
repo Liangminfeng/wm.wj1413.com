@@ -103,7 +103,7 @@ function url($route=null, $params=array()) {
     $route .= ($action != 'index') ? '&a='.$action : '';
     $paramStr = empty($params) ? '' : '&' . http_build_query($params, '', '&');
     $url = $_SERVER["SCRIPT_NAME"] . '?' . $route . $paramStr;
-    return $url;
+    return $paramStr;
 }
 
 /**
