@@ -86,7 +86,6 @@ function dump($var, $echo=true, $label=null, $strict=true) {
 function url($route=null, $params=array()) {
     $controller = CONTROLLER_NAME;
     $action = ACTION_NAME;
-    return $controller.'/'.$action;
     if($route){
         $route = explode('/', strtolower($route), 2);
         $routeNum = count($route);
