@@ -49,15 +49,13 @@ class ArticleBaseModel extends BaseModel {
         
         if ($type =="click") {
              
-             $sql = "select distinct article_id,title,content,author,file_url,click_count,zan,add_time,keywords,file_url2 from ".$this->pre."article as a inner join ".$this->pre."article_resource as ar on  a.cat_id = ar.cat_id where ".$condition." ".$resourceWhere." order by article_type DESC,click_count DESC limit ".$limit;
+             $sql = "select distinct article_id,title,content,author,file_url,click_count,zan,add_time,keywords,file_url2,article_type from ".$this->pre."article as a inner join ".$this->pre."article_resource as ar on  a.cat_id = ar.cat_id where ".$condition." ".$resourceWhere." order by article_type DESC,click_count DESC limit ".$limit;
             // $sql = "select article_id, title,cat_id, author, add_time, file_url, open_type,link,click_count from ".$this->pre."article where  ".$condition." order by click_count DESC limit ".$limit;
         }else{
 
 
-            $sql = "select distinct article_id,title,content,author,file_url,click_count,zan,add_time,keywords,file_url2 
+            $sql = "select distinct article_id,title,content,author,file_url,click_count,zan,add_time,keywords,file_url2,article_type
  from ".$this->pre."article as a inner join ".$this->pre."article_resource as ar on  a.cat_id = ar.cat_id where ".$condition." ".$resourceWhere." order by a.article_id DESC limit ".$limit;
-
-        
 
         }
         
