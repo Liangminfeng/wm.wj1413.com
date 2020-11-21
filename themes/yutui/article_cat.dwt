@@ -47,6 +47,7 @@
     <span {if $type eq 'click'}class="active" {/if}   onclick="changeType('click')">{$lang.sort_byview}</span>
   </div>
  
+  
 <div class="tab-content">
   <div class="displayYes">
       <!-- {if $artciles_list} -->
@@ -90,7 +91,8 @@ $(function () {
               }
               var lis = [];
               
-              $.post(url, data, function (params) {       
+              $.post(url, data, function (params) {
+                
                   $.each(JSON.parse(params).list,function(i,item){
                       // 模拟tag数据
                       item.tags = item.keywords;
@@ -110,6 +112,7 @@ $(function () {
                         cover_html += `<img src="${item.covers[i]}?imageView2/0/|imageslim">`
                       }
                       
+                      // 检验文章是否被置顶状态
                       var article_type = item.article_type == 1? `<span class="n-add_time" style="display: inline-block;font-size: 1.2rem;line-height: 2rem;padding: 0 .86rem;margin-left: 1.2rem;border-radius: 1rem;color: #e5af49;background-color: #fcf4e9;">小编推荐</span>`:'';
                       
                       lis.push(`
