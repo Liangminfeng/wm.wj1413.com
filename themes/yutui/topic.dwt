@@ -42,7 +42,7 @@
   {if $visitor}
 <!--增加名片显示-->
 <!-- <div style="width: 100%;background: #F2F1F1;text-align: center;color: #47484A;padding: 1rem 0rem;margin-bottom: 1rem;">{$lang.business_card_msg_1}</div> -->
-<a href="{:url('user/business_card',array('u'=>12)}">
+<a href="{:url('user/business_card',array('u'=>12))}">
   <div class="my_slfe_card" style="width:94%;text-align: center;margin:auto;position:relative;margin-bottom: 1rem;">
       <img style="width:100%;border: 1px solid #d8d8d8;border-radius: 0.8rem;box-shadow: 0px 0px 18px #ddd;" src="images/like/Mycard6.png" alt="">
       <div class="some_info">
