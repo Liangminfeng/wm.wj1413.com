@@ -34,8 +34,8 @@ function get_cat_articles($cat_id, $page = 1, $size = 20, $requirement = '')
     }
 
     // $res = $global->db->selectLimit($sql, $size, ($page - 1) * $size);
-    $res = $global->db->query($sql);
-    return $res;
+    //$res = $global->db->query($sql);
+    return $sql;
     $arr = array();
     if ($res) {
         while ($row = $global->db->fetchRow($res)) {
