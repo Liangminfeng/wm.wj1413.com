@@ -53,7 +53,7 @@
       </div>
       <div class="mui-content-padded s-flex spe-content_pic" style="margin:0">
        <!--{foreach from=$sucai.imglist item=imglist}-->
-        <div class="spe_pp"><img style="width:100%;" src="{$imglist}?imageView2/1/w/300/h/300/q/100" data-preview-src="" data-preview-group="1" data-preview-src="{$imglist}" alt=""></div>
+        <div class="spe_pp"><img style="width:100%;" src="{$imglist}?imageView2/0/|imageslim" data-preview-src="" data-preview-group="1" data-preview-src="{$imglist}" alt=""></div>
       <!--  {/foreach}-->
       </div>
 
