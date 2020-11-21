@@ -417,8 +417,6 @@ class ArticleController extends CommonController {
          if (is_array($list)) {
             foreach ($list as  $key => $value) {
 
-                
-              
                 $list[$key]['short_title'] = C('article_title_length') > 0 ? sub_str($list[$key]['title'], C('article_title_length')) : $list[$key]['title'];
                 $list[$key]['author'] = empty($list[$key]['author']) || $list[$key]['author'] == '_SHOPHELP' ? C('shop_name') : $list[$key]['author'];
                 $list[$key]['url'] = $list[$key]['link'] && $list[$key]['link'] !='http://' ?  $list[$key]['link'] : url('article/info', array('aid' => $list[$key]['article_id'])) ;

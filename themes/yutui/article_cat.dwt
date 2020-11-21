@@ -109,13 +109,18 @@ $(function () {
                       for(var i = 0; i < item.covers.length; i++){
                         cover_html += `<img src="${item.covers[i]}?imageView2/0/|imageslim">`
                       }
-          
+                      
+                      var article_type = item.article_type == 1? `<span class="n-add_time" style="display: inline-block;font-size: 1.2rem;line-height: 2rem;padding: 0 .86rem;margin-left: 1.2rem;border-radius: 1rem;color: #e5af49;background-color: #fcf4e9;">小编推荐</span>`:'';
+                      
                       lis.push(`
                     		  <a href="/article/info?aid=${item.article_id}&u={$smarty.session.user_id}">
                       			<div class="n-content-pad n-con">
                                   <div class="n-create-info">
                                     <span class="n-author">${item.author}</span>
                                     <span class="n-add_time">${item.add_time}</span>
+                                  `
+                                  +article_type+
+                                  `
                                   </div>
                                   <div class="n-cover s-flex">
                                     ${cover_html}
