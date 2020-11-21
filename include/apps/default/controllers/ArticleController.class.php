@@ -412,7 +412,9 @@ class ArticleController extends CommonController {
         $this->page = I('post.page');
         $type = I('post.type')?I('post.type'):"default";
         $list = model('ArticleBase')->get_cat_articles($cat_id, $this->page, $this->size, $this->keywords,$type);
-        die(json_encode($result));exit();
+        echo "<pre>";
+        print_r(I('post.');
+        die(json_encode($list));exit();
         $i = 0;
          if (is_array($list)) {
             foreach ($list as  $key => $value) {
