@@ -172,7 +172,6 @@ class TopicController extends CommonController {
                 $this->assign('visitor', $visitor);
             }
         }
-        dump($_SESSION);
         $this->assign('share_link', $shortUrl);//
         $this->assign('share_title', $topic['title']);//
         $this->assign('share_description', $topic['description']);//
