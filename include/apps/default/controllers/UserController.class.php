@@ -5670,7 +5670,7 @@ class UserController extends CommonController
 
     // my businsess card
 
-        public function business_card()
+     public function business_card()
     {
        if($_SESSION['user_vip']=='0'&&empty($_GET["u"])){
                 $url = url('user/vipmarket');
@@ -5919,7 +5919,7 @@ class UserController extends CommonController
         $this->assign('mid',$mid);
              
         $mainpageinfo['user_avatar'] =$userinfo['user_avatar'] ;
-        $mainpageinfo['nick_name'] = $userinfo['nick_name'];
+        $mainpageinfo['nick_name'] = getEmoji($userinfo['nick_name']);
          $mainpageinfo['user_name'] = $userinfo['user_name'];
          $mainpageinfo["sign"] = "健康新蓝海，财富新未来！";
          $mainpageinfo["company"] = "青彤心大健康";
@@ -6757,7 +6757,7 @@ class UserController extends CommonController
             // code...
         }
         $userinfo = model('Users')->getusersinfo($_GET['u']);
-        $nickname = empty($userinfo["nick_name"]) ? $userinfo["user_name"] : $userinfo["nick_name"];
+        $nickname = empty($userinfo["nick_name"]) ? getEmoji($userinfo["user_name"]) : getEmoji($userinfo["nick_name"]);
         $uid = empty($_GET["u"])?(empty($_SESSION["user_id"])?0:$_SESSION["user_id"]):$_GET["u"];
       
         if(!empty($uid)){
