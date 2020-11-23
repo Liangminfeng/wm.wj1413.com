@@ -47,7 +47,8 @@ if ($_REQUEST['act'] == 'list')
     $smarty->assign('action_link',  array('text' => $_LANG['04_users_add'], 'href'=>'users.php?act=add'));
 
     $user_list = user_list();
-   
+    echo "<pre>";
+    print_r($user_list['user_list']);
     $smarty->assign('user_list',    $user_list['user_list']);
     $smarty->assign('filter',       $user_list['filter']);
     $smarty->assign('record_count', $user_list['record_count']);

@@ -496,12 +496,6 @@ class ArticleController extends CommonController {
             //$shortUrl = $this->getShortUrl($this->get_current_url());
             //$this->assign('share_link', $shortUrl);//
             
-            
-            
-           
-            
-            
-            
         }else{
            
             $this->assign("user_info", $shareUser);
@@ -553,7 +547,7 @@ class ArticleController extends CommonController {
         
         //底部导航高亮
         $this->assign('footer_index','article');
-        
+        dump($_SESSION);exit();
         $this->display('article_info.dwt');
     }
     function updateviewguest()
