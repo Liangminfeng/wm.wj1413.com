@@ -371,7 +371,7 @@
             <nav class="reorder_product s-flex all">
                 <div class="tab-content" style="width:100%">
                   <!--{foreach name=artciles_list from=$artciles_list item=val}-->
-                  <a class="wenzang1" href="/index.php?m=default&c=article&a=info&aid={$val.article_id}&u={$smarty.session.user_id}"style="display: block;margin-bottom: 2rem;">
+                  <a class="wenzang1" href="/index.php?m=default&c=article&a=info&aid={$val.article_id}&u={$smarty.session.parent_id}"style="display: block;margin-bottom: 2rem;">
                     <div class="n-content-pad n-con">
                       <div class="n-create-info">
                         <span class="n-author">{$val.author}</span>

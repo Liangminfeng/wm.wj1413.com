@@ -10,9 +10,9 @@
 
 
 
-$_LANG['app_name'] = ' 拓客商城管理中心';
+$_LANG['app_name'] = ' 青彤心拓客管理中心';
 
-$_LANG['cp_home'] = ' 拓客商城管理中心';
+$_LANG['cp_home'] = ' 青彤心拓客管理中心';
 
 $_LANG['copyright'] = '';
 

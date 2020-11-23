@@ -2,20 +2,20 @@
 
 <footer class="footer-nav dis-box" style="line-height: 15px">
 				{if $smarty.session.user_vip>0}
-				<a href="{:url('index/index',array('u'=>$_SESSION['parent_id']))}" class="box-flex nav-list{if $footer_index eq 'index'} active{/if}">
+				<a href="{:url('index/index')}" class="box-flex nav-list{if $footer_index eq 'index'} active{/if}">
 					<i class="nav-box i-home"></i><span>{$lang.home}</span>
 				</a>
-				<a href="{:url('article/article_index',array('u'=>$_SESSION['parent_id']))}" class="box-flex nav-list{if $footer_index eq 'dongtai'} active{/if}">
+				<a href="{:url('article/article_index')}" class="box-flex nav-list{if $footer_index eq 'dongtai'} active{/if}">
 					<i class="nav-box i-flow"></i><span>{$lang.dongtai}</span>
 				</a>
-				<a href="{:url('article/index',array('u'=>$_SESSION['parent_id']))}" class="box-flex nav-list{if $footer_index eq 'article'} active{/if}">
+				<a href="{:url('article/index')}" class="box-flex nav-list{if $footer_index eq 'article'} active{/if}">
 					<i class="nav-box i-cate"></i><span>{$lang.hot_acticle}</span>
 				</a>
-				<a href="{:url('user/business_card',array('u'=>$_SESSION['parent_id']))}" class="box-flex nav-list{if $footer_index eq 'affiliate'} active{/if}">
+				<a href="{:url('user/business_card')}" class="box-flex nav-list{if $footer_index eq 'affiliate'} active{/if}">
 					<i class="nav-box i-shopcar"></i><span>{$lang.mini_web}</span>
 				</a>
 				{/if}
-				<a href="{:url('user/index',array('u'=>$_SESSION['parent_id']))}" class="box-flex nav-list{if $footer_index eq 'user'} active{/if}">
+				<a href="{:url('user/index')}" class="box-flex nav-list{if $footer_index eq 'user'} active{/if}">
 					<i class="nav-box i-user"></i><span>{$lang.my}</span>
 				</a>
 </footer>

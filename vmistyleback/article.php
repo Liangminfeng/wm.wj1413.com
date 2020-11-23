@@ -196,12 +196,14 @@ if ($_REQUEST['act'] == 'insert')
         $_POST['cat_id'] = 0;
     }
 
+    // 20201123检查置顶的时间
+    $sticky_time = $_POST["article_type"] == 1?time():0;
+
     // $_POST[FCKeditor1] = htmlspecialchars($_POST[FCKeditor1]);
     $sql = "INSERT INTO ".$ecs->table('article')."(title, cat_id, article_type, is_open, author, ".
-                "author_email, keywords, content, add_time, file_url,file_url2, open_type, link, description) ".
-            "VALUES ('$_POST[title]', '$_POST[article_cat]', '$_POST[article_type]', '$_POST[is_open]', ".
-                "'$_POST[author]', '$_POST[author_email]', '$_POST[keywords]', '$_POST[FCKeditor1]', ".
-                "'$add_time', '$file_url','$file_url2', '$open_type', '$_POST[link_url]', '$_POST[description]')";
+                "author_email, keywords, content, add_time, file_url,file_url2, open_type, link, description , sticky_time) ".
+            "VALUES ('$_POST[title]', '$_POST[article_cat]', '$_POST[article_type]', '$_POST[is_open]', "."'$_POST[author]', '$_POST[author_email]', '$_POST[keywords]', '$_POST[FCKeditor1]', ".
+                "'$add_time', '$file_url','$file_url2', '$open_type', '$_POST[link_url]', '$_POST[description]',$sticky_time)";
     $db->query($sql);
 
     /* 处理关联商品 */
@@ -330,8 +332,9 @@ if ($_REQUEST['act'] =='update')
         $file_url2 = $_POST['file_url2'];
     }
     
-
-    if ($exc->edit("title='$_POST[title]', cat_id='$_POST[article_cat]',click_count='$_POST[click_count]', article_type='$_POST[article_type]', is_open='$_POST[is_open]', author='$_POST[author]', author_email='$_POST[author_email]', keywords ='$_POST[keywords]', file_url ='$file_url',file_url2='$file_url2', open_type='$open_type', content='".$_POST[FCKeditor1]."', link='$_POST[link_url]', description = '$_POST[description]'", $_POST['id']))
+    $sticky_time = $_POST[article_type] ==1?time():0;
+    
+    if ($exc->edit("title='$_POST[title]', cat_id='$_POST[article_cat]',click_count='$_POST[click_count]', article_type='$_POST[article_type]', is_open='$_POST[is_open]', author='$_POST[author]', author_email='$_POST[author_email]', keywords ='$_POST[keywords]', file_url ='$file_url',file_url2='$file_url2', open_type='$open_type', content='".$_POST[FCKeditor1]."', link='$_POST[link_url]', description = '$_POST[description]',sticky_time = $sticky_time", $_POST['id']))
     {
         $link[0]['text'] = $_LANG['back_list'];
         $link[0]['href'] = 'article.php?act=list&' . list_link_postfix();
