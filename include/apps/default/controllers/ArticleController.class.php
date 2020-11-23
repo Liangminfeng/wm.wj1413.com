@@ -412,6 +412,8 @@ class ArticleController extends CommonController {
         $this->page = I('post.page');
         $type = I('post.type')?I('post.type'):"default";
         $list = model('ArticleBase')->get_cat_articles($cat_id, $this->page, $this->size, $this->keywords,$type);
+        // 抓取置顶的文章栏目
+        $Hotid = model('ArticleBase')->hot_articles($cat_id, $this->page, $this->size, $this->keywords,$type);
         
         $i = 0;
          if (is_array($list)) {
@@ -421,8 +423,6 @@ class ArticleController extends CommonController {
                 $list[$key]['author'] = empty($list[$key]['author']) || $list[$key]['author'] == '_SHOPHELP' ? C('shop_name') : $list[$key]['author'];
                 $list[$key]['url'] = $list[$key]['link'] && $list[$key]['link'] !='http://' ?  $list[$key]['link'] : url('article/info', array('aid' => $list[$key]['article_id'])) ;
                 $list[$key]['add_time'] = date(C('date_format'), $list[$key]['add_time']); 
-
-
                 
             }
            
@@ -432,6 +432,7 @@ class ArticleController extends CommonController {
 
          $countpage = ceil($count/$this->size)+1;
          $result['totalpage'] = $countpage;
+        $result['topid_item'] = $Hotid;
         $result['list'] = $list;
      
         die(json_encode($result));
