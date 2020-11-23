@@ -88,6 +88,75 @@ class ArticleBaseModel extends BaseModel {
         return $list;
     }
 
+    
+    /**
+     * 20201123 获取置顶的文章的栏目
+     * 
+     * @access public
+     * @param integer $cat_id            
+     * @param integer $page            
+     * @param integer $size            
+     * @return array
+     */
+    public function hot_articles($cat_id, $page = 1, $size = 20, $requirement = '',$type = 'default',$resourcetype = false) {
+        // 取出所有非0的文章
+        if ($cat_id == '-1') {
+            $cat_str = 'cat_id > 0';
+        } else {
+            $cat_str = get_article_children($cat_id);
+        }
+   
+        $condition = 'a.is_open = 1 AND ' . "a.". $cat_str .'AND a.sticky_time <> 0';
+        // 增加搜索条件，如果有搜索内容就进行搜索
+        if ($requirement != '') {
+            $condition .= ' AND title like \'%' . $requirement . '%\' AND a.sticky_time <> 0';
+        }
+       
+        $limit = ($page - 1) * $size . ',' . '10';
+    
+        $resourceWhere="";
+        if($resourcetype) $resourceWhere = " AND ar.resource_type = ".$resourcetype;
+        
+        if ($type =="click") {
+             
+             $sql = "select distinct article_id,title,content,author,file_url,click_count,zan,add_time,keywords,file_url2,article_type,sticky_time from ".$this->pre."article as a inner join ".$this->pre."article_resource as ar on  a.cat_id = ar.cat_id where ".$condition." ".$resourceWhere." order by article_type DESC,sticky_time DESC limit ".$limit;
+            // $sql = "select article_id, title,cat_id, author, add_time, file_url, open_type,link,click_count from ".$this->pre."article where  ".$condition." order by click_count DESC limit ".$limit;
+        }else{
+
+
+            $sql = "select distinct article_id,title,content,author,file_url,click_count,zan,add_time,keywords,file_url2,article_type,sticky_time
+ from ".$this->pre."article as a inner join ".$this->pre."article_resource as ar on  a.cat_id = ar.cat_id where ".$condition." ".$resourceWhere." order by a.sticky_time DESC,a.article_type DESC limit ".$limit;
+
+        }
+        
+     
+        $list = $this->query($sql);
+            
+        $i = 1;
+       
+        if (is_array($list)) {
+            foreach ($list as $key=>$vo) {
+
+                $article_id = $vo['article_id'];
+/*                 $arr[$article_id]['id'] = $article_id;
+                $arr[$article_id]['index'] = $i;
+                $arr[$article_id]['title'] = $vo['title'];
+                $arr[$article_id]['short_title'] = C('article_title_length') > 0 ? sub_str($vo['title'], C('article_title_length')) : $vo['title'];
+                $arr[$article_id]['author'] = empty($vo['author']) || $vo['author'] == '_SHOPHELP' ? C('shop_name') : $vo['author'];
+                $arr[$article_id]['url'] = $vo['link'] && $vo['link'] !='http://' ?  $vo['link'] : url('article/info', array('aid' => $article_id)) ;
+                $arr[$article_id]['add_time'] = date(C('date_format'), $vo['add_time']);
+                $arr[$article_id]['file_url'] = $vo['file_url'];
+                $arr[$article_id]['cat_id'] = $vo['cat_id'];
+                $arr[$article_id]['click_count'] = $vo['click_count']; */
+                if($vo["keywords"]){
+                    $list[$key]['tags'] = explode(" ", $vo['keywords']);
+                }
+                $i++;
+            }
+        }
+
+        return $list;
+    }
     /**
      * 获得指定分类下的文章总数
      * 
