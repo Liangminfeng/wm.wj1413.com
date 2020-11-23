@@ -6758,6 +6758,7 @@ class UserController extends CommonController
         }
         $userinfo = model('Users')->getusersinfo($_GET['u']);
         $nickname = empty($userinfo["nick_name"]) ? getEmoji($userinfo["user_name"]) : getEmoji($userinfo["nick_name"]);
+        dump($nickname);
         $uid = empty($_GET["u"])?(empty($_SESSION["user_id"])?0:$_SESSION["user_id"]):$_GET["u"];
       
         if(!empty($uid)){
