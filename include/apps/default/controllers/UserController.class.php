@@ -5906,7 +5906,7 @@ class UserController extends CommonController
         $this->assign('mainpagelist',$mainpage_id);
         //$this->assign("shareMeta", $shareMeta);
         
-        $this->assign("page_title", $userinfo['nick_name'] . "的主页");
+        $this->assign("page_title", getEmoji($userinfo['nick_name']) . "的主页");
         $this->assign('share_title',  (empty($userinfo["nick_name"]) ? $userinfo["user_name"] : $userinfo["nick_name"]) . L("mainpage"));
 
         $this->assign('share_description', $mainpageinfo["sign"]);//
