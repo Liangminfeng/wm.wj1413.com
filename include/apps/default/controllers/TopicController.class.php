@@ -170,6 +170,7 @@ class TopicController extends CommonController {
                 $visitor["sign"] = "健康新蓝海，财富新未来!";
                 $visitor["company"] = "青彤心大健康";
                 dump($visitor);
+                return;
             
                 $this->assign('visitor', $visitor);
             }
