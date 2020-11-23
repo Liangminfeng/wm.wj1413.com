@@ -3,10 +3,10 @@
 .topic-title img{width:100%;}
 </style>
 
-    {if  $visitor}
+    {if $visitor}
 
 		<div class="s-flex s-top" style="width:100%;"><p><img src="{$visitor.user_avatar|default:/themes/yutui/images/web_logo.png}"></p><span>
-      {$visitor.nick_name|escape}</span></div>
+      {$visitor.nick_name|escape}的事业官网</span></div>
 	{/if}
 	
 <div class="con">
