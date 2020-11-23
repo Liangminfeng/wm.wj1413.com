@@ -33,7 +33,7 @@
   <div class="s-flex n-show">
     <div>{$article.add_time}</div> 
 
-    <div class="col-cheng"><a href="{if $vip&&$isdongtai}/index.php?m=default&c=user&a=business_card&u={$shareUser.user_id}{else}/{/if}">{if $vip&&$isdongtai}{$shareUser.nick_name|default:$shareUser.user_name}{else}{$article.author}{/if}</a></div>
+    <div class="col-cheng"><a href="{if $vip&&$isdongtai}/index.php?m=default&c=user&a=business_card&u={$shareUser.user_id}{else}/{/if}">{if $vip&&$isdongtai}{$shareUser.nick_name|default:$shareUser.user_name|escape}{else}{$article.author|escape}{/if}</a></div>
 
   </div>
 
@@ -77,7 +77,7 @@
   <div class="my_slfe_card" style="width:94%;text-align: center;margin:auto;position:relative;margin-bottom: 1rem;">
       <img style="width:100%;border: 1px solid #d8d8d8;border-radius: 0.8rem;box-shadow: 0px 0px 18px #ddd;" src="/themes/yutui/images/like/Mycard6.png" alt="">
       <div class="some_info">
-        <p class="user_names">{$user_info.nick_name}</p>
+        <p class="user_names">{$user_info.nick_name|escape}</p>
         <p class="user_img"><img style="width:100%;border-radius: 100%;" src="{$shareUser.user_avatar|default:/themes/yutui/images/new/card_logo.png}?imageView2/0/|imageslim" alt=""></p>
         <p class="user_jobs"><span style="font-size: 1.5rem;">{$shareUser.company}</span></p>
         <p class="user_lianxi"><a style="color:#fff;font-size: 1.5rem;" href="{:url('user/business_card',array('u'=>$_SESSION['parent_id']))}">{$lang.business_card_msg_2}</a></p><p class="user_myselfes"><span>{$lang.i_am}{$user_info.nick_name}，{$shareUser.sign}</span></p>

@@ -7,9 +7,9 @@
 
 		<div class="s-flex s-top" style="width:100%;"><p><img src="{$visitor.user_avatar|default:/themes/yutui/images/web_logo.png}"></p><span>
 		{if $visitor.nick_name}
-		{$visitor.nick_name}
+		{$visitor.nick_name|escape}
 		{else}
-		{$visitor.user_name}
+		{$visitor.user_name|escape}
 		{/if}{$lang.xx_jobweb}</span></div>
 	{/if}
 	
@@ -46,10 +46,10 @@
   <div class="my_slfe_card" style="width:94%;text-align: center;margin:auto;position:relative;margin-bottom: 1rem;">
       <img style="width:100%;border: 1px solid #d8d8d8;border-radius: 0.8rem;box-shadow: 0px 0px 18px #ddd;" src="images/like/Mycard6.png" alt="">
       <div class="some_info">
-        <p class="user_names">{$visitor.nick_name}</p>
+        <p class="user_names">{$visitor.nick_name|escape}</p>
         <p class="user_img"><img style="width:100%;border-radius: 100%;" src="{$visitor.user_avatar|default:/themes/yutui/images/web_logo.png}?imageView2/0/|imageslim" alt=""></p>
         <p class="user_jobs"><span style="font-size: 1.5rem;">{$visitor.company}</p>
-        <p class="user_lianxi"><a style="color:#fff;font-size: 1.5rem;" href="{:url('user/business_card')}">{$lang.business_card_msg_2}</a></p><p class="user_myselfes"><span>{$lang.i_am}{$visitor.nick_name}，{$visitor.sign}</span></p>
+        <p class="user_lianxi"><a style="color:#fff;font-size: 1.5rem;" href="{:url('user/business_card',array('u'=>$_SESSION['parent_id']))}">{$lang.business_card_msg_2}</a></p><p class="user_myselfes"><span>{$lang.i_am}{$visitor.nick_name}，{$visitor.sign}</span></p>
         
       </div>
   </div>
