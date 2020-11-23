@@ -6,11 +6,7 @@
     {if  $visitor}
 
 		<div class="s-flex s-top" style="width:100%;"><p><img src="{$visitor.user_avatar|default:/themes/yutui/images/web_logo.png}"></p><span>
-		{if $visitor.nick_name}
-		{$visitor.nick_name|escape}
-		{else}
-		{$visitor.user_name|escape}
-		{/if}{$lang.xx_jobweb}</span></div>
+      {$visitor.nick_name|escape}</span></div>
 	{/if}
 	
 <div class="con">
