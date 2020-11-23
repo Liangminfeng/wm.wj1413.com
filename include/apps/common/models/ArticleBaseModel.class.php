@@ -36,10 +36,10 @@ class ArticleBaseModel extends BaseModel {
             $cat_str = get_article_children($cat_id);
         }
    
-        $condition = 'a.is_open = 1 AND ' . "a.". $cat_str;
+        $condition = 'a.is_open = 1 AND ' . "a.". $cat_str . 'AND a.article_type == 0';
         // 增加搜索条件，如果有搜索内容就进行搜索
         if ($requirement != '') {
-            $condition .= ' AND title like \'%' . $requirement . '%\'';
+            $condition .= ' AND title like \'%' . $requirement . '%\' AND A.article_type == 0';
         }
        
         $limit = ($page - 1) * $size . ',' . '10';
