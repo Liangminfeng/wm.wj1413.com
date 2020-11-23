@@ -90,9 +90,13 @@ $(function () {
                   type:type
               }
               var lis = [];
-              
+              var hot = [];
+
               $.post(url, data, function (params) {
-                
+
+                  // 遍历热门文章的栏目
+                  console.log(Object.keys(JSON.parse(params).topid_item));
+                  // 遍历普通文章的列表
                   $.each(JSON.parse(params).list,function(i,item){
                       // 模拟tag数据
                       item.tags = item.keywords;
