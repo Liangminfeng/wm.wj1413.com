@@ -95,7 +95,62 @@ $(function () {
               $.post(url, data, function (params) {
 
                   // 遍历热门文章的栏目
-                  console.log(Object.keys(JSON.parse(params).topid_item));
+
+                  if(Object.keys(JSON.parse(params).topid_item).length !== 0)
+                  {
+                    $.each(JSON.parse(params).topid_item,function(i,item){
+                      // 模拟tag数据
+                      item.tags = item.keywords;
+                      var tags = item.tags.split(' ');
+                      var tag_html = ''
+                      for(var i = 0; i < tags.length; i++){
+                        tag_html += `<span>${tags[i]}</span>`
+                      }
+
+                      // 模拟文章封面数据
+                      item.covers = [item.file_url];
+                      if(typeof(item.file_url2)!=='undefine'&&item.file_url2!==''){
+                        item.covers.push(item.file_url2);
+                      }
+                      var cover_html = ''
+                      for(var i = 0; i < item.covers.length; i++){
+                        cover_html += `<img src="${item.covers[i]}?imageView2/0/|imageslim">`
+                      }
+                      
+                      // 检验文章是否被置顶状态
+                      var article_type = item.article_type == 1? `<span class="n-add_time" style="display: inline-block;font-size: 1.2rem;line-height: 2rem;padding: 0 .86rem;margin-left: 1.2rem;border-radius: 1rem;color: #e5af49;background-color: #fcf4e9;">小编推荐</span>`:'';
+                      
+                      hot.push(`
+                          <a href="/article/info?aid=${item.article_id}&u={$smarty.session.user_id}">
+                            <div class="n-content-pad n-con">
+                                  <div class="n-create-info">
+                                    <span class="n-author">${item.author}</span>
+                                    <span class="n-add_time">${item.add_time}</span>
+                                  `
+                                  +article_type+
+                                  `
+                                  </div>
+                                  <div class="n-cover s-flex">
+                                    ${cover_html}
+                                  </div>
+                                  <div class="n-title">${item.title}</div>
+                                  <div class="n-info">
+                                    <div class="n-tags">${tag_html}</div>
+                                    <div class="n-hot-info">
+                                      <i class="n-icon-eye"></i>
+                                      <span>${item.click_count}</span>
+                                
+                                    </div>
+                                  </div>
+                                </div>
+                                </a>`)
+                              
+                                /*点赞代码  <i class="n-icon-like"></i>
+                                <span>${item.zan}</span>*/
+
+                  })
+                  }
+
                   // 遍历普通文章的列表
                   $.each(JSON.parse(params).list,function(i,item){
                       // 模拟tag数据
@@ -151,6 +206,7 @@ $(function () {
                  
                   //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
                   //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                  next(hot.join(''), page < JSON.parse(params).totalpage);
                   next(lis.join(''), page < JSON.parse(params).totalpage);
                   var arr = Object.keys(JSON.parse(params).list);
                   if(page==1&&arr.length<10)
