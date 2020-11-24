@@ -167,7 +167,7 @@ class TopicController extends CommonController {
                 
                 $visitor = array_merge($visitor,$user_info);
                 $visitor['nick_name'] = getEmoji($visitor[nick_name]);
-                $visitor["sign"] = "健康新蓝海，财富新未来!";
+                $visitor["sign"] = "健康新蓝海，财富大未来!";
                 $visitor["company"] = "青彤心大健康";
 
                 $this->assign('visitor', $visitor);

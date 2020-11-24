@@ -4128,7 +4128,7 @@ class UsersModel extends BaseModel {
         $mainpage  = $this->model->table('mainpage')->where(array('mainpage_id' => $userinfo['mainpage_id']))->find();
         if(!$mainpage){
             $mainpage['signcomment'] = '会员可打造定制化主页，展示个人品牌从而获得有效的人脉。';
-            $mainpage['sign'] = '健康新蓝海,财富新未来！';
+            $mainpage['sign'] = '健康新蓝海,财富大未来！';
             $mainpage['job'] = '新零售经销商';
             $mainpage['company'] = '拓客(拓客)全球事业';
         }

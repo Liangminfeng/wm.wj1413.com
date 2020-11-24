@@ -714,9 +714,11 @@ if ($_REQUEST['act'] == 'get_goods_list')
 //-- 批量操作
 /*------------------------------------------------------ */
 
-elseif ($_REQUEST['act'] == 'batch')
+elseif ($_REQUEST['act'] == 'batch_remove')
 {
     /* 批量删除 */
+    // print_r($_REQUEST);
+    // return;
     if (isset($_POST['type']))
     {
         if ($_POST['type'] == 'button_remove')
