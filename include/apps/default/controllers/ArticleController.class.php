@@ -427,6 +427,18 @@ class ArticleController extends CommonController {
             }
            
         }
+        
+        if (is_array($Hotid)) {
+            foreach ($Hotid as  $key => $value) {
+
+                $Hotid[$key]['short_title'] = C('article_title_length') > 0 ? sub_str($Hotid[$key]['title'], C('article_title_length')) : $Hotid[$key]['title'];
+                $Hotid[$key]['author'] = empty($Hotid[$key]['author']) || $Hotid[$key]['author'] == '_SHOPHELP' ? C('shop_name') : $Hotid[$key]['author'];
+                $Hotid[$key]['url'] = $Hotid[$key]['link'] && $Hotid[$key]['link'] !='http://' ?  $Hotid[$key]['link'] : url('article/info', array('aid' => $Hotid[$key]['article_id'])) ;
+                $Hotid[$key]['add_time'] = date(C('date_format'), $Hotid[$key]['add_time']); 
+                
+            }
+           
+        }
 
         $count = model('ArticleBase')->get_article_count($cat_id, $this->keywords);
 
