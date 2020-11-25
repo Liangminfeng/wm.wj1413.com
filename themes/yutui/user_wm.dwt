@@ -29,6 +29,7 @@
     <meta property="og:description" content="{$shareMeta.description}"/>
     <meta property="og:image" content="{$shareMeta.image}"/>
     <meta property="og:updated_time" content="{:time()}"/>
+    <!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
     {/if}
     
 </head>
