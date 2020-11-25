@@ -127,7 +127,7 @@
     <div><img src="images/person_web.png"><br>{$lang.personal_miniweb}</div>
     </a>
     <a  style="width:25%" href="/index.php?m=default&c=article&a=index"><div><img src="images/like/vip_10.png"><br>{$lang.my_article}</div></a>    
-    <a  style="width:25%" href="/index.php?m=default&c=user&a=postersshow&u={$u}"><div><img src="images/like/vip_3.png"><br>{$lang.postersshow}</div></a>
+    <a  style="width:25%" href="/index.php?m=default&c=user&a=postersshow&topic_id=50&u={$u}"><div><img src="images/like/vip_3.png"><br>{$lang.postersshow}</div></a>
     <!-- <a  style="width:25%" href="javascript:;" class="haibao_show"><div><img src="images/like/vip_erweima.png"><br>{$lang.my_qrcode}</div></a> -->
   </div>
 </div>

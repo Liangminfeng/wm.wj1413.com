@@ -34,13 +34,14 @@ class UserController extends CommonController
     {
 
         parent::__construct();
-
+        
 
         //$this->getCity();
         // 属性赋值
         $this->user_id = $_SESSION['user_id'];
         $this->cat_id = intval(I('get.id'));
         $this->action = ACTION_NAME;
+        $this->id = isset($_REQUEST ['topic_id']) ? intval($_REQUEST ['topic_id']) : 0;
         // 验证登录
         
         $this->check_login();
@@ -178,6 +179,7 @@ class UserController extends CommonController
         $vip_name = model("Users")->getUserVipName($userInfo['user_vip']);
         $crm = "姓名:".$real_name.";"."会员名:".$user_name.";"."会员等级:".$vip_name;
         //
+        $topic = $this->model->table('topic')->where('topic_id =' . $this->id)->find();
         $topic['topic_img'] = get_image_topic($topic['topic_img'], true);
         // 微信JSSDK分享
         $share_data = array(
@@ -8060,6 +8062,8 @@ class UserController extends CommonController
         $this->assign('type',$type);
         $this->assign('poster_categories', $data); //文章分类树
         $this->assign('id',$id);
+        
+        $topic = $this->model->table('topic')->where('topic_id =' . $this->id)->find();
         $topic['topic_img'] = get_image_topic($topic['topic_img'], true);
         // 微信JSSDK分享
         $share_data = array(

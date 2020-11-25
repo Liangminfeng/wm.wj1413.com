@@ -28,6 +28,7 @@ class ArticleController extends CommonController {
         
         
         $this->cat_id = intval(I('get.id'));
+        $this->id = isset($_REQUEST ['topic_id']) ? intval($_REQUEST ['topic_id']) : 0;
         //$this->assign('share_link', __URL__.$_SERVER['REQUEST_URI']);//
         // $this->assign('share_title',  C('shop_title'));//
         $this->assign('share_description', $this->formatDescription(C('shop_desc')));//
@@ -156,6 +157,7 @@ class ArticleController extends CommonController {
         $this->assign('parentid',$parentid);
         $this->assign('pager', $this->pageShow($count));
         $this->assign('artciles_list', $artciles_list);
+        $topic = $this->model->table('topic')->where('topic_id =' . $this->id)->find();
         $topic['topic_img'] = get_image_topic($topic['topic_img'], true);
         // 微信JSSDK分享
         $share_data = array(

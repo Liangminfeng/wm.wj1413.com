@@ -177,7 +177,6 @@ class TopicController extends CommonController {
         $this->assign('share_title', $topic['title']);//
         $this->assign('share_description', $topic['description']);//
         $this->assign('share_pic',  $topic['topic_img']);
-        dump($topic);
         $this->assign('share_data', $this->get_wechat_share_content($share_data));
 
         $this->assign('meta_keywords', $topic['keywords']);       // 专题信息
