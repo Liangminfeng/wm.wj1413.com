@@ -101,12 +101,13 @@ class SmsController extends CommonController {
                     /*短信超过4条*/
 
                     if(self::$cache->getValue(date("Ymd")."{$this->mobile}")>4){
-                        $this->jserror("短信发送已经超过4条");
-                            }
-                        // if(self::$cache->getValue(date("Ymd")."{$this->mobile}")){
-                        //          $this->jserror("发送短信过于频繁");
-                        //     }
-                    }
+                    $this->jserror("短信发送已经超过4条");
+                        }
+                    if(self::$cache->getValue(date("Ymd")."{$this->mobile}")){
+                             $this->jserror("发送短信过于频繁");
+                        }
+                }
+                dump($_SESSION);return;
                     $user = model("Users")->select(["mobile_phone"=>$this->mobile],"user_id");
 
                     if ($_POST['flag'] == 'register') {
@@ -139,7 +140,7 @@ class SmsController extends CommonController {
                     $_SESSION['zone']   = $this->zone;
                     //$_SESSION['sms_mobile'] = "15080486089";
                     //$_SESSION['sms_code'] = "888888";
-                    dump($_SESSION);return;
+                    
                     if($this->zone == 86) {
                         // $this->turnSms($this->mobile,$sms_code);
                         $this->huyiSms($this->mobile, $sms_code);
