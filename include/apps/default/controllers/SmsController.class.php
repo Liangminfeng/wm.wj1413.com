@@ -154,16 +154,17 @@ class SmsController extends CommonController {
         $_SESSION['sms_mobile'] = $this->mobile;
         $_SESSION['sms_code']   = $sms_code;
         $_SESSION['zone']   = $this->zone;
+        dump($_SESSION);return;
          //$_SESSION['sms_mobile'] = "15080486089";
         //$_SESSION['sms_code'] = "888888";
-        dump($_SESSION);return;
-      if($this->zone == 86) {
-         // $this->turnSms($this->mobile,$sms_code);
-         $this->huyiSms($this->mobile, $sms_code);
-      }else{
+        
+    //   if($this->zone == 86) {
+    //      // $this->turnSms($this->mobile,$sms_code);
+    //      $this->huyiSms($this->mobile, $sms_code);
+    //   }else{
 
-          $this->huyiInternationalSms($this->mobile, $sms_code,$this->zone);
-      } 
+    //       $this->huyiInternationalSms($this->mobile, $sms_code,$this->zone);
+    //   } 
 
     }
     //发送
