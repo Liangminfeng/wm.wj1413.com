@@ -93,13 +93,13 @@ class SmsController extends CommonController {
                 
             }
             
-            // if(ENV=="SMS_DEBUG"){
-            //     $_SESSION['sms_mobile'] = $this->mobile;
-            //     $_SESSION['sms_code']   = date("Ymd");
-            //     $_SESSION['zone']   = $this->zone;
-                
-            //     $this->jssuccess("ok");
-            // }
+            if(ENV=="SMS_DEBUG"){
+                $_SESSION['sms_mobile'] = $this->mobile;
+                $_SESSION['sms_code']   = date("Ymd");
+                $_SESSION['zone']   = $this->zone;
+                dump($_SESSION);return;
+                //$this->jssuccess("ok");
+            }
             
             // $temp = self::$cache->getValue($this->mobile."_onechance");
             // if($temp){
@@ -154,7 +154,6 @@ class SmsController extends CommonController {
         $_SESSION['sms_mobile'] = $this->mobile;
         $_SESSION['sms_code']   = $sms_code;
         $_SESSION['zone']   = $this->zone;
-        dump($_SESSION);return;
          //$_SESSION['sms_mobile'] = "15080486089";
         //$_SESSION['sms_code'] = "888888";
         
