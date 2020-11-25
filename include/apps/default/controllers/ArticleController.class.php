@@ -481,7 +481,7 @@ class ArticleController extends CommonController {
            $shareUser = $this->assginUserCard($uid);
            $shareUser["sign"] = "健康新蓝海，财富大未来!";
            $shareUser["company"] = "青彤心大健康";
-           $shareUser["nick_name"] = getEmoji($shareUser[nick_name]);
+           $shareUser["nick_name"] = getEmoji($shareUser['nick_name']);
            $userinfo = model('Users')->get_users($uid);
            
             //非动态栏目下面的文章只显示原作者
@@ -503,6 +503,7 @@ class ArticleController extends CommonController {
             //$this->assign('share_link', "http://".$_SERVER["HTTP_HOST"]."/index.php?c=train&a=goods&train_invite_code={$userLevelInfo["share_code"]}&train_id={$trainId}");//
             $this->assign("showShare",true);
             $userInfo = model("Users")->get_users($_SESSION["user_id"]);
+            dump($userInfo);return;
             $this->assign("user_info", $userInfo);
             
            
