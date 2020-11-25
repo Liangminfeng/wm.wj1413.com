@@ -19,7 +19,15 @@
     <script src="/data/assets/js/clipboard.min.js"></script> 
     <script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v=1"></script>
       <!-- #BeginLibraryItem "/library/new_share_wx.lbi" --><!-- #EndLibraryItem -->
-      
+      <link href="/apple-touch-icon.png" rel="apple-touch-icon"  />
+      <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="57x57" />
+      <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="72x72" />
+      <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="114x114" />
+      <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="120x120" />
+      <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="144x144" />
+      <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="152x152" />
+      <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="167x167" />
+      <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
 </head>
 <style>
 .-mob-share-ui{background-color: #fff; background: rgba(256,256,256,0); filter: progid:DXImageTransform.Microsoft.gradient(GradientType = 0,startColorstr = '#80000000',endColorstr = '#80000000')\9;}

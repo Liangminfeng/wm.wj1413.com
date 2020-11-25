@@ -321,7 +321,7 @@ label.admin-text{color:#999;}
 .b-color-f{background:#fff;}
 .b-color-1{background:#F6F6F9}
 
-.s-space{justify-content: space-between;width: 94%;padding: 0rem 3%;background-color: #ffffff;font-size: 1.5rem;}/*两边分布*/
+.s-space{justify-content: space-between;width: 100%;padding: 1.55rem 3%;background-color: #ffffff;font-size: 1.5rem;}/*两边分布*/
 .s-space-1{justify-content: space-between; width: 94%; padding:1.2rem 3%; background-color: #ffffff; font-size: 1.5rem; align-items: center;}/*两边分布并垂直居中*/
 .s-space-2{justify-content: space-between; width: 94%; padding:2rem 3%; background-color: #ffffff; font-size: 1.5rem;}/*两边分布 padding 2*/
 .s-space-3{justify-content: space-around;  width: 94%; padding:1.2rem 3%; background-color: #ffffff; font-size: 1.5rem; text-align: center;}/*居中分布*/

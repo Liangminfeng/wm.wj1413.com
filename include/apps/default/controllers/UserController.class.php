@@ -6421,7 +6421,7 @@ class UserController extends CommonController
         $this->assign("back_act",__URL__ . "/index.php?m=default&c=user&a=business_card&u=" . $_SESSION['user_id']);
         $this->assign('mid',$mid);
         $mainpageinfo['user_avatar']  = $userinfo['user_avatar'];
-        $mainpageinfo['nick_name'] = $userinfo['nick_name'];
+        $mainpageinfo['nick_name'] = getEmoji($userinfo['nick_name']);
         $mainpageinfo['company'] = "青彤心大健康";
         $mainpageinfo['sign'] = "健康新蓝海，财富大未来！";
         $this->assign('userinfo', $mainpageinfo);
