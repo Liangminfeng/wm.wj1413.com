@@ -282,7 +282,8 @@
       swipe: true, //默认为true
       drag: true, //默认为true
       hold:true,//默认为false，不监听
-      release:false//默认为false，不监听
+      release:false,//默认为false，不监听,
+      zoom: false
     });
     mui.previewImage();
 </script>

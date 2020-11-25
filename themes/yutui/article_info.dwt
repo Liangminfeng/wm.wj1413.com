@@ -33,7 +33,10 @@
   <div class="s-flex n-show">
     <div>{$article.add_time}</div> 
 
-    <div class="col-cheng"><a href="{if $vip&&$isdongtai}/index.php?m=default&c=user&a=business_card&u={$shareUser.user_id}{else}/{/if}">{if $vip&&$isdongtai}{$shareUser.nick_name|default:$shareUser.user_name|escape}{else}{$article.author|escape}{/if}</a></div>
+    <div class="col-cheng"><a href="{if $vip&&$isdongtai}/index.php?m=default&c=user&a=business_card&u={$shareUser.user_id}{else}/{/if}">{if $vip&&$isdongtai}
+      {$shareUser.nick_name|default:$shareUser.user_name|escape}
+      {else}
+      {$article.author|escape}{/if}</a></div>
 
   </div>
 
