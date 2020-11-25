@@ -178,9 +178,17 @@ class UserController extends CommonController
         $vip_name = model("Users")->getUserVipName($userInfo['user_vip']);
         $crm = "姓名:".$real_name.";"."会员名:".$user_name.";"."会员等级:".$vip_name;
         //
-        
+        $topic['topic_img'] = get_image_topic($topic['topic_img'], true);
+        // 微信JSSDK分享
+        $share_data = array(
+            'title' => $topic['title'],
+            'desc' => $topic['description'],
+            'link' => '',
+            'img' => $topic['topic_img'],
+        );
+        $this->assign('share_data', $this->get_wechat_share_content($share_data));
         $info = model('ClipsBase')->get_user_default($user_info['user_id']);
-        
+       
         $shortLink = $this->getShortUrl(__URL__ . "/index.php?m=default&c=user&u=" . $_SESSION['user_id']);
         $this->assign('share_link', $shortLink); //
         $this->assign('info', $info);
@@ -8052,6 +8060,15 @@ class UserController extends CommonController
         $this->assign('type',$type);
         $this->assign('poster_categories', $data); //文章分类树
         $this->assign('id',$id);
+        $topic['topic_img'] = get_image_topic($topic['topic_img'], true);
+        // 微信JSSDK分享
+        $share_data = array(
+            'title' => $topic['title'],
+            'desc' => $topic['description'],
+            'link' => '',
+            'img' => $topic['topic_img'],
+        );
+        $this->assign('share_data', $this->get_wechat_share_content($share_data));
         $this->assign("userinfo",$userinfo);
         
         //底部导航高亮

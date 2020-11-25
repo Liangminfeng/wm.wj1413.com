@@ -156,7 +156,15 @@ class ArticleController extends CommonController {
         $this->assign('parentid',$parentid);
         $this->assign('pager', $this->pageShow($count));
         $this->assign('artciles_list', $artciles_list);
-
+        $topic['topic_img'] = get_image_topic($topic['topic_img'], true);
+        // 微信JSSDK分享
+        $share_data = array(
+            'title' => $topic['title'],
+            'desc' => $topic['description'],
+            'link' => '',
+            'img' => $topic['topic_img'],
+        );
+        $this->assign('share_data', $this->get_wechat_share_content($share_data));
         $this->assign('subdata',$subdata);
          // $this->assign('share_link', urlencode(__URL__ . $_SERVER['REQUEST_URI']));//
          $this->assign('share_title',  C('shop_title'));//
@@ -201,7 +209,15 @@ class ArticleController extends CommonController {
   }
       
      
-        
+        $topic['topic_img'] = get_image_topic($topic['topic_img'], true);
+        // 微信JSSDK分享
+        $share_data = array(
+            'title' => $topic['title'],
+            'desc' => $topic['description'],
+            'link' => '',
+            'img' => $topic['topic_img'],
+        );
+        $this->assign('share_data', $this->get_wechat_share_content($share_data));
         $restalk = model("Article")->talkList();
 
         $this->assign('talk_list',$restalk);
@@ -269,7 +285,15 @@ class ArticleController extends CommonController {
         $content = $resnew['content'];
         $talk_banner = $resnew['talk_banner'];
         $restalk = model("Article")->talkList();
-
+        $topic['topic_img'] = get_image_topic($topic['topic_img'], true);
+        // 微信JSSDK分享
+        $share_data = array(
+            'title' => $topic['title'],
+            'desc' => $topic['description'],
+            'link' => '',
+            'img' => $topic['topic_img'],
+        );
+        $this->assign('share_data', $this->get_wechat_share_content($share_data));
         $timeurl = url('article/special', array(
                     'talk_id' => $talk_id,'sortby'=>'time'
                 ));
@@ -547,13 +571,13 @@ class ArticleController extends CommonController {
         } else {
             $article_img = $article['album'][0]; // 文章内容第一张图片
         }
-        $share_data = array(
-            'title' => $article['title'],
-            'desc' => $article['description'],
-            'link' => '',
-            'img' => $article_img,
-        );
-        $this->assign('share_data', $this->get_wechat_share_content($share_data));
+        // $share_data = array(
+        //     'title' => $article['title'],
+        //     'desc' => $article['description'],
+        //     'link' => '',
+        //     'img' => $article_img,
+        // );
+        //$this->assign('share_data', $this->get_wechat_share_content($share_data));
 
 
         
