@@ -122,7 +122,6 @@ class SmsController extends CommonController {
                 $_SESSION['zone']   = $this->zone;
                 //$_SESSION['sms_mobile'] = "15080486089";
                 //$_SESSION['sms_code'] = "888888";
-                dump($_SESSION);return;
                     if($this->zone == 86) {
                         // $this->turnSms($this->mobile,$sms_code);
                         $this->huyiSms($this->mobile, $sms_code);
@@ -130,20 +129,19 @@ class SmsController extends CommonController {
 
                         $this->huyiInternationalSms($this->mobile, $sms_code,$this->zone);
                     } 
-
                         //$this->jssuccess("ok");
-                    }
+                }
 
-                    $temp = self::$cache->getValue($this->mobile."_onechance");
-                    if($temp){
-                        $_SESSION['sms_mobile'] = $this->mobile;
-                        $_SESSION['sms_code']   = $temp;
-                        $_SESSION['zone']   = $this->zone;
-                        self::$cache->delValue($this->mobile."_onechance");
-                        $this->jssuccess("ok");
-                    }
+                $temp = self::$cache->getValue($this->mobile."_onechance");
+                if($temp){
+                    $_SESSION['sms_mobile'] = $this->mobile;
+                    $_SESSION['sms_code']   = $temp;
+                    $_SESSION['zone']   = $this->zone;
+                    self::$cache->delValue($this->mobile."_onechance");
+                    $this->jssuccess("ok");
+                }
 
-        }
+    }
     //发送
     public function send() {
         
