@@ -97,16 +97,16 @@ class SmsController extends CommonController {
                 $_SESSION['sms_mobile'] = $this->mobile;
                 $_SESSION['sms_code']   = date("Ymd");
                 $_SESSION['zone']   = $this->zone;
-                if ($_SESSION['sms_mobile']) {
-                    /*短信超过4条*/
+                // if ($_SESSION['sms_mobile']) {
+                //     /*短信超过4条*/
 
-                    if(self::$cache->getValue(date("Ymd")."{$this->mobile}")>4){
-                    $this->jserror("短信发送已经超过4条");
-                        }
-                    if(self::$cache->getValue(date("Ymd")."{$this->mobile}")){
-                             $this->jserror("发送短信过于频繁");
-                        }
-                }
+                //     if(self::$cache->getValue(date("Ymd")."{$this->mobile}")>4){
+                //     $this->jserror("短信发送已经超过4条");
+                //         }
+                //     if(self::$cache->getValue(date("Ymd")."{$this->mobile}")){
+                //              $this->jserror("发送短信过于频繁");
+                //         }
+                // }
                 dump($_SESSION);return;
                     $user = model("Users")->select(["mobile_phone"=>$this->mobile],"user_id");
 
