@@ -92,15 +92,15 @@ class SmsController extends CommonController {
                 
                 
             }
-            
+            dump($_SESSION);return;
             if(ENV=="SMS_DEBUG"){
                 $_SESSION['sms_mobile'] = $this->mobile;
                 $_SESSION['sms_code']   = date("Ymd");
                 $_SESSION['zone']   = $this->zone;
-                
-                $this->jssuccess("ok");
+                dump($_SESSION);
+                // $this->jssuccess("ok");
             }
-            dump($_SESSION);return;
+            
             $temp = self::$cache->getValue($this->mobile."_onechance");
             if($temp){
                 $_SESSION['sms_mobile'] = $this->mobile;
