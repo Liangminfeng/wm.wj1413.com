@@ -97,50 +97,32 @@ class SmsController extends CommonController {
                 $_SESSION['sms_mobile'] = $this->mobile;
                 $_SESSION['sms_code']   = date("Ymd");
                 $_SESSION['zone']   = $this->zone;
-                if ($_SESSION['sms_mobile']) {
-                    /*短信超过4条*/
+                $user = model("Users")->select(["mobile_phone"=>$this->mobile],"user_id");
 
-                    if(self::$cache->getValue(date("Ymd")."{$this->mobile}")>4){
-                    $this->jserror("短信发送已经超过4条");
-                        }
-                    // if(self::$cache->getValue(date("Ymd")."{$this->mobile}")){
-                    //          $this->jserror("发送短信过于频繁");
-                    //     }
-                }
-                dump($_SESSION);return;
-                    $user = model("Users")->select(["mobile_phone"=>$this->mobile],"user_id");
-
-                    if ($_POST['flag'] == 'register') {
-                        //手机注册
-                        // if (!empty($user)) {
-                            
-                        //     $this->jserror("手机号码已经注册");
-                        //  }
-                    } elseif ($_POST['flag'] == 'forget') {
-                        //找回密码
-                        if (empty($user)) {
-                            $this->jserror("该手机账号不存在\n无法通过该号码找回");
-                        }
+                if ($_POST['flag'] == 'register') {
+                    //手机注册
+                    // if (!empty($user)) {
                         
-                    }elseif($_POST['flag']=="modifyphone"){
-                        if ($user) {
-                            $this->jserror("手机号已被绑定,\n请填写其他手机号");
-                        }
+                    //     $this->jserror("手机号码已经注册");
+                    //  }
+                } elseif ($_POST['flag'] == 'forget') {
+                    //找回密码
+                    if (empty($user)) {
+                        $this->jserror("该手机账号不存在\n无法通过该号码找回");
                     }
-                    $sms_code = $this->random(6, 1);
-            
-                    // try {
-                    //     $res =  AliyunSms::sendSms($this->mobile_code, $this->mobile);
-                    // }catch (Exception $e){
-                    //     return $e->getMessage();
-                    // }
-                
-                    $_SESSION['sms_mobile'] = $this->mobile;
-                    $_SESSION['sms_code']   = $sms_code;
-                    $_SESSION['zone']   = $this->zone;
-                    //$_SESSION['sms_mobile'] = "15080486089";
-                    //$_SESSION['sms_code'] = "888888";
                     
+                }elseif($_POST['flag']=="modifyphone"){
+                    if ($user) {
+                        $this->jserror("手机号已被绑定,\n请填写其他手机号");
+                    }
+                }
+                $sms_code = $this->random(6, 1);
+                $_SESSION['sms_mobile'] = $this->mobile;
+                $_SESSION['sms_code']   = $sms_code;
+                $_SESSION['zone']   = $this->zone;
+                //$_SESSION['sms_mobile'] = "15080486089";
+                //$_SESSION['sms_code'] = "888888";
+                dump($_SESSION);return;
                     if($this->zone == 86) {
                         // $this->turnSms($this->mobile,$sms_code);
                         $this->huyiSms($this->mobile, $sms_code);
