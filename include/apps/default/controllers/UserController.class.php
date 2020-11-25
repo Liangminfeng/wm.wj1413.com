@@ -186,6 +186,7 @@ class UserController extends CommonController
             'link' => '',
             'img' => $topic['topic_img'],
         );
+        dump($share_data);return;
         $this->assign('share_data', $this->get_wechat_share_content($share_data));
         $info = model('ClipsBase')->get_user_default($user_info['user_id']);
        
