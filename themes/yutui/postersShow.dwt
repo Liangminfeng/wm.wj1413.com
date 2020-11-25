@@ -1,5 +1,4 @@
 <!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
-<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
 <!--一级栏目-->
 <div class="s-box s-flex s-wrap bg-white s-align-items p-posters-ti">
 <!--{foreach from=$poster_categories item=cat name="poster_cat" key=key}-->

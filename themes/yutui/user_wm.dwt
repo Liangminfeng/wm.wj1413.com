@@ -12,6 +12,15 @@
     <title>{$lang.user_center}</title>
     <link rel="apple-touch-icon-precomposed" href="/themes/yutui/images/new/card_logo.png"><!--桌面图标收藏-->
     <link rel="stylesheet" href="__TPL__/statics/css/ectouch.css" />
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon"  />
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="57x57" />
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="72x72" />
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="114x114" />
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="120x120" />
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="144x144" />
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="152x152" />
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="167x167" />
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
     <script type="text/javascript" src="__TPL__/statics/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="__TPL__/statics/layui/layui.js"></script>
     <script type="text/javascript" >var tpl = '__TPL__';</script>
