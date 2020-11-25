@@ -503,7 +503,7 @@ class ArticleController extends CommonController {
             //$this->assign('share_link', "http://".$_SERVER["HTTP_HOST"]."/index.php?c=train&a=goods&train_invite_code={$userLevelInfo["share_code"]}&train_id={$trainId}");//
             $this->assign("showShare",true);
             $userInfo = model("Users")->get_users($_SESSION["user_id"]);
-            dump(getEmoji($userInfo[nick_name]));return;
+            $userInfo['nick_name'] = getEmoji($userInfo[nick_name]);
             $this->assign("user_info", $userInfo);
             
            

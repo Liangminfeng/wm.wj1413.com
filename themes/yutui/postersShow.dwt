@@ -152,7 +152,7 @@ function showqrimg(img){
         height:132, //高度
         link:target,  //二维码链接
         pluginText:[
-          {text:"{$userinfo.nick_name|default:$userinfo.user_name}",l:170,t:1146,font:"30px 微软雅黑",style:"#333333",w:390,h:60},//昵称
+          {text:"{$userinfo.nick_name|default:$userinfo.user_name|escape}",l:170,t:1146,font:"30px 微软雅黑",style:"#333333",w:390,h:60},//昵称
           {text:"手机扫一扫，开启更多精彩",l:170,t:1220,font:"30px 微软雅黑",style:"#333333",w:390,h:60},//手机扫一扫，开启更多精彩      
         ],
         pluginImg:[       

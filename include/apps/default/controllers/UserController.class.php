@@ -8045,6 +8045,7 @@ class UserController extends CommonController
         $count = model('PosterBase')->get_poster_count($this->cat_id, $this->keywords);
         $this->pageLimit(url('user/postersshow', array('id' => $this->cat_id,'type' => $type)), $this->size);
         $userinfo = model('Users')->getusersinfo($_SESSION["user_id"]);
+        $userinfo["nick_name"] = getEmoji($userinfo[nick_name]);
         $this->assign('shop_url',C('shop_url'));
         $this->assign('pager', $this->pageShow($count));
         $this->assign('poster_list',$poster_list);
