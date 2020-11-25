@@ -17,7 +17,8 @@
 		var url = window.location.href;
 		var jsConfig = {
 			debug : false,
-			jsApiList : [ 'updateAppMessageShareData', 'updateTimelineShareData',
+			jsApiList : [ 'updateAppMessageShareData','onMenuShareAppMessage', 'updateTimelineShareData',
+			'onMenuShareTimeline',
 				'onMenuShareWeibo']
 		};
 		$.post("{:url('api/jssdk')}", {
