@@ -101,14 +101,14 @@ class SmsController extends CommonController {
             //     $this->jssuccess("ok");
             // }
             
-            $temp = self::$cache->getValue($this->mobile."_onechance");
-            if($temp){
-                $_SESSION['sms_mobile'] = $this->mobile;
-                $_SESSION['sms_code']   = $temp;
-                $_SESSION['zone']   = $this->zone;
-                self::$cache->delValue($this->mobile."_onechance");
-                $this->jssuccess("ok");
-            }
+            // $temp = self::$cache->getValue($this->mobile."_onechance");
+            // if($temp){
+            //     $_SESSION['sms_mobile'] = $this->mobile;
+            //     $_SESSION['sms_code']   = $temp;
+            //     $_SESSION['zone']   = $this->zone;
+            //     self::$cache->delValue($this->mobile."_onechance");
+            //     $this->jssuccess("ok");
+            // }
             
             
             if ($_SESSION['sms_mobile']) {
