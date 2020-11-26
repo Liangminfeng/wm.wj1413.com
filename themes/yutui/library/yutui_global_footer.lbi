@@ -27,6 +27,8 @@
 	var shareTitle = "{$share_title|default:$share_data["title"]}";
 	var shareDesc = "{$share_description|default:$share_data["desc"]}";
 	var sharePic = "{$share_pic|default:$share_data["img"]}";
+	"{$share_pic}";
+	"{$default:$share_data["img"]}";
 	// 分享内容
 	var shareContent = {
 		title : shareTitle,
