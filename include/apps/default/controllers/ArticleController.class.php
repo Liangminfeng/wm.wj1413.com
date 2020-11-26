@@ -219,7 +219,7 @@ class ArticleController extends CommonController {
             'link' => '',
             'img' => $topic['topic_img'],
         );
-        dump($this->get_wechat_share_content($share_data));return;
+        
         $this->assign('share_data', $this->get_wechat_share_content($share_data));
         
         $restalk = model("Article")->talkList();
