@@ -1,6 +1,5 @@
 <!-- #BeginLibraryItem "/library/yutui_page_header.lbi" --><!-- #EndLibraryItem -->
 <script type="text/javascript" src="/themes/yutui/statics/js/swiper.min.js"></script>
-<!-- #BeginLibraryItem "/library/yutui_global_header.lbi" --><!-- #EndLibraryItem -->
     <link rel="stylesheet" href="/themes/yutui/statics/css/mui.min.css ">
     <script type="text/javascript" src="/themes/yutui/statics/js/mui.min.js"></script>
     <script type="text/javascript" src="/themes/yutui/statics/js/mui.zoom.js"></script>
@@ -48,7 +47,9 @@
             #{$sucai.talk}# 
         </p>
       </a> 
-        <div class="sucai_content_zhedie">{$sucai.sucai_content}</div>
+      <div class="sucai_content_zhedie">
+        {$sucai.sucai_content|strip_tags|truncate:64:"...":true}<span class="content-more" id="sucai_content_{$sucai.sucai_id}" data='{$sucai.sucai_content}'>全部</span>
+      </div>
        
       </div>
       <div class="mui-content-padded s-flex spe-content_pic" style="margin:0">
@@ -97,22 +98,27 @@
 mui.previewImage();
 </script>
 <script>
+
 //超出折叠
-$(".sucai_content_zhedie").each(function(){
-  var $p = $(this).find('p');
-  var $more = $(this).find('#more');
-  for( var i=0; i<$p.length; i++ ){
-      i < 5 ? $p.eq(i).show() : $p.eq(i).hide();
-  }
-  $p.length > 5 ? $more.show() : $more.hide();
-  if($p.length<5){
-    $more.hide();
-  }
-  $more.on('click', function(){
-      $p.show();
-      $more.hide();
-  });
+//加载更多内容
+$(".content-more").click(function(){
+  $(this).parent().html($(this).attr('data'))
 })
+// $(".sucai_content_zhedie").each(function(){
+//   var $p = $(this).find('p');
+//   var $more = $(this).find('#more');
+//   for( var i=0; i<$p.length; i++ ){
+//       i < 5 ? $p.eq(i).show() : $p.eq(i).hide();
+//   }
+//   $p.length > 5 ? $more.show() : $more.hide();
+//   if($p.length<5){
+//     $more.hide();
+//   }
+//   $more.on('click', function(){
+//       $p.show();
+//       $more.hide();
+//   });
+// })
 //获取标题的宽度
 var h3_width=$(".title_h3").width();
 $(".special_title").css("marginLeft",-h3_width/2);
