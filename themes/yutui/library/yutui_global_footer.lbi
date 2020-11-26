@@ -57,6 +57,8 @@
 					wx.updateAppMessageShareData(shareContent);
 					wx.updateTimelineShareData(shareContent);
 					wx.onMenuShareWeibo(shareContent);
+					wx.onMenuShareAppMessage(shareContent);
+					wx.onMenuShareTimeline(shareContent);
 				});
 			}
 		}, 'json');
