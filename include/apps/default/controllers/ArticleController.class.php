@@ -210,7 +210,7 @@ class ArticleController extends CommonController {
        }
   }
       
-     
+        $topic = $this->model->table('topic')->where('topic_id =' . $this->id)->find();
         $topic['topic_img'] = get_image_topic($topic['topic_img'], true);
         // 微信JSSDK分享
         $share_data = array(
