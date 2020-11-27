@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="/themes/yutui/js/mob-share.css?v={$v}">
     <script type="text/javascript" src="/themes/yutui/statics/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="/themes/yutui/statics/js/mui.min.js"></script>
-    <script type="text/javascript" src="/themes/yutui/statics/js/mui.zoom.js"></script>
+    <!-- <script type="text/javascript" src="/themes/yutui/statics/js/mui.zoom.js"></script> -->
     <script type="text/javascript" src="/themes/yutui/statics/js/mui.previewimage.js"></script>
     <script src="/data/assets/js/clipboard.min.js"></script> 
     <script type="text/javascript" src="/themes/yutui/js/myqrcode.js?v=1"></script>
