@@ -1,7 +1,7 @@
 <?php
 $data = array (
-  'shop_name' => '青彤心大健康AmazingLife',
-  'shop_title' => '青彤心大健康AmazingLife',
+  'shop_name' => '千手鱼互联视界',
+  'shop_title' => '千手鱼互联视界',
   'shop_desc' => '快速营销、裂变、拓客，开启',
   'shop_keywords' => '青彤心 拓客宝  大健康 精彩事业',
   'shop_country' => '1',
@@ -180,7 +180,7 @@ $data = array (
   'wap_config' => '0',
   'wap_logo' => '',
   'message_check' => '0',
-  'sender_name' => '青彤心大健康AmazingLife',
+  'sender_name' => '千手鱼互联视界',
   'sms_ecmoban_user' => 'admin',
   'sms_ecmoban_password' => 'admin123',
   'sms_signin' => '1',

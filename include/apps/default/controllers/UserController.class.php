@@ -5718,7 +5718,7 @@ class UserController extends CommonController
             $data['signcomment'] = '会员可打造定制化主页，展示个人品牌从而获得有效的人脉。';
             $data['sign'] = '健康新蓝海，财富大未来!';
             $data['job'] = '新零售经销商';
-            $data['company'] = '青彤心大健康';
+            $data['company'] = '千手鱼互联视界';
             $data['address'] = '中国';
             $data['template_id'] = '1';
             $data['user_id'] = $_SESSION['user_id'];
@@ -5932,7 +5932,7 @@ class UserController extends CommonController
         $mainpageinfo['nick_name'] = getEmoji($userinfo['nick_name']);
          $mainpageinfo['user_name'] = $userinfo['user_name'];
          $mainpageinfo["sign"] = "健康新蓝海，财富大未来！";
-         $mainpageinfo["company"] = "青彤心大健康";
+         $mainpageinfo["company"] = "千手鱼互联视界";
         //公告
         $notice_list = model('ArticleBase')->get_cat_articles(4, 1, 5,"","",1);
         $this->assign('notice_list',$notice_list);
@@ -6432,7 +6432,7 @@ class UserController extends CommonController
         $this->assign('mid',$mid);
         $mainpageinfo['user_avatar']  = $userinfo['user_avatar'];
         $mainpageinfo['nick_name'] = getEmoji($userinfo['nick_name']);
-        $mainpageinfo['company'] = "青彤心大健康";
+        $mainpageinfo['company'] = "千手鱼互联视界";
         $mainpageinfo['sign'] = "健康新蓝海，财富大未来！";
         $this->assign('userinfo', $mainpageinfo);
         $this->display('user_edit_business_profile.dwt');
